@@ -3,7 +3,7 @@
 
 EAPI=7
 
-inherit go-module
+inherit systemd go-module
 
 DESCRIPTION="A platform for building proxies to bypass network restrictions."
 HOMEPAGE="https://github.com/v2fly/v2ray-core"
@@ -85,6 +85,7 @@ EGO_SUM=(
 	"github.com/google/go-querystring v1.0.0/go.mod"
 	"github.com/google/martian v2.1.0+incompatible/go.mod"
 	"github.com/google/pprof v0.0.0-20181206194817-3ea8567a2e57/go.mod"
+	"github.com/google/uuid v1.1.2/go.mod"
 	"github.com/googleapis/gax-go v2.0.0+incompatible/go.mod"
 	"github.com/googleapis/gax-go/v2 v2.0.3/go.mod"
 	"github.com/gopherjs/gopherjs v0.0.0-20181017120253-0766667cb4d1/go.mod"
@@ -112,7 +113,7 @@ EGO_SUM=(
 	"github.com/marten-seemann/qtls-go1-15 v0.1.0/go.mod"
 	"github.com/matttproud/golang_protobuf_extensions v1.0.1/go.mod"
 	"github.com/microcosm-cc/bluemonday v1.0.1/go.mod"
-	"github.com/miekg/dns v1.1.33/go.mod"
+	"github.com/miekg/dns v1.1.34/go.mod"
 	"github.com/modern-go/concurrent v0.0.0-20180306012644-bacd9c7ef1dd/go.mod"
 	"github.com/modern-go/reflect2 v1.0.1/go.mod"
 	"github.com/neelance/astrewrite v0.0.0-20160511093645-99348263ae86/go.mod"
@@ -171,8 +172,8 @@ EGO_SUM=(
 	"github.com/viant/toolbox v0.24.0/go.mod"
 	"github.com/xiaokangwang/VSign v0.0.0-20200828155424-dc1c86b73fbf"
 	"github.com/xiaokangwang/VSign v0.0.0-20200828155424-dc1c86b73fbf/go.mod"
-	"github.com/xtls/go v0.0.0-20201007031018-d42c13c57942"
-	"github.com/xtls/go v0.0.0-20201007031018-d42c13c57942/go.mod"
+	"github.com/xtls/go v0.0.0-20201020033950-18b68c051c9b"
+	"github.com/xtls/go v0.0.0-20201020033950-18b68c051c9b/go.mod"
 	"go.opencensus.io v0.18.0/go.mod"
 	"go.opencensus.io v0.22.2/go.mod"
 	"go.starlark.net v0.0.0-20201014215153-dff0ae5b4820"
@@ -207,8 +208,8 @@ EGO_SUM=(
 	"golang.org/x/net v0.0.0-20190923162816-aa69164e4478/go.mod"
 	"golang.org/x/net v0.0.0-20200520004742-59133d7f0dd7/go.mod"
 	"golang.org/x/net v0.0.0-20200707034311-ab3426394381/go.mod"
-	"golang.org/x/net v0.0.0-20201016165138-7b1cca2348c0"
-	"golang.org/x/net v0.0.0-20201016165138-7b1cca2348c0/go.mod"
+	"golang.org/x/net v0.0.0-20201022231255-08b38378de70"
+	"golang.org/x/net v0.0.0-20201022231255-08b38378de70/go.mod"
 	"golang.org/x/oauth2 v0.0.0-20180821212333-d2e6202438be/go.mod"
 	"golang.org/x/oauth2 v0.0.0-20181017192945-9dcd33a902f4/go.mod"
 	"golang.org/x/oauth2 v0.0.0-20181203162652-d668ce993890/go.mod"
@@ -220,7 +221,7 @@ EGO_SUM=(
 	"golang.org/x/sync v0.0.0-20190227155943-e225da77a7e6/go.mod"
 	"golang.org/x/sync v0.0.0-20190423024810-112230192c58/go.mod"
 	"golang.org/x/sync v0.0.0-20190911185100-cd5d95a43a6e/go.mod"
-	"golang.org/x/sync v0.0.0-20201008141435-b3e1573b7520/go.mod"
+	"golang.org/x/sync v0.0.0-20201020160332-67f06af15bc9/go.mod"
 	"golang.org/x/sys v0.0.0-20180830151530-49385e6e1522/go.mod"
 	"golang.org/x/sys v0.0.0-20180909124046-d0be0721c37e/go.mod"
 	"golang.org/x/sys v0.0.0-20181029174526-d69651ed3497/go.mod"
@@ -237,8 +238,8 @@ EGO_SUM=(
 	"golang.org/x/sys v0.0.0-20200519105757-fe76b779f299/go.mod"
 	"golang.org/x/sys v0.0.0-20200625212154-ddb9806d33ae/go.mod"
 	"golang.org/x/sys v0.0.0-20200930185726-fdedc70b468f/go.mod"
-	"golang.org/x/sys v0.0.0-20201017003518-b09fb700fbb7"
-	"golang.org/x/sys v0.0.0-20201017003518-b09fb700fbb7/go.mod"
+	"golang.org/x/sys v0.0.0-20201022201747-fb209a7c41cd"
+	"golang.org/x/sys v0.0.0-20201022201747-fb209a7c41cd/go.mod"
 	"golang.org/x/text v0.0.0-20170915032832-14c0d48ead0c/go.mod"
 	"golang.org/x/text v0.3.0/go.mod"
 	"golang.org/x/text v0.3.1-0.20180807135948-17ff2d5776d2/go.mod"
@@ -273,8 +274,8 @@ EGO_SUM=(
 	"google.golang.org/genproto v0.0.0-20190425155659-357c62f0e4bb/go.mod"
 	"google.golang.org/genproto v0.0.0-20190819201941-24fa4b261c55/go.mod"
 	"google.golang.org/genproto v0.0.0-20200526211855-cb27e3aa2013/go.mod"
-	"google.golang.org/genproto v0.0.0-20201015140912-32ed001d685c"
-	"google.golang.org/genproto v0.0.0-20201015140912-32ed001d685c/go.mod"
+	"google.golang.org/genproto v0.0.0-20201022181438-0ff5f38871d5"
+	"google.golang.org/genproto v0.0.0-20201022181438-0ff5f38871d5/go.mod"
 	"google.golang.org/grpc v1.14.0/go.mod"
 	"google.golang.org/grpc v1.16.0/go.mod"
 	"google.golang.org/grpc v1.17.0/go.mod"
@@ -283,8 +284,8 @@ EGO_SUM=(
 	"google.golang.org/grpc v1.23.0/go.mod"
 	"google.golang.org/grpc v1.25.1/go.mod"
 	"google.golang.org/grpc v1.27.0/go.mod"
-	"google.golang.org/grpc v1.32.0"
-	"google.golang.org/grpc v1.32.0/go.mod"
+	"google.golang.org/grpc v1.33.1"
+	"google.golang.org/grpc v1.33.1/go.mod"
 	"google.golang.org/protobuf v0.0.0-20200109180630-ec00e32a8dfd/go.mod"
 	"google.golang.org/protobuf v0.0.0-20200221191635-4d8936d0db64/go.mod"
 	"google.golang.org/protobuf v0.0.0-20200228230310-ab0ca4ff8a60/go.mod"
@@ -327,10 +328,28 @@ SLOT="0"
 KEYWORDS="~amd64"
 IUSE=""
 
-DEPEND="!net-proxy/v2ray-bin >=dev-lang/go-1.15:="
-RDEPEND="!net-proxy/v2ray-bin"
+BDEPEND=">=dev-lang/go-1.15:="
+DEPEND="!net-proxy/v2ray !net-proxy/v2ray-bin"
+RDEPEND="${DEPEND}"
 
-S="${WORKDIR}/${PN}-core-${PV}"
+pkg_pretend() {
+	cngoproxyset=0
+	if [[ -e "${ROOT}"/etc/portage/mirrors ]]; then
+		grep '^\s*goproxy\s' "${ROOT}"/etc/portage/mirrors >/dev/null 2>&1
+		if [[ $? -eq 0 ]]; then
+			cngoproxyset=1
+		fi
+	fi
+	if [[ ${cngoproxyset} -eq 0 ]]; then
+		ewarn "You may need to set a goproxy for fetching go modules."
+		ewarn "  echo 'goproxy https://goproxy.cn/' >> /etc/portage/mirrors"
+	fi
+}
+
+src_prepare() {
+	sed -i 's|/usr/local/bin|/usr/bin|;s|/usr/local/etc|/etc|' release/config/systemd/system/*.service
+	default
+}
 
 src_compile() {
 	go build -work -o "bin/v2ray" -ldflags "-s -w" ./main
@@ -341,13 +360,13 @@ src_install() {
 	dobin bin/v2ray
 	dobin bin/v2ctl
 
-	insinto /usr/share/${PN}
+	insinto /usr/share/v2ray
 	doins release/config/*.dat
 
 	insinto /etc/v2ray
 	doins release/config/*.json
 
 	newinitd "${FILESDIR}/v2ray.initd" v2ray
+	systemd_newunit release/config/systemd/system/v2ray.service v2ray.service
+	systemd_newunit release/config/systemd/system/v2ray@.service v2ray@.service
 }
-
-
