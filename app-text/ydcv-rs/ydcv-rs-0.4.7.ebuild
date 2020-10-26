@@ -234,7 +234,7 @@ SRC_URI="$(cargo_crate_uris ${CRATES})"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64"
-IUSE="notify clipboard"
+IUSE="+notify +clipboard"
 
 BDEPEND=""
 DEPEND=""

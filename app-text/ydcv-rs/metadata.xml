@@ -6,7 +6,7 @@
 		<name>Ryan Qian</name>
 	</maintainer>
 	<use>
-		<flag name="notify">Display explanations via desktop notification</flag>
-		<flag name="clipboard">Use selected text as input</flag>
+		<flag name="notify">Enable feature: display explanations via desktop notification</flag>
+		<flag name="clipboard">Enable feature: use selected text as input</flag>
 	</use>
 </pkgmetadata>
