@@ -329,8 +329,8 @@ KEYWORDS="~amd64"
 IUSE=""
 
 BDEPEND=">=dev-lang/go-1.15:="
-DEPEND="!net-proxy/v2ray !net-proxy/v2ray-bin"
-RDEPEND="${DEPEND}"
+DEPEND=""
+RDEPEND="!net-proxy/v2ray !net-proxy/v2ray-bin"
 
 pkg_pretend() {
 	cngoproxyset=0
@@ -341,8 +341,9 @@ pkg_pretend() {
 		fi
 	fi
 	if [[ ${cngoproxyset} -eq 0 ]]; then
-		ewarn "You may need to set a goproxy for fetching go modules."
-		ewarn "  echo 'goproxy https://goproxy.cn/' >> /etc/portage/mirrors"
+		ewarn "You may need to set a goproxy for fetching go modules:"
+		ewarn "  echo -e '\ngoproxy https://goproxy.cn/' >> /etc/portage/mirrors"
+		ewarn "Can safely ignore this warning if emerge succeeded."
 	fi
 }
 
