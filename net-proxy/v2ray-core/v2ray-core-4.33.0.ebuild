@@ -359,7 +359,7 @@ pkg_pretend() {
 	fi
 	if [[ ${cngoproxyset} -eq 0 ]]; then
 		ewarn "You may need to set a goproxy for fetching go modules:"
-		ewarn "  echo -e '\\ngoproxy https://goproxy.cn/' >> /etc/portage/mirrors"
+		ewarn "  echo -e '\\\\ngoproxy https://goproxy.cn/' >> /etc/portage/mirrors"
 		ewarn "Can safely ignore this warning if emerge succeeded."
 	fi
 }
