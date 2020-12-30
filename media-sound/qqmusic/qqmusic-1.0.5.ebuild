@@ -12,6 +12,7 @@ SRC_URI="https://dldir1.qq.com/music/clntupate/linux/deb/${P//-/_}_amd64.deb -> 
 LICENSE="CC0-1.0"
 SLOT="0"
 KEYWORDS="~amd64"
+RESTRICT="mirror"
 
 DEPEND=""
 BDEPEND="${DEPEND}"
