@@ -7,11 +7,11 @@ inherit unpacker desktop xdg-utils
 
 DESCRIPTION="Tencent QQ Music for Linux."
 HOMEPAGE="https://y.qq.com/download/download.html"
-SRC_URI="https://dldir1.qq.com/music/clntupate/linux/deb/${P//-/_}_amd64.deb -> ${P}-amd64.deb"
+SRC_URI="https://dldir1.qq.com/music/clntupate/linux/deb/${P/-bin-/_}_amd64.deb -> ${P}-amd64.deb"
 
 LICENSE="CC0-1.0"
 SLOT="0"
-KEYWORDS="~amd64"
+KEYWORDS="-* ~amd64"
 
 DEPEND=""
 BDEPEND="${DEPEND}"
@@ -30,24 +30,32 @@ RDEPEND="
 
 S="${WORKDIR}"
 
+pkg_pretend() {
+	use amd64 || die "qqmusic only works on amd64 for now"
+}
+
 src_prepare() {
-	sed -i '/Name=QQmusic/aName[zh_CN]=QQ 音乐\nName[zh_HK]=QQ 音樂\nName[zh_TW]=QQ 音樂' usr/share/applications/qqmusic.desktop
-	sed -i '/Comment=QQMusic/aComment[zh_CN]=QQ 音乐\nComment[zh_HK]=QQ 音樂\nComment[zh_TW]=QQ 音樂' usr/share/applications/qqmusic.desktop
+	sed -i '/Name=QQmusic/aName[zh_CN]=QQ 音乐\nName[zh_HK]=QQ 音樂\nName[zh_TW]=QQ 音樂' usr/share/applications/qqmusic.desktop || die
+	sed -i '/Comment=QQMusic/aComment[zh_CN]=QQ 音乐\nComment[zh_HK]=QQ 音樂\nComment[zh_TW]=QQ 音樂' usr/share/applications/qqmusic.desktop || die
+	sed -i '/Name=QQmusic/s/Qmusic/Q Music/' usr/share/applications/qqmusic.desktop || die
+	sed -i '/Comment=QQMusic/s/QMusic/Q Music/' usr/share/applications/qqmusic.desktop || die
+	sed -i '/^Exec=/s/QQmusic/qqmusic-bin/' usr/share/applications/qqmusic.desktop || die
+	gzip -d usr/share/doc/qqmusic/changelog.gz || die
+	mv opt/QQmusic opt/qqmusic-bin || die
 	eapply_user
 }
 
 src_install() {
 	insinto /opt
-	doins -r opt/QQmusic
-	fperms 0755 /opt/QQmusic/{chrome-sandbox,crashpad_handler,libEGL.so,libffmpeg.so,libGLESv2.so,libvk_swiftshader.so,qqmusic}
-	dosym "${EROOT}/opt/QQmusic/qqmusic" /opt/bin/qqmusic
+	doins -r opt/qqmusic-bin
+	fperms 0755 /opt/qqmusic-bin/{chrome-sandbox,crashpad_handler,libEGL.so,libffmpeg.so,libGLESv2.so,libvk_swiftshader.so,qqmusic}
+	dosym "${EROOT}/opt/qqmusic-bin/qqmusic" /opt/bin/qqmusic-bin
 	domenu usr/share/applications/qqmusic.desktop
 	doicon -s 16 usr/share/icons/hicolor/16x16/apps/qqmusic.png
 	doicon -s 32 usr/share/icons/hicolor/32x32/apps/qqmusic.png
 	doicon -s 64 usr/share/icons/hicolor/64x64/apps/qqmusic.png
 	doicon -s 128 usr/share/icons/hicolor/128x128/apps/qqmusic.png
 	doicon -s 256 usr/share/icons/hicolor/256x256/apps/qqmusic.png
-	gzip -d usr/share/doc/qqmusic/changelog.gz
 	dodoc usr/share/doc/qqmusic/changelog
 }
 
