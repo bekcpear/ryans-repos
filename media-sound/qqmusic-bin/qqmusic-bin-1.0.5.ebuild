@@ -28,10 +28,11 @@ RDEPEND="
 	app-crypt/libsecret
 "
 
+RESTRICT="strip"
 S="${WORKDIR}"
 
 pkg_pretend() {
-	use amd64 || die "qqmusic only works on amd64 for now"
+	use amd64 || die "qqmusic-bin only works on amd64 for now"
 }
 
 src_prepare() {
