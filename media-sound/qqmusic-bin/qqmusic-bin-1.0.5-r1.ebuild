@@ -16,16 +16,33 @@ KEYWORDS="-* ~amd64"
 DEPEND=""
 BDEPEND="${DEPEND}"
 RDEPEND="
-	x11-libs/gtk+
-	x11-libs/libnotify
+	app-accessibility/at-spi2-atk:2
+	app-accessibility/at-spi2-core:2
+	dev-libs/atk
+	dev-libs/expat
+	dev-libs/glib:2
+	dev-libs/nspr
 	dev-libs/nss
+	media-libs/alsa-lib
+	net-print/cups
+	sys-apps/dbus
+	x11-libs/cairo
+	x11-libs/gdk-pixbuf:2
+	x11-libs/gtk+:3[X]
+	x11-libs/libX11
 	x11-libs/libXScrnSaver
+	x11-libs/libXcomposite
+	x11-libs/libXcursor
+	x11-libs/libXdamage
+	x11-libs/libXext
+	x11-libs/libXfixes
+	x11-libs/libXi
+	x11-libs/libXrandr
+	x11-libs/libXrender
 	x11-libs/libXtst
+	x11-libs/libxcb
+	x11-libs/pango
 	x11-misc/xdg-utils
-	app-accessibility/at-spi2-core
-	sys-apps/util-linux
-	dev-libs/libappindicator
-	app-crypt/libsecret
 "
 
 RESTRICT="strip"
@@ -52,11 +69,9 @@ src_install() {
 	fperms 0755 /opt/qqmusic-bin/{chrome-sandbox,crashpad_handler,libEGL.so,libffmpeg.so,libGLESv2.so,libvk_swiftshader.so,qqmusic}
 	dosym "${EPREFIX%/}/opt/qqmusic-bin/qqmusic" /opt/bin/qqmusic-bin
 	domenu usr/share/applications/qqmusic.desktop
-	doicon -s 16 usr/share/icons/hicolor/16x16/apps/qqmusic.png
-	doicon -s 32 usr/share/icons/hicolor/32x32/apps/qqmusic.png
-	doicon -s 64 usr/share/icons/hicolor/64x64/apps/qqmusic.png
-	doicon -s 128 usr/share/icons/hicolor/128x128/apps/qqmusic.png
-	doicon -s 256 usr/share/icons/hicolor/256x256/apps/qqmusic.png
+	for si in 16 32 64 128 256; do
+		doicon -s ${si} usr/share/icons/hicolor/${si}x${si}/apps/qqmusic.png
+	done
 	dodoc usr/share/doc/qqmusic/changelog
 }
 
