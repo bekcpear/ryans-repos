@@ -1,4 +1,4 @@
-# Copyright 2020 Gentoo Authors
+# Copyright 2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
@@ -50,7 +50,7 @@ src_install() {
 	insinto /opt
 	doins -r opt/qqmusic-bin
 	fperms 0755 /opt/qqmusic-bin/{chrome-sandbox,crashpad_handler,libEGL.so,libffmpeg.so,libGLESv2.so,libvk_swiftshader.so,qqmusic}
-	dosym "${EROOT}/opt/qqmusic-bin/qqmusic" /opt/bin/qqmusic-bin
+	dosym "${EPREFIX%/}/opt/qqmusic-bin/qqmusic" /opt/bin/qqmusic-bin
 	domenu usr/share/applications/qqmusic.desktop
 	doicon -s 16 usr/share/icons/hicolor/16x16/apps/qqmusic.png
 	doicon -s 32 usr/share/icons/hicolor/32x32/apps/qqmusic.png
