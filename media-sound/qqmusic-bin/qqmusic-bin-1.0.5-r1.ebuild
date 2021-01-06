@@ -3,7 +3,7 @@
 
 EAPI=7
 
-inherit unpacker desktop xdg-utils
+inherit chromium-2 desktop pax-utils unpacker xdg-utils
 
 DESCRIPTION="Tencent QQ Music for Linux."
 HOMEPAGE="https://y.qq.com/download/download.html"
@@ -13,8 +13,6 @@ LICENSE="CC0-1.0"
 SLOT="0"
 KEYWORDS="-* ~amd64"
 
-DEPEND=""
-BDEPEND="${DEPEND}"
 RDEPEND="
 	app-accessibility/at-spi2-atk:2
 	app-accessibility/at-spi2-core:2
@@ -22,7 +20,7 @@ RDEPEND="
 	dev-libs/expat
 	dev-libs/glib:2
 	dev-libs/nspr
-	dev-libs/nss
+	>=dev-libs/nss-3
 	media-libs/alsa-lib
 	net-print/cups
 	sys-apps/dbus
@@ -46,33 +44,42 @@ RDEPEND="
 "
 
 RESTRICT="strip"
+QA_PREBUILT="*"
+QA_DESKTOP_FILE=
+QQMUSIC_HOME="/opt/qqmusic-bin"
 S="${WORKDIR}"
 
 pkg_pretend() {
 	use amd64 || die "qqmusic-bin only works on amd64 for now"
+	chromium_suid_sandbox_check_kernel_config
 }
 
 src_prepare() {
-	sed -i '/Name=QQmusic/aName[zh_CN]=QQ 音乐\nName[zh_HK]=QQ 音樂\nName[zh_TW]=QQ 音樂' usr/share/applications/qqmusic.desktop || die
-	sed -i '/Comment=QQMusic/aComment[zh_CN]=QQ 音乐\nComment[zh_HK]=QQ 音樂\nComment[zh_TW]=QQ 音樂' usr/share/applications/qqmusic.desktop || die
+	eapply_user
+	sed -i '/Name=QQmusic/aName[zh_CN]=QQ 音乐\nName[zh_HK]=QQ 音樂\nName[zh_TW]=QQ 音樂' \
+		usr/share/applications/qqmusic.desktop || die
+	sed -i '/Comment=QQMusic/aComment[zh_CN]=QQ 音乐\nComment[zh_HK]=QQ 音樂\nComment[zh_TW]=QQ 音樂' \
+		usr/share/applications/qqmusic.desktop || die
 	sed -i '/Name=QQmusic/s/Qmusic/Q Music/' usr/share/applications/qqmusic.desktop || die
 	sed -i '/Comment=QQMusic/s/QMusic/Q Music/' usr/share/applications/qqmusic.desktop || die
 	sed -i '/^Exec=/s/QQmusic/qqmusic-bin/' usr/share/applications/qqmusic.desktop || die
 	gzip -d usr/share/doc/qqmusic/changelog.gz || die
-	mv opt/QQmusic opt/qqmusic-bin || die
-	eapply_user
 }
 
 src_install() {
-	insinto /opt
-	doins -r opt/qqmusic-bin
-	fperms 0755 /opt/qqmusic-bin/{chrome-sandbox,crashpad_handler,libEGL.so,libffmpeg.so,libGLESv2.so,libvk_swiftshader.so,qqmusic}
-	dosym "${EPREFIX%/}/opt/qqmusic-bin/qqmusic" /opt/bin/qqmusic-bin
-	domenu usr/share/applications/qqmusic.desktop
-	for si in 16 32 64 128 256; do
-		doicon -s ${si} usr/share/icons/hicolor/${si}x${si}/apps/qqmusic.png
-	done
+	insinto ${QQMUSIC_HOME}
+	doins -r opt/QQmusic/*
+	dosym "${EPREFIX%/}${QQMUSIC_HOME}/qqmusic" /opt/bin/qqmusic-bin
+
 	dodoc usr/share/doc/qqmusic/changelog
+	domenu usr/share/applications/qqmusic.desktop
+	local size
+	for size in 16 32 64 128 256; do
+		doicon -s ${size} usr/share/icons/hicolor/${size}x${size}/apps/qqmusic.png
+	done
+
+	fperms 0755 ${QQMUSIC_HOME}/{chrome-sandbox,crashpad_handler,qqmusic,*.so}
+	pax-mark m ${QQMUSIC_HOME}/qqmusic #https://pax.grsecurity.net/docs/mprotect.txt
 }
 
 pkg_postinst() {
