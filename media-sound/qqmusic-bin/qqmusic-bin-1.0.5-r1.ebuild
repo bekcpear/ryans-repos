@@ -78,7 +78,7 @@ src_install() {
 		doicon -s ${size} usr/share/icons/hicolor/${size}x${size}/apps/qqmusic.png
 	done
 
-	fperms 0755 ${QQMUSIC_HOME}/{chrome-sandbox,crashpad_handler,qqmusic,*.so}
+	fperms 0755 ${QQMUSIC_HOME}/{chrome-sandbox,crashpad_handler,qqmusic,libEGL.so,libGLESv2.so,libffmpeg.so,libvk_swiftshader.so}
 	pax-mark m ${QQMUSIC_HOME}/qqmusic #https://pax.grsecurity.net/docs/mprotect.txt
 }
 
