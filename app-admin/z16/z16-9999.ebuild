@@ -31,9 +31,9 @@ src_install() {
 	doins {helperFuncs,init,mainFuncs,parseFuncs,z16}.sh
 	insinto /etc/z16
 	newins config/z16rc.example z16rc
-	insinto "${Z16INSTDIR}"
-	newins config/global-config-file.example "${GLOBALCONF}"
+	newins config/global-config-file.example default_configurations
 
+	dosym "${EPREFIX%/}/etc/z16/default_configurations" "${Z16INSTDIR}/${GLOBALCONF}"
 	dosym "${EPREFIX%/}/usr/share/z16/z16.sh" /usr/bin/z16
 	fperms +x /usr/share/z16/z16.sh
 }
