@@ -3,7 +3,7 @@
 
 EAPI=7
 
-inherit git-r3
+inherit git-r3 optfeature
 
 DESCRIPTION="A bash script project that aims to maintain dotfiles."
 HOMEPAGE="https://github.com/bekcpear/z16"
@@ -41,6 +41,8 @@ src_install() {
 
 pkg_postinst() {
 	if [[ -z "${REPLACING_VERSIONS}" ]] ; then
+		optfeature "enabling managing files over ssh" net-misc/openssh
+		elog ""
 		elog "You can edit the configuration file"
 		elog "    /etc/z16/z16rc"
 		elog "to configure the directory which storing instances and"
