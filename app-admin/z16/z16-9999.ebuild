@@ -28,7 +28,8 @@ src_prepare() {
 
 src_install() {
 	insinto /usr/share/z16
-	doins {helperFuncs,init,mainFuncs,parseFuncs,z16}.sh
+	doins {helper,initZ16,main,meta,parse,z16}.sh
+	doins -r main
 	insinto /etc/z16
 	newins config/z16rc.example z16rc
 	newins config/global-config-file.example default_configurations
