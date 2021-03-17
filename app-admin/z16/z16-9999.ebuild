@@ -41,8 +41,8 @@ src_install() {
 
 pkg_postinst() {
 	if [[ -z "${REPLACING_VERSIONS}" ]] ; then
-		optfeature "enabling managing files over ssh" net-misc/openssh
-		elog ""
+		optfeature "Support managing files over ssh" net-misc/openssh[scp]
+		echo ""
 		elog "You can edit the configuration file"
 		elog "    /etc/z16/z16rc"
 		elog "to configure the directory which storing instances and"
