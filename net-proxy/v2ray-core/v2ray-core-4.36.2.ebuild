@@ -140,8 +140,8 @@ EGO_SUM=(
 	"github.com/openzipkin/zipkin-go v0.1.1/go.mod"
 	"github.com/phayes/freeport v0.0.0-20180830031419-95f893ade6f2"
 	"github.com/phayes/freeport v0.0.0-20180830031419-95f893ade6f2/go.mod"
-	"github.com/pires/go-proxyproto v0.4.2"
-	"github.com/pires/go-proxyproto v0.4.2/go.mod"
+	"github.com/pires/go-proxyproto v0.5.0"
+	"github.com/pires/go-proxyproto v0.5.0/go.mod"
 	"github.com/pkg/errors v0.8.1/go.mod"
 	"github.com/pmezard/go-difflib v1.0.0"
 	"github.com/pmezard/go-difflib v1.0.0/go.mod"
@@ -178,7 +178,6 @@ EGO_SUM=(
 	"github.com/shurcooL/webdavfs v0.0.0-20170829043945-18c3829fa133/go.mod"
 	"github.com/sourcegraph/annotate v0.0.0-20160123013949-f4cad6c6324d/go.mod"
 	"github.com/sourcegraph/syntaxhighlight v0.0.0-20170531221838-bd320f5d308e/go.mod"
-	"github.com/stretchr/objx v0.1.0"
 	"github.com/stretchr/objx v0.1.0/go.mod"
 	"github.com/stretchr/testify v1.2.2/go.mod"
 	"github.com/stretchr/testify v1.4.0/go.mod"
@@ -193,8 +192,8 @@ EGO_SUM=(
 	"github.com/viant/toolbox v0.24.0/go.mod"
 	"go.opencensus.io v0.18.0/go.mod"
 	"go.opencensus.io v0.22.2/go.mod"
-	"go.starlark.net v0.0.0-20210223155950-e043a3d3c984"
-	"go.starlark.net v0.0.0-20210223155950-e043a3d3c984/go.mod"
+	"go.starlark.net v0.0.0-20210305151048-6a590ae7f4eb"
+	"go.starlark.net v0.0.0-20210305151048-6a590ae7f4eb/go.mod"
 	"go4.org v0.0.0-20180809161055-417644f6feb5/go.mod"
 	"golang.org/x/build v0.0.0-20190111050920-041ab4dc3f9d/go.mod"
 	"golang.org/x/crypto v0.0.0-20181030102418-4d3f4d9ffa16/go.mod"
@@ -258,8 +257,8 @@ EGO_SUM=(
 	"golang.org/x/sys v0.0.0-20200519105757-fe76b779f299/go.mod"
 	"golang.org/x/sys v0.0.0-20200930185726-fdedc70b468f/go.mod"
 	"golang.org/x/sys v0.0.0-20201119102817-f84b799fce68/go.mod"
-	"golang.org/x/sys v0.0.0-20210303074136-134d130e1a04"
-	"golang.org/x/sys v0.0.0-20210303074136-134d130e1a04/go.mod"
+	"golang.org/x/sys v0.0.0-20210305230114-8fe3ee5dd75b"
+	"golang.org/x/sys v0.0.0-20210305230114-8fe3ee5dd75b/go.mod"
 	"golang.org/x/term v0.0.0-20201117132131-f5c789dd3221/go.mod"
 	"golang.org/x/term v0.0.0-20201126162022-7de9c90e9dd1/go.mod"
 	"golang.org/x/text v0.0.0-20170915032832-14c0d48ead0c/go.mod"
@@ -363,17 +362,19 @@ DEPEND=""
 RDEPEND="!net-proxy/v2ray !net-proxy/v2ray-bin"
 
 pkg_pretend() {
-	cngoproxyset=0
-	if [[ -e "${ROOT}"/etc/portage/mirrors ]]; then
-		grep '^\s*goproxy\s' "${ROOT}"/etc/portage/mirrors >/dev/null 2>&1
-		if [[ $? -eq 0 ]]; then
-			cngoproxyset=1
+	if [[ -z "${REPLAING_VERSIONS}" ]]; then
+		cngoproxyset=0
+		if [[ -e "${ROOT}"/etc/portage/mirrors ]]; then
+			grep '^\s*goproxy\s' "${ROOT}"/etc/portage/mirrors >/dev/null 2>&1
+			if [[ $? -eq 0 ]]; then
+				cngoproxyset=1
+			fi
 		fi
-	fi
-	if [[ ${cngoproxyset} -eq 0 ]]; then
-		ewarn "You may need to set a goproxy for fetching go modules:"
-		ewarn "  echo -e '\\\\ngoproxy https://goproxy.cn/' >> /etc/portage/mirrors"
-		ewarn "Can safely ignore this warning if emerge succeeded."
+		if [[ ${cngoproxyset} -eq 0 ]]; then
+			ewarn "You may need to set a goproxy for fetching go modules:"
+			ewarn "  echo -e '\\\\ngoproxy https://goproxy.cn/' >> /etc/portage/mirrors"
+			ewarn "Can safely ignore this warning if emerge succeeded."
+		fi
 	fi
 }
 
