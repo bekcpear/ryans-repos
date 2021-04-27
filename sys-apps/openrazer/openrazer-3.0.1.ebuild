@@ -35,7 +35,7 @@ BDEPEND="
 "
 
 python_prepare_all() {
-	sed -i "/^Exec=/s|\-\-verbose||" "install_files/desktop/openrazer-daemon.desktop" || die
+	sed -i "/^Exec=/s|\s\-\-verbose||" "install_files/desktop/openrazer-daemon.desktop" || die
 	sed -i "s|##PREFIX##|${EROOT%/}/usr|" "daemon/resources/org.razer.service.in" || die
 	sed -i "s|##PREFIX##|${EROOT%/}/usr|" "daemon/resources/openrazer-daemon.systemd.service.in" || die
 	distutils-r1_python_prepare_all
