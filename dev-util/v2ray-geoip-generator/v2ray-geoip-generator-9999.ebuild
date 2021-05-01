@@ -39,5 +39,9 @@ pkg_postinst() {
 		elog "  ${PN} -help"
 		elog "to check the usage."
 		elog
+		elog "The original data files can be downloaded from:"
+		elog "https://dev.maxmind.com/geoip/geoip2/geolite2/"
+		elog "You need to sign up a maxmind account."
+		elog
 	fi
 }
