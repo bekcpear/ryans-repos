@@ -6,9 +6,7 @@ EAPI=7
 inherit systemd go-module
 
 DESCRIPTION="A platform for building proxies to bypass network restrictions."
-HOMEPAGE="https://github.com/v2fly/v2ray-core https://www.maxmind.com"
-GEOIP_PV="202104120349"
-GEOSITE_PV="20210412113331"
+HOMEPAGE="https://github.com/v2fly/v2ray-core"
 
 # sed -re 's/^(\S*) (\S*) (\S*)/"\1 \2"/g' go.sum
 # echo "goproxy https://goproxy.cn/" >> /etc/portage/mirrors
@@ -90,12 +88,14 @@ EGO_SUM=(
 	"github.com/google/go-querystring v1.0.0/go.mod"
 	"github.com/google/martian v2.1.0+incompatible/go.mod"
 	"github.com/google/pprof v0.0.0-20181206194817-3ea8567a2e57/go.mod"
+	"github.com/google/renameio v0.1.0/go.mod"
 	"github.com/google/uuid v1.1.2/go.mod"
 	"github.com/googleapis/gax-go v2.0.0+incompatible/go.mod"
 	"github.com/googleapis/gax-go/v2 v2.0.3/go.mod"
 	"github.com/gopherjs/gopherjs v0.0.0-20181017120253-0766667cb4d1/go.mod"
 	"github.com/gopherjs/gopherjs v0.0.0-20210202160940-bed99a852dfe/go.mod"
 	"github.com/gopherjs/websocket v0.0.0-20191103002815-9a42957e2b3a/go.mod"
+	"github.com/gordonklaus/ineffassign v0.0.0-20200309095847-7953dde2c7bf/go.mod"
 	"github.com/gorilla/websocket v1.4.2"
 	"github.com/gorilla/websocket v1.4.2/go.mod"
 	"github.com/gregjones/httpcache v0.0.0-20180305231024-9cad4c3443a7/go.mod"
@@ -104,6 +104,8 @@ EGO_SUM=(
 	"github.com/h12w/go-socks5 v0.0.0-20200522160539-76189e178364/go.mod"
 	"github.com/hpcloud/tail v1.0.0/go.mod"
 	"github.com/jellevandenhooff/dkim v0.0.0-20150330215556-f50fe3d243e1/go.mod"
+	"github.com/jhump/protoreflect v1.8.2"
+	"github.com/jhump/protoreflect v1.8.2/go.mod"
 	"github.com/json-iterator/go v1.1.6/go.mod"
 	"github.com/jstemmer/go-junit-report v0.0.0-20190106144839-af01ea7f8024/go.mod"
 	"github.com/kisielk/gotool v1.0.0/go.mod"
@@ -132,6 +134,7 @@ EGO_SUM=(
 	"github.com/modern-go/reflect2 v1.0.1/go.mod"
 	"github.com/neelance/astrewrite v0.0.0-20160511093645-99348263ae86/go.mod"
 	"github.com/neelance/sourcemap v0.0.0-20151028013722-8c68805598ab/go.mod"
+	"github.com/nishanths/predeclared v0.0.0-20200524104333-86fad755b4d3/go.mod"
 	"github.com/nxadm/tail v1.4.4"
 	"github.com/nxadm/tail v1.4.4/go.mod"
 	"github.com/onsi/ginkgo v1.6.0/go.mod"
@@ -156,6 +159,7 @@ EGO_SUM=(
 	"github.com/prometheus/procfs v0.0.0-20180725123919-05ee40e3a273/go.mod"
 	"github.com/riobard/go-bloom v0.0.0-20200614022211-cdc8013cb5b3"
 	"github.com/riobard/go-bloom v0.0.0-20200614022211-cdc8013cb5b3/go.mod"
+	"github.com/rogpeppe/go-internal v1.3.0/go.mod"
 	"github.com/russross/blackfriday v1.5.2/go.mod"
 	"github.com/seiflotfy/cuckoofilter v0.0.0-20201222105146-bc6005554a0c"
 	"github.com/seiflotfy/cuckoofilter v0.0.0-20201222105146-bc6005554a0c/go.mod"
@@ -201,24 +205,29 @@ EGO_SUM=(
 	"github.com/viant/toolbox v0.24.0/go.mod"
 	"github.com/xtaci/smux v1.5.15"
 	"github.com/xtaci/smux v1.5.15/go.mod"
+	"github.com/yuin/goldmark v1.1.27/go.mod"
+	"github.com/yuin/goldmark v1.1.32/go.mod"
 	"go.opencensus.io v0.18.0/go.mod"
-	"go.starlark.net v0.0.0-20210312235212-74c10e2c17dc"
-	"go.starlark.net v0.0.0-20210312235212-74c10e2c17dc/go.mod"
+	"go.starlark.net v0.0.0-20210416142453-1607a96e3d72"
+	"go.starlark.net v0.0.0-20210416142453-1607a96e3d72/go.mod"
 	"go4.org v0.0.0-20180809161055-417644f6feb5/go.mod"
 	"golang.org/x/build v0.0.0-20190111050920-041ab4dc3f9d/go.mod"
 	"golang.org/x/crypto v0.0.0-20181030102418-4d3f4d9ffa16/go.mod"
 	"golang.org/x/crypto v0.0.0-20190308221718-c2843e01d9a2/go.mod"
 	"golang.org/x/crypto v0.0.0-20190313024323-a1f597ede03a/go.mod"
+	"golang.org/x/crypto v0.0.0-20190510104115-cbcb75029529/go.mod"
 	"golang.org/x/crypto v0.0.0-20191011191535-87dc89f01550/go.mod"
 	"golang.org/x/crypto v0.0.0-20200221231518-2aa609cf4a9d/go.mod"
 	"golang.org/x/crypto v0.0.0-20200622213623-75b288015ac9/go.mod"
-	"golang.org/x/crypto v0.0.0-20210322153248-0c34fe9e7dc2"
-	"golang.org/x/crypto v0.0.0-20210322153248-0c34fe9e7dc2/go.mod"
+	"golang.org/x/crypto v0.0.0-20210415154028-4f45737414dc"
+	"golang.org/x/crypto v0.0.0-20210415154028-4f45737414dc/go.mod"
 	"golang.org/x/exp v0.0.0-20190121172915-509febef88a4/go.mod"
 	"golang.org/x/lint v0.0.0-20180702182130-06c8688daad7/go.mod"
 	"golang.org/x/lint v0.0.0-20181026193005-c67002cb31c3/go.mod"
 	"golang.org/x/lint v0.0.0-20190227174305-5b3e6a55c961/go.mod"
 	"golang.org/x/lint v0.0.0-20190313153728-d0100b6bd8b3/go.mod"
+	"golang.org/x/mod v0.0.0-20190513183733-4bf6d317e70e/go.mod"
+	"golang.org/x/mod v0.2.0/go.mod"
 	"golang.org/x/mod v0.3.0/go.mod"
 	"golang.org/x/net v0.0.0-20180724234803-3673e40ba225/go.mod"
 	"golang.org/x/net v0.0.0-20180826012351-8a410e7b638d/go.mod"
@@ -231,11 +240,13 @@ EGO_SUM=(
 	"golang.org/x/net v0.0.0-20190313220215-9f648a60d977/go.mod"
 	"golang.org/x/net v0.0.0-20190404232315-eb5bcb51f2a3/go.mod"
 	"golang.org/x/net v0.0.0-20190620200207-3b0461eec859/go.mod"
+	"golang.org/x/net v0.0.0-20200226121028-0de0cce0169b/go.mod"
 	"golang.org/x/net v0.0.0-20200520004742-59133d7f0dd7/go.mod"
+	"golang.org/x/net v0.0.0-20200625001655-4c5254603344/go.mod"
 	"golang.org/x/net v0.0.0-20200707034311-ab3426394381/go.mod"
 	"golang.org/x/net v0.0.0-20210226172049-e18ecbb05110/go.mod"
-	"golang.org/x/net v0.0.0-20210331212208-0fccb6fa2b5c"
-	"golang.org/x/net v0.0.0-20210331212208-0fccb6fa2b5c/go.mod"
+	"golang.org/x/net v0.0.0-20210415231046-e915ea6b2b7d"
+	"golang.org/x/net v0.0.0-20210415231046-e915ea6b2b7d/go.mod"
 	"golang.org/x/oauth2 v0.0.0-20180821212333-d2e6202438be/go.mod"
 	"golang.org/x/oauth2 v0.0.0-20181017192945-9dcd33a902f4/go.mod"
 	"golang.org/x/oauth2 v0.0.0-20181203162652-d668ce993890/go.mod"
@@ -247,6 +258,7 @@ EGO_SUM=(
 	"golang.org/x/sync v0.0.0-20190227155943-e225da77a7e6/go.mod"
 	"golang.org/x/sync v0.0.0-20190423024810-112230192c58/go.mod"
 	"golang.org/x/sync v0.0.0-20190911185100-cd5d95a43a6e/go.mod"
+	"golang.org/x/sync v0.0.0-20200625203802-6e8e738ad208/go.mod"
 	"golang.org/x/sync v0.0.0-20210220032951-036812b2e83c"
 	"golang.org/x/sync v0.0.0-20210220032951-036812b2e83c/go.mod"
 	"golang.org/x/sys v0.0.0-20180830151530-49385e6e1522/go.mod"
@@ -266,14 +278,15 @@ EGO_SUM=(
 	"golang.org/x/sys v0.0.0-20201231184435-2d18734c6014/go.mod"
 	"golang.org/x/sys v0.0.0-20210303074136-134d130e1a04/go.mod"
 	"golang.org/x/sys v0.0.0-20210330210617-4fbd30eecc44/go.mod"
-	"golang.org/x/sys v0.0.0-20210331175145-43e1dd70ce54"
-	"golang.org/x/sys v0.0.0-20210331175145-43e1dd70ce54/go.mod"
+	"golang.org/x/sys v0.0.0-20210415045647-66c3f260301c"
+	"golang.org/x/sys v0.0.0-20210415045647-66c3f260301c/go.mod"
 	"golang.org/x/term v0.0.0-20201126162022-7de9c90e9dd1/go.mod"
 	"golang.org/x/text v0.3.0/go.mod"
 	"golang.org/x/text v0.3.1-0.20180807135948-17ff2d5776d2/go.mod"
 	"golang.org/x/text v0.3.2/go.mod"
-	"golang.org/x/text v0.3.3"
 	"golang.org/x/text v0.3.3/go.mod"
+	"golang.org/x/text v0.3.6"
+	"golang.org/x/text v0.3.6/go.mod"
 	"golang.org/x/time v0.0.0-20180412165947-fbb02b2291d2/go.mod"
 	"golang.org/x/time v0.0.0-20181108054448-85acf8d2951c/go.mod"
 	"golang.org/x/tools v0.0.0-20180828015842-6cd1fcedba52/go.mod"
@@ -285,6 +298,9 @@ EGO_SUM=(
 	"golang.org/x/tools v0.0.0-20190425150028-36563e24a262/go.mod"
 	"golang.org/x/tools v0.0.0-20190524140312-2c0ae7006135/go.mod"
 	"golang.org/x/tools v0.0.0-20191119224855-298f0cb1881e/go.mod"
+	"golang.org/x/tools v0.0.0-20191130070609-6e064ea0cf2d/go.mod"
+	"golang.org/x/tools v0.0.0-20200522201501-cb1345f3a375/go.mod"
+	"golang.org/x/tools v0.0.0-20200717024301-6ddee64345a6/go.mod"
 	"golang.org/x/xerrors v0.0.0-20190717185122-a985d3407aa7/go.mod"
 	"golang.org/x/xerrors v0.0.0-20191011141410-1b5146add898/go.mod"
 	"golang.org/x/xerrors v0.0.0-20191204190536-9bdfabe68543/go.mod"
@@ -323,12 +339,14 @@ EGO_SUM=(
 	"google.golang.org/protobuf v1.23.0/go.mod"
 	"google.golang.org/protobuf v1.23.1-0.20200526195155-81db48ad09cc/go.mod"
 	"google.golang.org/protobuf v1.25.0/go.mod"
+	"google.golang.org/protobuf v1.25.1-0.20200805231151-a709e31e5d12/go.mod"
 	"google.golang.org/protobuf v1.26.0-rc.1/go.mod"
 	"google.golang.org/protobuf v1.26.0"
 	"google.golang.org/protobuf v1.26.0/go.mod"
 	"gopkg.in/check.v1 v0.0.0-20161208181325-20d25e280405/go.mod"
 	"gopkg.in/check.v1 v1.0.0-20180628173108-788fd7840127"
 	"gopkg.in/check.v1 v1.0.0-20180628173108-788fd7840127/go.mod"
+	"gopkg.in/errgo.v2 v2.1.0/go.mod"
 	"gopkg.in/fsnotify.v1 v1.4.7/go.mod"
 	"gopkg.in/inf.v0 v0.9.1/go.mod"
 	"gopkg.in/tomb.v1 v1.0.0-20141024135613-dd632973f1e7"
@@ -348,24 +366,28 @@ EGO_SUM=(
 	"honnef.co/go/tools v0.0.0-20190102054323-c2f93a96b099/go.mod"
 	"honnef.co/go/tools v0.0.0-20190106161140-3f1c8253044a/go.mod"
 	"honnef.co/go/tools v0.0.0-20190523083050-ea95bdfd59fc/go.mod"
+	"honnef.co/go/tools v0.0.1-2020.1.4/go.mod"
 	"sourcegraph.com/sourcegraph/go-diff v0.5.0/go.mod"
 	"sourcegraph.com/sqs/pbtypes v0.0.0-20180604144634-d3ebe8f20ae4/go.mod"
 )
 go-module_set_globals
 
 SRC_URI="https://github.com/v2fly/v2ray-core/archive/refs/tags/v${PV}.tar.gz -> ${P}.tar.gz
-	https://github.com/v2fly/geoip/releases/download/${GEOIP_PV}/geoip.dat -> ${P}-geoip-${GEOIP_PV}.dat
-	https://github.com/v2fly/domain-list-community/releases/download/${GEOSITE_PV}/dlc.dat -> ${P}-geosite-${GEOSITE_PV}.dat
 	${EGO_SUM_SRC_URI}"
 
-LICENSE="MIT CC-BY-SA-4.0"
+LICENSE="MIT"
 SLOT="0"
 KEYWORDS="~amd64"
 IUSE="+tool"
 
 BDEPEND=">=dev-lang/go-1.16:="
 DEPEND=""
-RDEPEND="!net-proxy/v2ray !net-proxy/v2ray-bin"
+RDEPEND="
+	!net-proxy/v2ray
+	!net-proxy/v2ray-bin
+	dev-libs/v2ray-geoip-bin
+	dev-libs/v2ray-domain-list-community
+"
 
 pkg_pretend() {
 	if [[ -z "${REPLAING_VERSIONS}" ]]; then
@@ -402,10 +424,6 @@ src_install() {
 	if use tool; then
 		dobin bin/v2ctl
 	fi
-
-	insinto /usr/share/v2ray
-	newins "${DISTDIR%/}/${P}-geoip-${GEOIP_PV}.dat" geoip.dat
-	newins "${DISTDIR%/}/${P}-geosite-${GEOSITE_PV}.dat" geosite.dat
 
 	insinto /etc/v2ray
 	doins release/config/*.json
