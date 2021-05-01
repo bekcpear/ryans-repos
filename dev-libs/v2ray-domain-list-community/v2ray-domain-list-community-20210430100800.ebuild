@@ -367,7 +367,9 @@ LICENSE="MIT"
 SLOT="0"
 
 DEPEND=""
-RDEPEND="${DEPEND}"
+RDEPEND="${DEPEND}
+	!<net-proxy/v2ray-core-4.38.3
+"
 BDEPEND=">=dev-lang/go-1.16"
 
 src_unpack() {
