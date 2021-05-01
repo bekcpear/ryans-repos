@@ -391,3 +391,7 @@ src_install() {
 	insinto /usr/share/v2ray
 	newins dlc.dat geosite.dat
 }
+
+pkg_postinst() {
+	:
+}
