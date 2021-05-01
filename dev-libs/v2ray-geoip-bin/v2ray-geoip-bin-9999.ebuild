@@ -11,13 +11,16 @@ if [[ ${PV} == *9999 ]]; then
 else
 	SRC_URI="https://github.com/v2fly/geoip/releases/download/${PV}/geoip.dat -> ${P}.dat"
 	KEYWORDS="~amd64 ~arm ~arm64 ~x86"
+	S="${WORKDIR}"
 fi
 
 LICENSE="CC-BY-SA-4.0"
 SLOT="0"
 
 DEPEND=""
-RDEPEND="${DEPEND}"
+RDEPEND="${DEPEND}
+	!<net-proxy/v2ray-core-4.38.3
+"
 BDEPEND=""
 
 src_unpack() {
