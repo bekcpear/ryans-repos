@@ -359,7 +359,7 @@ else
 	go-module_set_globals
 	SRC_URI="https://github.com/v2fly/domain-list-community/archive/refs/tags/${PV}.tar.gz -> ${P}.tar.gz
 		${EGO_SUM_SRC_URI}"
-	KEYWORDS="~amd64"
+	KEYWORDS="~amd64 ~arm ~arm64 ~x86"
 	S="${WORKDIR%/}/${P#v2ray-}"
 fi
 
@@ -368,6 +368,7 @@ SLOT="0"
 
 DEPEND=""
 RDEPEND="${DEPEND}
+	!<net-proxy/v2ray-4.38.3
 	!<net-proxy/v2ray-core-4.38.3
 "
 BDEPEND=">=dev-lang/go-1.16"
