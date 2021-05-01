@@ -386,7 +386,10 @@ RDEPEND="
 	!net-proxy/v2ray
 	!net-proxy/v2ray-bin
 	dev-libs/v2ray-geoip-bin
-	dev-libs/v2ray-domain-list-community
+	|| (
+		dev-libs/v2ray-domain-list-community-bin
+		dev-libs/v2ray-domain-list-community
+	)
 "
 
 pkg_pretend() {
