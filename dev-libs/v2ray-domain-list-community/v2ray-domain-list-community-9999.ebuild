@@ -26,6 +26,7 @@ SLOT="0"
 
 DEPEND=""
 RDEPEND="${DEPEND}
+	!dev-libs/v2ray-domain-list-community-bin
 	!<net-proxy/v2ray-4.38.3
 	!<net-proxy/v2ray-core-4.38.3
 "
