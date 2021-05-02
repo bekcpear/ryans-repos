@@ -5,4 +5,7 @@
 		<email>i@bitbili.net</email>
 		<name>Ryan Qian</name>
 	</maintainer>
+	<use>
+		<flag name="razer-test">Include the testing binary file</flag>
+	</use>
 </pkgmetadata>

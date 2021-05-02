@@ -13,13 +13,26 @@ HOMEPAGE="https://github.com/z3ntu/razer_test"
 
 LICENSE="GPL-3"
 SLOT="0"
+IUSE="razer-test"
 
 DEPEND="
 	dev-qt/qtcore:5
 	dev-qt/qtdbus:5
 "
-RDEPEND="${DEPEND}"
+RDEPEND="${DEPEND}
+	razer-test? (
+		dev-libs/hidapi
+		virtual/udev
+	)
+"
 BDEPEND="
 	dev-qt/linguist-tools:5
 	virtual/pkgconfig
 "
+
+src_prepare() {
+	eapply_user
+	if ! use razer-test; then
+		cp ${FILESDIR%/}/meson.build ./ || die
+	fi
+}
