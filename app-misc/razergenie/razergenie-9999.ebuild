@@ -21,6 +21,7 @@ DEPEND="
 	dev-qt/qtgui:5
 	dev-qt/qtnetwork:5
 	dev-qt/qtwidgets:5
+	sys-apps/openrazer_test
 "
 RDEPEND="${DEPEND}
 	sys-apps/openrazer
@@ -28,7 +29,6 @@ RDEPEND="${DEPEND}
 "
 BDEPEND="
 	dev-qt/linguist-tools:5
-	sys-apps/openrazer_test
 	virtual/pkgconfig
 "
 
