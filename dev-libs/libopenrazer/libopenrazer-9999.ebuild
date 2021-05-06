@@ -18,10 +18,10 @@ DEPEND="
 	dev-qt/qtdbus:5
 	dev-qt/qtgui:5
 	dev-qt/qtxml:5
+	sys-apps/openrazer_test
 "
 RDEPEND="${DEPEND}"
 BDEPEND="
-	sys-apps/openrazer_test
 	dev-qt/linguist-tools:5
 	virtual/pkgconfig
 "
