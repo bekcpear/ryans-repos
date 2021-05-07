@@ -1,13 +1,14 @@
 ## A personal ebuild repository
 
-Reponame: `ryans`
+- Reponame: **`ryans`**
+- Maintainer: **[bekcpear](https://github.com/bekcpear)**
 
-can be added by run:
+can be added to the system by running:
 ```
 eselect repository add ryans
 ```
 
-### Current packages
+### Packages
 
 ```
  Package name                               | Version                | Role | Homepage                                       | Description
@@ -17,8 +18,8 @@ eselect repository add ryans
  app-misc/razergenie                        | 9999                   |      | https://github.com/z3ntu/RazerGenie            | Razer devices configurator
    sys-apps/openrazer                       | 3.0.1                  | RD   | https://github.com/openrazer/openrazer         | A user-space daemon that allows you to manage your Razer peripherals.
      sys-apps/openrazer-driver              | 3.0.1                  | RD   | https://github.com/openrazer/openrazer         | A collection of kernel drivers for Razer devices.
-   dev-libs/libopenrazer                    | 9999                   | D    | https://github.com/z3ntu/libopenrazer          | Libraries for razergenie.
-     sys-apps/openrazer_test                | 9999                   | D    | https://github.com/z3ntu/razer_test            | A work-in-progress replacement for OpenRazer.
+   dev-libs/libopenrazer                    | 9999                   |  D   | https://github.com/z3ntu/libopenrazer          | Libraries for razergenie.
+     sys-apps/openrazer_test                | 9999                   |  D   | https://github.com/z3ntu/razer_test            | A work-in-progress replacement for OpenRazer.
 --------------------------------------------|------------------------|------|------------------------------------------------|--------------------
  app-text/ydcv-rs                           | 0.4.7                  |      | https://github.com/farseerfc/ydcv-rs           | A rust version of YouDao Console Version
 --------------------------------------------|------------------------|------|------------------------------------------------|--------------------
@@ -35,18 +36,20 @@ eselect repository add ryans
                                             | 9999                   |      |                                                |
 ============================================|========================|======|================================================|====================
 ```
-For role,
-
 + ` D` means the classic dependencies (e.g.: libraries and headers)
 + `BD` means the build dependencies (e.g.: virtual/pkgconfig)
 + `RD` means runtime dependencies
 
 _(All these dependencies are parsed literally.)_
 
-For now,
+### Maintenance status
 
 + dev-util/v2ray-geoip-generator
 
 is under lazy maintained.
 
 No package is under inactive maintained.
+
+### License
+
+[GPL-2.0](LICENSE)
