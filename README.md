@@ -27,6 +27,8 @@ eselect repository add ryans
 --------------------------------------------|------------------------|--------|------------------------------------------------|--------------------
  media-sound/qqmusic-bin                    | 1.0.9                  |        | https://y.qq.com/download/download.html        | Tencent QQ Music for Linux.
 --------------------------------------------|------------------------|--------|------------------------------------------------|--------------------
+ net-im/linuxqq-bin                         | 2.0.0_beta2_p1089      |        | https://im.qq.com/linuxqq/index.html           | Tencent QQ.
+--------------------------------------------|------------------------|--------|------------------------------------------------|--------------------
  net-proxy/v2ray-core                       | 4.38.3                 |        | https://github.com/v2fly/v2ray-core            | A platform for building proxies to bypass network restrictions.
    dev-libs/v2ray-domain-list-community     | 4.38.2_p20210430100800 | RD     | https://github.com/v2fly/domain-list-community | Community managed domain list for V2Ray.
                                             | 9999                   |        |                                                |
