@@ -30,7 +30,7 @@ RDEPEND="${DEPEND}
 "
 BDEPEND=""
 
-RESTRICT="strip"
+RESTRICT="mirror strip"
 QA_PREBUILT="*"
 QA_DESKTOP_FILE=
 MY_HOME="/opt/linuxqq-bin"
