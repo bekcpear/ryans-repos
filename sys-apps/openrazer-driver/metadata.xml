@@ -6,6 +6,6 @@
 		<name>Ryan Qian</name>
 	</maintainer>
 	<use>
-		<flag name="dkms">Use DKMS to build modules.</flag>
+		<flag name="dkms">Install sources to be able to use DKMS to build modules.</flag>
 	</use>
 </pkgmetadata>

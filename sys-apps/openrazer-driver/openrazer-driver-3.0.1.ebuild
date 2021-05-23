@@ -36,10 +36,10 @@ src_compile() {
 src_install() {
 	linux-mod_src_install
 	if use dkms; then
-		insinto /usr/src/${P}
-		doins ../Makefile ../install_files/dkms/dkms.conf
-		insinto /usr/src/${P}/driver
-		doins Makefile *.c *.h
+		pushd ..
+		export DESTDIR=${ED}
+		emake setup_dkms
+		popd
 	fi
 }
 
