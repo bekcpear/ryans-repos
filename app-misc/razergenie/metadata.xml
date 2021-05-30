@@ -8,4 +8,8 @@
 	<use>
 		<flag name="matrix">Includes the matrix discovery feature</flag>
 	</use>
+	<upstream>
+		<remote-id type="github">z3ntu/RazerGenie</remote-id>
+		<bugs-to>https://github.com/z3ntu/RazerGenie/issues</bugs-to>
+	</upstream>
 </pkgmetadata>
