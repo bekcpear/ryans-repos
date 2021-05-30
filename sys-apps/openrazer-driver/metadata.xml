@@ -6,6 +6,10 @@
 		<name>Ryan Qian</name>
 	</maintainer>
 	<use>
-		<flag name="dkms">Install sources to be able to use DKMS to build modules.</flag>
+		<flag name="dkms">Install sources to be able to use DKMS to build modules</flag>
 	</use>
+	<upstream>
+		<remote-id type="github">openrazer/openrazer</remote-id>
+		<bugs-to>https://github.com/openrazer/openrazer/issues</bugs-to>
+	</upstream>
 </pkgmetadata>
