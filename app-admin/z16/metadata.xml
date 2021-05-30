@@ -5,4 +5,8 @@
 		<email>i@bitbili.net</email>
 		<name>Ryan Qian</name>
 	</maintainer>
+	<upstream>
+		<remote-id type="github">bekcpear/z16</remote-id>
+		<bugs-to>https://github.com/bekcpear/z16/issues</bugs-to>
+	</upstream>
 </pkgmetadata>
