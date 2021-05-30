@@ -8,4 +8,8 @@
 	<use>
 		<flag name="client">Enable client libraries for python</flag>
 	</use>
+	<upstream>
+		<remote-id type="github">openrazer/openrazer</remote-id>
+		<bugs-to>https://github.com/openrazer/openrazer/issues</bugs-to>
+	</upstream>
 </pkgmetadata>
