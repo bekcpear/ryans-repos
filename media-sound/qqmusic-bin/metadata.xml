@@ -5,4 +5,7 @@
 		<email>i@bitbili.net</email>
 		<name>Ryan Qian</name>
 	</maintainer>
+	<upstream>
+		<bugs-to>mailto:TencentQQMusic@tencent.com</bugs-to>
+	</upstream>
 </pkgmetadata>
