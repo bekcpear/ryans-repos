@@ -25,16 +25,16 @@ eselect repository add ryans
 --------------------------------------------|------------------------|--------|------------------------------------------------|--------------------
  dev-util/v2ray-geoip-generator             | 9999                   |        | https://github.com/v2fly/geoip                 | GeoIP generator for V2Ray.
 --------------------------------------------|------------------------|--------|------------------------------------------------|--------------------
- media-sound/qqmusic-bin                    | 1.0.9                  |        | https://y.qq.com/download/download.html        | Tencent QQ Music for Linux.
+ media-sound/qqmusic-bin                    | 1.1.0                  |        | https://y.qq.com/download/download.html        | Tencent QQ Music for Linux.
 --------------------------------------------|------------------------|--------|------------------------------------------------|--------------------
  net-im/linuxqq-bin                         | 2.0.0_beta2_p1089      |        | https://im.qq.com/linuxqq/index.html           | Tencent QQ.
 --------------------------------------------|------------------------|--------|------------------------------------------------|--------------------
- net-proxy/v2ray-core                       | 4.39.2                 |        | https://github.com/v2fly/v2ray-core            | A platform for building proxies to bypass network restrictions.
-   dev-libs/v2ray-domain-list-community     | 4.39.2_p20210526032424 | RD     | https://github.com/v2fly/domain-list-community | Community managed domain list for V2Ray.
+ net-proxy/v2ray-core                       | 4.40.1                 |        | https://github.com/v2fly/v2ray-core            | A platform for building proxies to bypass network restrictions.
+   dev-libs/v2ray-domain-list-community     | 4.39.2_p20210621183458 | RD     | https://github.com/v2fly/domain-list-community | Community managed domain list for V2Ray.
                                             | 9999                   |        |                                                |
-   dev-libs/v2ray-domain-list-community-bin | 4.39.2_p20210526032424 | RD     | https://github.com/v2fly/domain-list-community | Community managed domain list for V2Ray.
+   dev-libs/v2ray-domain-list-community-bin | 4.39.2_p20210621183458 | RD     | https://github.com/v2fly/domain-list-community | Community managed domain list for V2Ray.
                                             | 9999                   |        |                                                |
-   dev-libs/v2ray-geoip-bin                 | 4.39.2_p202105270041   | RD     | https://github.com/v2fly/geoip                 | GeoIP for V2Ray.
+   dev-libs/v2ray-geoip-bin                 | 4.39.2_p202106170022   | RD     | https://github.com/v2fly/geoip                 | GeoIP for V2Ray.
                                             | 9999                   |        |                                                |
 ============================================|========================|========|================================================|====================
 ```
