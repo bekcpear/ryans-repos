@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>i@bitbili.net</email>
+		<name>Ryan Qian</name>
+	</maintainer>
+	<use>
+		<flag name="configtool">Enable GUI config tool</flag>
+		<flag name="gtk2">Enable GTK2 IM support</flag>
+		<flag name="gtk3">Enable GTK3 IM support</flag>
+	</use>
+</pkgmetadata>
