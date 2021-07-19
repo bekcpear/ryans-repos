@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>i@bitbili.net</email>
+		<name>Ryan Qian</name>
+	</maintainer>
+	<upstream>
+		<remote-id type="github">fcitx/fcitx5-configtool</remote-id>
+		<bugs-to>https://github.com/fcitx/fcitx5-configtool/issues</bugs-to>
+	</upstream>
+	<use>
+		<flag name="config-qt">Enable fcitx5-config-qt</flag>
+		<flag name="kcm">Enable KDE Config Module</flag>
+	</use>
+</pkgmetadata>
