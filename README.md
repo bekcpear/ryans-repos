@@ -15,6 +15,14 @@ eselect repository add ryans
 ============================================|========================|========|================================================|====================
  app-admin/z16                              | 9999                   |        | https://github.com/bekcpear/z16                | A bash script project that aims to maintain dotfiles.
 --------------------------------------------|------------------------|--------|------------------------------------------------|--------------------
+ app-i18n/fcitx-rime                        | 5.0.6                  |        | https://fcitx-im.org/                          | Chinese RIME input methods for Fcitx
+   app-i18n/fcitx-meta                      | 5.0.8                  |  D, RD | https://fcitx-im.org                           | Merge this to pull in Fcitx packages
+     app-i18n/fcitx-configtool              | 5.0.5                  | RD     | https://fcitx-im.org/                          | GUI configuration tool for Fcitx
+       app-i18n/fcitx-qt                    | 5.0.6                  |  D, RD | https://fcitx-im.org/                          | Qt library and IM module for fcitx5
+         app-i18n/fcitx                     | 5.0.8                  |  D, RD | https://fcitx-im.org/                          | Fcitx (Flexible Context-aware Input Tool with eXtension) input method framework
+           x11-libs/xcb-imdkit              | 1.0.3                  |  D, RD | https://github.com/fcitx/xcb-imdkit            | Input method development support for xcb
+     app-i18n/fcitx-gtk                     | 5.0.7                  | RD     | https://fcitx-im.org/                          | GTK IM module and glib based dbus client library for Fcitx
+--------------------------------------------|------------------------|--------|------------------------------------------------|--------------------
  app-misc/razergenie                        | 9999                   |        | https://github.com/z3ntu/RazerGenie            | Razer devices configurator
    dev-libs/libopenrazer                    | 9999                   |  D, RD | https://github.com/z3ntu/libopenrazer          | Libraries for razergenie.
      sys-apps/openrazer_test                | 9999                   |  D, RD | https://github.com/z3ntu/razer_test            | A work-in-progress replacement for OpenRazer.
