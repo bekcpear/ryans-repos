@@ -1,7 +1,7 @@
 # Copyright 2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=7
+EAPI=8
 
 # sed -E '/^name|^version/bn;d;:n;s/^name\s=\s"([0-9a-zA-Z_-]+)"/\1-/;/^version\s/bv;N;s/\n//;:v;s/([0-9a-zA-Z_-]+)version\s=\s"([a-zA-Z0-9\.\+-]+)"/\1\2/' Cargo.lock | xclip
 CRATES="

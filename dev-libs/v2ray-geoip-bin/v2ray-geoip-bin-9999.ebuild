@@ -1,7 +1,7 @@
 # Copyright 2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=7
+EAPI=8
 
 DESCRIPTION="GeoIP for V2Ray."
 HOMEPAGE="https://github.com/v2fly/geoip https://www.maxmind.com"

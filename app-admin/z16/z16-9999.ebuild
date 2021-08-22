@@ -1,7 +1,7 @@
 # Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=7
+EAPI=8
 
 inherit git-r3 optfeature
 
@@ -34,8 +34,8 @@ src_install() {
 	newins config/z16rc.example z16rc
 	newins config/global-config-file.example default_configurations
 
-	dosym "${EPREFIX%/}/etc/z16/default_configurations" "${Z16INSTDIR}/${GLOBALCONF}"
-	dosym "${EPREFIX%/}/usr/share/z16/z16.sh" /usr/bin/z16
+	dosym -r /etc/z16/default_configurations "${Z16INSTDIR}/${GLOBALCONF}"
+	dosym -r /usr/share/z16/z16.sh /usr/bin/z16
 	fperms +x /usr/share/z16/z16.sh
 }
 
