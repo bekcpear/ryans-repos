@@ -635,7 +635,7 @@ RDEPEND="
 "
 
 pkg_pretend() {
-	if [[ -z "${REPLAING_VERSIONS}" ]]; then
+	if [[ -z "${REPLACING_VERSIONS}" ]]; then
 		cngoproxyset=0
 		if [[ -e "${ROOT}"/etc/portage/mirrors ]]; then
 			grep '^\s*goproxy\s' "${ROOT}"/etc/portage/mirrors >/dev/null 2>&1
