@@ -14,6 +14,7 @@ LICENSE="GPL-2+"
 SLOT="5"
 KEYWORDS="~amd64 ~x86"
 IUSE="+config-qt +kcm test"
+RESTRICT="!test? ( test )"
 
 DEPEND="
 	app-i18n/fcitx:5
