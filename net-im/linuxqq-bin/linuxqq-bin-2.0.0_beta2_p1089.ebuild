@@ -1,7 +1,7 @@
 # Copyright 2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=7
+EAPI=8
 
 inherit desktop unpacker xdg
 
@@ -55,5 +55,5 @@ src_install() {
 	exeinto ${MY_HOME}
 	doexe usr/local/bin/*
 	domenu usr/share/applications/qq.desktop
-	dosym "${EPREFIX%/}${MY_HOME}/qq" /opt/bin/qq
+	dosym -r "${MY_HOME}/qq" /opt/bin/qq
 }
