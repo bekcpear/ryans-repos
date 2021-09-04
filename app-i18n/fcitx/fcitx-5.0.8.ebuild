@@ -17,6 +17,7 @@ SLOT="5"
 KEYWORDS="~amd64 ~x86"
 IUSE="X coverage dbus doc +emoji +enchant +keyboard +libuuid +server systemd test wayland"
 REQUIRED_USE="coverage? ( test )"
+RESTRICT="!test? ( test )"
 
 DEPEND="
 	X? (
