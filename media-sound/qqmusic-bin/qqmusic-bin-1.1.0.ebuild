@@ -1,7 +1,7 @@
 # Copyright 2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=7
+EAPI=8
 
 inherit chromium-2 desktop pax-utils unpacker xdg-utils
 
@@ -69,7 +69,7 @@ src_prepare() {
 src_install() {
 	insinto ${QQMUSIC_HOME}
 	doins -r opt/QQmusic/*
-	dosym "${EPREFIX%/}${QQMUSIC_HOME}/qqmusic" /opt/bin/qqmusic-bin
+	dosym -r "${QQMUSIC_HOME}/qqmusic" /opt/bin/qqmusic-bin
 
 	dodoc usr/share/doc/qqmusic/changelog
 	domenu usr/share/applications/qqmusic.desktop
