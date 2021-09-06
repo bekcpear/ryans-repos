@@ -56,19 +56,19 @@ pkg_pretend() {
 
 src_prepare() {
 	eapply_user
-	sed -i '/Name=QQmusic/aName[zh_CN]=QQ 音乐\nName[zh_HK]=QQ 音樂\nName[zh_TW]=QQ 音樂' \
+	sed -i '/Name=qqmusic/aName[zh_CN]=QQ 音乐\nName[zh_HK]=QQ 音樂\nName[zh_TW]=QQ 音樂' \
 		usr/share/applications/qqmusic.desktop || die
-	sed -i '/Comment=QQMusic/aComment[zh_CN]=QQ 音乐\nComment[zh_HK]=QQ 音樂\nComment[zh_TW]=QQ 音樂' \
+	sed -i '/Comment=Tencent\sQQMusic/aComment[zh_CN]=腾讯 QQ 音乐\nComment[zh_HK]=騰訊 QQ 音樂\nComment[zh_TW]=騰訊 QQ 音樂' \
 		usr/share/applications/qqmusic.desktop || die
-	sed -i '/Name=QQmusic/s/Qmusic/Q Music/' usr/share/applications/qqmusic.desktop || die
-	sed -i '/Comment=QQMusic/s/QMusic/Q Music/' usr/share/applications/qqmusic.desktop || die
-	sed -i '/^Exec=/s/QQmusic/qqmusic-bin/' usr/share/applications/qqmusic.desktop || die
+	sed -i '/Name=qqmusic/s/qqmusic/QQ Music/' usr/share/applications/qqmusic.desktop || die
+	sed -i '/Comment=Tencent\sQQMusic/s/QMusic/Q Music/' usr/share/applications/qqmusic.desktop || die
+	sed -i '/^Exec=/s/qqmusic/qqmusic-bin/' usr/share/applications/qqmusic.desktop || die
 	gzip -d usr/share/doc/qqmusic/changelog.gz || die
 }
 
 src_install() {
 	insinto ${QQMUSIC_HOME}
-	doins -r opt/QQmusic/*
+	doins -r opt/qqmusic/*
 	dosym -r "${QQMUSIC_HOME}/qqmusic" /opt/bin/qqmusic-bin
 
 	dodoc usr/share/doc/qqmusic/changelog
