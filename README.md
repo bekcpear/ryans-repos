@@ -33,7 +33,7 @@ eselect repository add ryans
 --------------------------------------------|------------------------|--------|------------------------------------------------|--------------------
  dev-util/v2ray-geoip-generator             | 9999                   |        | https://github.com/v2fly/geoip                 | GeoIP generator for V2Ray.
 --------------------------------------------|------------------------|--------|------------------------------------------------|--------------------
- kde-apps/krunner-pass                      | 9999                   |        | https://github.com/bekcpear/krunner-pass       | (Modified type instead version) Integrates krunner with pass
+ kde-misc/krunner-pass                      | 9999                   |        | https://github.com/bekcpear/krunner-pass       | (Modified type instead version) Integrates krunner with pass
 --------------------------------------------|------------------------|--------|------------------------------------------------|--------------------
  media-sound/qqmusic-bin                    | 1.1.1                  |        | https://y.qq.com/download/download.html        | Tencent QQ Music for Linux.
 --------------------------------------------|------------------------|--------|------------------------------------------------|--------------------
