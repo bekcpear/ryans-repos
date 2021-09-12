@@ -46,6 +46,10 @@ eselect repository add ryans
                                             | 9999                   |        |                                                |
    dev-libs/v2ray-geoip-bin                 | 4.41.1_p202108120026   | RD     | https://github.com/v2fly/geoip                 | GeoIP for V2Ray.
                                             | 9999                   |        |                                                |
+--------------------------------------------|------------------------|--------|------------------------------------------------|--------------------
+ www-apps/filebrowser                       | 2.17.2                 |        | https://filebrowser.org                        | Web File Browser
+   acct-group/filebrowser                   | 0                      | RD     |                                                | Group for the www-apps/filebrowser service
+   acct-user/filebrowser                    | 0                      | RD     |                                                | User for the www-apps/filebrowser service
 ============================================|========================|========|================================================|====================
 ```
 + ` D` means the classic dependencies (e.g.: libraries and headers)
