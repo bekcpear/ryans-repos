@@ -5,7 +5,7 @@
 
 can be added to the system by running:
 ```
-eselect repository add ryans
+eselect repository enable ryans # you may need to install app-eselect/eselect-repository first
 ```
 
 ### Packages
