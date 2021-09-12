@@ -1,0 +1,8 @@
+# /etc/conf.d/filebrowser: config file for /etc/init.d/filebrowser
+#
+# FILEBROWSER_USER=filebrowser
+# FILEBROWSER_GROUP=filebrowser
+# FILEBROWSER_CONFIG=/etc/filebrowser/filebrowser.toml
+# FILEBROWSER_LOG=/var/log/filebrowser/filebrowser.log
+# FILEBROWSER_DATABASE=/var/lib/filebrowser/filebrowser.db
+# FILEBROWSER_ARGS=
