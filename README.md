@@ -4,8 +4,9 @@
 - Maintainer: **[bekcpear](https://github.com/bekcpear)**
 
 can be added to the system by running:
-```
-eselect repository enable ryans # you may need to install app-eselect/eselect-repository first
+```bash
+eselect repository enable ryans
+# you may need to install app-eselect/eselect-repository first
 ```
 
 ### Packages
