@@ -144,7 +144,7 @@ _npm_add_cache_after() {
 #   npm will add local tarball to cache with default sha512sum only.
 #   Please convert sha1 to sha512 of the file package-lock.json/npm-shrinkwrap.json
 #   to make npm works fine.
-#   script: https://gist.github.com/bekcpear/de6372831a0c96e309f7f40fce6bdadb
+#   script: https://github.com/bekcpear/npm-lockfile-to-sha512.sh
 npm_add_cache() {
 	debug-print-function "${FUNCNAME}" "$@"
 
