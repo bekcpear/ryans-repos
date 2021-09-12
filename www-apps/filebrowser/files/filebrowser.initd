@@ -24,3 +24,8 @@ start_stop_daemon_args="--background"
 depend() {
 	need net
 }
+
+start_pre() {
+	checkpath -q -f -o ${FILEBROWSER_USER}:${FILEBROWSER_GROUP} ${FILEBROWSER_DATABASE}
+	checkpath -q -f -o ${FILEBROWSER_USER}:${FILEBROWSER_GROUP} ${FILEBROWSER_LOG}
+}
