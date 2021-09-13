@@ -45,9 +45,9 @@ src_configure() {
 pkg_postinst() {
 	optfeature "TOTP support" app-admin/pass-otp
 	elog
-	elog "You should restart krunner to enable this feature."
-	elog "  % kquitapp5 krunner"
-	elog "  % kstart5 --windowclass krunner krunner"
+	elog "You should restart krunner to enable/refresh this feature."
+	elog "  $ kquitapp5 krunner"
+	elog "  $ kstart5 --windowclass krunner krunner"
 	elog
 	if [[ -z "${REPLACING_VERSIONS}" ]]; then
 		ewarn "Consider to set the pinentry to a GUI version,"
