@@ -619,7 +619,7 @@ RDEPEND="${DEPEND}
 	!dev-libs/v2ray-domain-list-community-bin
 	!<net-proxy/v2ray-core-4.38.3
 "
-BDEPEND=">=dev-lang/go-1.16"
+BDEPEND=">=dev-lang/go-1.17"
 
 src_unpack() {
 	if [[ ${PV} == *9999 ]]; then
