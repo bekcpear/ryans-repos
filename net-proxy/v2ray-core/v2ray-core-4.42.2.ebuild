@@ -633,7 +633,7 @@ SLOT="0"
 KEYWORDS="~amd64"
 IUSE="+tool"
 
-BDEPEND=">=dev-lang/go-1.16:="
+BDEPEND=">=dev-lang/go-1.17:="
 DEPEND=""
 RDEPEND="
 	dev-libs/v2ray-geoip-bin
