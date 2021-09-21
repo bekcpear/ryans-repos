@@ -40,12 +40,12 @@ eselect repository enable ryans
 --------------------------------------------|------------------------|--------|------------------------------------------------|--------------------
  net-im/linuxqq-bin                         | 2.0.0_beta2_p1089      |        | https://im.qq.com/linuxqq/index.html           | Tencent QQ.
 --------------------------------------------|------------------------|--------|------------------------------------------------|--------------------
- net-proxy/v2ray-core                       | 4.41.1                 |        | https://github.com/v2fly/v2ray-core            | A platform for building proxies to bypass network restrictions.
-   dev-libs/v2ray-domain-list-community     | 4.41.1_p20210816014827 | RD     | https://github.com/v2fly/domain-list-community | Community managed domain list for V2Ray.
+ net-proxy/v2ray-core                       | 4.42.2                 |        | https://github.com/v2fly/v2ray-core            | A platform for building proxies to bypass network restrictions.
+   dev-libs/v2ray-domain-list-community     | 4.42.1_p20210920023411 | RD     | https://github.com/v2fly/domain-list-community | Community managed domain list for V2Ray.
                                             | 9999                   |        |                                                |
-   dev-libs/v2ray-domain-list-community-bin | 4.41.1_p20210816014827 | RD     | https://github.com/v2fly/domain-list-community | Community managed domain list for V2Ray.
+   dev-libs/v2ray-domain-list-community-bin | 4.42.1_p20210920023411 | RD     | https://github.com/v2fly/domain-list-community | Community managed domain list for V2Ray.
                                             | 9999                   |        |                                                |
-   dev-libs/v2ray-geoip-bin                 | 4.41.1_p202108120026   | RD     | https://github.com/v2fly/geoip                 | GeoIP for V2Ray.
+   dev-libs/v2ray-geoip-bin                 | 4.42.1_p202109160028   | RD     | https://github.com/v2fly/geoip                 | GeoIP for V2Ray.
                                             | 9999                   |        |                                                |
 --------------------------------------------|------------------------|--------|------------------------------------------------|--------------------
  www-apps/filebrowser                       | 2.17.2                 |        | https://filebrowser.org                        | Web File Browser
