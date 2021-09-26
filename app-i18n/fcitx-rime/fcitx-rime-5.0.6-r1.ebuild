@@ -3,7 +3,7 @@
 
 EAPI=8
 
-inherit cmake
+inherit cmake xdg-utils
 
 MY_PN="fcitx5-rime"
 DESCRIPTION="Chinese RIME input methods for Fcitx"
@@ -30,3 +30,13 @@ BDEPEND="
 "
 
 S="${WORKDIR}/${MY_PN}-${PV}"
+
+PATCHES=("${FILESDIR}/${P}-fix-conflicts-with-fcitx4-rime.diff")
+
+pkg_postinst() {
+	xdg_icon_cache_update
+}
+
+pkg_postrm() {
+	xdg_icon_cache_update
+}
