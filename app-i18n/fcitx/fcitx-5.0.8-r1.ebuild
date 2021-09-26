@@ -3,7 +3,7 @@
 
 EAPI=8
 
-inherit cmake
+inherit cmake xdg-utils
 
 DV="20121020"
 MY_PN="fcitx5"
@@ -72,6 +72,7 @@ BDEPEND="
 "
 
 S="${WORKDIR}/${MY_PN}-${PV}"
+PATCHES=("${FILESDIR}/${P}-fix-conflicts-with-fcitx4.diff")
 
 src_prepare() {
 	cp "${DISTDIR}/fcitx-data-en_dict-${DV}.tar.gz" src/modules/spell/dict/en_dict-${DV}.tar.gz || die
