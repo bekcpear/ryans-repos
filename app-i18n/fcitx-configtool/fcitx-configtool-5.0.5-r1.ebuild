@@ -3,7 +3,7 @@
 
 EAPI=8
 
-inherit cmake
+inherit cmake xdg-utils
 
 MY_PN="fcitx5-configtool"
 DESCRIPTION="GUI configuration tool for Fcitx"
@@ -49,6 +49,8 @@ BDEPEND="
 
 S="${WORKDIR}/${MY_PN}-${PV}"
 
+PATCHES=("${FILESDIR}/${P}-match-icons-of-fcitx5-conflicts-fix.diff")
+
 src_configure() {
 	local mycmakeargs=(
 		-DENABLE_CONFIG_QT=$(usex config-qt)
@@ -56,4 +58,12 @@ src_configure() {
 		-DENABLE_TEST=$(usex test)
 	)
 	cmake_src_configure
+}
+
+pkg_postinst() {
+	xdg_desktop_database_update
+}
+
+pkg_postrm() {
+	xdg_desktop_database_update
 }
