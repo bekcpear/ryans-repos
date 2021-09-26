@@ -18,7 +18,7 @@ eselect repository enable ryans
 --------------------------------------------|------------------------|--------|------------------------------------------------|--------------------
  app-i18n/fcitx-rime                        | 5.0.6-r1               |        | https://fcitx-im.org/                          | Chinese RIME input methods for Fcitx
    app-i18n/fcitx-meta                      | 5.0.8                  |  D, RD | https://fcitx-im.org                           | Merge this to pull in Fcitx packages
-     app-i18n/fcitx-configtool              | 5.0.5                  | RD     | https://fcitx-im.org/                          | GUI configuration tool for Fcitx
+     app-i18n/fcitx-configtool              | 5.0.5-r1               | RD     | https://fcitx-im.org/                          | GUI configuration tool for Fcitx
        app-i18n/fcitx-qt                    | 5.0.6                  |  D, RD | https://fcitx-im.org/                          | Qt library and IM module for fcitx5
          app-i18n/fcitx                     | 5.0.8-r1               |  D, RD | https://fcitx-im.org/                          | Fcitx (Flexible Context-aware Input Tool with eXtension) input method framework
            x11-libs/xcb-imdkit              | 1.0.3                  |  D, RD | https://github.com/fcitx/xcb-imdkit            | Input method development support for xcb
