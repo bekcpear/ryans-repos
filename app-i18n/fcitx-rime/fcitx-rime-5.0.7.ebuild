@@ -31,7 +31,7 @@ BDEPEND="
 
 S="${WORKDIR}/${MY_PN}-${PV}"
 
-PATCHES=("${FILESDIR}/${P}-fix-conflicts-with-fcitx4-rime.diff")
+PATCHES=("${FILESDIR}/${PN}-5.0.6-fix-conflicts-with-fcitx4-rime.diff")
 
 pkg_postinst() {
 	xdg_icon_cache_update
