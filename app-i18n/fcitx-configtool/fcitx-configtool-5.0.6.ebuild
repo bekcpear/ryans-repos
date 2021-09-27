@@ -49,7 +49,7 @@ BDEPEND="
 
 S="${WORKDIR}/${MY_PN}-${PV}"
 
-PATCHES=("${FILESDIR}/${P}-match-icons-of-fcitx5-conflicts-fix.diff")
+PATCHES=("${FILESDIR}/${PN}-5.0.5-match-icons-of-fcitx5-conflicts-fix.diff")
 
 src_configure() {
 	local mycmakeargs=(
