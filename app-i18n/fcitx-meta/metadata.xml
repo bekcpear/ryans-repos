@@ -9,5 +9,6 @@
 		<flag name="configtool">Enable GUI config tool</flag>
 		<flag name="gtk2">Enable GTK2 IM support</flag>
 		<flag name="gtk3">Enable GTK3 IM support</flag>
+		<flag name="rime">Install RIME Chinese input method</flag>
 	</use>
 </pkgmetadata>
