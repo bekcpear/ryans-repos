@@ -1,0 +1,17 @@
+Title: app-i18n/fcitx-meta dependencies changed
+Author: cwittlut <i@bitbili.net>
+Posted: 2021-10-21
+Revision: 1
+News-Item-Format: 2.0
+Display-If-Installed: app-i18n/fcitx-meta
+
+I changed the dependencies of app-i18n/fcitx-meta which was previously
+dependent by app-i18n/fcitx-rime, it causes unselected app-i18n/fcitx-meta
+be cleaned automatically.
+
+Please run:
+
+  emerge --noreplace app-i18n/fcitx-meta:5::ryans
+
+to add it to the world set if you need. And according to the default USE
+flags, app-i18n/fcitx-rime:5::ryans can be removed from the world set safely.
