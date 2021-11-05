@@ -10,7 +10,7 @@ HOMEPAGE="https://filebrowser.org https://github.com/filebrowser/filebrowser"
 
 LICENSE="Apache-2.0"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="~amd64 ~arm64 ~x86"
 
 # jq '.packages[].resolved' package-lock.json | sed -E '/^null$/d;s@^\"https://[^/]+/(.+)\"$@\"\1\"@' | sort -u | xclip
 NPM_RESOLVED=(
