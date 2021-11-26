@@ -1525,8 +1525,7 @@ RDEPEND="${DEPEND}
 BDEPEND=">=dev-lang/go-1.16:="
 
 PATCHES=(
-	"${WORKDIR}/${MY_SHAPATCH_SUFFIX}.sh-${P}/${P}-${MY_SHAPATCH_SUFFIX}.diff"
-	"${FILESDIR}/${P}-add-color-param.diff"
+	"${WORKDIR}/${MY_SHAPATCH_SUFFIX}.sh-${P}/${MY_SHAPATCH_SUFFIX}.diff"
 )
 
 src_unpack() {
