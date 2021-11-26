@@ -18,7 +18,7 @@ eselect repository enable ryans
 --------------------------------------------|------------------------|--------|------------------------------------------------|--------------------
  app-i18n/fcitx-meta                        | 5.0.10                 |        | https://fcitx-im.org                           | Merge this to pull in Fcitx packages
    app-i18n/fcitx-configtool                | 5.0.8                  | RD     | https://fcitx-im.org/                          | GUI configuration tool for Fcitx
-     app-i18n/fcitx-qt                      | 5.0.8                  |  D, RD | https://fcitx-im.org/                          | Qt library and IM module for fcitx5
+     app-i18n/fcitx-qt                      | 5.0.7                  |  D, RD | https://fcitx-im.org/                          | Qt library and IM module for fcitx5
        app-i18n/fcitx                       | 5.0.10                 |  D, RD | https://fcitx-im.org/                          | Fcitx (Flexible Context-aware Input Tool with eXtension) input method framework
          x11-libs/xcb-imdkit                | 1.0.3                  |  D, RD | https://github.com/fcitx/xcb-imdkit            | Input method development support for xcb
    app-i18n/fcitx-gtk                       | 5.0.9                  | RD     | https://fcitx-im.org/                          | GTK IM module and glib based dbus client library for Fcitx
@@ -48,7 +48,7 @@ eselect repository enable ryans
    dev-libs/v2ray-geoip-bin                 | 4.42.1_p202109160028   | RD     | https://github.com/v2fly/geoip                 | GeoIP for V2Ray.
                                             | 9999                   |        |                                                |
 --------------------------------------------|------------------------|--------|------------------------------------------------|--------------------
- www-apps/filebrowser                       | 2.17.2                 |        | https://filebrowser.org                        | Web File Browser
+ www-apps/filebrowser                       | 2.19.0                 |        | https://filebrowser.org                        | Web File Browser
    acct-group/filebrowser                   | 0                      | RD     |                                                | Group for the www-apps/filebrowser service
    acct-user/filebrowser                    | 0                      | RD     |                                                | User for the www-apps/filebrowser service
 ============================================|========================|========|================================================|====================
