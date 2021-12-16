@@ -4,7 +4,7 @@
 EAPI=8
 
 PYTHON_COMPAT=( python3_{8,9} )
-inherit desktop distutils-r1 systemd udev xdg
+inherit desktop distutils-r1 systemd udev xdg xdg-utils
 
 DESCRIPTION="A user-space daemon that allows you to manage your Razer peripherals."
 HOMEPAGE="https://github.com/openrazer/openrazer"
@@ -13,7 +13,8 @@ SRC_URI="https://github.com/openrazer/openrazer/archive/refs/tags/v${PV}.tar.gz 
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64"
-IUSE="client systemd"
+IUSE="client systemd test"
+RESTRICT="!test? ( test )"
 
 DEPEND=""
 RDEPEND="${DEPEND}
@@ -49,6 +50,14 @@ python_compile() {
 		pushd "pylib" > /dev/null || die
 		distutils-r1_python_compile
 		popd > /dev/null || die
+	fi
+}
+
+python_test() {
+	"${EPYTHON}" -dv daemon/tests/test_effect_sync.py || die
+	"${EPYTHON}" -dv daemon/tests/test_high_level_device.py || die
+	if use client; then
+		"${EPYTHON}" -dv pylib/tests/integration_tests/test_device_manager.py || die
 	fi
 }
 
@@ -94,7 +103,7 @@ python_install_all() {
 
 src_prepare() {
 	distutils-r1_src_prepare
-	xdg_src_prepare
+	xdg_environment_reset
 }
 
 pkg_postinst() {
