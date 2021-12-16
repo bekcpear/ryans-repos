@@ -58,6 +58,7 @@ DEPEND="
 		dev-libs/wayland
 		dev-libs/wayland-protocols
 		dev-util/wayland-scanner
+		virtual/linux-sources
 		x11-libs/cairo
 		x11-libs/gdk-pixbuf:2
 		x11-libs/pango
