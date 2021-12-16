@@ -3,7 +3,7 @@
 
 EAPI=8
 
-PYTHON_COMPAT=( python3_{8,9} )
+PYTHON_COMPAT=( python3_{8,9,10} )
 inherit desktop distutils-r1 systemd udev xdg xdg-utils
 
 DESCRIPTION="A user-space daemon that allows you to manage your Razer peripherals."
@@ -32,6 +32,7 @@ RDEPEND="${DEPEND}
 	x11-misc/xautomation
 "
 BDEPEND="
+	dev-python/setuptools[${PYTHON_USEDEP}]
 	virtual/pkgconfig
 "
 
