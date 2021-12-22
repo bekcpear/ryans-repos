@@ -234,13 +234,18 @@ SRC_URI="$(cargo_crate_uris ${CRATES})"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64"
-IUSE="+notify +clipboard"
+IUSE="+notify +clipboard test"
+RESTRICT="!test? ( test )"
+PROPERTIES="test? ( test_network )"
 
 BDEPEND=""
 DEPEND=""
 RDEPEND="dev-libs/openssl
 	notify? ( sys-apps/dbus )
 	clipboard? ( x11-libs/libxcb )"
+
+PATCHES="${FILESDIR}/${P}-update-test_explain_html_2-result.diff"
+QA_FLAGS_IGNORED="/usr/bin/ydcv-rs"
 
 src_configure() {
 	local myfeatures=(
