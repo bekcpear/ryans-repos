@@ -30,10 +30,10 @@ index 604cb06..7ceb3b5 100644
  LangCode=zh
  Addon=rime
 diff --git a/src/rimeengine.cpp b/src/rimeengine.cpp
-index c7a0649..633be99 100644
+index bb5cf5b..94e9273 100644
 --- a/src/rimeengine.cpp
 +++ b/src/rimeengine.cpp
-@@ -68,10 +68,10 @@ public:
+@@ -93,10 +93,10 @@ public:
          RIME_STRUCT(RimeStatus, status);
          if (state->getStatus(&status)) {
              if (status.is_disabled) {
@@ -46,9 +46,9 @@ index c7a0649..633be99 100644
      }
  
  private:
-@@ -82,11 +82,11 @@ RimeEngine::RimeEngine(Instance *instance)
+@@ -107,11 +107,11 @@ RimeEngine::RimeEngine(Instance *instance)
      : instance_(instance), api_(rime_get_api()),
-       factory_([this](InputContext &) { return new RimeState(this); }) {
+       factory_([this](InputContext &ic) { return new RimeState(this, ic); }) {
      imAction_ = std::make_unique<IMAction>(this);
 -    instance_->userInterfaceManager().registerAction("fcitx-rime-im",
 +    instance_->userInterfaceManager().registerAction("fcitx5-rime-im",
@@ -60,7 +60,7 @@ index c7a0649..633be99 100644
      deployAction_.setShortText(_("Deploy"));
      deployAction_.connect<SimpleAction::Activated>([this](InputContext *ic) {
          deploy();
-@@ -95,10 +95,10 @@ RimeEngine::RimeEngine(Instance *instance)
+@@ -120,10 +120,10 @@ RimeEngine::RimeEngine(Instance *instance)
              state->updateUI(ic, false);
          }
      });
@@ -73,7 +73,7 @@ index c7a0649..633be99 100644
      syncAction_.setShortText(_("Synchronize"));
  
      syncAction_.connect<SimpleAction::Activated>([this](InputContext *ic) {
-@@ -108,7 +108,7 @@ RimeEngine::RimeEngine(Instance *instance)
+@@ -133,7 +133,7 @@ RimeEngine::RimeEngine(Instance *instance)
              state->updateUI(ic, false);
          }
      });
@@ -82,7 +82,7 @@ index c7a0649..633be99 100644
                                                       &syncAction_);
      reloadConfig();
  }
-@@ -323,7 +323,7 @@ void RimeEngine::notify(const std::string &messageType,
+@@ -358,7 +358,7 @@ void RimeEngine::notify(const std::string &messageType,
      auto notifications = this->notifications();
      if (message && notifications) {
          notifications->call<INotifications::showTip>(
@@ -91,7 +91,7 @@ index c7a0649..633be99 100644
              message, -1);
      }
      timeEvent_ = instance_->eventLoop().addTimeEvent(
-@@ -354,7 +354,7 @@ std::string RimeEngine::subModeLabelImpl(const InputMethodEntry &,
+@@ -389,7 +389,7 @@ std::string RimeEngine::subModeLabelImpl(const InputMethodEntry &,
  
  std::string RimeEngine::subModeIconImpl(const InputMethodEntry &,
                                          InputContext &ic) {
@@ -100,7 +100,7 @@ index c7a0649..633be99 100644
      if (!api_ || !factory_.registered()) {
          return result;
      }
-@@ -362,11 +362,11 @@ std::string RimeEngine::subModeIconImpl(const InputMethodEntry &,
+@@ -397,11 +397,11 @@ std::string RimeEngine::subModeIconImpl(const InputMethodEntry &,
      RIME_STRUCT(RimeStatus, status);
      if (state->getStatus(&status)) {
          if (status.is_disabled) {
