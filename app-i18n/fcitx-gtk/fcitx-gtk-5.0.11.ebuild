@@ -1,4 +1,4 @@
-# Copyright 2021 Gentoo Authors
+# Copyright 2021-2022 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
@@ -16,7 +16,7 @@ KEYWORDS="~amd64 ~x86"
 IUSE="+gtk2 +gtk3 +introspection +snooper"
 
 DEPEND="
-	>=dev-libs/glib-2.38
+	>=dev-libs/glib-2.56
 	dev-libs/libfmt
 	gtk2? ( x11-libs/gtk+:2 )
 	gtk3? ( x11-libs/gtk+:3 )
