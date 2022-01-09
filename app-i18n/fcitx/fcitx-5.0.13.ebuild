@@ -27,7 +27,7 @@ DEPEND="
 		x11-libs/libxcb[xkb]
 		x11-libs/libxkbfile
 		x11-libs/pango[X]
-		x11-libs/xcb-imdkit
+		~x11-libs/xcb-imdkit-1.0.3
 		x11-libs/xcb-util
 		x11-libs/xcb-util-keysyms
 		x11-libs/xcb-util-wm
@@ -58,8 +58,8 @@ DEPEND="
 		dev-libs/wayland
 		dev-libs/wayland-protocols
 		dev-util/wayland-scanner
-		virtual/linux-sources
-		x11-libs/cairo
+		media-libs/libglvnd
+		x11-libs/cairo[opengl(+)]
 		x11-libs/gdk-pixbuf:2
 		x11-libs/pango
 		)
