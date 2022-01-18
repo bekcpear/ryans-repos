@@ -48,7 +48,7 @@ eselect repository enable ryans
    dev-libs/v2ray-geoip-bin                 | 4.44.0_p202112060252   | RD     | https://github.com/v2fly/geoip                 | GeoIP for V2Ray.
                                             | 9999                   |        |                                                |
 --------------------------------------------|------------------------|--------|------------------------------------------------|--------------------
- www-apps/filebrowser                       | 2.19.0                 |        | https://filebrowser.org                        | Web File Browser
+ www-apps/filebrowser                       | 2.20.1                 |        | https://filebrowser.org                        | Web File Browser
    acct-group/filebrowser                   | 0                      | RD     |                                                | Group for the www-apps/filebrowser service
    acct-user/filebrowser                    | 0                      | RD     |                                                | User for the www-apps/filebrowser service
 ============================================|========================|========|================================================|====================
