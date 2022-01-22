@@ -54,7 +54,7 @@ RDEPEND="${DEPEND}"
 BDEPEND=">=dev-lang/go-1.15:="
 
 src_compile() {
-	go build -v -work -o "duf" -trimpath -ldflags "-s -w" . || die
+	go build -v -work -o "duf" -trimpath -ldflags "-s -w -X 'main.Version=v${PV}'" . || die
 }
 
 src_install() {
