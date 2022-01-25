@@ -23,9 +23,13 @@
 # )
 #
 # npm_set_globals
+# MY_SHAPATCH_SUFFIX="npm-lockfile-to-sha512"
 #
 # SRC_URI="https://github.com/example/${PN}/archive/v${PV}.tar.gz -> ${P}.tar.gz
+#         "https://github.com/bekcpear/npm-lockfile-to-sha512.sh/archive/refs/tags/${P}.tar.gz -> ${P}-${MY_SHAPATCH_SUFFIX}.tar.gz"
 #          ${NPM_RESOLVED_SRC_URI}"
+#
+# PATCHES=("${WORKDIR}/${MY_SHAPATCH_SUFFIX}.sh-${P}/${MY_SHAPATCH_SUFFIX}.diff")
 #
 # src_compile() {
 #     npm_set_config
@@ -142,7 +146,7 @@ _npm_add_cache_after() {
 #
 # Notice:
 #   npm will add local tarball to cache with default sha512sum only.
-#   Please convert sha1 to sha512 of the file package-lock.json/npm-shrinkwrap.json
+#   Please convert sha1 to sha512 of the file package-lock.json or npm-shrinkwrap.json
 #   to make npm works fine.
 #   script: https://github.com/bekcpear/npm-lockfile-to-sha512.sh
 npm_add_cache() {
@@ -183,6 +187,7 @@ npm_src_unpack() {
 # @FUNCTION: npm_set_config
 # @DESCRIPTION:
 # Configure npm to make it can do as expected.
+# It's necessary!
 npm_set_config() {
 	debug-print-function "${FUNCNAME}" "$@"
 
