@@ -33,6 +33,7 @@ BDEPEND="
 S="${WORKDIR}/${MY_PN}-${PV}"
 
 src_configure() {
+	# Gentoo has not support GTK4 yet
 	local mycmakeargs=(
 		-DENABLE_GIR=$(usex introspection)
 		-DENABLE_GTK2_IM_MODULE=$(usex gtk2)
