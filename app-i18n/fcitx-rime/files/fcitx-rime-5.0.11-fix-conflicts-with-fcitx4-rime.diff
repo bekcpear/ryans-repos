@@ -1,22 +1,24 @@
 diff --git a/data/CMakeLists.txt b/data/CMakeLists.txt
-index 13c6bd5..83fac2c 100644
+index bd5cbde..88740b6 100644
 --- a/data/CMakeLists.txt
 +++ b/data/CMakeLists.txt
-@@ -1,3 +1,14 @@
+@@ -1,5 +1,16 @@
  install(DIRECTORY 48x48 scalable DESTINATION "${CMAKE_INSTALL_DATADIR}/icons/hicolor"
 +        FILES_MATCHING PATTERN org.fcitx.Fcitx5.*
          PATTERN .* EXCLUDE
          PATTERN *~ EXCLUDE)
-+
+ 
 +foreach (fname rime rime-deploy rime-disable rime-im rime-latin rime-sync)
 +  install(FILES 48x48/apps/fcitx-${fname}.png
-+           DESTINATION "${CMAKE_INSTALL_DATADIR}/icons/hicolor/48x48/apps"
-+           RENAME fcitx5-${fname}.png)
++          DESTINATION "${CMAKE_INSTALL_DATADIR}/icons/hicolor/48x48/apps"
++          RENAME fcitx5-${fname}.png)
 +
 +  install(FILES scalable/apps/fcitx-${fname}.svg
-+           DESTINATION "${CMAKE_INSTALL_DATADIR}/icons/hicolor/scalable/apps"
-+           RENAME fcitx5-${fname}.svg)
++          DESTINATION "${CMAKE_INSTALL_DATADIR}/icons/hicolor/scalable/apps"
++          RENAME fcitx5-${fname}.svg)
 +endforeach (fname rime rime-deploy rime-disable rime-im rime-latin rime-sync)
++
+ install(FILES fcitx5.yaml DESTINATION "${RIME_DATA_DIR}")
 diff --git a/src/rime.conf.in b/src/rime.conf.in
 index 604cb06..7ceb3b5 100644
 --- a/src/rime.conf.in
@@ -30,7 +32,7 @@ index 604cb06..7ceb3b5 100644
  LangCode=zh
  Addon=rime
 diff --git a/src/rimeengine.cpp b/src/rimeengine.cpp
-index bb5cf5b..94e9273 100644
+index fac4f53..747d10e 100644
 --- a/src/rimeengine.cpp
 +++ b/src/rimeengine.cpp
 @@ -93,10 +93,10 @@ public:
@@ -82,16 +84,34 @@ index bb5cf5b..94e9273 100644
                                                       &syncAction_);
      reloadConfig();
  }
-@@ -358,7 +358,7 @@ void RimeEngine::notify(const std::string &messageType,
+@@ -344,7 +344,7 @@ void RimeEngine::notify(const std::string &messageType,
+     const char *message = nullptr;
+     const char *icon = "";
+     if (messageType == "deploy") {
+-        icon = "fcitx-rime-deploy";
++        icon = "fcitx5-rime-deploy";
+         if (messageValue == "start") {
+             message = _("Rime is under maintenance. It may take a few "
+                         "seconds. Please wait until it is finished...");
+@@ -356,7 +356,7 @@ void RimeEngine::notify(const std::string &messageType,
+                         "See /tmp/rime.fcitx.ERROR for details.");
+         }
+     } else if (messageType == "option") {
+-        icon = "fcitx-rime";
++        icon = "fcitx5-rime";
+         if (messageValue == "!full_shape") {
+             message = _("Half Shape is enabled.");
+         } else if (messageValue == "full_shape") {
+@@ -375,7 +375,7 @@ void RimeEngine::notify(const std::string &messageType,
      auto notifications = this->notifications();
      if (message && notifications) {
          notifications->call<INotifications::showTip>(
--            "fcitx-rime-deploy", _("Rime"), "fcitx-rime-deploy", _("Rime"),
-+            "fcitx5-rime-deploy", _("Rime"), "fcitx5-rime-deploy", _("Rime"),
-             message, -1);
+-            "fcitx-rime-deploy", _("Rime"), icon, _("Rime"), message, -1);
++            "fcitx5-rime-deploy", _("Rime"), icon, _("Rime"), message, -1);
      }
      timeEvent_ = instance_->eventLoop().addTimeEvent(
-@@ -389,7 +389,7 @@ std::string RimeEngine::subModeLabelImpl(const InputMethodEntry &,
+         CLOCK_MONOTONIC, now(CLOCK_MONOTONIC) + 1000000, 0,
+@@ -405,7 +405,7 @@ std::string RimeEngine::subModeLabelImpl(const InputMethodEntry &,
  
  std::string RimeEngine::subModeIconImpl(const InputMethodEntry &,
                                          InputContext &ic) {
@@ -100,7 +120,7 @@ index bb5cf5b..94e9273 100644
      if (!api_ || !factory_.registered()) {
          return result;
      }
-@@ -397,11 +397,11 @@ std::string RimeEngine::subModeIconImpl(const InputMethodEntry &,
+@@ -413,11 +413,11 @@ std::string RimeEngine::subModeIconImpl(const InputMethodEntry &,
      RIME_STRUCT(RimeStatus, status);
      if (state->getStatus(&status)) {
          if (status.is_disabled) {
