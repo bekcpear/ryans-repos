@@ -50,7 +50,7 @@ eselect repository enable ryans
 --------------------------------------------|------------------------|--------|------------------------------------------------|--------------------
  sys-apps/duf                               | 0.8.1                  |        | https://github.com/muesli/duf                  | Disk Usage/Free Utility - a better 'df' alternative
 --------------------------------------------|------------------------|--------|------------------------------------------------|--------------------
- www-apps/filebrowser                       | 2.20.1                 |        | https://filebrowser.org                        | Web File Browser
+ www-apps/filebrowser                       | 2.21.1                 |        | https://filebrowser.org                        | Web File Browser
    acct-group/filebrowser                   | 0                      | RD     |                                                | Group for the www-apps/filebrowser service
    acct-user/filebrowser                    | 0                      | RD     |                                                | User for the www-apps/filebrowser service
 ============================================|========================|========|================================================|====================
