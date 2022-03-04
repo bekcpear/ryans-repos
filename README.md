@@ -1,7 +1,7 @@
 ## A personal ebuild repository
 
 - Reponame: **`ryans`**
-- Maintainer: **[bekcpear](https://github.com/bekcpear)**
+- Maintainer: **[cwittlut](https://github.com/bekcpear)**
 
 can be added to the system by running:
 ```bash
