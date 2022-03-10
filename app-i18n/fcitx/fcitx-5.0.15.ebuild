@@ -58,8 +58,7 @@ DEPEND="
 		dev-libs/wayland
 		dev-libs/wayland-protocols
 		dev-util/wayland-scanner
-		media-libs/libglvnd
-		x11-libs/cairo[opengl(+)]
+		x11-libs/cairo
 		x11-libs/gdk-pixbuf:2
 		x11-libs/pango
 		)
@@ -75,7 +74,6 @@ BDEPEND="
 S="${WORKDIR}/${MY_PN}-${PV}"
 PATCHES=(
 	"${FILESDIR}/${PN}-5.0.8-fix-conflicts-with-fcitx4.diff"
-	"${FILESDIR}/${P}-fix-undefined-var.diff"
 )
 
 src_prepare() {
