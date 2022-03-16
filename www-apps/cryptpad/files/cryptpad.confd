@@ -1,0 +1,6 @@
+# /etc/conf.d/cryptpad: config file for /etc/init.d/cryptpad
+#
+
+#CRYPTPAD_USER=cryptpad
+#CRYPTPAD_GROUP=cryptpad
+#CRYPTPAD_LOG=/var/log/cryptpad/cryptpad.log

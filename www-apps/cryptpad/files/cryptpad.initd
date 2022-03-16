@@ -1,0 +1,26 @@
+#!/sbin/openrc-run
+# Copyright 2021 Gentoo Authors
+# Distributed under the terms of the GNU General Public License v2
+
+CRYPTPAD_USER=${CRYPTPAD_USER:-cryptpad}
+CRYPTPAD_GROUP=${CRYPTPAD_GROUP:-cryptpad}
+CRYPTPAD_LOG=${CRYPTPAD_LOG:-/var/log/cryptpad/cryptpad.log}
+CRYPTPAD_PID="/run/cryptpad.pid"
+CRYPTPAD_EXECDIR="@PATH@"
+
+name="cryptpad daemon"
+description="Collaboration suite, end-to-end encrypted and open-source."
+command=/usr/bin/node
+command_args="server.js"
+command_user="${CRYPTPAD_USER}:${CRYPTPAD_GROUP}"
+output_log="${CRYPTPAD_LOG}"
+error_log="${CRYPTPAD_LOG}"
+start_stop_daemon_args="--background -d ${CRYPTPAD_EXECDIR} -m -p ${CRYPTPAD_PID}"
+
+depend() {
+	need net
+}
+
+start_pre() {
+	checkpath -q -f -o ${CRYPTPAD_USER}:${CRYPTPAD_GROUP} ${CRYPTPAD_LOG}
+}
