@@ -14,7 +14,6 @@ LICENSE="EPL-2.0"
 SLOT="0"
 KEYWORDS="~amd64 ~arm64"
 
-BDEPEND="x11-misc/xdg-utils"
 RDEPEND="
 	>=virtual/jre-1.8
 	x11-misc/shared-mime-info
