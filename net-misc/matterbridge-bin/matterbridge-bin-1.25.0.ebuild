@@ -14,7 +14,7 @@ SRC_URI="
 	https://raw.githubusercontent.com/42wim/matterbridge/v${PV}/matterbridge.toml.simple -> ${P}.toml.simple
 "
 
-LICENSE="Apache-2"
+LICENSE="Apache-2.0"
 SLOT="0"
 KEYWORDS="-* ~amd64 ~arm64"
 
