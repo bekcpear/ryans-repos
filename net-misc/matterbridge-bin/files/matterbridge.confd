@@ -1,2 +1,3 @@
 #MATTERBRIDGE_CONF="/etc/matterbridge/matterbridge.toml"
 #MATTERBRIDGE_ARGS=""
+#MATTERBRIDGE_LOGDIR="/var/log/matterbridge"

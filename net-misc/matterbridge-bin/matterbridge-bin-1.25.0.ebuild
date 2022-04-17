@@ -47,6 +47,9 @@ src_install() {
 	fowners matterbridge:matterbridge /etc/matterbridge/matterbridge.toml{,.sample}
 	fperms 640 /etc/matterbridge/matterbridge.toml{,.sample}
 
+	keepdir /var/log/matterbridge
+	fowners matterbridge:matterbridge /var/log/matterbridge
+
 	newconfd ${FILESDIR}/matterbridge.confd matterbridge
 	newinitd ${FILESDIR}/matterbridge.initd matterbridge
 
