@@ -1,0 +1,15 @@
+#!/sbin/openrc-run
+# Copyright 2022 Gentoo Authors
+# Distributed under the terms of the GNU General Public License v2
+
+name="matterbridge daemon"
+description="a simple chat bridge, IRC | Matrix | Mattermost | Telegram | XMPP | And more..."
+command=/usr/bin/matterbridge
+command_args="-conf ${MATTERBRIDGE_CONF:-/etc/matterbridge/matterbridge.toml} ${MATTERBRIDGE_ARGS}"
+command_user="mattermost:mattermost"
+pidfile="/run/${RC_SVCNAME}.pid"
+command_background=1
+
+depend() {
+	need net
+}
