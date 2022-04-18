@@ -68,7 +68,7 @@ pkg_postinst() {
 				ewarn "root, you can accomplish this with the following commands:"
 				ewarn
 				ewarn "	# modprobe -r ${my_modules[@]}"
-				ewarn "	# modprobe -a ${my_modules[@]}"
+				ewarn " and then pull out and replug corresponding devices. Or, just restart your computer."
 				ewarn
 			fi
 		fi
