@@ -617,7 +617,7 @@ else
 	go-module_set_globals
 	SRC_URI="https://github.com/v2fly/domain-list-community/archive/refs/tags/${PV#*_p}.tar.gz -> ${P}.tar.gz
 		${EGO_SUM_SRC_URI}"
-	KEYWORDS="~amd64 ~arm ~arm64 ~x86"
+	KEYWORDS="~amd64 ~arm ~arm64 ~riscv ~x86"
 	S="${WORKDIR%/}/${PN#v2ray-}-${PV#*_p}"
 fi
 
