@@ -1,0 +1,143 @@
+{
+  "log": {
+    "loglevel": "warning"
+  },
+  "routing": {
+    "domainStrategy": "AsIs",
+    "domainMatcher": "mph",
+    "rules": [
+      {
+        "type": "field",
+        "domain": [
+          "domain:cloudflare-dns.com",
+          "domain:dns.google"
+        ],
+        "outboundTag": "vmess"
+      },
+      {
+        "type": "field",
+        "domain": [
+          "domain:kaspersky-labs.com"
+        ],
+        "outboundTag": "direct"
+      },
+      {
+        "type": "field",
+        "domain": ["geosite:cn"],
+        "outboundTag": "direct"
+      },
+      {
+        "type": "field",
+        "ip": [
+          "0.0.0.0/8",
+          "10.0.0.0/8",
+          "100.64.0.0/10",
+          "127.0.0.0/8",
+          "169.254.0.0/16",
+          "172.16.0.0/12",
+          "192.168.0.0/16",
+          "224.0.0.0/4",
+          "240.0.0.0/4",
+          "255.255.255.255/32",
+          "::1/128",
+          "fc00::/7",
+          "fe80::/10"
+        ],
+        "outboundTag": "direct"
+      },
+      {
+        "type": "field",
+        "ip": ["geoip:cn"],
+        "outboundTag": "direct"
+      }
+    ]
+  },
+  "policy": {},
+  "inbounds": [{
+    "listen": "127.0.0.1",
+    "port": 1080,
+    "protocol": "socks",
+    "settings": {
+      "auth": "noauth",
+      "udp": true,
+      "ip": "127.0.0.1"
+    }
+  }],
+  "outbounds": [
+    {
+      "tag": "vmess",
+      "protocol": "vmess",
+      "settings": {
+        "vnext": [
+          {
+            "address": "@@DOMAIN@@",
+            "port": @@PORT@@,
+            "users": [
+              {
+                "id": "@@UUID@@",
+                "alterId": 0,
+                "security": "auto",
+                "level": 1
+              }
+            ]
+          }
+        ]
+      },
+      "streamSettings": {
+        "network": "ws",
+        "wsSettings": {
+          "path": "@@WS-PATH@@"
+        },
+        "security": "tls",
+        "tlsSettings": {
+          "serverName": "@@DOMAIN@@"
+        }
+      }
+    },
+    {
+      "tag": "direct",
+      "protocol": "freedom",
+      "settings": {
+        "domainStrategy": "AsIs",
+        "userLevel": 1
+      }
+    }
+  ],
+  "dns": {
+    "hosts": {
+      "@@DOMAIN@@": "@@SERVER-IP@@"
+    },
+    "servers": [
+      "https://mozilla.cloudflare-dns.com/dns-query",
+      "223.5.5.5",
+      {
+        "address": "223.5.5.5",
+        "port": 53,
+        "domains": [
+          "geosite:cn",
+          "domain:ntp.org"
+        ]
+      },
+      {
+        "address": "114.114.114.114",
+        "port": 53,
+        "domains": [
+          "geosite:cn",
+          "domain:ntp.org"
+        ]
+      },
+      {
+        "address": "https://mozilla.cloudflare-dns.com/dns-query",
+        "domains": [
+          "geosite:geolocation-!cn"
+        ]
+      },
+      {
+        "address": "https://dns.google/dns-query",
+        "domains": [
+          "geosite:geolocation-!cn"
+        ]
+      }
+    ]
+  }
+}

@@ -708,6 +708,7 @@ src_install() {
 
 	insinto /etc/v2ray
 	doins release/config/*.json
+	doins "${FILESDIR}/example.client.json"
 
 	newinitd "${FILESDIR}/v2ray.initd" v2ray
 	systemd_newunit release/config/systemd/system/v2ray.service v2ray.service
