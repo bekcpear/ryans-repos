@@ -647,7 +647,7 @@ SRC_URI="https://github.com/v2fly/v2ray-core/archive/refs/tags/v${PV}.tar.gz -> 
 
 LICENSE="MIT"
 SLOT="0"
-KEYWORDS="~amd64"
+KEYWORDS="~amd64 ~riscv"
 IUSE="+tool"
 
 BDEPEND=">=dev-lang/go-1.17:="
