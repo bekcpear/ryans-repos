@@ -6,6 +6,7 @@
 		<name>Ryan Qian</name>
 	</maintainer>
 	<use>
+		<flag name="separate-geo">Separate geoip.dat and geosite.dat from this binary package</flag>
 		<flag name="tiny-geoip">Only geoip:cn and geoip:private available for small size</flag>
 		<flag name="tool">Install the additional tool: v2ctl</flag>
 	</use>

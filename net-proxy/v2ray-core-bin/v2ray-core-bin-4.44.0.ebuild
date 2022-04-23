@@ -14,12 +14,27 @@ SRC_URI="
 	riscv? ( https://github.com/v2fly/v2ray-core/releases/download/v${PV}/v2ray-linux-riscv64.zip -> ${P}_riscv.zip )
 "
 
-LICENSE="MIT"
+LICENSE="CC-BY-SA-4.0 MIT"
 SLOT="0"
 KEYWORDS="~amd64 ~arm64 ~riscv"
-IUSE="tiny-geoip tool"
+IUSE="+separate-geo tiny-geoip tool"
+REQUIRED_USE="separate-geo? ( !tiny-geoip )" #TODO remove this restriction later
 
-RDEPEND="!net-proxy/v2ray-core"
+RDEPEND="
+	!net-proxy/v2ray-core
+	!separate-geo? (
+		!dev-libs/v2ray-geoip-bin
+		!dev-libs/v2ray-domain-list-community-bin
+		!dev-libs/v2ray-domain-list-community
+	)
+	separate-geo? (
+		dev-libs/v2ray-geoip-bin
+		|| (
+			dev-libs/v2ray-domain-list-community-bin
+			dev-libs/v2ray-domain-list-community
+		)
+	)
+"
 
 QA_PREBUILT="
 	/usr/bin/v2ray
@@ -39,12 +54,14 @@ src_install() {
 		dobin v2ctl
 	fi
 
-	insinto /usr/share/v2ray
-	doins geosite.dat
-	if use tiny-geoip; then
-		newins geoip-only-cn-private.dat geoip.dat
-	else
-		doins geoip.dat
+	if ! use separate-geo; then
+		insinto /usr/share/v2ray
+		doins geosite.dat
+		if use tiny-geoip; then
+			newins geoip-only-cn-private.dat geoip.dat
+		else
+			doins geoip.dat
+		fi
 	fi
 
 	insinto /etc/v2ray
