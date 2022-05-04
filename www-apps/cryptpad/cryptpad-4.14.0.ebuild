@@ -40,10 +40,11 @@ src_install () {
 	newins config/config.example.js config.js
 	dosym -r /etc/cryptpad/config.js ${install_dir}/config/config.js
 
-	keepdir /var/lib/cryptpad/{blob,block,data,datastore}
-	fowners cryptpad:cryptpad /var/lib/cryptpad/{blob,block,data,datastore}
+	keepdir /var/lib/cryptpad/{blob,block,customize,data,datastore}
+	fowners cryptpad:cryptpad /var/lib/cryptpad/{blob,block,customize,data,datastore}
 	dosym -r /var/lib/cryptpad/blob ${install_dir}/blob
 	dosym -r /var/lib/cryptpad/block ${install_dir}/block
+	dosym -r /var/lib/cryptpad/customize ${install_dir}/customize
 	dosym -r /var/lib/cryptpad/data ${install_dir}/data
 	dosym -r /var/lib/cryptpad/datastore ${install_dir}/datastore
 
