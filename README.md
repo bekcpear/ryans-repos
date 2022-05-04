@@ -61,7 +61,7 @@ eselect repository enable ryans
 --------------------------------------------|------------------------|--------|------------------------------------------------|--------------------
  sys-apps/duf                               | 0.8.1                  |        | https://github.com/muesli/duf                  | Disk Usage/Free Utility - a better 'df' alternative
 --------------------------------------------|------------------------|--------|------------------------------------------------|--------------------
- www-apps/cryptpad                          | 4.14.0                 |        | https://github.com/xwiki-labs/cryptpad         | Collaboration suite, end-to-end encrypted and open-source.
+ www-apps/cryptpad                          | 4.14.1                 |        | https://github.com/xwiki-labs/cryptpad         | Collaboration suite, end-to-end encrypted and open-source.
    acct-group/cryptpad                      | 0                      | RD     |                                                | Group for the www-apps/cryptpad service
    acct-user/cryptpad                       | 0                      | RD     |                                                | User for the www-apps/cryptpad service
 --------------------------------------------|------------------------|--------|------------------------------------------------|--------------------
