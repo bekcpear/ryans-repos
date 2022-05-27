@@ -1,4 +1,4 @@
-# Copyright 2021 Gentoo Authors
+# Copyright 2022 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
@@ -18,6 +18,7 @@ DEPEND="
 	dev-qt/qtdbus:5
 	dev-qt/qtwidgets:5
 	kde-frameworks/kauth:5
+	kde-frameworks/kcmutils:5
 	kde-frameworks/kconfigwidgets:5
 	kde-frameworks/ki18n:5
 	kde-frameworks/knotifications:5
