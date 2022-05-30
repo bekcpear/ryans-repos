@@ -17,7 +17,9 @@ IUSE="only-plugin static-plugin"
 REQUIRED_USE="static-plugin? ( only-plugin )"
 
 DEPEND="
-	app-i18n/fcitx:5
+	!only-plugin? (
+		>=app-i18n/fcitx-5.0.16:5
+	)
 	dev-qt/qtcore:5
 	dev-qt/qtdbus:5
 	dev-qt/qtgui:5
@@ -28,6 +30,9 @@ DEPEND="
 "
 RDEPEND="${DEPEND}"
 BDEPEND="
+	!only-plugin? (
+		sys-devel/gettext
+	)
 	kde-frameworks/extra-cmake-modules
 	virtual/pkgconfig
 "
