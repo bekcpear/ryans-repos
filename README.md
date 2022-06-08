@@ -38,7 +38,7 @@ eselect repository enable ryans
 --------------------------------------------|------------------------|--------|------------------------------------------------|--------------------
  media-gfx/weasis-bin                       | 3.8.1                  |        | https://nroduit.github.io/                     | A DICOM viewer available as a desktop application or as a web-based application.
 --------------------------------------------|------------------------|--------|------------------------------------------------|--------------------
- media-sound/qqmusic-bin                    | 1.1.3                  |        | https://y.qq.com/download/download.html        | Tencent QQ Music for Linux.
+ media-sound/qqmusic-bin                    | 1.1.4                  |        | https://y.qq.com/download/download.html        | Tencent QQ Music for Linux.
 --------------------------------------------|------------------------|--------|------------------------------------------------|--------------------
  net-im/linuxqq-bin                         | 2.0.0_beta2_p1089      |        | https://im.qq.com/linuxqq/index.html           | Tencent QQ.
 --------------------------------------------|------------------------|--------|------------------------------------------------|--------------------
