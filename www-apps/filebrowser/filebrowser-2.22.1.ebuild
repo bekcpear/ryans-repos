@@ -1861,7 +1861,7 @@ RDEPEND="${DEPEND}
 	acct-user/filebrowser
 	acct-group/filebrowser
 "
-BDEPEND=">=dev-lang/go-1.16:="
+BDEPEND=">=dev-lang/go-1.18:="
 
 PATCHES=(
 	"${WORKDIR}/${MY_SHAPATCH_SUFFIX}.sh-${P}/${MY_SHAPATCH_SUFFIX}.diff"
