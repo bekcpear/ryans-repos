@@ -42,7 +42,7 @@ eselect repository enable ryans
 --------------------------------------------|------------------------|--------|------------------------------------------------|--------------------
  net-im/linuxqq-bin                         | 2.0.0_beta2_p1089      |        | https://im.qq.com/linuxqq/index.html           | Tencent QQ.
 --------------------------------------------|------------------------|--------|------------------------------------------------|--------------------
- net-misc/matterbridge-bin                  | 1.25.1                 |        | https://github.com/42wim/matterbridge          | a simple chat bridge, IRC | Matrix | Mattermost | Telegram | XMPP | And more...
+ net-misc/matterbridge-bin                  | 1.25.2                 |        | https://github.com/42wim/matterbridge          | a simple chat bridge, IRC | Matrix | Mattermost | Telegram | XMPP | And more...
    acct-group/matterbridge                  | 0                      | RD     |                                                | Group for the net-misc/matterbridge{,-bin} service
    acct-user/matterbridge                   | 0                      | RD     |                                                | User for the net-misc/matterbridge{,-bin} service
 --------------------------------------------|------------------------|--------|------------------------------------------------|--------------------
@@ -58,6 +58,8 @@ eselect repository enable ryans
                                             | 9999                   |        |                                                |
 --------------------------------------------|------------------------|--------|------------------------------------------------|--------------------
  net-proxy/v2ray-core-bin                   | 4.45.0                 |        | https://github.com/v2fly/v2ray-core            | A platform for building proxies to bypass network restrictions.
+--------------------------------------------|------------------------|--------|------------------------------------------------|--------------------
+ net-vpn/tailscale                          | 1.30.0                 |        | https://tailscale.com                          | Tailscale vpn client
 --------------------------------------------|------------------------|--------|------------------------------------------------|--------------------
  sys-apps/duf                               | 0.8.1                  |        | https://github.com/muesli/duf                  | Disk Usage/Free Utility - a better 'df' alternative
 --------------------------------------------|------------------------|--------|------------------------------------------------|--------------------
