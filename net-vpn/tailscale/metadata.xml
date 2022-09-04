@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>i@bitbili.net</email>
+		<name>Ryan Qian</name>
+	</maintainer>
+	<use>
+		<flag name="derp">Build DERP server</flag>
+	</use>
+	<upstream>
+		<remote-id type="github">tailscale/tailscale</remote-id>
+		<bugs-to>https://github.com/tailscale/tailscale/issues</bugs-to>
+	</upstream>
+</pkgmetadata>

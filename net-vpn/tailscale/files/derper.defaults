@@ -1,0 +1,11 @@
+# server HTTPS listen address, in form ":port", "ip:port", or for IPv6 "[ip]:port".
+# If the IP is omitted, it defaults to all interfaces.
+ADDR=":443"
+
+# LetsEncrypt host name, if addr's port is :443
+HOSTNAME="derp.tailscale.com"
+
+# extra arguments passed to the derper
+# run derper --help to get help
+#FLAGS=
+

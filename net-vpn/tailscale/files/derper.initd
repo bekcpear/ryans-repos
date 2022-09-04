@@ -1,0 +1,27 @@
+#!/sbin/openrc-run
+# Copyright 2022 Gentoo Authors
+# Distributed under the terms of the GNU General Public License v2
+
+name="derper"
+description="Tailscale DERP server"
+command=/usr/sbin/derper
+
+depend() {
+	need net
+}
+
+start() {
+	ebegin "Starting Tailscale DERP server"
+	source /etc/default/derper
+	start-stop-daemon --start \
+		-b \
+		-m -p /run/derper.pid \
+		-1 /var/log/tailscale/derper.log \
+		-2 /var/log/tailscale/derper.error \
+		--exec ${command} \
+		-- \
+		-hostname "${HOSTNAME}" \
+		-a "${ADDR}" \
+		${FLAGS}
+	eend $?
+}

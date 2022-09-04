@@ -1,0 +1,7 @@
+# UDP port to listen on for WireGuard and peer-to-peer traffic;
+# 0 means automatically select (default 0)
+PORT="0"
+
+# Extra flags you might want to pass to tailscaled.
+# run tailscaled --help to get help
+FLAGS=""
