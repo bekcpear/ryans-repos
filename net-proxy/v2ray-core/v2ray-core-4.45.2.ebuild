@@ -16,7 +16,7 @@ SLOT="0"
 KEYWORDS="~amd64 ~riscv"
 IUSE="+tool"
 
-BDEPEND=">=dev-lang/go-1.19:="
+BDEPEND="~dev-lang/go-1.19:="
 DEPEND=""
 RDEPEND="
 	dev-libs/v2ray-geoip-bin
@@ -26,29 +26,11 @@ RDEPEND="
 	)
 "
 
-pkg_pretend() {
-	if [[ -z "${REPLACING_VERSIONS}" ]]; then
-		cngoproxyset=0
-		if [[ -e "${ROOT}"/etc/portage/mirrors ]]; then
-			grep '^\s*goproxy\s' "${ROOT}"/etc/portage/mirrors >/dev/null 2>&1
-			if [[ $? -eq 0 ]]; then
-				cngoproxyset=1
-			fi
-		fi
-		if [[ ${cngoproxyset} -eq 0 ]]; then
-			ewarn "You may need to set a goproxy for fetching go modules:"
-			ewarn "  echo -e '\\\\ngoproxy https://goproxy.cn/' >> /etc/portage/mirrors"
-			ewarn "Can safely ignore this warning if emerge succeeded."
-		fi
-	fi
-}
-
-PATCHES=(${FILESDIR}/${P}-go-1-19-quic-go.patch)
-
 src_prepare() {
 	sed -i 's|/usr/local/bin|/usr/bin|;s|/usr/local/etc|/etc|' release/config/systemd/system/*.service || die
 	sed -i '/^User=/s/nobody/v2ray/;/^User=/aDynamicUser=true' release/config/systemd/system/*.service || die
 	mv ../${PN}-vendor-${PV}/vendor ./ || die
+	eapply ../${PN}-vendor-${PV}/${P}-go-1-19-quic-go.patch
 	default
 }
 
