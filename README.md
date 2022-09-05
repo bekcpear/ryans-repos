@@ -46,7 +46,7 @@ eselect repository enable ryans
    acct-group/matterbridge                  | 0                      | RD     |                                                | Group for the net-misc/matterbridge{,-bin} service
    acct-user/matterbridge                   | 0                      | RD     |                                                | User for the net-misc/matterbridge{,-bin} service
 --------------------------------------------|------------------------|--------|------------------------------------------------|--------------------
- net-proxy/v2ray-core                       | 4.45.0                 |        | https://github.com/v2fly/v2ray-core            | A platform for building proxies to bypass network restrictions.
+ net-proxy/v2ray-core                       | 4.45.2                 |        | https://github.com/v2fly/v2ray-core            | A platform for building proxies to bypass network restrictions.
    dev-libs/v2ray-domain-list-community     | 4.43.0_p20211203092402 | RD     | https://github.com/v2fly/domain-list-community | Community managed domain list for V2Ray.
                                             | 5.0.3_p20220501162639  |        |                                                |
                                             | 9999                   |        |                                                |
