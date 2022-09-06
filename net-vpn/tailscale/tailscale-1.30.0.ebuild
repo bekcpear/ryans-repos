@@ -15,7 +15,7 @@ DESCRIPTION="Tailscale vpn client"
 HOMEPAGE="https://tailscale.com"
 
 SRC_URI="https://github.com/tailscale/tailscale/archive/v${PV}.tar.gz -> ${P}.tar.gz
-	https://github.com/bekcpear/tailscale-vendor/archive/refs/tags/v${PV}.tar.gz -> ${P}-vendor.tar.gz"
+	https://github.com/bekcpear/gopkg-vendors/archive/refs/tags/vendor-${P}.tar.gz -> ${P}-vendor.tar.gz"
 
 LICENSE="MIT"
 SLOT="0"
@@ -35,7 +35,8 @@ build_dist() {
 }
 
 src_prepare() {
-	mv ../${PN}-vendor-${PV}/vendor ./ || die
+	mv ../gopkg-vendors-vendor-${P}/* ./ || die
+	eapply go-mod-sum.diff
 	eapply_user
 }
 
