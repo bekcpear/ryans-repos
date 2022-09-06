@@ -32,6 +32,7 @@ src_prepare() {
 	sed -i 's|/usr/local/bin|/usr/bin|;s|/usr/local/etc|/etc|' release/config/systemd/system/*.service || die
 	sed -i '/^User=/s/nobody/v2ray/;/^User=/aDynamicUser=true' release/config/systemd/system/*.service || die
 	mv ../gopkg-vendors-vendor-${P}/* ./ || die
+	eapply go-mod-sum.diff
 	default
 }
 
