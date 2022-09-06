@@ -9,7 +9,7 @@ DESCRIPTION="A platform for building proxies to bypass network restrictions."
 HOMEPAGE="https://github.com/v2fly/v2ray-core"
 
 SRC_URI="https://github.com/v2fly/v2ray-core/archive/refs/tags/v${PV}.tar.gz -> ${P}.tar.gz
-	https://github.com/rjnd1/v2ray-core-vendor/archive/refs/tags/v${PV}.tar.gz -> ${P}-vendor.tar.gz"
+	https://github.com/bekcpear/gopkg-vendors/archive/refs/tags/vendor-${P}.tar.gz -> ${P}-vendor.tar.gz"
 
 LICENSE="MIT"
 SLOT="0"
@@ -26,11 +26,12 @@ RDEPEND="
 	)
 "
 
+PATCHES=(${FILESDIR}/${P}-quic.diff)
+
 src_prepare() {
 	sed -i 's|/usr/local/bin|/usr/bin|;s|/usr/local/etc|/etc|' release/config/systemd/system/*.service || die
 	sed -i '/^User=/s/nobody/v2ray/;/^User=/aDynamicUser=true' release/config/systemd/system/*.service || die
-	mv ../${PN}-vendor-${PV}/vendor ./ || die
-	eapply ../${PN}-vendor-${PV}/${P}-go-1-19-quic-go.patch
+	mv ../gopkg-vendors-vendor-${P}/* ./ || die
 	default
 }
 

@@ -1,0 +1,27 @@
+
+diff --git a/transport/internet/quic/dialer.go b/transport/internet/quic/dialer.go
+index bbdb296..4749803 100644
+--- a/transport/internet/quic/dialer.go
++++ b/transport/internet/quic/dialer.go
+@@ -154,7 +154,7 @@ func (s *clientConnections) openConnection(destAddr net.Addr, config *Config, tl
+ 		ConnectionIDLength:   12,
+ 		HandshakeIdleTimeout: time.Second * 8,
+ 		MaxIdleTimeout:       time.Second * 30,
+-		KeepAlive:            true,
++		KeepAlivePeriod:      time.Second * 15,
+ 	}
+ 
+ 	sysConn, err := wrapSysConn(rawConn.(*net.UDPConn), config)
+diff --git a/transport/internet/quic/hub.go b/transport/internet/quic/hub.go
+index 52cded1..f99b75e 100644
+--- a/transport/internet/quic/hub.go
++++ b/transport/internet/quic/hub.go
+@@ -110,7 +110,7 @@ func Listen(ctx context.Context, address net.Address, port net.Port, streamSetti
+ 		MaxIdleTimeout:        time.Second * 45,
+ 		MaxIncomingStreams:    32,
+ 		MaxIncomingUniStreams: -1,
+-		KeepAlive:             true,
++		KeepAlivePeriod:       time.Second * 15,
+ 	}
+ 
+ 	conn, err := wrapSysConn(rawConn, config)
