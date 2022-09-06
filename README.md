@@ -70,7 +70,7 @@ eselect repository enable ryans
    acct-group/cryptpad                      | 0                      | RD     |                                                | Group for the www-apps/cryptpad service
    acct-user/cryptpad                       | 0                      | RD     |                                                | User for the www-apps/cryptpad service
 --------------------------------------------|------------------------|--------|------------------------------------------------|--------------------
- www-apps/filebrowser                       | 2.22.1                 |        | https://filebrowser.org                        | Web File Browser
+ www-apps/filebrowser                       | 2.22.4                 |        | https://filebrowser.org                        | Web File Browser
    acct-group/filebrowser                   | 0                      | RD     |                                                | Group for the www-apps/filebrowser service
    acct-user/filebrowser                    | 0                      | RD     |                                                | User for the www-apps/filebrowser service
 ============================================|========================|========|================================================|====================
