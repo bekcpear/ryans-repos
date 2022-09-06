@@ -8,7 +8,7 @@ inherit go-module systemd
 DESCRIPTION="An open source, self-hosted implementation of the Tailscale control server"
 HOMEPAGE="https://github.com/juanfont/headscale"
 SRC_URI="https://github.com/juanfont/headscale/archive/v${PV//_/-}.tar.gz -> ${P}.tar.gz
-	https://github.com/bekcpear/headscale-vendor/archive/refs/tags/v${PV//_/-}.tar.gz -> ${P}-vendor.tar.gz"
+	https://github.com/bekcpear/gopkg-vendors/archive/refs/tags/vendor-${P//_/-}.tar.gz -> ${P}-vendor.tar.gz"
 
 LICENSE="BSD Apache-2.0 MIT"
 SLOT="0"
@@ -32,7 +32,8 @@ PATCHES=(
 
 src_prepare() {
 	rm -rf ./gen || die
-	mv ../${PN}-vendor-${PV//_/-}/* ./ || die
+	mv ../gopkg-vendors-vendor-${P//_/-}/* ./ || die
+	eapply go-mod-sum.diff
 	default
 }
 
