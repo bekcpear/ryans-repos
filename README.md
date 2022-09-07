@@ -32,6 +32,8 @@ eselect repository enable ryans
 --------------------------------------------|------------------------|--------|------------------------------------------------|--------------------
  app-text/ydcv-rs                           | 0.4.7                  |        | https://github.com/farseerfc/ydcv-rs           | A rust version of YouDao Console Version
 --------------------------------------------|------------------------|--------|------------------------------------------------|--------------------
+ dev-util/act                               | 0.2.31                 |        | https://github.com/nektos/act                  | Run your GitHub Actions locally
+--------------------------------------------|------------------------|--------|------------------------------------------------|--------------------
  dev-util/v2ray-geoip-generator             | 9999                   |        | https://github.com/v2fly/geoip                 | GeoIP generator for V2Ray.
 --------------------------------------------|------------------------|--------|------------------------------------------------|--------------------
  kde-misc/krunner-pass                      | 9999                   |        | https://github.com/bekcpear/krunner-pass       | (Modified type instead version) Integrates krunner with pass
