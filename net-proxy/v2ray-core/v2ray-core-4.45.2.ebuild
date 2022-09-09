@@ -16,7 +16,10 @@ SLOT="0"
 KEYWORDS="~amd64 ~riscv"
 IUSE="+tool"
 
-BDEPEND="~dev-lang/go-1.19:="
+BDEPEND="
+	>=dev-lang/go-1.19:=
+	<dev-lang/go-1.20:=
+"
 DEPEND=""
 RDEPEND="
 	dev-libs/v2ray-geoip-bin
