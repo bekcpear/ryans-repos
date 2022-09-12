@@ -13,5 +13,6 @@
 		<flag name="gtk2">Enable GTK2 IM module</flag>
 		<flag name="gtk3">Enable GTK3 IM module</flag>
 		<flag name="snooper">Enable Key Snooper for gtk app</flag>
+		<flag name="only-plugin">Build only IM Module</flag>
 	</use>
 </pkgmetadata>

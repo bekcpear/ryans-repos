@@ -13,7 +13,7 @@ SRC_URI="https://github.com/fcitx/fcitx5-gtk/archive/refs/tags/${PV}.tar.gz -> $
 LICENSE="LGPL-2.1+"
 SLOT="5"
 KEYWORDS="~amd64 ~x86"
-IUSE="+gtk2 +gtk3 +introspection +snooper"
+IUSE="+gtk2 +gtk3 +introspection only-plugin +snooper"
 
 DEPEND="
 	>=dev-libs/glib-2.56
@@ -40,6 +40,7 @@ src_configure() {
 		-DENABLE_GTK3_IM_MODULE=$(usex gtk3)
 		-DENABLE_GTK4_IM_MODULE=no
 		-DENABLE_SNOOPER=$(usex snooper)
+		-DBUILD_ONLY_PLUGIN=$(usex only-plugin)
 	)
 	cmake_src_configure
 }
