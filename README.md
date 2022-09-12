@@ -17,18 +17,18 @@ eselect repository enable ryans
  app-admin/z16                              | 9999                   |        | https://github.com/bekcpear/z16                | A bash script project that aims to maintain dotfiles.
 --------------------------------------------|------------------------|--------|------------------------------------------------|--------------------
  app-i18n/fcitx-meta                        | 5.0.12                 |        | https://fcitx-im.org                           | Merge this to pull in Fcitx packages
-   app-i18n/fcitx-configtool                | 5.0.13                 | RD     | https://fcitx-im.org/                          | GUI configuration tool for Fcitx
-     app-i18n/fcitx-qt                      | 5.0.13                 |  D, RD | https://fcitx-im.org/                          | Qt library and IM module for fcitx5
-       app-i18n/fcitx                       | 5.0.17                 |  D, RD | https://fcitx-im.org/                          | Fcitx (Flexible Context-aware Input Tool with eXtension) input method framework
+   app-i18n/fcitx-configtool                | 5.0.15                 | RD     | https://fcitx-im.org/                          | GUI configuration tool for Fcitx
+     app-i18n/fcitx-qt                      | 5.0.15                 |  D, RD | https://fcitx-im.org/                          | Qt library and IM module for fcitx5
+       app-i18n/fcitx                       | 5.0.19                 |  D, RD | https://fcitx-im.org/                          | Fcitx (Flexible Context-aware Input Tool with eXtension) input method framework
          x11-libs/xcb-imdkit                | 1.0.3                  |  D, RD | https://github.com/fcitx/xcb-imdkit            | Input method development support for xcb
-   app-i18n/fcitx-gtk                       | 5.0.15                 | RD     | https://fcitx-im.org/                          | GTK IM module and glib based dbus client library for Fcitx
-   app-i18n/fcitx-rime                      | 5.0.13                 | RD     | https://fcitx-im.org/                          | Chinese RIME input methods for Fcitx
+   app-i18n/fcitx-gtk                       | 5.0.18                 | RD     | https://fcitx-im.org/                          | GTK IM module and glib based dbus client library for Fcitx
+   app-i18n/fcitx-rime                      | 5.0.14                 | RD     | https://fcitx-im.org/                          | Chinese RIME input methods for Fcitx
 --------------------------------------------|------------------------|--------|------------------------------------------------|--------------------
  app-misc/razergenie                        | 9999                   |        | https://github.com/z3ntu/RazerGenie            | Razer devices configurator
    dev-libs/libopenrazer                    | 9999                   |  D, RD | https://github.com/z3ntu/libopenrazer          | Libraries for razergenie.
      sys-apps/openrazer_test                | 9999                   |  D, RD | https://github.com/z3ntu/razer_test            | A work-in-progress replacement for OpenRazer.
-   sys-apps/openrazer                       | 3.3.0                  | RD     | https://github.com/openrazer/openrazer         | A user-space daemon that allows you to manage your Razer peripherals.
-     sys-apps/openrazer-driver              | 3.3.0                  | RD     | https://github.com/openrazer/openrazer         | A collection of kernel drivers for Razer devices.
+   sys-apps/openrazer                       | 3.4.0                  | RD     | https://github.com/openrazer/openrazer         | A user-space daemon that allows you to manage your Razer peripherals.
+     sys-apps/openrazer-driver              | 3.4.0                  | RD     | https://github.com/openrazer/openrazer         | A collection of kernel drivers for Razer devices.
 --------------------------------------------|------------------------|--------|------------------------------------------------|--------------------
  app-text/ydcv-rs                           | 0.4.7                  |        | https://github.com/farseerfc/ydcv-rs           | A rust version of YouDao Console Version
 --------------------------------------------|------------------------|--------|------------------------------------------------|--------------------
@@ -38,7 +38,7 @@ eselect repository enable ryans
 --------------------------------------------|------------------------|--------|------------------------------------------------|--------------------
  kde-misc/krunner-pass                      | 9999                   |        | https://github.com/bekcpear/krunner-pass       | (Modified type instead version) Integrates krunner with pass
 --------------------------------------------|------------------------|--------|------------------------------------------------|--------------------
- media-gfx/weasis-bin                       | 3.8.1                  |        | https://nroduit.github.io/                     | A DICOM viewer available as a desktop application or as a web-based application.
+ media-gfx/weasis-bin                       | 4.0.2                  |        | https://nroduit.github.io/                     | A DICOM viewer available as a desktop application or as a web-based application.
 --------------------------------------------|------------------------|--------|------------------------------------------------|--------------------
  media-sound/qqmusic-bin                    | 1.1.4                  |        | https://y.qq.com/download/download.html        | Tencent QQ Music for Linux.
 --------------------------------------------|------------------------|--------|------------------------------------------------|--------------------
