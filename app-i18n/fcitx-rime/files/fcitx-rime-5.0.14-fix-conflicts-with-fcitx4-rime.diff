@@ -32,7 +32,7 @@ index 604cb06..7ceb3b5 100644
  LangCode=zh
  Addon=rime
 diff --git a/src/rimeengine.cpp b/src/rimeengine.cpp
-index fac4f53..747d10e 100644
+index 9785320..0046925 100644
 --- a/src/rimeengine.cpp
 +++ b/src/rimeengine.cpp
 @@ -93,10 +93,10 @@ public:
@@ -48,12 +48,7 @@ index fac4f53..747d10e 100644
      }
  
  private:
-@@ -107,11 +107,11 @@ RimeEngine::RimeEngine(Instance *instance)
-     : instance_(instance), api_(rime_get_api()),
-       factory_([this](InputContext &ic) { return new RimeState(this, ic); }) {
-     imAction_ = std::make_unique<IMAction>(this);
--    instance_->userInterfaceManager().registerAction("fcitx-rime-im",
-+    instance_->userInterfaceManager().registerAction("fcitx5-rime-im",
+@@ -111,7 +111,7 @@ RimeEngine::RimeEngine(Instance *instance)
                                                       imAction_.get());
      imAction_->setMenu(&schemaMenu_);
      eventDispatcher_.attach(&instance_->eventLoop());
@@ -62,12 +57,8 @@ index fac4f53..747d10e 100644
      deployAction_.setShortText(_("Deploy"));
      deployAction_.connect<SimpleAction::Activated>([this](InputContext *ic) {
          deploy();
-@@ -120,10 +120,10 @@ RimeEngine::RimeEngine(Instance *instance)
-             state->updateUI(ic, false);
-         }
-     });
--    instance_->userInterfaceManager().registerAction("fcitx-rime-deploy",
-+    instance_->userInterfaceManager().registerAction("fcitx5-rime-deploy",
+@@ -123,7 +123,7 @@ RimeEngine::RimeEngine(Instance *instance)
+     instance_->userInterfaceManager().registerAction("fcitx-rime-deploy",
                                                       &deployAction_);
  
 -    syncAction_.setIcon("fcitx-rime-sync");
@@ -75,43 +66,25 @@ index fac4f53..747d10e 100644
      syncAction_.setShortText(_("Synchronize"));
  
      syncAction_.connect<SimpleAction::Activated>([this](InputContext *ic) {
-@@ -133,7 +133,7 @@ RimeEngine::RimeEngine(Instance *instance)
-             state->updateUI(ic, false);
-         }
-     });
--    instance_->userInterfaceManager().registerAction("fcitx-rime-sync",
-+    instance_->userInterfaceManager().registerAction("fcitx5-rime-sync",
-                                                      &syncAction_);
-     reloadConfig();
- }
-@@ -344,7 +344,7 @@ void RimeEngine::notify(const std::string &messageType,
-     const char *message = nullptr;
-     const char *icon = "";
+@@ -346,7 +346,7 @@ void RimeEngine::notify(const std::string &messageType,
+     const char *tipId = "";
      if (messageType == "deploy") {
+         tipId = "fcitx-rime-deploy";
 -        icon = "fcitx-rime-deploy";
 +        icon = "fcitx5-rime-deploy";
          if (messageValue == "start") {
              message = _("Rime is under maintenance. It may take a few "
                          "seconds. Please wait until it is finished...");
-@@ -356,7 +356,7 @@ void RimeEngine::notify(const std::string &messageType,
+@@ -358,7 +358,7 @@ void RimeEngine::notify(const std::string &messageType,
                          "See /tmp/rime.fcitx.ERROR for details.");
          }
      } else if (messageType == "option") {
 -        icon = "fcitx-rime";
 +        icon = "fcitx5-rime";
          if (messageValue == "!full_shape") {
+             tipId = "fcitx-rime-full-shape";
              message = _("Half Shape is enabled.");
-         } else if (messageValue == "full_shape") {
-@@ -375,7 +375,7 @@ void RimeEngine::notify(const std::string &messageType,
-     auto notifications = this->notifications();
-     if (message && notifications) {
-         notifications->call<INotifications::showTip>(
--            "fcitx-rime-deploy", _("Rime"), icon, _("Rime"), message, -1);
-+            "fcitx5-rime-deploy", _("Rime"), icon, _("Rime"), message, -1);
-     }
-     timeEvent_ = instance_->eventLoop().addTimeEvent(
-         CLOCK_MONOTONIC, now(CLOCK_MONOTONIC) + 1000000, 0,
-@@ -405,7 +405,7 @@ std::string RimeEngine::subModeLabelImpl(const InputMethodEntry &,
+@@ -413,7 +413,7 @@ std::string RimeEngine::subModeLabelImpl(const InputMethodEntry &,
  
  std::string RimeEngine::subModeIconImpl(const InputMethodEntry &,
                                          InputContext &ic) {
@@ -120,7 +93,7 @@ index fac4f53..747d10e 100644
      if (!api_ || !factory_.registered()) {
          return result;
      }
-@@ -413,11 +413,11 @@ std::string RimeEngine::subModeIconImpl(const InputMethodEntry &,
+@@ -421,11 +421,11 @@ std::string RimeEngine::subModeIconImpl(const InputMethodEntry &,
      RIME_STRUCT(RimeStatus, status);
      if (state->getStatus(&status)) {
          if (status.is_disabled) {
