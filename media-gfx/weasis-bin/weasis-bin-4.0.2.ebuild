@@ -35,7 +35,7 @@ src_install() {
 
 	URLWLPATH=("etc/opt/chrome/policies/managed/" "etc/chromium/policies/managed/")
 	for p in "${URLWLPATH[@]}"; do
-		mkdir -p ${ED}/${p} || die
-		echo '{'$'\n''    "URLWhitelist": ["weasis://*"]'$'\n''}' >${ED}/${p}weasis.json || die
+		mkdir -p "${ED}"/${p} || die
+		echo '{'$'\n''    "URLWhitelist": ["weasis://*"]'$'\n''}' >"${ED}"/${p}weasis.json || die
 	done
 }
