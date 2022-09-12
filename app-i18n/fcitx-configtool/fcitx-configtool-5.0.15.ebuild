@@ -30,7 +30,9 @@ DEPEND="
 		dev-qt/qtquickcontrols2:5
 		kde-frameworks/kcoreaddons:5
 		kde-frameworks/ki18n:5
+		kde-frameworks/kiconthemes:5
 		kde-frameworks/kpackage:5
+		kde-frameworks/plasma:5
 		kde-frameworks/kdeclarative:5
 		kde-frameworks/kirigami:5
 		x11-libs/libxkbcommon
