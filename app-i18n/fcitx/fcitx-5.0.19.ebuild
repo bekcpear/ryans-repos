@@ -77,7 +77,7 @@ PATCHES=(
 )
 
 src_prepare() {
-	cp "${DISTDIR}/fcitx-data-en_dict-${DV}.tar.gz" src/modules/spell/dict/en_dict-${DV}.tar.gz || die
+	cp "${DISTDIR}/fcitx-data-en_dict-${DV}.tar.gz" src/modules/spell/en_dict-${DV}.tar.gz || die
 	cmake_src_prepare
 }
 
