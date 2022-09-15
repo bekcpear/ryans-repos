@@ -29,7 +29,7 @@ RDEPEND="
 	)
 "
 
-PATCHES=(${FILESDIR}/${P}-quic.diff)
+PATCHES=("${FILESDIR}"/${P}-quic.diff)
 
 src_prepare() {
 	sed -i 's|/usr/local/bin|/usr/bin|;s|/usr/local/etc|/etc|' release/config/systemd/system/*.service || die
