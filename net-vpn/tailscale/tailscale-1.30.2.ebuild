@@ -7,9 +7,9 @@ inherit go-module systemd tmpfiles
 # These settings are obtained by running ./build_dist.sh shellvars` in
 # the upstream repo.
 VERSION_MINOR="1.30"
-VERSION_SHORT="1.30.0"
-VERSION_LONG="1.30.0-t0b00b7a13"
-VERSION_GIT_HASH="0b00b7a135b635fadd8a9a38567562798873ab82"
+VERSION_SHORT="1.30.2"
+VERSION_LONG="1.30.2-t118545749"
+VERSION_GIT_HASH="11854574919300b470a9cdda4cafea7d1dd66b11"
 
 DESCRIPTION="Tailscale vpn client"
 HOMEPAGE="https://tailscale.com"
@@ -62,23 +62,23 @@ src_install() {
 	fperms 0750 /var/log/${PN}
 
 	insinto /etc/default
-	newins ${FILESDIR}/tailscaled.defaults tailscaled
+	newins "${FILESDIR}"/tailscaled.defaults tailscaled
 
 	systemd_dounit cmd/tailscaled/tailscaled.service
-	newtmpfiles "${FILESDIR}/${PN}.tmpfiles" ${PN}.conf
+	newtmpfiles "${FILESDIR}"/${PN}.tmpfiles ${PN}.conf
 
-	newinitd "${FILESDIR}/${PN}d.initd" ${PN}d
+	newinitd "${FILESDIR}"/${PN}d.initd ${PN}d
 
 	if use derp; then
 		keepdir /var/lib/derper
 		fperms 0750 /var/lib/derper
 
 		insinto /etc/default
-		newins ${FILESDIR}/derper.defaults derper
+		newins "${FILESDIR}"/derper.defaults derper
 
-		systemd_dounit ${FILESDIR}/derper.service
+		systemd_dounit "${FILESDIR}"/derper.service
 
-		newinitd "${FILESDIR}/derper.initd" derper
+		newinitd "${FILESDIR}"/derper.initd derper
 	fi
 }
 
