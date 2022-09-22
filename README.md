@@ -42,6 +42,8 @@ eselect repository enable ryans
 --------------------------------------------|------------------------|--------|------------------------------------------------|--------------------
  media-sound/qqmusic-bin                    | 1.1.4                  |        | https://y.qq.com/download/download.html        | Tencent QQ Music for Linux.
 --------------------------------------------|------------------------|--------|------------------------------------------------|--------------------
+ net-im/dendrite                            | 0.9.8                  |        | https://github.com/matrix-org/dendrite         | Dendrite is a second-generation Matrix homeserver written in Go!
+--------------------------------------------|------------------------|--------|------------------------------------------------|--------------------
  net-im/linuxqq-bin                         | 2.0.0_beta2_p1089      |        | https://im.qq.com/linuxqq/index.html           | Tencent QQ.
 --------------------------------------------|------------------------|--------|------------------------------------------------|--------------------
  net-misc/matterbridge-bin                  | 1.25.2                 |        | https://github.com/42wim/matterbridge          | a simple chat bridge, IRC | Matrix | Mattermost | Telegram | XMPP | And more...
@@ -67,8 +69,8 @@ eselect repository enable ryans
 --------------------------------------------|------------------------|--------|------------------------------------------------|--------------------
  sys-apps/duf                               | 0.8.1                  |        | https://github.com/muesli/duf                  | Disk Usage/Free Utility - a better 'df' alternative
 --------------------------------------------|------------------------|--------|------------------------------------------------|--------------------
- www-apps/cryptpad                          | 4.14.1                 |        | https://github.com/xwiki-labs/cryptpad         | Collaboration suite, end-to-end encrypted and open-source.
-                                            | 5.0.0                  |        |                                                |
+ www-apps/cryptpad                          | 5.0.0                  |        | https://github.com/xwiki-labs/cryptpad         | Collaboration suite, end-to-end encrypted and open-source.
+                                            | 5.1.0                  |        |                                                |
    acct-group/cryptpad                      | 0                      | RD     |                                                | Group for the www-apps/cryptpad service
    acct-user/cryptpad                       | 0                      | RD     |                                                | User for the www-apps/cryptpad service
 --------------------------------------------|------------------------|--------|------------------------------------------------|--------------------
