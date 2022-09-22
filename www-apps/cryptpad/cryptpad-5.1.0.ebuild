@@ -22,10 +22,10 @@ RDEPEND="${DEPEND}
 BDEPEND=""
 
 src_prepare() {
-	mv ${WORKDIR}/${PN}-release-${PV}/node_modules ${S} || die
-	mv ${WORKDIR}/${PN}-release-${PV}/www/bower_components ${S}/www/ || die
+	mv "${WORKDIR}"/${PN}-release-${PV}/node_modules "${S}" || die
+	mv "${WORKDIR}"/${PN}-release-${PV}/www/bower_components "${S}"/www/ || die
 
-	cp ${FILESDIR}/cryptpad.{service,initd} ./ || die
+	cp "${FILESDIR}"/cryptpad.{service,initd} ./ || die
 	eapply_user
 }
 
