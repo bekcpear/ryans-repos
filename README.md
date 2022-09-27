@@ -21,7 +21,7 @@ eselect repository enable ryans
      app-i18n/fcitx-qt                      | 5.0.15                 |  D, RD | https://fcitx-im.org/                          | Qt library and IM module for fcitx5
        app-i18n/fcitx                       | 5.0.19                 |  D, RD | https://fcitx-im.org/                          | Fcitx (Flexible Context-aware Input Tool with eXtension) input method framework
          x11-libs/xcb-imdkit                | 1.0.3                  |  D, RD | https://github.com/fcitx/xcb-imdkit            | Input method development support for xcb
-   app-i18n/fcitx-gtk                       | 5.0.18                 | RD     | https://fcitx-im.org/                          | GTK IM module and glib based dbus client library for Fcitx
+   app-i18n/fcitx-gtk                       | 5.0.19                 | RD     | https://fcitx-im.org/                          | GTK IM module and glib based dbus client library for Fcitx
    app-i18n/fcitx-rime                      | 5.0.14                 | RD     | https://fcitx-im.org/                          | Chinese RIME input methods for Fcitx
 --------------------------------------------|------------------------|--------|------------------------------------------------|--------------------
  app-misc/razergenie                        | 9999                   |        | https://github.com/z3ntu/RazerGenie            | Razer devices configurator
