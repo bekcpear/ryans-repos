@@ -1,0 +1,15 @@
+diff --git a/dist/systemd/zrepl.service b/dist/systemd/zrepl.service
+index 9c4ed7c..d3b4d9b 100644
+--- a/dist/systemd/zrepl.service
++++ b/dist/systemd/zrepl.service
+@@ -4,8 +4,8 @@ Documentation=https://zrepl.github.io
+ 
+ [Service]
+ Type=simple
+-ExecStartPre=/usr/local/bin/zrepl --config /etc/zrepl/zrepl.yml configcheck
+-ExecStart=/usr/local/bin/zrepl --config /etc/zrepl/zrepl.yml daemon
++ExecStartPre=/usr/bin/zrepl --config /etc/zrepl/zrepl.yml configcheck
++ExecStart=/usr/bin/zrepl --config /etc/zrepl/zrepl.yml daemon
+ RuntimeDirectory=zrepl zrepl/stdinserver
+ RuntimeDirectoryMode=0700
+ 

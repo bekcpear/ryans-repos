@@ -1,0 +1,20 @@
+#!/sbin/openrc-run
+# Copyright 2022 Gentoo Authors
+# Distributed under the terms of the GNU General Public License v2
+
+command="/usr/bin/zrepl"
+command_args="--config /etc/zrepl/zrepl.yml daemon"
+pidfile="/run/zrepl.pid"
+command_background="yes"
+output_log="/var/log/zrepl/zrepl.log"
+error_log="/var/log/zrepl/zrepl.error"
+
+start_pre() {
+	${command} ${command_args% daemon} configcheck
+	mkdir -p /run/zrepl/stdinserver
+	chmod -R 700 /run/zrepl
+}
+
+stop_post() {
+	rm -rf /run/zrepl
+}
