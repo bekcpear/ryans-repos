@@ -3,7 +3,7 @@
 
 EAPI=8
 
-inherit go-module systemd
+inherit systemd
 
 DESCRIPTION="One-stop ZFS backup & replication solution."
 HOMEPAGE="https://github.com/zrepl/zrepl https://zrepl.github.io/"
@@ -30,8 +30,9 @@ src_prepare() {
 }
 
 src_compile() {
-	ego build -mod vendor -v -work -o "bin/zrepl" -trimpath \
-		-ldflags "-s -w -X github.com/zrepl/zrepl/version.zreplVersion=${PV}" .
+	export CGO_ENABLED=0
+	go build -mod vendor -v -work -o "bin/zrepl" -trimpath \
+		-ldflags "-s -w -X github.com/zrepl/zrepl/version.zreplVersion=${PV}" . || die
 	bin/zrepl gencompletion bash dist/zrepl.bash || die
 	bin/zrepl gencompletion zsh dist/zrepl.zsh || die
 }
