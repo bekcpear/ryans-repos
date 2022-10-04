@@ -69,8 +69,6 @@ eselect repository enable ryans
 --------------------------------------------|------------------------|--------|------------------------------------------------|--------------------
  sys-apps/duf                               | 0.8.1                  |        | https://github.com/muesli/duf                  | Disk Usage/Free Utility - a better 'df' alternative
 --------------------------------------------|------------------------|--------|------------------------------------------------|--------------------
- sys-fs/zrepl                               | 0.5.0                  |        | https://github.com/zrepl/zrepl                 | One-stop ZFS backup & replication solution.
---------------------------------------------|------------------------|--------|------------------------------------------------|--------------------
  www-apps/cryptpad                          | 5.0.0                  |        | https://github.com/xwiki-labs/cryptpad         | Collaboration suite, end-to-end encrypted and open-source.
                                             | 5.1.0                  |        |                                                |
    acct-group/cryptpad                      | 0                      | RD     |                                                | Group for the www-apps/cryptpad service
