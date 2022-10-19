@@ -48,5 +48,6 @@ src_install() {
 	dodoc -r docs/*
 
 	newinitd "${FILESDIR}/dendrite-monolith.initd" dendrite-monolith
+	newconfd "${FILESDIR}/dendrite-monolith.confd" dendrite-monolith
 	systemd_dounit "${FILESDIR}"/dendrite-monolith.service
 }

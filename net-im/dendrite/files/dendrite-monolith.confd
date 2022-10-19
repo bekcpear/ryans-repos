@@ -1,0 +1,3 @@
+# extra arguments for dendrite monolith
+
+EXTRA_ARGS=""
