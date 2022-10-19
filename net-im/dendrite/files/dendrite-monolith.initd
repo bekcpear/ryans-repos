@@ -24,4 +24,5 @@ start_pre() {
 		chown dendrite:dendrite "${_pem}"
 		chmod 600 "${_pem}"
 	fi
+	ulimit -n 65535
 }
