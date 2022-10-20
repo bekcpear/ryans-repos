@@ -13,7 +13,7 @@ SRC_URI="https://github.com/matrix-org/dendrite/archive/refs/tags/v${PV}.tar.gz 
 
 LICENSE="Apache-2.0 BSD-2 BSD ISC LGPL-3 MIT MPL-2.0 ZLIB"
 SLOT="0"
-KEYWORDS="~amd64"
+KEYWORDS="~amd64 ~arm64"
 
 BDEPEND="
 	>=dev-lang/go-1.18:=
