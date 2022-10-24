@@ -40,7 +40,7 @@ eselect repository enable ryans
 --------------------------------------------|------------------------|--------|------------------------------------------------|--------------------
  media-gfx/weasis-bin                       | 4.0.2                  |        | https://nroduit.github.io/                     | A DICOM viewer available as a desktop application or as a web-based application.
 --------------------------------------------|------------------------|--------|------------------------------------------------|--------------------
- media-sound/qqmusic-bin                    | 1.1.4                  |        | https://y.qq.com/download/download.html        | Tencent QQ Music for Linux.
+ media-sound/qqmusic-bin                    | 1.1.5                  |        | https://y.qq.com/download/download.html        | Tencent QQ Music for Linux.
 --------------------------------------------|------------------------|--------|------------------------------------------------|--------------------
  net-im/dendrite                            | 0.10.4                 |        | https://github.com/matrix-org/dendrite         | Dendrite is a second-generation Matrix homeserver written in Go!
    acct-group/dendrite                      | 0                      | RD     |                                                | Group for the net-im/dendrite service
