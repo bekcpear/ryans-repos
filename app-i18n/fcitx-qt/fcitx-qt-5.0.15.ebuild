@@ -13,7 +13,7 @@ SRC_URI="https://github.com/fcitx/fcitx5-qt/archive/refs/tags/${PV}.tar.gz -> ${
 LICENSE="BSD LGPL-2.1+"
 SLOT="5"
 KEYWORDS="~amd64 ~x86"
-IUSE="only-plugin static-plugin qt6"
+IUSE="only-plugin qt6 static-plugin"
 REQUIRED_USE="static-plugin? ( only-plugin )"
 
 DEPEND="

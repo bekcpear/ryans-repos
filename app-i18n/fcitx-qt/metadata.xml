@@ -11,6 +11,7 @@
 	</upstream>
 	<use>
 		<flag name="only-plugin">Build only plugin</flag>
+		<flag name="qt6">Enable QT 6</flag>
 		<flag name="static-plugin">Build plugin as static</flag>
 	</use>
 </pkgmetadata>
