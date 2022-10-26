@@ -11,6 +11,11 @@ SLOT="5"
 KEYWORDS="~amd64 ~x86"
 IUSE="+configtool +gtk2 +gtk3 +qt5 qt6 +rime"
 
+# this is not the actual required use binding, but for this overlay
+# due to QT6 support for Gentoo Linux is experimental and I haven't
+# did enough tests for qt6-only building
+REQUIRED_USE="qt6? ( qt5 )"
+
 DEPEND=""
 RDEPEND="
 	app-i18n/fcitx:5
