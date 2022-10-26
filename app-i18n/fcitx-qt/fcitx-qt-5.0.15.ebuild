@@ -13,7 +13,7 @@ SRC_URI="https://github.com/fcitx/fcitx5-qt/archive/refs/tags/${PV}.tar.gz -> ${
 LICENSE="BSD LGPL-2.1+"
 SLOT="5"
 KEYWORDS="~amd64 ~x86"
-IUSE="only-plugin static-plugin"
+IUSE="only-plugin static-plugin qt6"
 REQUIRED_USE="static-plugin? ( only-plugin )"
 
 DEPEND="
@@ -24,6 +24,9 @@ DEPEND="
 	dev-qt/qtdbus:5
 	dev-qt/qtgui:5
 	dev-qt/qtwidgets:5
+	qt6? (
+		dev-qt/qtbase:6[dbus,gui]
+	)
 	x11-libs/libX11
 	x11-libs/libxcb
 	x11-libs/libxkbcommon
@@ -40,10 +43,10 @@ BDEPEND="
 S="${WORKDIR}/${MY_PN}-${PV}"
 
 src_configure() {
-	# gentoo only support qt5 officially, disable qt4 & qt6 for now
+	# gentoo has no official qt4 support, disable it
 	local mycmakeargs=(
 		-DENABLE_QT4=no
-		-DENABLE_QT6=no
+		-DENABLE_QT6=$(usex qt6)
 		-DBUILD_ONLY_PLUGIN=$(usex only-plugin)
 		-DBUILD_STATIC_PLUGIN=$(usex static-plugin)
 	)
