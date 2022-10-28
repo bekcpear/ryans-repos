@@ -9,7 +9,7 @@ DESCRIPTION="Community managed domain list for V2Ray."
 HOMEPAGE="https://github.com/v2fly/domain-list-community"
 EGIT_REPO_URI="https://github.com/v2fly/domain-list-community.git"
 
-LICENSE="MIT"
+LICENSE="BSD MIT"
 SLOT="0"
 
 DEPEND=""

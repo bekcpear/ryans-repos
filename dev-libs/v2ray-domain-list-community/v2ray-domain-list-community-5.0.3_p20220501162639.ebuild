@@ -14,7 +14,7 @@ SRC_URI="https://github.com/v2fly/domain-list-community/archive/refs/tags/${PV#*
 
 S="${WORKDIR%/}/${PN#v2ray-}-${PV#*_p}"
 
-LICENSE="MIT"
+LICENSE="BSD MIT"
 SLOT="0"
 
 DEPEND=""
