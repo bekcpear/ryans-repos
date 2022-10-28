@@ -10,7 +10,7 @@ HOMEPAGE="https://github.com/nektos/act"
 SRC_URI="https://github.com/nektos/act/archive/refs/tags/v${PV}.tar.gz -> ${P}.tar.gz
 	https://github.com/bekcpear/gopkg-vendors/archive/refs/tags/vendor-${P}.tar.gz -> ${P}-vendor.tar.gz"
 
-LICENSE="MIT"
+LICENSE="Apache-2.0 BSD-2 BSD MIT"
 SLOT="0"
 KEYWORDS="~amd64 ~arm ~arm64 ~x86"
 
