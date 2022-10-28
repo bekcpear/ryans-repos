@@ -3,23 +3,11 @@
 
 EAPI=8
 
-inherit go-module
+inherit git-r3 go-module
 
 DESCRIPTION="Community managed domain list for V2Ray."
 HOMEPAGE="https://github.com/v2fly/domain-list-community"
-if [[ ${PV} == *9999 ]]; then
-	inherit git-r3
-	EGIT_REPO_URI="https://github.com/v2fly/domain-list-community.git"
-else
-	EGO_SUM=(
-		# module deps for non-live version
-		)
-	go-module_set_globals
-	SRC_URI="https://github.com/v2fly/domain-list-community/archive/refs/tags/${PV#*_p}.tar.gz -> ${P}.tar.gz
-		${EGO_SUM_SRC_URI}"
-	KEYWORDS="~amd64 ~arm ~arm64 ~x86"
-	S="${WORKDIR%/}/${PN#v2ray-}-${PV#*_p}"
-fi
+EGIT_REPO_URI="https://github.com/v2fly/domain-list-community.git"
 
 LICENSE="MIT"
 SLOT="0"
@@ -32,14 +20,10 @@ RDEPEND="${DEPEND}
 BDEPEND=">=dev-lang/go-1.18"
 
 src_unpack() {
-	if [[ ${PV} == *9999 ]]; then
-		git-r3_src_unpack
-		#TODO: Looking for a more elegant way to download deps
-		export GOPROXY="https://goproxy.cn,direct" || die
-		go-module_live_vendor
-	else
-		go-module_src_unpack
-	fi
+	git-r3_src_unpack
+	#TODO: Looking for a more elegant way to download deps
+	export GOPROXY="https://goproxy.cn,direct" || die
+	go-module_live_vendor
 }
 
 src_compile() {
