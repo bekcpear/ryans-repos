@@ -3,7 +3,7 @@
 
 EAPI=8
 
-inherit go-module systemd
+inherit go systemd
 
 DESCRIPTION="A platform for building proxies to bypass network restrictions."
 HOMEPAGE="https://github.com/v2fly/v2ray-core"
@@ -34,20 +34,20 @@ PATCHES=("${FILESDIR}"/${P}-quic.diff)
 src_prepare() {
 	sed -i 's|/usr/local/bin|/usr/bin|;s|/usr/local/etc|/etc|' release/config/systemd/system/*.service || die
 	sed -i '/^User=/s/nobody/v2ray/;/^User=/aDynamicUser=true' release/config/systemd/system/*.service || die
-	mv ../gopkg-vendors-vendor-${P}/* ./ || die
-	eapply go-mod-sum.diff
 	default
 }
 
 src_compile() {
-	go build -mod vendor -v -work -o "bin/v2ray" -trimpath -ldflags "-s -w" ./main || die
+	go build -work -o "bin/v2ray" -ldflags "-s -w" ./main || die
+
 	if use tool; then
-		go build -mod vendor -v -work -o "bin/v2ctl" -trimpath -ldflags "-s -w" -tags confonly ./infra/control/main || die
+		go build -work -o "bin/v2ctl" -ldflags "-s -w" -tags confonly ./infra/control/main || die
 	fi
 }
 
 src_install() {
 	dobin bin/v2ray
+
 	if use tool; then
 		dobin bin/v2ctl
 	fi
