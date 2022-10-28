@@ -53,8 +53,7 @@ eselect repository enable ryans
    acct-user/matterbridge                   | 0                      | RD     |                                                | User for the net-misc/matterbridge{,-bin} service
 --------------------------------------------|------------------------|--------|------------------------------------------------|--------------------
  net-proxy/v2ray-core                       | 4.45.2                 |        | https://github.com/v2fly/v2ray-core            | A platform for building proxies to bypass network restrictions.
-   dev-libs/v2ray-domain-list-community     | 4.43.0_p20211203092402 | RD     | https://github.com/v2fly/domain-list-community | Community managed domain list for V2Ray.
-                                            | 5.0.3_p20220501162639  |        |                                                |
+   dev-libs/v2ray-domain-list-community     | 5.0.3_p20220501162639  | RD     | https://github.com/v2fly/domain-list-community | Community managed domain list for V2Ray.
                                             | 9999                   |        |                                                |
    dev-libs/v2ray-domain-list-community-bin | 4.43.0_p20211203092402 | RD     | https://github.com/v2fly/domain-list-community | Community managed domain list for V2Ray.
                                             | 5.0.3_p20220501162639  |        |                                                |
@@ -67,7 +66,7 @@ eselect repository enable ryans
 --------------------------------------------|------------------------|--------|------------------------------------------------|--------------------
  net-vpn/headscale                          | 0.17.0_alpha4          |        | https://github.com/juanfont/headscale          | An open source, self-hosted implementation of the Tailscale control server
 --------------------------------------------|------------------------|--------|------------------------------------------------|--------------------
- net-vpn/tailscale                          | 1.32.0                 |        | https://tailscale.com                          | Tailscale vpn client
+ net-vpn/tailscale                          | 1.32.2                 |        | https://tailscale.com                          | Tailscale vpn client
 --------------------------------------------|------------------------|--------|------------------------------------------------|--------------------
  sys-apps/duf                               | 0.8.1                  |        | https://github.com/muesli/duf                  | Disk Usage/Free Utility - a better 'df' alternative
 --------------------------------------------|------------------------|--------|------------------------------------------------|--------------------
