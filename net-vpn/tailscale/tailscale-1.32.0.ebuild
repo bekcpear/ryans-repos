@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
-inherit go-module systemd tmpfiles
+inherit go systemd tmpfiles
 
 # These settings are obtained by running ./build_dist.sh shellvars` in
 # the upstream repo.
@@ -28,16 +28,10 @@ RDEPEND="net-firewall/iptables"
 # This translates the build command from upstream's build_dist.sh to an
 # ebuild equivalent.
 build_dist() {
-	ego build -mod vendor -tags xversion -ldflags "
+	go build -mod vendor -tags xversion -ldflags "
 		-X tailscale.com/version.Long=${VERSION_LONG}
 		-X tailscale.com/version.Short=${VERSION_SHORT}
-		-X tailscale.com/version.GitCommit=${VERSION_GIT_HASH}" "$@"
-}
-
-src_prepare() {
-	mv ../gopkg-vendors-vendor-${P}/* ./ || die
-	eapply go-mod-sum.diff
-	eapply_user
+		-X tailscale.com/version.GitCommit=${VERSION_GIT_HASH}" "$@" || die
 }
 
 src_compile() {
