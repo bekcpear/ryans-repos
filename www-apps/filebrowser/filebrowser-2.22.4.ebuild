@@ -3,7 +3,7 @@
 
 EAPI=8
 
-inherit go-module npm systemd
+inherit go npm systemd
 
 DESCRIPTION="Web File Browser"
 HOMEPAGE="https://filebrowser.org https://github.com/filebrowser/filebrowser"
@@ -1218,17 +1218,16 @@ PATCHES=(
 	"${WORKDIR}/${MY_SHAPATCH_SUFFIX}.sh-${P}/${MY_SHAPATCH_SUFFIX}.diff"
 )
 
+GO_LDFLAGS="
+	-X github.com/filebrowser/filebrowser/v2/version.Version=${PV}
+	-X github.com/filebrowser/filebrowser/v2/version.CommitSHA=release"
+
 src_unpack() {
 	unpack ${P}.tar.gz
 	unpack ${P}-vendor.tar.gz
+	go_setup_vendor
 	unpack ${P}-${MY_SHAPATCH_SUFFIX}.tar.gz
 	npm_add_cache
-}
-
-src_prepare() {
-	mv ../gopkg-vendors-vendor-${P}/* ./ || die
-	eapply go-mod-sum.diff
-	default
 }
 
 src_compile() {
@@ -1237,15 +1236,13 @@ src_compile() {
 	npm ci || die
 	npm run build || die
 	popd || die
-	local goldflags="-s -w
-		-X github.com/filebrowser/filebrowser/v2/version.Version=${PV}
-		-X github.com/filebrowser/filebrowser/v2/version.CommitSHA=release"
-	ego build -mod vendor -v -work -o . -trimpath -ldflags "${goldflags}"
+
+	go_src_compile
 }
 
 src_install() {
-	exeinto /usr/bin
-	doexe filebrowser
+	go_src_install
+
 	insinto /etc/filebrowser
 	keepdir /var/log/filebrowser
 	fowners filebrowser:filebrowser /var/log/filebrowser
