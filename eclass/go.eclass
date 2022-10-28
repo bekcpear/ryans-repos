@@ -113,7 +113,6 @@ RESTRICT+=" strip"
 # SRC_URI for go.sum entiries
 GO_SUM_LIST_SRC_URI=
 
-
 # @ECLASS_VARIABLE: GO_SUM_LIST_SRC_URI_R
 # @INTERNAL
 # @DESCRIPTION:
@@ -252,9 +251,9 @@ go_src_compile() {
 
 	if [[ -d "cmd" ]] && \
 		[[ $(find cmd/ -maxdepth 2 -type f -name '*.go' -exec grep -E '^package[[:space:]]+main' '{}' \; 2>/dev/null || true) != "" ]]; then
-		go build -work -o "${WORKDIR}/bin/" -ldflags "${GO_LDFLAGS}" ./cmd/... || die
+		go build -work -o "${T}/go-bin/" -ldflags "${GO_LDFLAGS}" ./cmd/... || die
 	else
-		go build -work -o "${WORKDIR}/bin/" -ldflags "${GO_LDFLAGS}" . || die
+		go build -work -o "${T}/go-bin/" -ldflags "${GO_LDFLAGS}" . || die
 	fi
 }
 
@@ -264,7 +263,7 @@ go_src_compile() {
 go_src_install() {
 	debug-print-function "${FUNCNAME}" "${@}"
 
-	dobin "${WORKDIR}"/bin/*
+	dobin "${T}"/go-bin/*
 }
 
 fi
