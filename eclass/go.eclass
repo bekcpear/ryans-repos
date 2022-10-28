@@ -246,8 +246,8 @@ go_src_unpack() {
 go_src_compile() {
 	debug-print-function "${FUNCNAME}" "${@}"
 
-	[[ "${GO_LDFLAGS}" =~ -w ]] || GO_LDFLAGS="-w ${GO_LDFLAGS}"
-	[[ "${GO_LDFLAGS}" =~ -s ]] || GO_LDFLAGS="-s ${GO_LDFLAGS}"
+	[[ "${GO_LDFLAGS}" =~ (^|[[:space:]])-w([[:space:]]|$) ]] || GO_LDFLAGS="-w ${GO_LDFLAGS}"
+	[[ "${GO_LDFLAGS}" =~ (^|[[:space:]])-s([[:space:]]|$) ]] || GO_LDFLAGS="-s ${GO_LDFLAGS}"
 
 	if [[ -d "cmd" ]] && \
 		[[ $(find cmd/ -maxdepth 2 -type f -name '*.go' -exec grep -E '^package[[:space:]]+main' '{}' \; 2>/dev/null || true) != "" ]]; then
