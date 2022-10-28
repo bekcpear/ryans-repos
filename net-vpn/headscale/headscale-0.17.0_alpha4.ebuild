@@ -3,7 +3,7 @@
 
 EAPI=8
 
-inherit go-module systemd
+inherit go systemd
 
 DESCRIPTION="An open source, self-hosted implementation of the Tailscale control server"
 HOMEPAGE="https://github.com/juanfont/headscale"
@@ -30,28 +30,22 @@ PATCHES=(
 	"${FILESDIR}"/config-socket.patch
 )
 
+GO_LDFLAGS="-X github.com/juanfont/headscale/cmd/headscale/cli.Version=v${PV//_/-}"
+
 src_prepare() {
 	rm -rf ./gen || die
-	mv ../gopkg-vendors-vendor-${P//_/-}/* ./ || die
-	eapply go-mod-sum.diff
+	mv ../gopkg-vendors-vendor-${P//_/-}/gen ./ || die
 	default
 }
 
-src_compile() {
-	GOOS=linux CGO_ENABLED=0 \
-	ego build -trimpath -mod=vendor \
-		-ldflags "-s -w -X github.com/juanfont/headscale/cmd/headscale/cli.Version=v${PV//_/-}" \
-		cmd/headscale/headscale.go
-}
-
 src_install() {
-	dobin headscale
+	go_src_install
 	dodoc -r docs/* config-example.yaml
 	keepdir /etc/headscale /var/lib/headscale
 	systemd_dounit "${FILESDIR}"/headscale.service
 	newconfd "${FILESDIR}"/headscale.confd headscale
 	newinitd "${FILESDIR}"/headscale.initd headscale
-	fowners -R ${PN}:${PN} /etc/headscale /var/lib/headscale
+	#fowners -R ${PN}:${PN} /etc/headscale /var/lib/headscale
 }
 
 pkg_postinst() {
