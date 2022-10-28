@@ -48,8 +48,8 @@
 #
 #          vendor/
 #
-#              [go-mod-sum.diff]   # should and expected to be empty if
-#                                  # the upstream did `go mod tidy` before releasing
+#          [go-mod-sum.diff]   # should and expected to be empty if
+#                              # the upstream did `go mod tidy` before releasing
 #
 # @CODE
 #
