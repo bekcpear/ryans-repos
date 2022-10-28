@@ -3,7 +3,7 @@
 
 EAPI=8
 
-inherit go-module
+inherit go
 
 DESCRIPTION="Run your GitHub Actions locally"
 HOMEPAGE="https://github.com/nektos/act"
@@ -24,15 +24,4 @@ RDEPEND="
 		)"
 BDEPEND=">=dev-lang/go-1.18:="
 
-src_prepare() {
-	mv ../gopkg-vendors-vendor-${P}/* ./ || die
-	default
-}
-
-src_compile() {
-	ego build -mod vendor -v -work -o ${PN} -trimpath -ldflags "-s -w -X main.version=${PV}" .
-}
-
-src_install() {
-	dobin act
-}
+GO_LDFLAGS="-X main.version=${PV}"
