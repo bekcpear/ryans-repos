@@ -10,7 +10,7 @@ HOMEPAGE="https://github.com/juanfont/headscale"
 SRC_URI="https://github.com/juanfont/headscale/archive/v${PV//_/-}.tar.gz -> ${P}.tar.gz
 	https://github.com/bekcpear/gopkg-vendors/archive/refs/tags/vendor-${P//_/-}.tar.gz -> ${P}-vendor.tar.gz"
 
-LICENSE="BSD Apache-2.0 MIT"
+LICENSE="Apache-2.0 BSD-2 BSD MIT MPL-2.0"
 SLOT="0"
 KEYWORDS="~amd64 ~arm64 ~riscv"
 
