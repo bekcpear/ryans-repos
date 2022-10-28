@@ -11,7 +11,7 @@ HOMEPAGE="https://github.com/muesli/duf"
 SRC_URI="https://github.com/muesli/duf/archive/refs/tags/v${PV}.tar.gz -> ${P}.tar.gz
 	${GO_SUM_LIST_SRC_URI}"
 
-LICENSE="MIT BSD"
+LICENSE="Apache-2.0 BSD MIT"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 
