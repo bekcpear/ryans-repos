@@ -3,7 +3,7 @@
 
 EAPI=8
 
-inherit systemd
+inherit go systemd
 
 DESCRIPTION="Dendrite is a second-generation Matrix homeserver written in Go!"
 HOMEPAGE="https://github.com/matrix-org/dendrite"
@@ -24,18 +24,8 @@ RDEPEND="
 "
 RESTRICT="strip"
 
-src_prepare() {
-	mv ../gopkg-vendors-vendor-${P}/* ./ || die
-	eapply go-mod-sum.diff
-	default
-}
-
-src_compile() {
-	CGO_ENABLED=1 go build -mod vendor -work -trimpath -ldflags "-s -w" -v -o "bin/" ./cmd/... || die
-}
-
 src_install() {
-	dobin bin/*
+	go_src_install
 
 	insinto /etc/dendrite
 	doins dendrite-sample.monolith.yaml
