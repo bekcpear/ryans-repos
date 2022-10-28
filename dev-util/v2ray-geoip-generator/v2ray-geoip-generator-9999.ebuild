@@ -9,7 +9,7 @@ DESCRIPTION="GeoIP generator for V2Ray."
 HOMEPAGE="https://github.com/v2fly/geoip http://www.maxmind.com/"
 EGIT_REPO_URI="https://github.com/v2fly/geoip.git"
 
-LICENSE="CC-BY-SA-4.0"
+LICENSE="Apache-2.0 BSD CC-BY-SA-4.0 ISC MIT"
 SLOT="0"
 
 DEPEND=""
