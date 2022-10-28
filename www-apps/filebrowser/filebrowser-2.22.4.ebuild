@@ -8,7 +8,7 @@ inherit go npm systemd
 DESCRIPTION="Web File Browser"
 HOMEPAGE="https://filebrowser.org https://github.com/filebrowser/filebrowser"
 
-LICENSE="Apache-2.0"
+LICENSE="Apache-2.0 BSD-2 BSD MIT MPL-2.0"
 SLOT="0"
 KEYWORDS="~amd64 ~arm64 ~x86"
 
