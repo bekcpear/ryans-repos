@@ -41,7 +41,7 @@ eselect repository enable ryans
 --------------------------------------------|------------------------|--------|------------------------------------------------|--------------------
  media-sound/qqmusic-bin                    | 1.1.5                  |        | https://y.qq.com/download/download.html        | Tencent QQ Music for Linux.
 --------------------------------------------|------------------------|--------|------------------------------------------------|--------------------
- net-im/dendrite                            | 0.10.6                 |        | https://github.com/matrix-org/dendrite         | Dendrite is a second-generation Matrix homeserver written in Go!
+ net-im/dendrite                            | 0.10.7                 |        | https://github.com/matrix-org/dendrite         | Dendrite is a second-generation Matrix homeserver written in Go!
    acct-group/dendrite                      | 0                      | RD     |                                                | Group for the net-im/dendrite service
    acct-user/dendrite                       | 0                      | RD     |                                                | User for the net-im/dendrite service
 --------------------------------------------|------------------------|--------|------------------------------------------------|--------------------
@@ -77,7 +77,7 @@ eselect repository enable ryans
    acct-group/cryptpad                      | 0                      | RD     |                                                | Group for the www-apps/cryptpad service
    acct-user/cryptpad                       | 0                      | RD     |                                                | User for the www-apps/cryptpad service
 --------------------------------------------|------------------------|--------|------------------------------------------------|--------------------
- www-apps/filebrowser                       | 2.22.4                 |        | https://filebrowser.org                        | Web File Browser
+ www-apps/filebrowser                       | 2.23.0                 |        | https://filebrowser.org                        | Web File Browser
    acct-group/filebrowser                   | 0                      | RD     |                                                | Group for the www-apps/filebrowser service
    acct-user/filebrowser                    | 0                      | RD     |                                                | User for the www-apps/filebrowser service
 ============================================|========================|========|================================================|====================
