@@ -38,6 +38,7 @@ eselect repository enable ryans
  kde-misc/krunner-pass                      | 9999                   |        | https://github.com/bekcpear/krunner-pass       | (Modified type instead version) Integrates krunner with pass
 --------------------------------------------|------------------------|--------|------------------------------------------------|--------------------
  media-gfx/weasis-bin                       | 4.0.2                  |        | https://nroduit.github.io/                     | A DICOM viewer available as a desktop application or as a web-based application.
+                                            | 4.0.3                  |        |                                                |
 --------------------------------------------|------------------------|--------|------------------------------------------------|--------------------
  media-sound/qqmusic-bin                    | 1.1.5                  |        | https://y.qq.com/download/download.html        | Tencent QQ Music for Linux.
 --------------------------------------------|------------------------|--------|------------------------------------------------|--------------------
