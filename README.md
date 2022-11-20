@@ -16,11 +16,13 @@ eselect repository enable ryans
 ============================================|========================|========|================================================|====================
  app-admin/z16                              | 9999                   |        | https://github.com/bekcpear/z16                | A bash script project that aims to maintain dotfiles.
 --------------------------------------------|------------------------|--------|------------------------------------------------|--------------------
+ app-i18n/fcitx-bamboo                      | 1.0.1                  |        | https://github.com/fcitx/fcitx5-bamboo         | Typing Vietnamese by Bamboo core engine for Fcitx5
+   app-i18n/fcitx                           | 5.0.19                 |  D, RD | https://fcitx-im.org/                          | Fcitx (Flexible Context-aware Input Tool with eXtension) input method framework
+     x11-libs/xcb-imdkit                    | 1.0.3                  |  D, RD | https://github.com/fcitx/xcb-imdkit            | Input method development support for xcb
+--------------------------------------------|------------------------|--------|------------------------------------------------|--------------------
  app-i18n/fcitx-meta                        | 5.0.12                 |        | https://fcitx-im.org                           | Merge this to pull in Fcitx packages
    app-i18n/fcitx-configtool                | 5.0.15                 | RD     | https://fcitx-im.org/                          | GUI configuration tool for Fcitx
      app-i18n/fcitx-qt                      | 5.0.15                 |  D, RD | https://fcitx-im.org/                          | Qt library and IM module for fcitx5
-       app-i18n/fcitx                       | 5.0.19                 |  D, RD | https://fcitx-im.org/                          | Fcitx (Flexible Context-aware Input Tool with eXtension) input method framework
-         x11-libs/xcb-imdkit                | 1.0.3                  |  D, RD | https://github.com/fcitx/xcb-imdkit            | Input method development support for xcb
    app-i18n/fcitx-gtk                       | 5.0.19                 | RD     | https://fcitx-im.org/                          | GTK IM module and glib based dbus client library for Fcitx
    app-i18n/fcitx-rime                      | 5.0.14                 | RD     | https://fcitx-im.org/                          | Chinese RIME input methods for Fcitx
 --------------------------------------------|------------------------|--------|------------------------------------------------|--------------------
