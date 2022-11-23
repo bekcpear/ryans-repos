@@ -29,7 +29,7 @@ src_unpack() {
 		wget "https://github.com/v2fly/geoip/releases/latest/download/geoip.dat.sha256sum" || die
 		sha256sum -c geoip.dat.sha256sum || die "check sha256sum for 'geoip.dat' failed"
 	else
-		cp ${DISTDIR%/}/${P}.dat geoip.dat || die
+		cp "${DISTDIR%/}/${P}.dat" geoip.dat || die
 	fi
 }
 
