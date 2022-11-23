@@ -8,7 +8,7 @@ inherit cmake
 MY_PN="fcitx5-gtk"
 DESCRIPTION="GTK IM module and glib based dbus client library for Fcitx"
 HOMEPAGE="https://fcitx-im.org/ https://github.com/fcitx/fcitx5-gtk"
-SRC_URI="https://github.com/fcitx/fcitx5-gtk/archive/refs/tags/${PV}.tar.gz -> ${P}.tar.gz"
+SRC_URI="https://download.fcitx-im.org/fcitx5/fcitx5-gtk/fcitx5-gtk-${PV}.tar.xz -> ${P}.tar.xz"
 
 LICENSE="LGPL-2.1+"
 SLOT="5"
@@ -63,7 +63,7 @@ update_input_method_module_cache() {
 	fi
 
 	ebegin "Updating ${libpath%\.0/*} input method module cache"
-	GTK_IM_MODULE_FILE="${EROOT%/}/usr/$(get_libdir)/${libpath}/immodules.cache" \
+	GTK_IM_MODULE_FILE="${EROOT}/usr/$(get_libdir)/${libpath}/immodules.cache" \
 		"${updater}" --update-cache
 	eend $?
 }
