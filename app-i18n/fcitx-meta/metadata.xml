@@ -6,6 +6,7 @@
 		<name>Ryan Qian</name>
 	</maintainer>
 	<use>
+		<flag name="bamboo">Install bamboo input method</flag>
 		<flag name="configtool">Enable GUI config tool</flag>
 		<flag name="gtk2">Enable GTK2 IM support</flag>
 		<flag name="gtk3">Enable GTK3 IM support</flag>
