@@ -16,20 +16,19 @@ eselect repository enable ryans
 ============================================|========================|========|================================================|====================
  app-admin/z16                              | 9999                   |        | https://github.com/bekcpear/z16                | A bash script project that aims to maintain dotfiles.
 --------------------------------------------|------------------------|--------|------------------------------------------------|--------------------
- app-i18n/fcitx-bamboo                      | 1.0.1                  |        | https://github.com/fcitx/fcitx5-bamboo         | Typing Vietnamese by Bamboo core engine for Fcitx5
-   app-i18n/fcitx                           | 5.0.19                 |  D, RD | https://fcitx-im.org/                          | Fcitx (Flexible Context-aware Input Tool with eXtension) input method framework
-     x11-libs/xcb-imdkit                    | 1.0.3                  |  D, RD | https://github.com/fcitx/xcb-imdkit            | Input method development support for xcb
---------------------------------------------|------------------------|--------|------------------------------------------------|--------------------
  app-i18n/fcitx-meta                        | 5.0.12                 |        | https://fcitx-im.org                           | Merge this to pull in Fcitx packages
-   app-i18n/fcitx-configtool                | 5.0.15                 | RD     | https://fcitx-im.org/                          | GUI configuration tool for Fcitx
-     app-i18n/fcitx-qt                      | 5.0.15                 |  D, RD | https://fcitx-im.org/                          | Qt library and IM module for fcitx5
-   app-i18n/fcitx-gtk                       | 5.0.19                 | RD     | https://fcitx-im.org/                          | GTK IM module and glib based dbus client library for Fcitx
-   app-i18n/fcitx-rime                      | 5.0.14                 | RD     | https://fcitx-im.org/                          | Chinese RIME input methods for Fcitx
+   app-i18n/fcitx-bamboo                    | 1.0.2                  | RD     | https://github.com/fcitx/fcitx5-bamboo         | Typing Vietnamese by Bamboo core engine for Fcitx5
+     app-i18n/fcitx                         | 5.0.20                 |  D, RD | https://fcitx-im.org/                          | Fcitx (Flexible Context-aware Input Tool with eXtension) input method framework
+       x11-libs/xcb-imdkit                  | 1.0.4                  |  D, RD | https://github.com/fcitx/xcb-imdkit            | Input method development support for xcb
+   app-i18n/fcitx-configtool                | 5.0.16                 | RD     | https://fcitx-im.org/                          | GUI configuration tool for Fcitx
+     app-i18n/fcitx-qt                      | 5.0.16                 |  D, RD | https://fcitx-im.org/                          | Qt library and IM module for fcitx5
+   app-i18n/fcitx-gtk                       | 5.0.20                 | RD     | https://fcitx-im.org/                          | GTK IM module and glib based dbus client library for Fcitx
+   app-i18n/fcitx-rime                      | 5.0.15                 | RD     | https://fcitx-im.org/                          | Chinese RIME input methods for Fcitx
 --------------------------------------------|------------------------|--------|------------------------------------------------|--------------------
  app-misc/razergenie                        | 9999                   |        | https://github.com/z3ntu/RazerGenie            | Razer devices configurator
    dev-libs/libopenrazer                    | 9999                   |  D, RD | https://github.com/z3ntu/libopenrazer          | Libraries for razergenie.
      sys-apps/openrazer_test                | 9999                   |  D, RD | https://github.com/z3ntu/razer_test            | A work-in-progress replacement for OpenRazer.
-   sys-apps/openrazer                       | 3.4.0                  | RD     | https://github.com/openrazer/openrazer         | A user-space daemon that allows you to manage your Razer peripherals.
+   sys-apps/openrazer                       | 3.5.0                  | RD     | https://github.com/openrazer/openrazer         | A user-space daemon that allows you to manage your Razer peripherals.
 --------------------------------------------|------------------------|--------|------------------------------------------------|--------------------
  app-text/ydcv-rs                           | 0.4.7                  |        | https://github.com/farseerfc/ydcv-rs           | A rust version of YouDao Console Version
 --------------------------------------------|------------------------|--------|------------------------------------------------|--------------------
@@ -51,7 +50,7 @@ eselect repository enable ryans
  net-im/linuxqq-bin                         | 2.0.0_beta2_p1089      |        | https://im.qq.com/linuxqq/index.html           | Tencent QQ.
 --------------------------------------------|------------------------|--------|------------------------------------------------|--------------------
  net-im/mautrix-telegram                    | mautrix-telegram       |        | https://github.com/openrazer/openrazer         | A user-space daemon that allows you to manage your Razer peripherals.
-   sys-apps/openrazer-driver                | 3.4.0                  | RD     | https://github.com/openrazer/openrazer         | A collection of kernel drivers for Razer devices.
+   sys-apps/openrazer-driver                | 3.5.0                  | RD     | https://github.com/openrazer/openrazer         | A collection of kernel drivers for Razer devices.
 --------------------------------------------|------------------------|--------|------------------------------------------------|--------------------
  net-misc/matterbridge-bin                  | 1.25.2                 |        | https://github.com/42wim/matterbridge          | a simple chat bridge, IRC | Matrix | Mattermost | Telegram | XMPP | And more...
    acct-group/matterbridge                  | 0                      | RD     |                                                | Group for the net-misc/matterbridge{,-bin} service
@@ -71,7 +70,7 @@ eselect repository enable ryans
 --------------------------------------------|------------------------|--------|------------------------------------------------|--------------------
  net-vpn/headscale                          | 0.17.0_beta4           |        | https://github.com/juanfont/headscale          | An open source, self-hosted implementation of the Tailscale control server
 --------------------------------------------|------------------------|--------|------------------------------------------------|--------------------
- net-vpn/tailscale                          | 1.32.2                 |        | https://tailscale.com                          | Tailscale vpn client
+ net-vpn/tailscale                          | 1.32.3                 |        | https://tailscale.com                          | Tailscale vpn client
 --------------------------------------------|------------------------|--------|------------------------------------------------|--------------------
  sys-apps/duf                               | 0.8.1                  |        | https://github.com/muesli/duf                  | Disk Usage/Free Utility - a better 'df' alternative
 --------------------------------------------|------------------------|--------|------------------------------------------------|--------------------
