@@ -35,6 +35,7 @@ RDEPEND="
 		)
 	)
 "
+BDEPEND="app-arch/unzip"
 
 QA_PREBUILT="
 	/usr/bin/v2ray
