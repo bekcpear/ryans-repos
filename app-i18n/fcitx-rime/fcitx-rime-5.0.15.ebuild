@@ -8,7 +8,7 @@ inherit cmake xdg-utils
 MY_PN="fcitx5-rime"
 DESCRIPTION="Chinese RIME input methods for Fcitx"
 HOMEPAGE="https://fcitx-im.org/ https://github.com/fcitx/fcitx5-rime"
-SRC_URI="https://github.com/fcitx/fcitx5-rime/archive/refs/tags/${PV}.tar.gz -> ${P}.tar.gz"
+SRC_URI="https://download.fcitx-im.org/fcitx5/fcitx5-rime/fcitx5-rime-${PV}.tar.xz -> ${P}.tar.xz"
 
 LICENSE="LGPL-2.1+"
 SLOT="5"
@@ -28,7 +28,7 @@ BDEPEND="
 
 S="${WORKDIR}/${MY_PN}-${PV}"
 
-PATCHES=("${FILESDIR}/${PN}-5.0.14-fix-conflicts-with-fcitx4-rime.diff")
+PATCHES=("${FILESDIR}/${PN}-5.0.15-fix-conflicts-with-fcitx4-rime.diff")
 
 pkg_postinst() {
 	xdg_icon_cache_update
