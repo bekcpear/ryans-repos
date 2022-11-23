@@ -84,12 +84,18 @@ BDEPEND=">=dev-lang/go-1.16"
 
 EXPORT_FUNCTIONS src_unpack src_compile src_install
 
+# @ECLASS_VARIABLE: GOFLAGS
+# @INTERNAL
+# @DESCRIPTION:
 # -buildvcs=false omits version control information
 # -trimpath remove all file system paths from the resulting executable
 # -v prints the names of packages as they are compiled
 # -x prints the commands
 export GOFLAGS="-buildvcs=false -trimpath -v -x"
 
+# @ECLASS_VARIABLE: QA_FLAGS_IGNORED
+# @INTERNAL
+# @DESCRIPTION:
 # ignore FLAGS due to go projects do not use them,
 # this is a regex used by sed (without leading ^ and ending $).
 QA_FLAGS_IGNORED='.*'
