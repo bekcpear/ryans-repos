@@ -7,7 +7,7 @@ inherit cmake
 
 DESCRIPTION="Input method development support for xcb"
 HOMEPAGE="https://github.com/fcitx/xcb-imdkit"
-SRC_URI="https://github.com/fcitx/xcb-imdkit/archive/refs/tags/${PV}.tar.gz -> ${P}.tar.gz"
+SRC_URI="https://download.fcitx-im.org/fcitx5/xcb-imdkit/xcb-imdkit-${PV}.tar.xz -> ${P}.tar.xz"
 
 LICENSE="BSD-1 LGPL-2.1"
 SLOT="0"
