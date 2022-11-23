@@ -29,6 +29,7 @@ eselect repository enable ryans
    dev-libs/libopenrazer                    | 9999                   |  D, RD | https://github.com/z3ntu/libopenrazer          | Libraries for razergenie.
      sys-apps/openrazer_test                | 9999                   |  D, RD | https://github.com/z3ntu/razer_test            | A work-in-progress replacement for OpenRazer.
    sys-apps/openrazer                       | 3.5.0                  | RD     | https://github.com/openrazer/openrazer         | A user-space daemon that allows you to manage your Razer peripherals.
+     sys-apps/openrazer-driver              | 3.5.0                  | RD     | https://github.com/openrazer/openrazer         | A collection of kernel drivers for Razer devices.
 --------------------------------------------|------------------------|--------|------------------------------------------------|--------------------
  app-text/ydcv-rs                           | 0.4.7                  |        | https://github.com/farseerfc/ydcv-rs           | A rust version of YouDao Console Version
 --------------------------------------------|------------------------|--------|------------------------------------------------|--------------------
@@ -48,9 +49,6 @@ eselect repository enable ryans
    acct-user/dendrite                       | 0                      | RD     |                                                | User for the net-im/dendrite service
 --------------------------------------------|------------------------|--------|------------------------------------------------|--------------------
  net-im/linuxqq-bin                         | 2.0.0_beta2_p1089      |        | https://im.qq.com/linuxqq/index.html           | Tencent QQ.
---------------------------------------------|------------------------|--------|------------------------------------------------|--------------------
- net-im/mautrix-telegram                    | mautrix-telegram       |        | https://github.com/openrazer/openrazer         | A user-space daemon that allows you to manage your Razer peripherals.
-   sys-apps/openrazer-driver                | 3.5.0                  | RD     | https://github.com/openrazer/openrazer         | A collection of kernel drivers for Razer devices.
 --------------------------------------------|------------------------|--------|------------------------------------------------|--------------------
  net-misc/matterbridge-bin                  | 1.25.2                 |        | https://github.com/42wim/matterbridge          | a simple chat bridge, IRC | Matrix | Mattermost | Telegram | XMPP | And more...
    acct-group/matterbridge                  | 0                      | RD     |                                                | Group for the net-misc/matterbridge{,-bin} service
