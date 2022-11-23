@@ -15,7 +15,7 @@ SLOT="5"
 KEYWORDS="~amd64 ~x86"
 
 DEPEND="
-	app-i18n/fcitx:5
+	>=app-i18n/fcitx-5.0.6:5
 	app-i18n/librime
 	app-i18n/rime-data
 	sys-devel/gettext
