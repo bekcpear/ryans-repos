@@ -33,6 +33,6 @@ BDEPEND="
 src_prepare() {
 	eapply_user
 	if ! use razer-test; then
-		cp ${FILESDIR%/}/meson.build ./ || die
+		cp "${FILESDIR%/}/meson.build" ./ || die
 	fi
 }
