@@ -8,7 +8,7 @@ inherit cmake
 MY_PN="fcitx5-qt"
 DESCRIPTION="Qt library and IM module for fcitx5"
 HOMEPAGE="https://fcitx-im.org/ https://github.com/fcitx/fcitx5-qt"
-SRC_URI="https://github.com/fcitx/fcitx5-qt/archive/refs/tags/${PV}.tar.gz -> ${P}.tar.gz"
+SRC_URI="https://download.fcitx-im.org/fcitx5/fcitx5-qt/fcitx5-qt-${PV}.tar.xz -> ${P}.tar.xz"
 
 LICENSE="BSD LGPL-2.1+"
 SLOT="5"
