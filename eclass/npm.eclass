@@ -49,7 +49,7 @@ BDEPEND=">=net-libs/nodejs-16.6[npm]"
 
 EXPORT_FUNCTIONS src_unpack
 
-# @ECLASS-VARIABLE: NPM_RESOLVED
+# @ECLASS_VARIABLE: NPM_RESOLVED
 # @REQUIRED
 # @DESCRIPTION:
 # This is an array based on package-lock.json/npm-shrinkwrap.json content
@@ -57,24 +57,24 @@ EXPORT_FUNCTIONS src_unpack
 # e.g.:
 #   `jq '.packages[].resolved' package-lock.json | sed -E '/^null$/d;s@^\"https://[^/]+/(.+)\"$@\"\1\"@' | sort -u`
 
-# @ECLASS-VARIABLE: NPM_RESOLVED_SRC_URI
+# @ECLASS_VARIABLE: NPM_RESOLVED_SRC_URI
 # @OUTPUT_VARIABLE
 # @DESCRIPTION:
 # Coverted real src_uri and corresponding filename.
 
-# @ECLASS-VARIABLE: _NPM_RESOLVED_TEST
+# @ECLASS_VARIABLE: _NPM_RESOLVED_TEST
 # @INTERNAL
 # @DESCRIPTION:
 # Used to test distfiles belonging to NPM or not
 declare -A -g _NPM_RESOLVED_TEST
 
-# @ECLASS-VARIABLE: _NPM_CACHE_DIR
+# @ECLASS_VARIABLE: _NPM_CACHE_DIR
 # @INTERNAL
 # @DESCRIPTION:
 # The temporary cache directory for NPM
 _NPM_CACHE_DIR="${T}/npm-cache/"
 
-# @ECLASS-VARIABLE: _NPM
+# @ECLASS_VARIABLE: _NPM
 # @INTERNAL
 # @DESCRIPTION:
 # NPM command
