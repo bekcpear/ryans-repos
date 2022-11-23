@@ -34,8 +34,8 @@ src_unpack() {
 	elif use arm64; then
 		p=${P}_arm64
 	fi
-	cp ${DISTDIR}/${p} ./${PN%-bin} || die
-	cp ${DISTDIR}/${P}.toml.s{a,i}mple . || die
+	cp "${DISTDIR%/}/${p}" ./${PN%-bin} || die
+	cp "${DISTDIR%/}"/${P}.toml.s{a,i}mple . || die
 }
 
 src_install() {
@@ -50,8 +50,8 @@ src_install() {
 	keepdir /var/log/matterbridge
 	fowners matterbridge:matterbridge /var/log/matterbridge
 
-	newconfd ${FILESDIR}/matterbridge.confd matterbridge
-	newinitd ${FILESDIR}/matterbridge.initd matterbridge
+	newconfd "${FILESDIR}/matterbridge.confd" matterbridge
+	newinitd "${FILESDIR}/matterbridge.initd" matterbridge
 
-	systemd_dounit ${FILESDIR}/matterbridge.service
+	systemd_dounit "${FILESDIR}/matterbridge.service"
 }
