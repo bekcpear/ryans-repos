@@ -10,13 +10,11 @@ MY_P="${MY_PN}-${PV}"
 S="${WORKDIR}/${MY_PN}-${PV}"
 DESCRIPTION="Typing Vietnamese by Bamboo core engine for Fcitx5"
 HOMEPAGE="https://github.com/fcitx/fcitx5-bamboo"
-
-SRC_URI="https://download.fcitx-im.org/fcitx5/${MY_PN}/${MY_P}.tar.xz"
+SRC_URI="https://download.fcitx-im.org/fcitx5/${MY_PN}/${MY_P}.tar.xz -> ${P}.tar.xz"
 
 LICENSE="LGPL-2.1+ MIT"
 SLOT="5"
 KEYWORDS="~amd64"
-IUSE=""
 
 DEPEND="
 	app-i18n/fcitx:5
