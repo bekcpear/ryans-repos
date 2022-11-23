@@ -8,7 +8,7 @@ inherit cmake xdg-utils
 MY_PN="fcitx5-configtool"
 DESCRIPTION="GUI configuration tool for Fcitx"
 HOMEPAGE="https://fcitx-im.org/ https://github.com/fcitx/fcitx5-configtool"
-SRC_URI="https://github.com/fcitx/fcitx5-configtool/archive/refs/tags/${PV}.tar.gz -> ${P}.tar.gz"
+SRC_URI="https://download.fcitx-im.org/fcitx5/fcitx5-configtool/fcitx5-configtool-${PV}.tar.xz -> ${P}.tar.xz"
 
 LICENSE="GPL-2+"
 SLOT="5"
