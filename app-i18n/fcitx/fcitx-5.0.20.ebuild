@@ -5,14 +5,12 @@ EAPI=8
 
 inherit cmake xdg-utils
 
-DV="20121020"
 MY_PN="fcitx5"
 DESCRIPTION="Fcitx (Flexible Context-aware Input Tool with eXtension) input method framework"
 HOMEPAGE="https://fcitx-im.org/ https://github.com/fcitx/fcitx5"
-SRC_URI="https://github.com/fcitx/fcitx5/archive/refs/tags/${PV}.tar.gz -> ${P}.tar.gz
-	https://download.fcitx-im.org/data/en_dict-${DV}.tar.gz -> fcitx-data-en_dict-${DV}.tar.gz"
+SRC_URI="https://download.fcitx-im.org/fcitx5/fcitx5/fcitx5-${PV}_dict.tar.xz -> ${P}.tar.xz"
 
-LICENSE="LGPL-2.1+"
+LICENSE="LGPL-2.1+ Unicode-DFS-2016"
 SLOT="5"
 KEYWORDS="~amd64 ~x86"
 IUSE="X coverage dbus doc +emoji +enchant +keyboard +libuuid +server systemd test wayland"
@@ -27,15 +25,14 @@ DEPEND="
 		x11-libs/libxcb[xkb]
 		x11-libs/libxkbfile
 		x11-libs/pango[X]
-		~x11-libs/xcb-imdkit-1.0.3
+		>=x11-libs/xcb-imdkit-1.0.3
 		x11-libs/xcb-util
 		x11-libs/xcb-util-keysyms
 		x11-libs/xcb-util-wm
 		)
 	dev-libs/libfmt
 	emoji? (
-		app-i18n/unicode-cldr
-		dev-libs/expat
+		sys-libs/zlib
 		)
 	enchant? ( app-text/enchant:2 )
 	keyboard? (
@@ -66,6 +63,7 @@ DEPEND="
 RDEPEND="${DEPEND}
 "
 BDEPEND="
+	dev-libs/libevent
 	doc? ( app-doc/doxygen )
 	kde-frameworks/extra-cmake-modules
 	virtual/pkgconfig
@@ -75,11 +73,6 @@ S="${WORKDIR}/${MY_PN}-${PV}"
 PATCHES=(
 	"${FILESDIR}/${PN}-5.0.8-fix-conflicts-with-fcitx4.diff"
 )
-
-src_prepare() {
-	cp "${DISTDIR}/fcitx-data-en_dict-${DV}.tar.gz" src/modules/spell/en_dict-${DV}.tar.gz || die
-	cmake_src_prepare
-}
 
 src_configure() {
 	local mycmakeargs=(
