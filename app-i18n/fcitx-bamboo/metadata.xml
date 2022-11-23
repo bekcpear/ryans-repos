@@ -9,4 +9,8 @@
 		<email>tuhavuong@gmail.com</email>
 		<name>Vương Tử Hà</name>
 	</maintainer>
+	<upstream>
+		<remote-id type="github">fcitx/fcitx5-bamboo</remote-id>
+		<bugs-to>https://github.com/fcitx/fcitx5-bamboo/issues</bugs-to>
+	</upstream>
 </pkgmetadata>
