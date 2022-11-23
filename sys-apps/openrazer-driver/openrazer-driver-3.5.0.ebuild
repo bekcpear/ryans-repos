@@ -75,7 +75,7 @@ pkg_postinst() {
 		elog
 		elog "Everytime when you upgrade/downgrade the kernel, these modules should be rebuilt via:"
 		elog " # emerge @module-rebuild"
-		elog "to satifice the current used kernel."
+		elog "to satisfy the current used kernel."
 		if use dkms; then
 			elog " OR"
 			elog "Use DKMS tools like sys-kernel/dkms::guru to manage these modules dynamically."
