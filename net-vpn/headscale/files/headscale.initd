@@ -25,9 +25,9 @@ start_pre() {
 	fi
 
 	checkpath -d -m 700 -o "${user}" \
-    /run/headscale \
-    /var/lib/headscale \
-    /var/log/headscale
+		/run/headscale \
+		/var/lib/headscale \
+		/var/log/headscale
 	checkpath -f -m 600 -o "${user}" \
 		/etc/headscale/config.yaml \
 		/var/lib/headscale/db.sqlite
