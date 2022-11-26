@@ -26,10 +26,6 @@ RDEPEND="
 
 S="${WORKDIR}/${PN}-${PV//_/-}"
 
-PATCHES=(
-	"${FILESDIR}"/config-socket.patch
-)
-
 GO_LDFLAGS="-X github.com/juanfont/headscale/cmd/headscale/cli.Version=v${PV//_/-}"
 
 src_prepare() {
@@ -41,11 +37,12 @@ src_prepare() {
 src_install() {
 	go_src_install
 	dodoc -r docs/* config-example.yaml
-	keepdir /etc/headscale /var/lib/headscale
+	keepdir /var/log/headscale /etc/headscale
+
 	systemd_dounit "${FILESDIR}"/headscale.service
+
 	newconfd "${FILESDIR}"/headscale.confd headscale
 	newinitd "${FILESDIR}"/headscale.initd headscale
-	#fowners -R ${PN}:${PN} /etc/headscale /var/lib/headscale
 }
 
 pkg_postinst() {

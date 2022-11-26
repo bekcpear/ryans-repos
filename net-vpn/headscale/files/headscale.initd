@@ -23,7 +23,7 @@ start_pre() {
 		return 1
 	fi
 
-	checkpath -d -m 700 -o "${user}" /run/headscale /var/lib/headscale
+	checkpath -d -m 700 -o "${user}" /var/lib/headscale
 	checkpath -f -m 600 -o "${user}" \
 		/var/lib/headscale/db.sqlite \
 		/var/log/headscale.log \
