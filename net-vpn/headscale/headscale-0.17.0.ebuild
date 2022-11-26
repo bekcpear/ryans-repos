@@ -28,6 +28,7 @@ S="${WORKDIR}/${PN}-${PV//_/-}"
 
 GO_LDFLAGS="-X github.com/juanfont/headscale/cmd/headscale/cli.Version=v${PV//_/-}"
 
+PATCHES=( "${FILESDIR}"/config-sock.diff )
 src_prepare() {
 	rm -rf ./gen || die
 	mv ../gopkg-vendors-vendor-${P//_/-}/gen ./ || die

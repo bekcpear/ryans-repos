@@ -4,13 +4,14 @@
 
 description="Headscale Server daemon"
 command="/usr/bin/headscale"
+command_args="${HEADSCALE_OPTIONS}"
 user="${HEADSCALE_USER}:${HEADSCALE_GROUP}"
 directory="/var/lib/headscale"
-output_log="/var/log/headscale.log"
-error_log="/var/log/headscale.log"
+output_log="/var/log/headscale/headscale.log"
+error_log="/var/log/headscale/headscale.error"
 private_key="/var/lib/headscale/private.key"
 
-start_stop_daemon_args="--user \"${user}\" ${HEADSCALE_OPTIONS} --background"
+start_stop_daemon_args="--background -m -p /run/headscale/headscale.pid"
 
 depend() {
 	need net
@@ -23,10 +24,11 @@ start_pre() {
 		return 1
 	fi
 
+	sudo -u ${HEADSCALE_USER} mkdir -p /run/headscale
 	checkpath -d -m 700 -o "${user}" /var/lib/headscale
 	checkpath -f -m 600 -o "${user}" \
 		/var/lib/headscale/db.sqlite \
-		/var/log/headscale.log \
+		/var/log/headscale/headscale.log \
 		/etc/headscale/config.yaml
 
 	if [[ -f ${private_key} ]]; then

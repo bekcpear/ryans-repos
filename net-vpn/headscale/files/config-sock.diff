@@ -1,0 +1,14 @@
+diff --git a/config-example.yaml b/config-example.yaml
+index 5786678..132b431 100644
+--- a/config-example.yaml
++++ b/config-example.yaml
+@@ -248,7 +248,8 @@ dns_config:
+ # Unix socket used for the CLI to connect without authentication
+ # Note: for production you will want to set this to something like:
+ # unix_socket: /var/run/headscale.sock
+-unix_socket: ./headscale.sock
++#unix_socket: ./headscale.sock
++unix_socket: /run/headscale/headscale.sock
+ unix_socket_permission: "0770"
+ #
+ # headscale supports experimental OpenID connect support,
