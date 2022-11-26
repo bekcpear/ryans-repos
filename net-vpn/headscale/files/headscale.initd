@@ -24,12 +24,13 @@ start_pre() {
 		return 1
 	fi
 
-	sudo -u ${HEADSCALE_USER} mkdir -p /run/headscale
-	checkpath -d -m 700 -o "${user}" /var/lib/headscale
+	checkpath -d -m 700 -o "${user}" \
+    /run/headscale \
+    /var/lib/headscale \
+    /var/log/headscale
 	checkpath -f -m 600 -o "${user}" \
-		/var/lib/headscale/db.sqlite \
-		/var/log/headscale/headscale.log \
-		/etc/headscale/config.yaml
+		/etc/headscale/config.yaml \
+		/var/lib/headscale/db.sqlite
 
 	if [[ -f ${private_key} ]]; then
 		checkpath -f -m 600 -o "${user}" ${private_key}
