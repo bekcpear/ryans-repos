@@ -108,6 +108,17 @@ RESTRICT+=" strip"
 # Flags pass to -ldflags, '-s' and '-w' flags will always be
 # applied except calling go command directly.
 
+# @ECLASS_VARIABLE: GO_LDFLAGS_EXMAP
+# @DESCRIPTION:
+# Extra "variable name <-> output command" maps, the output command will be called
+# and assign the standard output to the corresponding variable in src_compile phase.
+# These variables will replace the corresponding formatted strings in GO_LDFLAGS.
+# The formatted string should be like '@@VARIABLE-NAME@@'
+# e.g.:
+# 	GO_LDFLAGS_EXMAP[BUILD_DATE]="date '+%F %T%z'"
+# 	GO_LDFLAGS="-X 'main.buildDate=@@BUILD_DATE@@'"
+declare -A -g GO_LDFLAGS_EXMAP
+
 # @ECLASS_VARIABLE: GO_SUM_LIST_MAX
 # @DESCRIPTION:
 # The max line number of go.sum which can be used to set a local proxy,
@@ -218,7 +229,7 @@ go_setup_vendor() {
 			vendor="${vendors[0]}"
 			mv "${vendor}" "${S}" || die
 			go_mod_sum_diff="$(dirname ${vendor})/go-mod-sum.diff"
-			if [[ -f "${go_mod_sum_diff}" ]]; then
+			if [[ -s "${go_mod_sum_diff}" ]]; then
 				pushd "${S}" &>/dev/null || die
 				eapply "${go_mod_sum_diff}"
 				popd
@@ -255,12 +266,23 @@ go_src_compile() {
 	[[ "${GO_LDFLAGS}" =~ (^|[[:space:]])-w([[:space:]]|$) ]] || GO_LDFLAGS="-w ${GO_LDFLAGS}"
 	[[ "${GO_LDFLAGS}" =~ (^|[[:space:]])-s([[:space:]]|$) ]] || GO_LDFLAGS="-s ${GO_LDFLAGS}"
 
+	local key value
+	for key in "${!GO_LDFLAGS_EXMAP[@]}"; do
+		value=$(eval "${GO_LDFLAGS_EXMAP[$key]}" || true)
+		if [[ -z ${value} ]]; then
+			die "the stdout of command '$GO_LDFLAGS_EXMAP[$key]' (GO_LDFLAGS_EXMAP[$key]) is empty"
+		fi
+		GO_LDFLAGS=$(<<<"${GO_LDFLAGS}" sed "s/@@${key}@@/${value}/g")
+	done
+
 	if [[ -d "cmd" ]] && \
-		[[ $(find cmd/ -maxdepth 2 -type f -name '*.go' -exec grep -E '^package[[:space:]]+main' '{}' \; 2>/dev/null || true) != "" ]]; then
-		go build -work -o "${T}/go-bin/" -ldflags "${GO_LDFLAGS}" ./cmd/... || die
+		[[ $(find cmd/ -maxdepth 2 -type f -name '*.go' -exec grep -E '^package[[:space:]]+main([[:space:]]|$)' '{}' \; 2>/dev/null || true) != "" ]]; then
+		set -- go build -work -o "${T}/go-bin/" -ldflags "${GO_LDFLAGS}" ./cmd/...
 	else
-		go build -work -o "${T}/go-bin/" -ldflags "${GO_LDFLAGS}" . || die
+		set -- go build -work -o "${T}/go-bin/" -ldflags "${GO_LDFLAGS}" .
 	fi
+	einfo "Build command:" "${@}"
+	"${@}" || die
 }
 
 # @FUNCTION: go_src_install
