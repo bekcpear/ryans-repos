@@ -1,0 +1,22 @@
+[Unit]
+Description=bark-server daemon
+After=syslog.target
+After=network.target
+
+[Service]
+Type=simple
+User=bark-server
+Group=bark-server
+ExecStart=@@EROOT@@usr/bin/bark-server
+Restart=always
+RestartSec=5
+
+# Optional security enhancements
+NoNewPrivileges=yes
+PrivateTmp=yes
+ProtectSystem=strict
+ProtectHome=yes
+ReadWritePaths=@@EROOT@@var/lib/bark-server
+
+[Install]
+WantedBy=multi-user.target

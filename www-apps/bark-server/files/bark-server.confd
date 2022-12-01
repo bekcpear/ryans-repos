@@ -1,0 +1,16 @@
+# execute user for bark-server
+# default: bark-server
+#BARK_SERVER_USER=
+
+# execute group for bark-server
+# default: bark-server
+#BARK_SERVER_GROUP=
+
+# Log dir
+# default: @@EROOT@@var/log/bark-server
+#BARK_SERVER_LOG_DIR=
+
+# Command line arguments for bark-server
+# these has the highest priority
+# default: <none>
+#BARK_SERVER_ARGS=

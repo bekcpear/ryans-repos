@@ -1,0 +1,77 @@
+#!/usr/bin/env bash
+#
+
+set -e
+
+BINARY="@@EROOT@@usr/libexec/bark-server"
+
+if [[ $EUID == 0 ]]; then
+	echo "Please don't run as the root user.
+
+If you need to run as root anyway, use binary: ${BINARY}
+" >&2
+	exit 1
+fi
+
+. @@EROOT@@etc/bark-server/bark-server.env
+
+# prepare data dir if necessary
+BARK_SERVER_DATA_DIR=${BARK_SERVER_DATA_DIR:-@@EROOT@@var/lib/bark-server/data}
+
+for arg; do
+	if [[ "${arg}" =~ ^-*-data$ ]]; then
+		IS_DATA_DIR=1
+	elif [[ "${arg}" =~ ^-*-data=$ ]]; then
+		DATA_DIR="${arg#*-data=}"
+		if [[ ${DATA_DIR:0:1} == '"' ]]; then
+			DATA_DIR="${DATA_DIR#\"}"
+			DATA_DIR="${DATA_DIR%\"}"
+		elif [[ ${DATA_DIR:0:1} == "'" ]]; then
+			DATA_DIR="${DATA_DIR#\'}"
+			DATA_DIR="${DATA_DIR%\'}"
+		fi
+	elif [[ -n ${IS_DATA_DIR} ]]; then
+		DATA_DIR="${arg}"
+		unset IS_DATA_DIR
+	elif [[ "${arg}" =~ ^-*-dsn$ ]]; then
+		USE_DSN=1
+	elif [[ "${arg}" =~ ^-*-serverless$ ]]; then
+		if [[ "${arg}" =~ ^-*-serverless=$ ]]; then
+			val=${arg#*=}
+			if [[ ${val} =~ ^1|t|T|TRUE|true|True$ ]]; then
+				IS_SERVERLESS=1
+			fi
+		else
+			IS_SERVERLESS=1
+		fi
+	fi
+done
+
+if [[ ! -d ${DATA_DIR:-${BARK_SERVER_DATA_DIR}} ]] \
+	&& [[ -z ${BARK_SERVER_DSN} ]] \
+	&& [[ -z ${BARK_SERVER_SERVERLESS} ]] \
+	&& [[ ! ${BARK_SERVER_SERVERLESS} =~ ^1|t|T|TRUE|true|True$ ]] \
+	&& [[ -z ${USE_DSN} ]] \
+	&& [[ -z ${IS_SERVERLESS} ]]; then
+	echo "creating data dir with mode 700 for bbolt ..."
+	mkdir -v -m 700 ${BARK_SERVER_DATA_DIR}
+fi
+
+# run
+export \
+	BARK_SERVER_ADDRESS \
+	BARK_SERVER_PROXY_HEADER \
+	BARK_SERVER_REDUCE_MEMORY_USAGE \
+	BARK_SERVER_STRICT_ROUTING \
+	BARK_SERVER_URL_PREFIX \
+	BARK_SERVER_BASIC_AUTH_USER \
+	BARK_SERVER_BASIC_AUTH_PASSWORD \
+	BARK_SERVER_CASE_SENSITIVE \
+	BARK_SERVER_CERT \
+	BARK_SERVER_KEY \
+	BARK_SERVER_SERVERLESS \
+	BARK_SERVER_DSN \
+	BARK_SERVER_DATA_DIR
+
+set -- ${BINARY} "${@}"
+exec "${@}"

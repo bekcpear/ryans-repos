@@ -1,0 +1,29 @@
+#!/sbin/openrc-run
+# Copyright 2022 Gentoo Authors
+# Distributed under the terms of the GNU General Public License v2
+
+BARK_SERVER_USER=${BARK_SERVER_USER:-bark-server}
+BARK_SERVER_GROUP=${BARK_SERVER_GROUP:-bark-server}
+
+BARK_SERVER_LOG_DIR=${BARK_SERVER_LOG_DIR:-@@EROOT@@var/log/bark-server}
+BARK_SERVER_PID_FILE=${BARK_SERVER_PID_FILE:-@@EROOT@@var/lib/bark-server/bark-server.pid}
+
+name="bark-server daemon"
+description="A server that allows to get/push customized notifications"
+directory=@@EROOT@@var/lib/bark-server
+command=@@EROOT@@usr/bin/bark-server
+command_args="${BARK_SERVER_ARGS}"
+pidfile="${BARK_SERVER_PID_FILE}"
+command_user="${BARK_SERVER_USER}:${BARK_SERVER_GROUP}"
+output_log="${BARK_SERVER_LOG_DIR}/bark-server.log"
+error_log="${BARK_SERVER_LOG_DIR}/bark-server.error"
+start_stop_daemon_args="-m -p ${BARK_SERVER_PID_FILE} --background"
+
+depend() {
+	need net
+	use logger
+}
+
+start_pre() {
+	checkpath -q -d -o ${BARK_SERVER_USER}:${BARK_SERVER_GROUP} -m 700 ${BARK_SERVER_LOG_DIR}
+}
