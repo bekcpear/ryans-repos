@@ -53,22 +53,26 @@ pkg_postinst() {
 			ewarn "kernel ${KV_FULL}, for which these modules was built."
 		else
 			local i old
+			local -a loaded_modules
 			local -a my_modules=( $(while read l; do echo ${l%(*}; done <<< "${MODULE_NAMES}") )
 			for (( i = 0; i < ${#my_modules[@]}; ++i )); do
 				if [[ -f /sys/module/${my_modules[i]}/version ]]; then
 					old="$(< /sys/module/${my_modules[i]}/version)"
-					break
+					loaded_modules+=( "${my_modules[i]}" )
 				fi
 			done
 			if [[ ${old} != '' && ${old} != ${PV} ]]; then
 				ewarn
 				ewarn "You appear to have just upgraded ${PN} from version v$old to v$PV."
 				ewarn "However, the old version is still running on your system. In order to use the"
-				ewarn "new version, you will need to remove the old modules and load the new ones. As"
-				ewarn "root, you can accomplish this with the following commands:"
+				ewarn "new version, you will need to remove the old loaded modules (${loaded_modules[@]})"
+				ewarn "and load the new ones."
+				ewarn "You can accomplish this with the following commands as root user:"
 				ewarn
-				ewarn "	# modprobe -r ${my_modules[@]}"
+				ewarn " # modprobe -r ${loaded_modules[@]}"
 				ewarn " and then pull out and replug corresponding devices. Or, just restart your computer."
+				ewarn
+				ewarn "If you want to reload modules without replug devices, refer to /lib/udev/razer_mount"
 				ewarn
 			fi
 		fi
