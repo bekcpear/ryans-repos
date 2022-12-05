@@ -3,36 +3,54 @@
 # Distributed under the terms of the GNU General Public License v2
 
 description="Headscale Server daemon"
-command="/usr/bin/headscale"
-command_args="${HEADSCALE_OPTIONS}"
-user="${HEADSCALE_USER}:${HEADSCALE_GROUP}"
-directory="/var/lib/headscale"
-output_log="/var/log/headscale/headscale.log"
-error_log="/var/log/headscale/headscale.error"
-private_key="/var/lib/headscale/private.key"
 
-start_stop_daemon_args="--background -m -p /run/headscale/headscale.pid"
+: ${HEADSCALE_USER:=headscale}
+: ${HEADSCALE_GROUP:=headscale}
+: ${HEADSCALE_WORK_DIR:=/var/lib/headscale}
+: ${HEADSCALE_LOG_DIR:=/var/log/headscale}
+: ${HEADSCALE_LOG_STDOUT:=headscale.log}
+: ${HEADSCALE_LOG_STDERR:=headscale.error}
+
+command="/usr/bin/headscale"
+command_args="serve ${HEADSCALE_EXTRA_ARGS}"
+command_background=true
+pidfile="/run/headscale/headscale.pid"
+command_user="${HEADSCALE_USER}:${HEADSCALE_GROUP}"
+directory="${HEADSCALE_WORK_DIR}"
+output_log="${HEADSCALE_LOG_DIR%/}/${HEADSCALE_LOG_STDOUT}"
+error_log="${HEADSCALE_LOG_DIR%/}/${HEADSCALE_LOG_STDERR}"
+
+# This key file path should not be set here,
+# should be set in the default config.yaml file instead.
+# This variable will be removed in the next version.
+private_key="/var/lib/headscale/private.key"
 
 depend() {
 	need net
 }
 
 start_pre() {
-	if [ ! -s /etc/headscale/config.yaml ] ; then
-		eerror "Missing headscale configuration file"
-		eerror "Please check the documentation directory for an example"
-		return 1
-	fi
-
-	checkpath -d -m 700 -o "${user}" \
+	# /run/headscale is a common dir for sock file and pid file, keep it
+	checkpath -d -m 700 -o "${command_user}" \
 		/run/headscale \
-		/var/lib/headscale \
-		/var/log/headscale
-	checkpath -f -m 600 -o "${user}" \
-		/etc/headscale/config.yaml \
-		/var/lib/headscale/db.sqlite
+		${HEADSCALE_WORK_DIR} \
+		${HEADSCALE_LOG_DIR}
 
+	# the default config.yaml and db.sqlite file should not be checked here,
+	# 1. the config file may be a different file which can be provided by the
+	#    ${HEADSCALE_EXTRA_ARGS} variable
+	# 2. db file should be set via the config file
+	# these two file check will be removed in the next version
+	checkpath -f -m 600 -o "${command_user}" \
+		/etc/headscale/config.yaml \
+		/var/lib/headscale/db.sqlite \
+		${output_log} \
+		${error_log}
+
+	# This key file path should not be checked here,
+	# should be solved by command self.
+	# Will be removed in the next version.
 	if [[ -f ${private_key} ]]; then
-		checkpath -f -m 600 -o "${user}" ${private_key}
+		checkpath -f -m 600 -o "${command_user}" ${private_key}
 	fi
 }

@@ -1,8 +1,36 @@
-HEADSCALE_USER=headscale
-HEADSCALE_GROUP=headscale
+# config file for /etc/init.d/headscale
 
-# max number of open files (for floodfill)
-rc_ulimit="-n 4096"
+# execute user
+# default: headscale
+#HEADSCALE_USER=
 
-# Options to headscale
-HEADSCALE_OPTIONS="serve"
+# execute group
+# default: headscale
+#HEADSCALE_GROUP=
+
+# working directory
+# default: /var/lib/headscale
+#HEADSCALE_WORK_DIR=
+
+# log directory
+# default: /var/log/headscale
+#HEADSCALE_LOG_DIR=
+
+# stdout log file
+# relative to log-directory
+# default: headscale.log
+#HEADSCALE_LOG_STDOUT=
+
+# stderr log file
+# relative to log-directory
+# default: headscale.error
+#HEADSCALE_LOG_STDERR=
+
+# extra arguments for headscale serve
+# default: <none>
+#HEADSCALE_EXTRA_ARGS=""
+
+# customized ulimit arguments for this service
+# useful for ultra amounts of connections
+# default: value of the env variable RC_ULIMIT
+#rc_ulimit=""
