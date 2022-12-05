@@ -6,10 +6,10 @@ inherit go systemd tmpfiles
 
 # These settings are obtained by running ./build_dist.sh shellvars` in
 # the upstream repo.
-VERSION_MINOR="1.32"
-VERSION_SHORT="1.32.3"
-VERSION_LONG="1.32.3-t9dd89b8c2"
-VERSION_GIT_HASH="9dd89b8c263d8a15dec313ea3ce77a6f2fcf2aaf"
+VERSION_MINOR="1.34"
+VERSION_SHORT="1.34.0"
+VERSION_LONG="1.34.0-t988801d5d"
+VERSION_GIT_HASH="988801d5d97287a276fc74cddb09a0e0ddf8afb7"
 
 DESCRIPTION="Tailscale vpn client"
 HOMEPAGE="https://tailscale.com"
@@ -28,10 +28,11 @@ RDEPEND="net-firewall/iptables"
 # This translates the build command from upstream's build_dist.sh to an
 # ebuild equivalent.
 build_dist() {
-	go build -mod vendor -tags xversion -ldflags "
-		-X tailscale.com/version.Long=${VERSION_LONG}
-		-X tailscale.com/version.Short=${VERSION_SHORT}
-		-X tailscale.com/version.GitCommit=${VERSION_GIT_HASH}" "$@" || die
+	go build -work -ldflags "
+		-w -s
+		-X 'tailscale.com/version.Long=${VERSION_LONG}'
+		-X 'tailscale.com/version.Short=${VERSION_SHORT}'
+		-X 'tailscale.com/version.GitCommit=${VERSION_GIT_HASH}'" "$@" || die
 }
 
 src_compile() {
