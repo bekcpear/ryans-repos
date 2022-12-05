@@ -68,7 +68,7 @@ eselect repository enable ryans
 --------------------------------------------|------------------------|--------|------------------------------------------------|--------------------
  net-vpn/headscale                          | 0.17.0-r1              |        | https://github.com/juanfont/headscale          | An open source, self-hosted implementation of the Tailscale control server
 --------------------------------------------|------------------------|--------|------------------------------------------------|--------------------
- net-vpn/tailscale                          | 1.32.3                 |        | https://tailscale.com                          | Tailscale vpn client
+ net-vpn/tailscale                          | 1.34.0                 |        | https://tailscale.com                          | Tailscale vpn client
 --------------------------------------------|------------------------|--------|------------------------------------------------|--------------------
  sys-apps/duf                               | 0.8.1                  |        | https://github.com/muesli/duf                  | Disk Usage/Free Utility - a better 'df' alternative
 --------------------------------------------|------------------------|--------|------------------------------------------------|--------------------
