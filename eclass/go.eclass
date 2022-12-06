@@ -85,13 +85,21 @@ BDEPEND=">=dev-lang/go-1.16"
 EXPORT_FUNCTIONS src_unpack src_compile src_install
 
 # @ECLASS_VARIABLE: GOFLAGS
-# @INTERNAL
 # @DESCRIPTION:
+# the default GOFLAGS.
 # -buildvcs=false omits version control information
 # -trimpath remove all file system paths from the resulting executable
 # -v prints the names of packages as they are compiled
+# -work prints the temporary work dir's name and don't delete it when exiting
 # -x prints the commands
-export GOFLAGS="-buildvcs=false -trimpath -v -x"
+export GOFLAGS="-buildvcs=false -trimpath -v -work -x"
+
+# @ECLASS_VARIABLE: EXTRA_GOFLAGS
+# @DESCRIPTION:
+# the extra GOFLAGS environment variable, default is empty,
+# this value will be appended to the GOFLAGS if provided.
+# Only valid when using the default src_compile of this eclass
+# or 'go_build' function of this eclass.
 
 # @ECLASS_VARIABLE: QA_FLAGS_IGNORED
 # @INTERNAL
@@ -118,6 +126,12 @@ RESTRICT+=" strip"
 # 	GO_LDFLAGS_EXMAP[BUILD_DATE]="date '+%F %T%z'"
 # 	GO_LDFLAGS="-X 'main.buildDate=@@BUILD_DATE@@'"
 declare -A -g GO_LDFLAGS_EXMAP
+
+# @ECLASS_VARIABLE: _GO_LDFLAGS_EXMAP_CACHE
+# @INTERNAL
+# @DESCRIPTION:
+# cache for GO_LDFLAGS_EXMAP
+declare -A -g _GO_LDFLAGS_EXMAP_CACHE
 
 # @ECLASS_VARIABLE: GO_SUM_LIST_MAX
 # @DESCRIPTION:
@@ -230,9 +244,9 @@ go_setup_vendor() {
 			mv "${vendor}" "${S}" || die
 			go_mod_sum_diff="$(dirname ${vendor})/go-mod-sum.diff"
 			if [[ -s "${go_mod_sum_diff}" ]]; then
-				pushd "${S}" &>/dev/null || die
+				pushd "${S}" >/dev/null || die
 				eapply "${go_mod_sum_diff}"
-				popd
+				popd >/dev/null || die
 			fi
 		fi
 	fi
@@ -257,32 +271,53 @@ go_src_unpack() {
 	fi
 }
 
+# @FUNCTION: go_build
+# @USAGE: <packages>
+# @DESCRIPTION:
+# parse necessary arguments for go build and build packages,
+# the binaries will be installed into the ${T}/go-bin/ directory.
+go_build() {
+	debug-print-function "${FUNCNAME}" "${@}"
+
+	local go_ldflags="${GO_LDFLAGS}"
+
+	[[ "${go_ldflags}" =~ (^|[[:space:]])-w([[:space:]]|$) ]] || go_ldflags="-w ${go_ldflags}"
+	[[ "${go_ldflags}" =~ (^|[[:space:]])-s([[:space:]]|$) ]] || go_ldflags="-s ${go_ldflags}"
+
+	local key value
+	for key in "${!GO_LDFLAGS_EXMAP[@]}"; do
+		if [[ -n "${_GO_LDFLAGS_EXMAP_CACHE[$key]}" ]]; then
+			value="${_GO_LDFLAGS_EXMAP_CACHE[$key]}"
+		else
+			value=$(eval "${GO_LDFLAGS_EXMAP[$key]}" || true)
+			if [[ -z ${value} ]]; then
+				die "the stdout of command '$GO_LDFLAGS_EXMAP[$key]' (GO_LDFLAGS_EXMAP[$key]) is empty"
+			fi
+			_GO_LDFLAGS_EXMAP_CACHE[$key]=${value}
+		fi
+		go_ldflags=$(<<<"${go_ldflags}" sed "s/@@${key}@@/${value}/g")
+	done
+
+	GOFLAGS="${GOFLAGS}${EXTRA_GOFLAGS:+ }${EXTRA_GOFLAGS}"
+	set -- go build -o "${T}/go-bin/" -ldflags "${go_ldflags}" "${@}"
+	einfo "      GOFLAGS:" "${GOFLAGS}"
+	einfo "Build command:" "${@}"
+	"${@}" || die
+}
+
 # @FUNCTION: go_src_compile
 # @DESCRIPTION:
 # src_compile
 go_src_compile() {
 	debug-print-function "${FUNCNAME}" "${@}"
 
-	[[ "${GO_LDFLAGS}" =~ (^|[[:space:]])-w([[:space:]]|$) ]] || GO_LDFLAGS="-w ${GO_LDFLAGS}"
-	[[ "${GO_LDFLAGS}" =~ (^|[[:space:]])-s([[:space:]]|$) ]] || GO_LDFLAGS="-s ${GO_LDFLAGS}"
-
-	local key value
-	for key in "${!GO_LDFLAGS_EXMAP[@]}"; do
-		value=$(eval "${GO_LDFLAGS_EXMAP[$key]}" || true)
-		if [[ -z ${value} ]]; then
-			die "the stdout of command '$GO_LDFLAGS_EXMAP[$key]' (GO_LDFLAGS_EXMAP[$key]) is empty"
-		fi
-		GO_LDFLAGS=$(<<<"${GO_LDFLAGS}" sed "s/@@${key}@@/${value}/g")
-	done
-
 	if [[ -d "cmd" ]] && \
-		[[ $(find cmd/ -maxdepth 2 -type f -name '*.go' -exec grep -E '^package[[:space:]]+main([[:space:]]|$)' '{}' \; 2>/dev/null || true) != "" ]]; then
-		set -- go build -work -o "${T}/go-bin/" -ldflags "${GO_LDFLAGS}" ./cmd/...
+		[[ $(find cmd/ -maxdepth 2 -type f -name '*.go' -exec \
+			grep -E '^package[[:space:]]+main([[:space:]]|$)' '{}' \; 2>/dev/null || true) != "" ]]; then
+		go_build ./cmd/...
 	else
-		set -- go build -work -o "${T}/go-bin/" -ldflags "${GO_LDFLAGS}" .
+		go_build .
 	fi
-	einfo "Build command:" "${@}"
-	"${@}" || die
 }
 
 # @FUNCTION: go_src_install
