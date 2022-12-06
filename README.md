@@ -66,7 +66,7 @@ eselect repository enable ryans
 --------------------------------------------|------------------------|--------|------------------------------------------------|--------------------
  net-proxy/v2ray-core-bin                   | 4.45.0                 |        | https://github.com/v2fly/v2ray-core            | A platform for building proxies to bypass network restrictions.
 --------------------------------------------|------------------------|--------|------------------------------------------------|--------------------
- net-vpn/headscale                          | 0.17.0-r1              |        | https://github.com/juanfont/headscale          | An open source, self-hosted implementation of the Tailscale control server
+ net-vpn/headscale                          | 0.17.1                 |        | https://github.com/juanfont/headscale          | An open source, self-hosted implementation of the Tailscale control server
 --------------------------------------------|------------------------|--------|------------------------------------------------|--------------------
  net-vpn/tailscale                          | 1.34.0                 |        | https://tailscale.com                          | Tailscale vpn client
 --------------------------------------------|------------------------|--------|------------------------------------------------|--------------------
