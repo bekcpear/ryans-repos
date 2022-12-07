@@ -7,7 +7,7 @@ inherit go systemd
 
 DESCRIPTION="An open source, self-hosted implementation of the Tailscale control server"
 HOMEPAGE="https://github.com/juanfont/headscale"
-SRC_URI="https://github.com/juanfont/headscale/archive/v${PV//_/-}.tar.gz -> ${P}.tar.gz"
+SRC_URI="https://github.com/juanfont/headscale/archive/refs/tags/v${PV//_/-}.tar.gz -> ${P}.tar.gz"
 
 # https://github.com/bekcpear/vendor-for-go -> exec: .do/do.sh /path/to/repo headscale ${PV}
 SRC_URI+=" https://github.com/bekcpear/gopkg-vendors/archive/refs/tags/vendor-${P//_/-}.tar.gz -> ${P}-vendor.tar.gz"
