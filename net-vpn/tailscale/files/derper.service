@@ -1,16 +1,17 @@
 [Unit]
 Description=Tailscale DERP server
-Documentation=https://tailscale.com/kb/
+Documentation=https://tailscale.com/kb/1118/custom-derp-servers
 Wants=network-pre.target
 After=network-pre.target NetworkManager.service systemd-resolved.service
 
 [Service]
 EnvironmentFile=/etc/default/derper
-ExecStart=/usr/sbin/derper --hostname=$HOSTNAME --addr=$ADDR $FLAGS
-
+User=$DERPER_USER
+Group=$DERPER_GROUP
+ExecStartPre=+/usr/libexec/derper-pre.sh
+ExecStart=/usr/sbin/derper -certdir ${CERTDIR} -certmode ${CERTMODE} -hostname ${HOSTNAME} -a ${ADDR} -http-port ${HTTP_PORT} -c "${HOMEDIR}"/derper.key ${FLAGS}
+ReadWritePaths=${HOMEDIR} ${CERTDIR}
 Restart=on-failure
-
-Type=notify
 
 [Install]
 WantedBy=multi-user.target

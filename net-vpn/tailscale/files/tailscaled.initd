@@ -2,37 +2,27 @@
 # Copyright 2022 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
+. /etc/default/tailscaled
+
 name="tailscaled"
 description="Tailscale node agent"
-command=/usr/sbin/tailscaled
-LOG_FILE=/var/log/tailscale/tailscale.log
-ERR_FILE=/var/log/tailscale/tailscale.error
+command="/usr/sbin/tailscaled"
+command_args="-statedir /var/lib/tailscale -socket /run/tailscale/tailscaled.sock -port ${PORT:-0} ${FLAGS}"
+command_background=true
+pidfile="/run/tailscaled.pid"
+directory="/var/lib/tailscale"
+output_log="/var/log/tailscale/tailscale.log"
+error_log="/var/log/tailscale/tailscale.error"
 
 depend() {
 	need net
 }
 
 start_pre() {
-	${command} --cleanup >${LOG_FILE} 2>${ERR_FILE}
-}
-
-start() {
-	ebegin "Starting Tailscale node agent"
-	source /etc/default/tailscaled
-	start-stop-daemon --start \
-		-b \
-		-m -p /run/tailscaled.pid \
-		-1 ${LOG_FILE} \
-		-2 ${ERR_FILE} \
-		--exec ${command} \
-		-- \
-		-state /var/lib/tailscale/tailscaled.state \
-		-socket /run/tailscale/tailscaled.sock \
-		-port ${PORT:-0} \
-		${FLAGS}
-	eend $?
+	checkpath -d -m 700 /var/log/tailscale
+	${command} --cleanup >>${output_log} 2>>${error_log}
 }
 
 stop_post() {
-	${command} --cleanup >${LOG_FILE} 2>${ERR_FILE}
+	${command} --cleanup >>${output_log} 2>>${error_log}
 }

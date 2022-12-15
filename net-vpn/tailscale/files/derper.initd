@@ -2,26 +2,33 @@
 # Copyright 2022 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
+. /etc/default/derper
+
 name="derper"
 description="Tailscale DERP server"
-command=/usr/sbin/derper
+command="/usr/bin/derper"
+command_args=" \
+	-certdir ${CERTDIR} \
+	-certmode ${CERTMODE} \
+	-hostname ${HOSTNAME} \
+	-a ${ADDR} \
+	-http-port ${HTTP_PORT} \
+	-c "${HOMEDIR}"/derper.key \
+	${FLAGS}
+"
+command_user="${DERPER_USER}:${DERPER_GROUP}"
+command_background=true
+pidfile="/run/derper.pid"
+directory="${HOMEDIR}"
+output_log="/var/log/derper/derper.log"
+error_log="/var/log/derper/derper.error"
 
 depend() {
 	need net
 }
 
-start() {
-	ebegin "Starting Tailscale DERP server"
-	source /etc/default/derper
-	start-stop-daemon --start \
-		-b \
-		-m -p /run/derper.pid \
-		-1 /var/log/tailscale/derper.log \
-		-2 /var/log/tailscale/derper.error \
-		--exec ${command} \
-		-- \
-		-hostname "${HOSTNAME}" \
-		-a "${ADDR}" \
-		${FLAGS}
-	eend $?
+start_pre() {
+	checkpath -d -m 700 -o ${command_user} /var/log/derper
+	checkpath -d -m 750 -o ${command_user} ${HOMEDIR}
+	/usr/libexec/derper-pre.sh
 }
