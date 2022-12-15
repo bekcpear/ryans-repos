@@ -12,9 +12,13 @@ command_user="derper:derper"
 command_background=true
 pidfile="/run/derper.pid"
 directory="/var/lib/derper"
-output_log="/var/log/derp/derp.log"
-error_log="/var/log/derp/derp.error"
+output_log="/var/log/derper/derper.log"
+error_log="/var/log/derper/derper.error"
 
 depend() {
 	need net
+}
+
+start_pre() {
+	checkpath -d -m 700 -o ${command_user} /var/log/derper
 }
