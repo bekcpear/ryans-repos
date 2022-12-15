@@ -32,6 +32,7 @@ GO_LDFLAGS="
 	-X 'tailscale.com/version.Long=${VERSION_LONG}'
 	-X 'tailscale.com/version.Short=${VERSION_SHORT}'
 	-X 'tailscale.com/version.GitCommit=${VERSION_GIT_HASH}'"
+GO_SBIN="tailscaled"
 
 src_compile() {
 	if use derp; then
