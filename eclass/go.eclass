@@ -116,6 +116,10 @@ RESTRICT+=" strip"
 # Flags pass to -ldflags, '-s' and '-w' flags will always be
 # applied except calling go command directly.
 
+# @ECLASS_VARIABLE: GO_SBIN
+# @DESCRIPTION:
+# names of binaries which should be installed as sbin
+
 # @ECLASS_VARIABLE: GO_LDFLAGS_EXMAP
 # @DESCRIPTION:
 # Extra "variable name <-> output command" maps, the output command will be called
@@ -326,7 +330,24 @@ go_src_compile() {
 go_src_install() {
 	debug-print-function "${FUNCNAME}" "${@}"
 
-	dobin "${T}"/go-bin/*
+	pushd "${T}"/go-bin >/dev/null || die
+
+	local _sb _sbin
+	if [[ $(declare -p GO_SBIN) =~ declare[[:space:]]+-a ]]; then
+		_sbin="${GO_SBIN[*]}"
+	else
+		_sbin="${GO_SBIN}"
+	fi
+	for _sb in ${_sbin}; do
+		if ls ${_sb} &>/dev/null; then
+			dosbin ${_sb}
+			rm -f ${_sb} || die
+		fi
+	done
+
+	dobin *
+
+	popd >/dev/null || die
 }
 
 fi
