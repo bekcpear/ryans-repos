@@ -13,7 +13,7 @@ SRC_URI="https://github.com/tailscale/tailscale/archive/v${PV}.tar.gz -> ${P}.ta
 LICENSE="Apache-2.0 BSD-2 BSD MIT"
 SLOT="0"
 KEYWORDS="~amd64 ~arm ~arm64 ~riscv ~x86"
-IUSE="derp"
+IUSE="derp tools"
 
 BDEPEND=">=dev-lang/go-1.19:="
 RDEPEND="
@@ -36,7 +36,10 @@ GO_SBIN="tailscaled"
 
 src_compile() {
 	if use derp; then
-		go_build ./cmd/derper ./cmd/derpprobe
+		go_build ./cmd/derper
+	fi
+	if use tools; then
+		go_build ./cmd/derpprobe
 	fi
 	go_build ./cmd/tailscale ./cmd/tailscaled
 }

@@ -5,10 +5,10 @@ Wants=network-pre.target
 After=network-pre.target NetworkManager.service systemd-resolved.service
 
 [Service]
-User=derper
-Group=derper
 EnvironmentFile=/etc/default/derper
-ExecStart=/usr/sbin/derper --hostname=$HOSTNAME --addr=$ADDR $FLAGS
+User=$USER
+Group=$GROUP
+ExecStart=/usr/sbin/derper -certdir ${CERTDIR} -certmode ${CERTMODE} -hostname ${HOSTNAME} -a ${ADDR} -http-port ${HTTP_PORT} -c "${HOMEDIR}"/derper.key ${FLAGS}
 
 Restart=on-failure
 

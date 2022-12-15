@@ -20,9 +20,9 @@ depend() {
 
 start_pre() {
 	checkpath -d -m 700 /var/log/tailscale
-	${command} --cleanup
+	${command} --cleanup >>${output_log} 2>>${error_log}
 }
 
 stop_post() {
-	${command} --cleanup
+	${command} --cleanup >>${output_log} 2>>${error_log}
 }
