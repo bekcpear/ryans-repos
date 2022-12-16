@@ -26,7 +26,13 @@ HOSTNAME="derp.tailscale.com"
 #  the http port 80 should be listened also at the first time
 CERTMODE="manual"
 # cert dir
-CERTDIR="."
+#   when in the 'manual' mode, the public and private keys
+#   will be read via path:
+#     CERTDIR/HOSTNAME.crt
+#     CERTDIR/HOSTNAME.key
+#   and all non [a-zA-Z0-9\.-] characters will be removed
+#   from the HOSTNAME
+CERTDIR="~/cert"
 
 # extra arguments passed to the derper
 # run derper --help to get help

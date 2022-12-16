@@ -29,4 +29,5 @@ depend() {
 
 start_pre() {
 	checkpath -d -m 700 -o ${command_user} /var/log/derper
+	checkpath -d -m 750 -o ${command_user} ${HOMEDIR}
 }
