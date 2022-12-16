@@ -1,8 +1,8 @@
 # executing user
-USER=derper
+DERPER_USER=derper
 
 # executing group
-GROUP=derper
+DERPER_GROUP=derper
 
 # Home dir for derper
 HOMEDIR=/var/lib/derper
@@ -18,7 +18,7 @@ ADDR=":9781"
 HTTP_PORT="-1"
 
 # servername for TLS cert
-HOSTNAME="derp.tailscale.com"
+HOSTNAME="derp.example.com"
 
 # mode for getting a cert.
 #  If you want to change to the 'letsencrypt' mode,
@@ -26,14 +26,21 @@ HOSTNAME="derp.tailscale.com"
 #  the http port 80 should be listened also at the first time
 CERTMODE="manual"
 # cert dir
-#   when in the 'manual' mode, the public and private keys
+#   when in the 'manual' mode, the default cert file and private key
 #   will be read via path:
 #     CERTDIR/HOSTNAME.crt
 #     CERTDIR/HOSTNAME.key
 #   and all non [a-zA-Z0-9\.-] characters will be removed
 #   from the HOSTNAME
-CERTDIR="~/cert"
+CERTDIR="/var/lib/derper/certs"
+# The custom cert and key file path,
+# simplify the certificate deployment process in manual mode,
+# the two files will overwrite the default cert and key files
+# everytime when derper service starts.
+#CERTFILE=
+#KEYFILE=
 
 # extra arguments passed to the derper
 # run derper --help to get help
 FLAGS="-verify-clients"
+

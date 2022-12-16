@@ -63,6 +63,9 @@ src_install() {
 		insinto /etc/default
 		newins "${FILESDIR}"/derper.defaults derper
 
+		exeinto /usr/libexec
+		doexe "${FILESDIR}"/derper-pre.sh
+
 		systemd_dounit "${FILESDIR}"/derper.service
 
 		newinitd "${FILESDIR}"/derper.initd derper

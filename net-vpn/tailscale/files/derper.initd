@@ -16,7 +16,7 @@ command_args=" \
 	-c "${HOMEDIR}"/derper.key \
 	${FLAGS}
 "
-command_user="${USER}:${GROUP}"
+command_user="${DERPER_USER}:${DERPER_GROUP}"
 command_background=true
 pidfile="/run/derper.pid"
 directory="${HOMEDIR}"
@@ -30,4 +30,5 @@ depend() {
 start_pre() {
 	checkpath -d -m 700 -o ${command_user} /var/log/derper
 	checkpath -d -m 750 -o ${command_user} ${HOMEDIR}
+	/usr/libexec/derper-pre.sh
 }
