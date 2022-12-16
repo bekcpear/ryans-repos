@@ -15,7 +15,7 @@ if [[ -z ${CERTDIR} ]]; then
 	echo "CERTDIR is not set, fallback to default '${CERTDIR}' directory" >&2
 fi
 
-if [[ ! -e ${CERTDIR} ]]
+if [[ ! -e ${CERTDIR} ]]; then
 	mkdir -m 750 -p ${CERTDIR}
 	chown ${DERPER_USER}${DERPER_GROUP:+:}${DERPER_GROUP} ${CERTDIR}
 fi
@@ -43,7 +43,7 @@ cp_cert() {
 		local file="${CERTDIR%/}/$(parse_hostname ${HOSTNAME})${suffix}"
 		cp -f -L ${!var} ${file}
 		chown ${DERPER_USER}${DERPER_GROUP:+:}${DERPER_GROUP} ${file}
-		chmod ${mode} ${cert}
+		chmod ${mode} ${file}
 	fi
 }
 
