@@ -38,7 +38,7 @@ src_install() {
 
 	keepdir /etc/headscale
 
-	dodoc -r docs/* config-example.yaml
+	dodoc -r docs/* config-example.yaml derp-example.yaml
 
 	systemd_dounit "${FILESDIR}"/headscale.service
 	systemd_install_serviced "${FILESDIR}"/headscale.service.conf headscale
