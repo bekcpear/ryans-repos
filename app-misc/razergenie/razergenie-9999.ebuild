@@ -12,7 +12,6 @@ HOMEPAGE="https://github.com/z3ntu/RazerGenie"
 
 LICENSE="GPL-3"
 SLOT="0"
-IUSE="matrix"
 
 DEPEND="
 	dev-libs/libopenrazer
@@ -21,7 +20,6 @@ DEPEND="
 	dev-qt/qtgui:5
 	dev-qt/qtnetwork:5
 	dev-qt/qtwidgets:5
-	sys-apps/openrazer_test
 "
 RDEPEND="${DEPEND}
 	sys-apps/openrazer
@@ -33,8 +31,5 @@ BDEPEND="
 "
 
 src_configure() {
-	local emesonargs=(
-		"$(meson_use matrix include_matrix_discovery)"
-	)
 	meson_src_configure
 }
