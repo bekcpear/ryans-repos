@@ -77,7 +77,7 @@ eselect repository enable ryans
    acct-group/bark-server                   | 0                      | RD     |                                                | Group for the www-apps/bark-server service
    acct-user/bark-server                    | 0                      | RD     |                                                | User for the www-apps/bark-server service
 --------------------------------------------|------------------------|--------|------------------------------------------------|--------------------
- www-apps/cryptpad                          | 5.2.0                  |        | https://github.com/xwiki-labs/cryptpad         | Collaboration suite, end-to-end encrypted and open-source.
+ www-apps/cryptpad                          | 5.2.1                  |        | https://github.com/xwiki-labs/cryptpad         | Collaboration suite, end-to-end encrypted and open-source.
    acct-group/cryptpad                      | 0                      | RD     |                                                | Group for the www-apps/cryptpad service
    acct-user/cryptpad                       | 0                      | RD     |                                                | User for the www-apps/cryptpad service
 --------------------------------------------|------------------------|--------|------------------------------------------------|--------------------
