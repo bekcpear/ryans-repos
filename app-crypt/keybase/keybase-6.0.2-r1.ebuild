@@ -3,7 +3,7 @@
 
 EAPI=8
 
-inherit go systemd
+inherit bash-completion-r1 go systemd
 
 DESCRIPTION="Keybase command-line utility, and local service"
 HOMEPAGE="https://keybase.io/ https://github.com/keybase/client"
@@ -26,6 +26,11 @@ src_install() {
 	go_src_install
 
 	systemd_douserunit ../packaging/linux/systemd/keybase.service
+
+	newbashcomp "${FILESDIR}"/bash-completion.sh keybase
+
+	insinto /usr/share/zsh/site-functions
+	newins "${FILESDIR}"/zsh-completion.zsh _keybase
 
 	# GUI maybe be added in the future
 }
