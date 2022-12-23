@@ -30,8 +30,6 @@ eselect repository enable ryans
    sys-apps/openrazer                       | 3.5.1                  | RD     | https://github.com/openrazer/openrazer         | A user-space daemon that allows you to manage your Razer peripherals.
      sys-apps/openrazer-driver              | 3.5.1                  | RD     | https://github.com/openrazer/openrazer         | A collection of kernel drivers for Razer devices.
 --------------------------------------------|------------------------|--------|------------------------------------------------|--------------------
- app-text/ydcv-rs                           | 0.4.7                  |        | https://github.com/farseerfc/ydcv-rs           | A rust version of YouDao Console Version
---------------------------------------------|------------------------|--------|------------------------------------------------|--------------------
  dev-util/act                               | 0.2.31                 |        | https://github.com/nektos/act                  | Run your GitHub Actions locally
 --------------------------------------------|------------------------|--------|------------------------------------------------|--------------------
  dev-util/v2ray-geoip-generator             | 9999                   |        | https://github.com/v2fly/geoip                 | GeoIP generator for V2Ray.
