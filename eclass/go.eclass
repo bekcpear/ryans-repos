@@ -120,6 +120,16 @@ RESTRICT+=" strip"
 # @DESCRIPTION:
 # names of binaries which should be installed as sbin
 
+# @ECLASS_VARIABLE: GO_TAGS
+# @DESCRIPTION:
+# a comma-separated list of additional build tags to consider satisfied
+# during the build
+#
+# @ECLASS_VARIABLE: GO_TARGET_PKGS
+# @DESCRIPTION:
+# a space-separated list of paths (relative to current word dir, normally $S)
+# of packages which should be built instead of the default '.' or './cmd/...'
+
 # @ECLASS_VARIABLE: GO_LDFLAGS_EXMAP
 # @DESCRIPTION:
 # Extra "variable name <-> output command" maps, the output command will be called
@@ -303,7 +313,7 @@ go_build() {
 	done
 
 	GOFLAGS="${GOFLAGS}${EXTRA_GOFLAGS:+ }${EXTRA_GOFLAGS}"
-	set -- go build -o "${T}/go-bin/" -ldflags "${go_ldflags}" "${@}"
+	set -- go build -o "${T}/go-bin/" ${GO_TAGS:+-tags} ${GO_TAGS} -ldflags "${go_ldflags}" "${@}"
 	einfo "      GOFLAGS:" "${GOFLAGS}"
 	einfo "Build command:" "${@}"
 	"${@}" || die
@@ -315,12 +325,14 @@ go_build() {
 go_src_compile() {
 	debug-print-function "${FUNCNAME}" "${@}"
 
-	if [[ -d "cmd" ]] && \
+	if [[ -d "cmd" ]] && [[ -z ${GO_TARGET_PKGS} ]] && \
 		[[ $(find cmd/ -maxdepth 2 -type f -name '*.go' -exec \
 			grep -E '^package[[:space:]]+main([[:space:]]|$)' '{}' \; 2>/dev/null || true) != "" ]]; then
 		go_build ./cmd/...
-	else
+	elif [[ -z ${GO_TARGET_PKGS} ]]; then
 		go_build .
+	else
+		go_build ${GO_TARGET_PKGS}
 	fi
 }
 
