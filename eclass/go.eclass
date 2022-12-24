@@ -127,7 +127,7 @@ RESTRICT+=" strip"
 #
 # @ECLASS_VARIABLE: GO_TARGET_PKGS
 # @DESCRIPTION:
-# a space-separated list of paths (relative to current word dir, normally $S)
+# a space-separated list of paths (relative to current work dir, normally $S)
 # of packages which should be built instead of the default '.' or './cmd/...'
 
 # @ECLASS_VARIABLE: GO_LDFLAGS_EXMAP
