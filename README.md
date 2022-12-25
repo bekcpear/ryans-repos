@@ -30,7 +30,7 @@ eselect repository enable ryans
    sys-apps/openrazer                       | 3.5.1                  | RD     | https://github.com/openrazer/openrazer         | A user-space daemon that allows you to manage your Razer peripherals.
      sys-apps/openrazer-driver              | 3.5.1                  | RD     | https://github.com/openrazer/openrazer         | A collection of kernel drivers for Razer devices.
 --------------------------------------------|------------------------|--------|------------------------------------------------|--------------------
- dev-util/act                               | 0.2.31                 |        | https://github.com/nektos/act                  | Run your GitHub Actions locally
+ dev-util/act                               | 0.2.34                 |        | https://github.com/nektos/act                  | Run your GitHub Actions locally
 --------------------------------------------|------------------------|--------|------------------------------------------------|--------------------
  dev-util/v2ray-geoip-generator             | 9999                   |        | https://github.com/v2fly/geoip                 | GeoIP generator for V2Ray.
 --------------------------------------------|------------------------|--------|------------------------------------------------|--------------------
@@ -41,7 +41,7 @@ eselect repository enable ryans
 --------------------------------------------|------------------------|--------|------------------------------------------------|--------------------
  media-sound/qqmusic-bin                    | 1.1.5                  |        | https://y.qq.com/download/download.html        | Tencent QQ Music for Linux.
 --------------------------------------------|------------------------|--------|------------------------------------------------|--------------------
- net-im/dendrite                            | 0.10.7                 |        | https://github.com/matrix-org/dendrite         | Dendrite is a second-generation Matrix homeserver written in Go!
+ net-im/dendrite                            | 0.10.8                 |        | https://github.com/matrix-org/dendrite         | Dendrite is a second-generation Matrix homeserver written in Go!
    acct-group/dendrite                      | 0                      | RD     |                                                | Group for the net-im/dendrite service
    acct-user/dendrite                       | 0                      | RD     |                                                | User for the net-im/dendrite service
 --------------------------------------------|------------------------|--------|------------------------------------------------|--------------------
@@ -63,7 +63,7 @@ eselect repository enable ryans
 --------------------------------------------|------------------------|--------|------------------------------------------------|--------------------
  net-proxy/v2ray-core-bin                   | 4.45.0                 |        | https://github.com/v2fly/v2ray-core            | A platform for building proxies to bypass network restrictions.
 --------------------------------------------|------------------------|--------|------------------------------------------------|--------------------
- net-vpn/headscale                          | 0.18.0_beta1           |        | https://github.com/juanfont/headscale          | An open source, self-hosted implementation of the Tailscale control server
+ net-vpn/headscale                          | 0.18.0_beta2           |        | https://github.com/juanfont/headscale          | An open source, self-hosted implementation of the Tailscale control server
 --------------------------------------------|------------------------|--------|------------------------------------------------|--------------------
  net-vpn/tailscale                          | 1.34.1                 |        | https://tailscale.com                          | Tailscale VPN client and CLI tools
    acct-group/derper                        | 0                      | RD     |                                                | Group for the DERP service of net-vpn/tailscale
