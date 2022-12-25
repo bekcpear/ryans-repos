@@ -345,7 +345,7 @@ go_src_install() {
 	pushd "${T}"/go-bin >/dev/null || die
 
 	local _sb _sbin
-	if [[ $(declare -p GO_SBIN) =~ declare[[:space:]]+-a ]]; then
+	if [[ $(declare -p GO_SBIN 2>/dev/null) =~ declare[[:space:]]+-a ]]; then
 		_sbin="${GO_SBIN[*]}"
 	else
 		_sbin="${GO_SBIN}"
