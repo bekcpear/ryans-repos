@@ -7,25 +7,32 @@ description="A platform for building proxies to bypass network restrictions"
 
 CONF_NAME_SUFFIX=".${RC_SVCNAME#*.}"
 if [[ "${RC_SVCNAME%${CONF_NAME_SUFFIX}}" == "${RC_SVCNAME}" ]]; then
-	unset CONF_NAME_SUFFIX
+  unset CONF_NAME_SUFFIX
 fi
 CONF_PATH="/etc/v2ray/config${CONF_NAME_SUFFIX}.json"
-LOG="/var/log/v2ray${CONF_NAME_SUFFIX}.log"
 
 command="/usr/bin/v2ray"
 command_args="run -c ${CONF_PATH}"
 command_background=true
 pidfile="/run/v2ray.pid"
-output_log="${LOG}"
-error_log="${LOG}"
 
 depend() {
-	need net
+  need net
+  after logger
 }
 
 start_pre() {
-	if [ ! -f ${CONF_PATH} ]; then
-		ewarn "config file '${CONF_PATH}' does not exist"
-		return 1
-	fi
+  if [ ! -f ${CONF_PATH} ]; then
+    ewarn "config file '${CONF_PATH}' does not exist"
+    return 1
+  fi
+  if [[ -S /dev/log ]]; then
+    declare -g output_logger="logger"
+    declare -g error_logger="logger"
+  else
+    checkpath -d /var/log/v2ray
+    log="/var/log/v2ray/v2ray${CONF_NAME_SUFFIX}.log"
+    declare -g output_log="${log}"
+    declare -g error_log="${log}"
+  fi
 }
