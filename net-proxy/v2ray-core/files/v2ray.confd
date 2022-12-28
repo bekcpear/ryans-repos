@@ -1,0 +1,21 @@
+# openrc config file for v2ray service
+
+# log to syslog
+SYSLOG="false"
+
+# use config directory
+#  by default, the config file (/etc/v2ray/config[.XX].json)
+#  is used, set this option to true to use config directory,
+#  path is /etc/v2ray/config[.XX].d
+# '.XX' is optional and XX can be any alnum characters
+USE_CONF_DIR="false"
+
+# load config directory recursively
+# only useable when USE_CONF_DIR is true
+LOAD_CONF_DIR_REC="false"
+
+# the format of config files
+# availables: auto json toml yaml protobuf
+# execute `v2ray help format-loader` for details
+# default: auto
+#CONF_FMT="auto"

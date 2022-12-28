@@ -1,44 +1,53 @@
 #!/sbin/openrc-run
-# Copyright 1999-2020 Gentoo Authors
+# Copyright 2022 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
+name="v2ray-core daemon"
+description="A platform for building proxies to bypass network restrictions"
+svcname="v2ray"
+
+CONF_NAME_SUFFIX="${RC_SVCNAME#${svcname}}"
+if [[ "${svcname}" == "${RC_SVCNAME}" ]]; then
+  unset CONF_NAME_SUFFIX
+fi
+
+CONF_ARG="-c"
+CONF_PATH="/etc/${svcname}/config${CONF_NAME_SUFFIX}.json"
+if yesno USE_CONF_DIR; then
+  CONF_ARG="-d"
+  CONF_PATH="${CONF_PATH%.json}.d"
+fi
+if yesno LOAD_CONF_DIR_REC; then
+  CONF_REC="-r"
+fi
+
+command="/usr/bin/v2ray"
+command_args="run ${CONF_ARG} ${CONF_PATH} ${CONF_REC} ${CONF_FMT:+-format} ${CONF_FMT}"
+command_background=true
+pidfile="/run/${svcname}.pid"
+
 depend() {
-	need net
+  need net
+  after logger
 }
 
-checkconfig() {
-	if [ "${RC_SVCNAME}" != "v2ray" ] ; then
-		V2_CFGNAME="${RC_SVCNAME#*.}."
-	fi
-
-	V2_CONFIG="/etc/v2ray/config.${V2_CFGNAME}json"
-	V2_PIDFILE="/run/v2ray.${V2_CFGNAME}pid"
-	V2_LOG="/var/log/v2ray.${V2_CFGNAME}log"
-
-	if [ ! -f ${V2_CONFIG} ]; then
-		ewarn "${V2_CONFIG} does not exist."
-		return 1
-	fi
-
-	return 0
-}
-
-start() {
-	checkconfig || return 1
-
-	ebegin "Starting V2ray"
-	ebegin "Log File : ${V2_LOG}"
-	start-stop-daemon --start	\
-	-b -1 ${V2_LOG} -2 ${V2_LOG}	\
-	-m -p ${V2_PIDFILE}		\
-	--exec /usr/bin/v2ray  -- -config ${V2_CONFIG}
-	eend $?
-
-}
-
-stop() {
-	checkconfig || return 1
-	ebegin "Stopping V2ray"
-	start-stop-daemon --stop -p ${V2_PIDFILE}
-	eend $?
+start_pre() {
+  if ! yesno USE_CONF_DIR && ! [[ -f ${CONF_PATH} ]]; then
+    ewarn "config file '${CONF_PATH}' does not exist"
+    return 1
+  elif yesno USE_CONF_DIR && ! [[ -d ${CONF_PATH} ]]; then
+    ewarn "config directory '${CONF_PATH}' does not exist"
+    return 1
+  fi
+  if yesno SYSLOG && logger -t ${svcname} 'logger: start pre check ...'; then
+    # the pid logged is the pid of subprocess, logger
+    local logger_cmd="logger -t ${svcname}"
+    declare -g output_logger="${logger_cmd}"
+    declare -g error_logger="${logger_cmd}"
+  else
+    checkpath -d -m 750 /var/log/${svcname}
+    local log="/var/log/${svcname}/${RC_SVCNAME}.log"
+    declare -g output_log="${log}"
+    declare -g error_log="${log}"
+  fi
 }
