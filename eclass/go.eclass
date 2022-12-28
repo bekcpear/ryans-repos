@@ -127,8 +127,15 @@ RESTRICT+=" strip"
 #
 # @ECLASS_VARIABLE: GO_TARGET_PKGS
 # @DESCRIPTION:
-# a space-separated list of paths (relative to current work dir, normally $S)
-# of packages which should be built instead of the default '.' or './cmd/...'
+# A space-separated list of patterns which describe paths and target names
+# of packages which should be built instead of the default '.' or './cmd/...' .
+# The pattern has the following form:
+# 	<PACKAGE-PATH>[ -> <TARGET-NAME>]
+# <PACKAGE-PATH> is relative to the current temporary build dir (normally $S)
+# <TARGET-NAME> is the binary name instead of the package path name
+# e.g.:
+# 	./main -> foo
+# 	./cmd/bar
 
 # @ECLASS_VARIABLE: GO_LDFLAGS_EXMAP
 # @DESCRIPTION:
@@ -286,10 +293,10 @@ go_src_unpack() {
 }
 
 # @FUNCTION: go_build
-# @USAGE: <packages>
+# @USAGE: [-o <output>] <package>...
 # @DESCRIPTION:
 # parse necessary arguments for go build and build packages,
-# the binaries will be installed into the ${T}/go-bin/ directory.
+# the binaries will be installed into the ${T}/go-bin/ directory by default.
 go_build() {
 	debug-print-function "${FUNCNAME}" "${@}"
 
@@ -312,8 +319,28 @@ go_build() {
 		go_ldflags=$(<<<"${go_ldflags}" sed "s/@@${key}@@/${value}/g")
 	done
 
+	local output="${T}/go-bin/"
+	local -a args
+	while :; do
+		case "${1}" in
+			-o)
+				shift
+				output="${1}"
+				shift
+				;;
+			"")
+				break
+				;;
+			*)
+				args+=( "${1}" )
+				shift
+				;;
+		esac
+	done
+	set -- "${args[@]}"
+
 	GOFLAGS="${GOFLAGS}${EXTRA_GOFLAGS:+ }${EXTRA_GOFLAGS}"
-	set -- go build -o "${T}/go-bin/" ${GO_TAGS:+-tags} ${GO_TAGS} -ldflags "${go_ldflags}" "${@}"
+	set -- go build -o "${output}" ${GO_TAGS:+-tags} ${GO_TAGS} -ldflags "${go_ldflags}" "${@}"
 	einfo "      GOFLAGS:" "${GOFLAGS}"
 	einfo "Build command:" "${@}"
 	"${@}" || die
@@ -332,7 +359,36 @@ go_src_compile() {
 	elif [[ -z ${GO_TARGET_PKGS} ]]; then
 		go_build .
 	else
-		go_build ${GO_TARGET_PKGS}
+		local pkg_path
+		local -a pkg_paths
+		set -- ${GO_TARGET_PKGS}
+		while :; do
+			case "${1}" in
+				'')
+					break
+					;;
+				'->')
+					shift
+					go_build -o "${T}/go-bin/${1}" ${pkg_path}
+					pkg_path=
+					shift
+					;;
+				*)
+					if [[ ${pkg_path} != "" ]]; then
+						pkg_paths+=( "${pkg_path}" )
+						pkg_path=
+					fi
+					pkg_path="${1}"
+					shift
+					;;
+			esac
+		done
+		if [[ ${pkg_path} != "" ]]; then
+			pkg_paths+=( "${pkg_path}" )
+		fi
+		if [[ ${#pkg_paths[@]} -gt 0 ]]; then
+			go_build "${pkg_paths[@]}"
+		fi
 	fi
 }
 
