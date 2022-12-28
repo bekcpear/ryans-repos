@@ -10,7 +10,7 @@ if [[ "${RC_SVCNAME%${CONF_NAME_SUFFIX}}" == "${RC_SVCNAME}" ]]; then
 	unset CONF_NAME_SUFFIX
 fi
 CONF_PATH="/etc/v2ray/config${CONF_NAME_SUFFIX}.json"
-LOG="/var/log/v2ray.${CONF_NAME_SUFFIX}log"
+LOG="/var/log/v2ray${CONF_NAME_SUFFIX}.log"
 
 command="/usr/bin/v2ray"
 command_args="run -c ${CONF_PATH}"
