@@ -13,8 +13,7 @@ SRC_URI="https://github.com/v2fly/v2ray-core/archive/refs/tags/v${PV}.tar.gz -> 
 
 LICENSE="Apache-2.0 BSD-2 BSD MIT"
 SLOT="0"
-KEYWORDS="~amd64 ~riscv"
-IUSE="+tool"
+KEYWORDS="~amd64 ~arm64 ~riscv ~x86"
 
 BDEPEND="
 	>=dev-lang/go-1.19:=
@@ -29,7 +28,7 @@ RDEPEND="
 	)
 "
 
-PATCHES=("${FILESDIR}"/${P}-quic.diff)
+GO_TARGET_PKGS="./main"
 
 src_prepare() {
 	sed -i 's|/usr/local/bin|/usr/bin|;s|/usr/local/etc|/etc|' release/config/systemd/system/*.service || die
@@ -37,26 +36,14 @@ src_prepare() {
 	default
 }
 
-src_compile() {
-	go build -work -o "bin/v2ray" -ldflags "-s -w" ./main || die
-
-	if use tool; then
-		go build -work -o "bin/v2ctl" -ldflags "-s -w" -tags confonly ./infra/control/main || die
-	fi
-}
-
 src_install() {
-	dobin bin/v2ray
-
-	if use tool; then
-		dobin bin/v2ctl
-	fi
+	go_src_install
 
 	insinto /etc/v2ray
 	doins release/config/*.json
 	doins "${FILESDIR}/example.client.v4.json"
 
-	newinitd "${FILESDIR}/v2ray.v4.initd" v2ray
+	newinitd "${FILESDIR}/v2ray.initd" v2ray
 	systemd_newunit release/config/systemd/system/v2ray.service v2ray.service
 	systemd_newunit release/config/systemd/system/v2ray@.service v2ray@.service
 }

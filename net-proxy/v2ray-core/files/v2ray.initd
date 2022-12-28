@@ -1,44 +1,31 @@
 #!/sbin/openrc-run
-# Copyright 1999-2020 Gentoo Authors
+# Copyright 2022 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
+
+name="v2ray-core daemon"
+description="A platform for building proxies to bypass network restrictions"
+
+CONF_NAME_SUFFIX=".${RC_SVCNAME#*.}"
+if [[ "${RC_SVCNAME%${CONF_NAME_SUFFIX}}" == "${RC_SVCNAME}" ]]; then
+	unset CONF_NAME_SUFFIX
+fi
+CONF_PATH="/etc/v2ray/config${CONF_NAME_SUFFIX}.json"
+LOG="/var/log/v2ray.${CONF_NAME_SUFFIX}log"
+
+command="/usr/bin/v2ray"
+command_args="run -c ${CONF_PATH}"
+command_background=true
+pidfile="/run/v2ray.pid"
+output_log="${LOG}"
+error_log="${LOG}"
 
 depend() {
 	need net
 }
 
-checkconfig() {
-	if [ "${RC_SVCNAME}" != "v2ray" ] ; then
-		V2_CFGNAME="${RC_SVCNAME#*.}."
-	fi
-
-	V2_CONFIG="/etc/v2ray/config.${V2_CFGNAME}json"
-	V2_PIDFILE="/run/v2ray.${V2_CFGNAME}pid"
-	V2_LOG="/var/log/v2ray.${V2_CFGNAME}log"
-
-	if [ ! -f ${V2_CONFIG} ]; then
-		ewarn "${V2_CONFIG} does not exist."
+start_pre() {
+	if [ ! -f ${CONF_PATH} ]; then
+		ewarn "config file '${CONF_PATH}' does not exist"
 		return 1
 	fi
-
-	return 0
-}
-
-start() {
-	checkconfig || return 1
-
-	ebegin "Starting V2ray"
-	ebegin "Log File : ${V2_LOG}"
-	start-stop-daemon --start	\
-	-b -1 ${V2_LOG} -2 ${V2_LOG}	\
-	-m -p ${V2_PIDFILE}		\
-	--exec /usr/bin/v2ray  -- -config ${V2_CONFIG}
-	eend $?
-
-}
-
-stop() {
-	checkconfig || return 1
-	ebegin "Stopping V2ray"
-	start-stop-daemon --stop -p ${V2_PIDFILE}
-	eend $?
 }
