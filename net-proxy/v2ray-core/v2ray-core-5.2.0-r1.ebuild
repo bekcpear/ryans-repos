@@ -28,7 +28,7 @@ RDEPEND="
 	)
 "
 
-GO_TARGET_PKGS="./main"
+GO_TARGET_PKGS="./main -> v2ray"
 
 src_prepare() {
 	sed -i 's|/usr/local/bin|/usr/bin|;s|/usr/local/etc|/etc|' release/config/systemd/system/*.service || die
