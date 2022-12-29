@@ -14,10 +14,10 @@ SRC_URI="
 	riscv? ( https://github.com/v2fly/v2ray-core/releases/download/v${PV}/v2ray-linux-riscv64.zip -> ${P}_riscv.zip )
 "
 
-LICENSE="CC-BY-SA-4.0 MIT"
+LICENSE="Apache-2.0 BSD-2 BSD CC-BY-SA-4.0 MIT"
 SLOT="0"
-KEYWORDS="~amd64 ~arm64 ~riscv"
-IUSE="+separate-geo tiny-geoip tool"
+KEYWORDS="-* ~amd64 ~arm64 ~riscv"
+IUSE="+separate-geo tiny-geoip"
 REQUIRED_USE="separate-geo? ( !tiny-geoip )" #TODO remove this restriction later
 
 RDEPEND="
@@ -39,7 +39,6 @@ BDEPEND="app-arch/unzip"
 
 QA_PREBUILT="
 	/usr/bin/v2ray
-	/usr/bin/v2ctl
 "
 S="${WORKDIR}"
 
@@ -51,9 +50,6 @@ src_prepare() {
 
 src_install() {
 	dobin v2ray
-	if use tool; then
-		dobin v2ctl
-	fi
 
 	if ! use separate-geo; then
 		insinto /usr/share/v2ray
@@ -67,9 +63,23 @@ src_install() {
 
 	insinto /etc/v2ray
 	doins *.json
-	doins "${FILESDIR}/example.client.json"
+	doins "${FILESDIR}/example.client.v4.json"
 
 	newinitd "${FILESDIR}/v2ray.initd" v2ray
+	newconfd "${FILESDIR}/v2ray.confd" v2ray
+
 	systemd_newunit systemd/system/v2ray.service v2ray.service
 	systemd_newunit systemd/system/v2ray@.service v2ray@.service
+}
+
+pkg_postinst() {
+	if [[ -z ${REPLACING_VERSIONS} ]]; then
+		if ! systemd_is_booted; then
+			elog "The default openrc service is located at ${EROOT}/etc/init.d/v2ray,"
+			elog "and the corresponding default config file is ${EROOT}/etc/v2ray/config.json."
+			elog "You can make a symlink file to the service with the format 'v2ray.XX' to"
+			elog "specify a different config file 'config.XX.json', 'XX' are any alnum characters."
+			elog "Please also read ${EROOT}/etc/conf.d/v2ray."
+		fi
+	fi
 }
