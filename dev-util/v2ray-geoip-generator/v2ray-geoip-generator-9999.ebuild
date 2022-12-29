@@ -28,6 +28,8 @@ src_compile() {
 src_install() {
 	exeinto /usr/bin
 	doexe ${PN}
+	insinto /usr/share/${PN}
+	doins config-example.json
 }
 
 pkg_postinst() {
