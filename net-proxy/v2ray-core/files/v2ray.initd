@@ -33,8 +33,8 @@ start_pre() {
     declare -g output_logger="${logger_cmd}"
     declare -g error_logger="${logger_cmd}"
   else
-    checkpath -d /var/log/v2ray
-    local log="/var/log/v2ray/v2ray${CONF_NAME_SUFFIX}.log"
+    checkpath -d -m 750 /var/log/${svcname}
+    local log="/var/log/${svcname}/${RC_SVCNAME}.log"
     declare -g output_log="${log}"
     declare -g error_log="${log}"
   fi
