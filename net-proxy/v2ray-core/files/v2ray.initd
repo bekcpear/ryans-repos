@@ -4,17 +4,18 @@
 
 name="v2ray-core daemon"
 description="A platform for building proxies to bypass network restrictions"
+svcname="v2ray"
 
-CONF_NAME_SUFFIX=".${RC_SVCNAME#*.}"
-if [[ "${RC_SVCNAME%${CONF_NAME_SUFFIX}}" == "${RC_SVCNAME}" ]]; then
+CONF_NAME_SUFFIX="${RC_SVCNAME#${svcname}}"
+if [[ "${svcname}" == "${RC_SVCNAME}" ]]; then
   unset CONF_NAME_SUFFIX
 fi
-CONF_PATH="/etc/v2ray/config${CONF_NAME_SUFFIX}.json"
+CONF_PATH="/etc/${svcname}/config${CONF_NAME_SUFFIX}.json"
 
 command="/usr/bin/v2ray"
 command_args="run -c ${CONF_PATH}"
 command_background=true
-pidfile="/run/v2ray.pid"
+pidfile="/run/${svcname}.pid"
 
 depend() {
   need net
@@ -26,12 +27,14 @@ start_pre() {
     ewarn "config file '${CONF_PATH}' does not exist"
     return 1
   fi
-  if [[ -S /dev/log ]]; then
-    declare -g output_logger="logger"
-    declare -g error_logger="logger"
+  if logger -t ${svcname} 'start pre check ...'; then
+    # the pid logged is the pid of subprocess, logger
+    local logger_cmd="logger -t ${svcname}"
+    declare -g output_logger="${logger_cmd}"
+    declare -g error_logger="${logger_cmd}"
   else
     checkpath -d /var/log/v2ray
-    log="/var/log/v2ray/v2ray${CONF_NAME_SUFFIX}.log"
+    local log="/var/log/v2ray/v2ray${CONF_NAME_SUFFIX}.log"
     declare -g output_log="${log}"
     declare -g error_log="${log}"
   fi
