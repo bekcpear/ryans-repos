@@ -32,8 +32,11 @@ depend() {
 }
 
 start_pre() {
-  if [ ! -f ${CONF_PATH} ]; then
+  if ! yseno USE_CONF_DIR && ! [[ -f ${CONF_PATH} ]]; then
     ewarn "config file '${CONF_PATH}' does not exist"
+    return 1
+  elif yseno USE_CONF_DIR && ! [[ -d ${CONF_PATH} ]]; then
+    ewarn "config directory '${CONF_PATH}' does not exist"
     return 1
   fi
   if yesno SYSLOG && logger -t ${svcname} 'logger: start pre check ...'; then
