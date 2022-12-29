@@ -18,25 +18,6 @@ BDEPEND=">=dev-lang/go-1.19:="
 
 src_unpack() {
 	git-r3_src_unpack
-	local -a hps
-	if [[ -n $HTTP_PROXY ]]; then
-		hps+=( HTTP_PROXY )
-	elif [[ -n $http_proxy ]]; then
-		hps+=( http_proxy )
-	fi
-	if [[ -n $HTTPS_PROXY ]]; then
-		hps+=( HTTPS_PROXY )
-	elif [[ -n $https_proxy ]]; then
-		hps+=( https_proxy )
-	fi
-	for hp in "${hps[@]}"; do
-		if [[ -n ${!hp} ]] && [[ ${!hp} =~ ^socks5h:// ]]; then
-			einfo "golang does not support the 'socks5h://' schema for '${hp}', fallback to the 'socks5://' schema"
-			set -- export "${hp}=\"socks5${!hp#socks5h}\""
-			einfo "${@}"
-			"${@}"
-		fi
-	done
 	go-module_live_vendor
 }
 
