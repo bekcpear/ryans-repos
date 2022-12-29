@@ -1,4 +1,4 @@
-# Copyright 2021 Gentoo Authors
+# Copyright 2022 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
@@ -14,12 +14,12 @@ SLOT="0"
 
 DEPEND=""
 RDEPEND="${DEPEND}"
-BDEPEND=">=dev-lang/go-1.16:="
+BDEPEND=">=dev-lang/go-1.19:="
 
 src_unpack() {
 	git-r3_src_unpack
 	#TODO: Looking for a more elegant way to download deps
-	export GOPROXY="https://goproxy.cn,direct" || die
+	#export GOPROXY="https://goproxy.cn,direct" || die
 	go-module_live_vendor
 }
 
