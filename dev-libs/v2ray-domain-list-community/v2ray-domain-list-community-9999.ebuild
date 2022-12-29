@@ -21,8 +21,6 @@ BDEPEND=">=dev-lang/go-1.18"
 
 src_unpack() {
 	git-r3_src_unpack
-	#TODO: Looking for a more elegant way to download deps
-	export GOPROXY="https://goproxy.cn,direct" || die
 	go-module_live_vendor
 }
 
