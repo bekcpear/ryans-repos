@@ -18,4 +18,4 @@ LOAD_CONF_DIR_REC="false"
 # availables: auto json toml yaml protobuf
 # execute `v2ray help format-loader` for details
 # default: auto
-CONF_FMT="auto"
+#CONF_FMT="auto"
