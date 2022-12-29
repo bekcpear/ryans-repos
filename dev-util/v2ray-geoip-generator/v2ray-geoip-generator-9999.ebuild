@@ -31,9 +31,9 @@ src_unpack() {
 	fi
 	for hp in "${hps[@]}"; do
 		if [[ -n ${!hp} ]] && [[ ${!hp} =~ ^socks5h:// ]]; then
-			ewarn "go does not support 'socks5h://' schema for '${hp}', fallback to 'socks5://' schema"
-			set -- export ${hp}="socks5${!hp#socks5h}"
-			ewarn "${@}"
+			einfo "golang does not support the 'socks5h://' schema for '${hp}', fallback to the 'socks5://' schema"
+			set -- export "${hp}=\"socks5${!hp#socks5h}\""
+			einfo "${@}"
 			"${@}"
 		fi
 	done
