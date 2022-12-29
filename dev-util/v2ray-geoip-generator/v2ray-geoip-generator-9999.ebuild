@@ -22,7 +22,7 @@ src_unpack() {
 }
 
 src_compile() {
-	go build -v -work -o ${PN} -trimpath ./main.go || die
+	go build -v -work -o ${PN} -trimpath . || die
 }
 
 src_install() {
