@@ -44,6 +44,8 @@ src_install() {
 	doins "${FILESDIR}/example.client.v4.json"
 
 	newinitd "${FILESDIR}/v2ray.initd" v2ray
+	newconfd "${FILESDIR}/v2ray.confd" v2ray
+
 	systemd_newunit release/config/systemd/system/v2ray.service v2ray.service
 	systemd_newunit release/config/systemd/system/v2ray@.service v2ray@.service
 }

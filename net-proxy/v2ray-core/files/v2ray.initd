@@ -27,7 +27,7 @@ start_pre() {
     ewarn "config file '${CONF_PATH}' does not exist"
     return 1
   fi
-  if logger -t ${svcname} 'start pre check ...'; then
+  if yesno SYSLOG && logger -t ${svcname} 'start pre check ...'; then
     # the pid logged is the pid of subprocess, logger
     local logger_cmd="logger -t ${svcname}"
     declare -g output_logger="${logger_cmd}"
