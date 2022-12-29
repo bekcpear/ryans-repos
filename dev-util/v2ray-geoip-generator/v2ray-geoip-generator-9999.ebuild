@@ -18,8 +18,23 @@ BDEPEND=">=dev-lang/go-1.19:="
 
 src_unpack() {
 	git-r3_src_unpack
-	#TODO: Looking for a more elegant way to download deps
-	#export GOPROXY="https://goproxy.cn,direct" || die
+	local -a hps
+	if [[ -n HTTP_PROXY ]]; then
+		hps+=( HTTP_PROXY )
+	elif [[ -n http_proxy ]]; then
+		hps+=( http_proxy )
+	fi
+	if [[ -n HTTPS_PROXY ]]; then
+		hps+=( HTTPS_PROXY )
+	elif [[ -n https_proxy ]]; then
+		hps+=( https_proxy )
+	fi
+	for hp in "${hps[@]}"; do
+		if [[ -n ${!hp} ]] && [[ ${!hp} =~ ^socks5h:// ]]; then
+			ewarn "go does not support 'socks5h://' schema for '${hp}', fallback to 'socks5://' schema"
+			eval "export ${hp}=${!hp#socks5h}socks5"
+		fi
+	done
 	go-module_live_vendor
 }
 
