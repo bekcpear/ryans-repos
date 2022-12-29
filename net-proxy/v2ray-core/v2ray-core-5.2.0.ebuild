@@ -49,3 +49,15 @@ src_install() {
 	systemd_newunit release/config/systemd/system/v2ray.service v2ray.service
 	systemd_newunit release/config/systemd/system/v2ray@.service v2ray@.service
 }
+
+pkg_postinst() {
+	if [[ -z ${REPLACING_VERSIONS} ]]; then
+		if ! systemd_is_booted; then
+			elog "The default openrc service is located at ${EROOT}/etc/init.d/v2ray,"
+			elog "and the corresponding default config file is ${EROOT}/etc/v2ray/config.json."
+			elog "You can make a symlink file to the service with the format 'v2ray.XX' to"
+			elog "specify a different config file 'config.XX.json', 'XX' are any alnum characters."
+			elog "Please also read ${EROOT}/etc/conf.d/v2ray."
+		fi
+	fi
+}

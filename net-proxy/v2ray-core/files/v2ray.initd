@@ -10,10 +10,19 @@ CONF_NAME_SUFFIX="${RC_SVCNAME#${svcname}}"
 if [[ "${svcname}" == "${RC_SVCNAME}" ]]; then
   unset CONF_NAME_SUFFIX
 fi
+
+CONF_ARG="-c"
 CONF_PATH="/etc/${svcname}/config${CONF_NAME_SUFFIX}.json"
+if yesno USE_CONF_DIR; then
+  CONF_ARG="-d"
+  CONF_PATH="${CONF_PATH%.json}.d"
+fi
+if yesno LOAD_CONF_DIR_REC; then
+  CONF_REC="-r"
+fi
 
 command="/usr/bin/v2ray"
-command_args="run -c ${CONF_PATH}"
+command_args="run ${CONF_ARG} ${CONF_PATH} ${CONF_REC} ${CONF_FMT:+-format} ${CONF_FMT}"
 command_background=true
 pidfile="/run/${svcname}.pid"
 
@@ -27,7 +36,7 @@ start_pre() {
     ewarn "config file '${CONF_PATH}' does not exist"
     return 1
   fi
-  if yesno SYSLOG && logger -t ${svcname} 'start pre check ...'; then
+  if yesno SYSLOG && logger -t ${svcname} 'logger: start pre check ...'; then
     # the pid logged is the pid of subprocess, logger
     local logger_cmd="logger -t ${svcname}"
     declare -g output_logger="${logger_cmd}"
