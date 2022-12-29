@@ -1,4 +1,4 @@
-# Copyright 2021 Gentoo Authors
+# Copyright 2022 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
@@ -7,10 +7,9 @@ DESCRIPTION="GeoIP for V2Ray."
 HOMEPAGE="https://github.com/v2fly/geoip https://www.maxmind.com"
 if [[ ${PV} == *9999 ]]; then
 	PROPERTIES="live"
-	SRC_URI=
 else
-	SRC_URI="https://github.com/v2fly/geoip/releases/download/${PV#*_p}/geoip.dat -> ${P}.dat"
-	KEYWORDS="~amd64 ~arm ~arm64 ~x86"
+	SRC_URI="https://github.com/v2fly/geoip/releases/download/${PV#5.}/geoip.dat -> ${P}.dat"
+	KEYWORDS="~amd64 ~arm ~arm64 ~riscv ~x86"
 fi
 S="${WORKDIR}"
 
