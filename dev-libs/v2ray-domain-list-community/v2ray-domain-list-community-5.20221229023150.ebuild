@@ -1,4 +1,4 @@
-# Copyright 2021 Gentoo Authors
+# Copyright 2022 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
@@ -9,10 +9,10 @@ DESCRIPTION="Community managed domain list for V2Ray."
 HOMEPAGE="https://github.com/v2fly/domain-list-community"
 KEYWORDS="~amd64 ~arm ~arm64 ~riscv ~x86"
 
-SRC_URI="https://github.com/v2fly/domain-list-community/archive/refs/tags/${PV#*_p}.tar.gz -> ${P}.tar.gz
+SRC_URI="https://github.com/v2fly/domain-list-community/archive/refs/tags/${PV#5.}.tar.gz -> ${P}.tar.gz
 	${GO_SUM_LIST_SRC_URI}"
 
-S="${WORKDIR%/}/${PN#v2ray-}-${PV#*_p}"
+S="${WORKDIR%/}/${PN#v2ray-}-${PV#5.}"
 
 LICENSE="BSD MIT"
 SLOT="0"
