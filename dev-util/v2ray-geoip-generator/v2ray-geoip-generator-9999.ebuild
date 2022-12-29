@@ -14,22 +14,22 @@ SLOT="0"
 
 DEPEND=""
 RDEPEND="${DEPEND}"
-BDEPEND=">=dev-lang/go-1.16:="
+BDEPEND=">=dev-lang/go-1.19:="
 
 src_unpack() {
 	git-r3_src_unpack
-	#TODO: Looking for a more elegant way to download deps
-	export GOPROXY="https://goproxy.cn,direct" || die
 	go-module_live_vendor
 }
 
 src_compile() {
-	go build -v -work -o ${PN} -trimpath ./main.go || die
+	go build -v -work -o ${PN} -trimpath . || die
 }
 
 src_install() {
 	exeinto /usr/bin
 	doexe ${PN}
+	insinto /usr/share/${PN}
+	doins config-example.json
 }
 
 pkg_postinst() {
