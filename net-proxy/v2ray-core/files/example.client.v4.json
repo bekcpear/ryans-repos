@@ -49,6 +49,11 @@
         "type": "field",
         "ip": ["geoip:cn"],
         "outboundTag": "direct"
+      },
+      {
+        "type": "field",
+        "network": "tcp",
+        "outboundTag": "vmess"
       }
     ]
   },
