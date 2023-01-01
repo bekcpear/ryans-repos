@@ -30,7 +30,7 @@ eselect repository enable ryans
    sys-apps/openrazer                       | 3.5.1             | RD     | https://github.com/openrazer/openrazer         | A user-space daemon that allows you to manage your Razer peripherals.
      sys-apps/openrazer-driver              | 3.5.1             | RD     | https://github.com/openrazer/openrazer         | A collection of kernel drivers for Razer devices.
 --------------------------------------------|-------------------|--------|------------------------------------------------|--------------------
- dev-util/act                               | 0.2.34            |        | https://github.com/nektos/act                  | Run your GitHub Actions locally
+ dev-util/act                               | 0.2.35            |        | https://github.com/nektos/act                  | Run your GitHub Actions locally
 --------------------------------------------|-------------------|--------|------------------------------------------------|--------------------
  dev-util/v2ray-geoip-generator             | 9999              |        | https://github.com/v2fly/geoip                 | GeoIP generator for V2Ray.
 --------------------------------------------|-------------------|--------|------------------------------------------------|--------------------
