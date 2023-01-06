@@ -292,6 +292,25 @@ go_src_unpack() {
 	fi
 }
 
+# @FUNCTION: _go_print_cmd
+# @INTERNAL
+# @USAGE: <message>...
+# @DESCRIPTION:
+# print the command and arguments with a pretty format
+_go_print_cmd() {
+	local msg is_cmd
+	echo -ne "\x1b[32;01m===\x1b[0m"
+	for msg; do
+		if [[ ${msg} =~ [[:space:]] ]] && [[ -n ${is_cmd} ]]; then
+			msg="\"${msg//\"/\\\"}\""
+		elif [[ ${msg} == go ]]; then
+			is_cmd=1
+		fi
+		echo -ne " ${msg}"
+	done
+	echo
+}
+
 # @FUNCTION: go_build
 # @USAGE: [-o <output>] <package>...
 # @DESCRIPTION:
@@ -341,8 +360,8 @@ go_build() {
 
 	GOFLAGS="${GOFLAGS}${EXTRA_GOFLAGS:+ }${EXTRA_GOFLAGS}"
 	set -- go build -o "${output}" ${GO_TAGS:+-tags} ${GO_TAGS} -ldflags "${go_ldflags}" "${@}"
-	einfo "      GOFLAGS:" "${GOFLAGS}"
-	einfo "Build command:" "${@}"
+	_go_print_cmd "      GOFLAGS:" "${GOFLAGS}"
+	_go_print_cmd "Build command:" "${@}"
 	"${@}" || die
 }
 
