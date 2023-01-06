@@ -63,9 +63,9 @@ eselect repository enable ryans
  net-proxy/v2ray-core-bin                   | 4.45.2            |        | https://github.com/v2fly/v2ray-core            | A platform for building proxies to bypass network restrictions.
                                             | 5.2.0             |        |                                                |
 --------------------------------------------|-------------------|--------|------------------------------------------------|--------------------
- net-vpn/headscale                          | 0.18.0_beta2      |        | https://github.com/juanfont/headscale          | An open source, self-hosted implementation of the Tailscale control server
+ net-vpn/headscale                          | 0.18.0_beta3      |        | https://github.com/juanfont/headscale          | An open source, self-hosted implementation of the Tailscale control server
 --------------------------------------------|-------------------|--------|------------------------------------------------|--------------------
- net-vpn/tailscale                          | 1.34.1            |        | https://tailscale.com                          | Tailscale VPN client and CLI tools
+ net-vpn/tailscale                          | 1.34.2            |        | https://tailscale.com                          | Tailscale VPN client and CLI tools
    acct-group/derper                        | 0                 | RD     |                                                | Group for the DERP service of net-vpn/tailscale
    acct-user/derper                         | 0                 | RD     |                                                | User for the DERP service of net-vpn/tailscale
 --------------------------------------------|-------------------|--------|------------------------------------------------|--------------------
