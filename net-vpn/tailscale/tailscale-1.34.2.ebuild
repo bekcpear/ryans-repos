@@ -25,23 +25,22 @@ RDEPEND="
 "
 
 # These settings are obtained by running ./build_dist.sh shellvars` in the upstream repo.
-VERSION_SHORT="1.34.1"
-VERSION_LONG="1.34.1-t331d553a5"
-VERSION_GIT_HASH="331d553a5eb90401c071021bae5dd24ce3993500"
+VERSION_SHORT="1.34.2"
+VERSION_LONG="1.34.2-tc5ef9103d"
+VERSION_GIT_HASH="c5ef9103d92b9b0a2932f869db56fbd7344ad417"
 GO_LDFLAGS="
 	-X 'tailscale.com/version.Long=${VERSION_LONG}'
 	-X 'tailscale.com/version.Short=${VERSION_SHORT}'
 	-X 'tailscale.com/version.GitCommit=${VERSION_GIT_HASH}'"
 GO_SBIN="tailscaled"
+GO_TARGET_PKGS="
+	./cmd/tailscale
+	./cmd/tailscaled
+"
 
-src_compile() {
-	if use derp; then
-		go_build ./cmd/derper
-	fi
-	if use tools; then
-		go_build ./cmd/derpprobe
-	fi
-	go_build ./cmd/tailscale ./cmd/tailscaled
+src_configure() {
+	use derp && GO_TARGET_PKGS+=" ./cmd/derper"
+	use tools && GO_TARGET_PKGS+=" ./cmd/derpprobe"
 }
 
 src_install() {
