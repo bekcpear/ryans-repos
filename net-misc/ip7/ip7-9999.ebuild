@@ -26,6 +26,10 @@ src_install() {
 	insinto /etc/ip7
 	doins configs/config.json
 
+	# the configuration file may contain the license key, so chmod to 600
+	fowners -R ip7:ip7 /etc/ip7
+	fperms 600 /etc/ip7/config.json
+
 	newinitd configs/ip7.initd ip7
 	newconfd configs/ip7.confd ip7
 
