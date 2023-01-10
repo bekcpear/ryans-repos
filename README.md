@@ -14,6 +14,8 @@ eselect repository enable ryans
 ```
  Package name                               | Version           | Role   | Homepage                                       | Description
 ============================================|===================|========|================================================|====================
+ acct-group/ip7                             | 0                 |        |                                                | Group for the HTTP API service of net-misc/ip7
+--------------------------------------------|-------------------|--------|------------------------------------------------|--------------------
  app-admin/z16                              | 9999              |        | https://github.com/bekcpear/z16                | A bash script project that aims to maintain dotfiles.
 --------------------------------------------|-------------------|--------|------------------------------------------------|--------------------
  app-i18n/fcitx-meta                        | 5.0.12            |        | https://fcitx-im.org                           | Merge this to pull in Fcitx packages
@@ -46,6 +48,9 @@ eselect repository enable ryans
    acct-user/dendrite                       | 0                 | RD     |                                                | User for the net-im/dendrite service
 --------------------------------------------|-------------------|--------|------------------------------------------------|--------------------
  net-im/linuxqq-bin                         | 2.0.0_beta2_p1089 |        | https://im.qq.com/linuxqq/index.html           | Tencent QQ.
+--------------------------------------------|-------------------|--------|------------------------------------------------|--------------------
+ net-misc/ip7                               | 9999              |        | https://github.com/bekcpear/ip7                | An IP address checker, powered by MaxMind GeoLite2 databases.
+   acct-user/ip7                            | 0                 | RD     |                                                | User for the HTTP API service of net-misc/ip7
 --------------------------------------------|-------------------|--------|------------------------------------------------|--------------------
  net-misc/matterbridge-bin                  | 1.25.2            |        | https://github.com/42wim/matterbridge          | a simple chat bridge, IRC | Matrix | Mattermost | Telegram | XMPP | And more...
    acct-group/matterbridge                  | 0                 | RD     |                                                | Group for the net-misc/matterbridge{,-bin} service
