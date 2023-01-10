@@ -31,8 +31,7 @@ RDEPEND="${DEPEND}"
 
 PATCHES=(
 	# downstream patches
-	"${FILESDIR}"/${P}-no-android.patch
-	"${FILESDIR}"/${P}-no-tests.patch
+	"${FILESDIR}"/${P}-no-android-no-tests.diff
 )
 
 src_configure() {
