@@ -14,43 +14,24 @@ description="Headscale Server daemon"
 command="/usr/bin/headscale"
 command_args="serve ${HEADSCALE_EXTRA_ARGS}"
 command_background=true
-pidfile="/run/headscale/headscale.pid"
+pidfile="/run/headscale.pid"
 command_user="${HEADSCALE_USER}:${HEADSCALE_GROUP}"
 directory="${HEADSCALE_WORK_DIR}"
 output_log="${HEADSCALE_LOG_DIR%/}/${HEADSCALE_LOG_STDOUT}"
 error_log="${HEADSCALE_LOG_DIR%/}/${HEADSCALE_LOG_STDERR}"
-
-# This key file path should not be set here,
-# should be set in the default config.yaml file instead.
-# This variable will be removed in the next version.
-private_key="/var/lib/headscale/private.key"
 
 depend() {
 	need net
 }
 
 start_pre() {
-	# /run/headscale is a common dir for sock file and pid file, keep it
+	# /run/headscale is a common dir for sock file keep it
 	checkpath -d -m 700 -o "${command_user}" \
 		/run/headscale \
 		${HEADSCALE_WORK_DIR} \
 		${HEADSCALE_LOG_DIR}
 
-	# the default config.yaml and db.sqlite file should not be checked here,
-	# 1. the config file may be a different file which can be provided by the
-	#    ${HEADSCALE_EXTRA_ARGS} variable
-	# 2. db file should be set via the config file
-	# these two file check will be removed in the next version
 	checkpath -f -m 600 -o "${command_user}" \
-		/etc/headscale/config.yaml \
-		/var/lib/headscale/db.sqlite \
 		${output_log} \
 		${error_log}
-
-	# This key file path should not be checked here,
-	# should be solved by command self.
-	# Will be removed in the next version.
-	if [[ -f ${private_key} ]]; then
-		checkpath -f -m 600 -o "${command_user}" ${private_key}
-	fi
 }
