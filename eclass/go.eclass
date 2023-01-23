@@ -17,9 +17,9 @@
 # ** priority: 1. > 2. > 3. **
 #
 # 1. for packages with the go.sum file which line number is less than GO_SUM_LIST_MAX (default to 100),
-#    if the 'go.sum' file exists in the 'files' directory, this ebuild will automatically set the local
-#    proxy url for all modules in the 'go.sum' file. You just need to add the GO_SUM_LIST_SRC_URI variable
-#    into the SRC_URI variable.
+#    if the corresponding go.sum file exists in the 'files' directory with name 'go.sum.$PV', this ebuild
+#    will automatically set the local proxy url for all modules in the 'go.sum' file. You just need to
+#    add the GO_SUM_LIST_SRC_URI variable into the SRC_URI variable.
 #
 # @CODE
 #
@@ -195,7 +195,7 @@ _go_set_go_sum_list_src_uri() {
 		return 0
 	fi
 
-	local _go_sum_list_file="${EBUILD%/*}/files/go.sum"
+	local _go_sum_list_file="${EBUILD%/*}/files/go.sum.$PV"
 	if [[ ! -f "${_go_sum_list_file}" ]]; then
 		return 0
 	fi
