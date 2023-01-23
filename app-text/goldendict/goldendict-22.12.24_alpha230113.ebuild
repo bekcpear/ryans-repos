@@ -16,7 +16,7 @@ SRC_URI="https://github.com/xiaoyifang/goldendict/archive/refs/tags/v${MY_PV}.ta
 LICENSE="GPL-3"
 SLOT="0"
 KEYWORDS="~amd64"
-IUSE="ffmpeg "
+IUSE="+ffmpeg"
 
 RDEPEND="
 	app-arch/bzip2

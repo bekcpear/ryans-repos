@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
+	<use>
+		<flag name="ffmpeg">Enable ffmpeg player for pronunciation</flag>
+	</use>
 	<upstream>
 		<remote-id type="github">xiaoyifang/goldendict</remote-id>
 		<bugs-to>https://github.com/xiaoyifang/goldendict/issues</bugs-to>
