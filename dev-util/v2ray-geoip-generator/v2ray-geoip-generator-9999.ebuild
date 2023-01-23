@@ -3,7 +3,7 @@
 
 EAPI=8
 
-inherit git-r3 go-module
+inherit git-r3 go
 
 DESCRIPTION="GeoIP generator for V2Ray."
 HOMEPAGE="https://github.com/v2fly/geoip http://www.maxmind.com/"
@@ -15,19 +15,15 @@ SLOT="0"
 DEPEND=""
 RDEPEND="${DEPEND}"
 BDEPEND=">=dev-lang/go-1.19:="
+GO_TARGET_PKGS=". -> $PN"
 
 src_unpack() {
 	git-r3_src_unpack
-	go-module_live_vendor
-}
-
-src_compile() {
-	go build -v -work -o ${PN} -trimpath . || die
+	go_setup_vendor
 }
 
 src_install() {
-	exeinto /usr/bin
-	doexe ${PN}
+	go_src_install
 	insinto /usr/share/${PN}
 	doins config-example.json
 }
