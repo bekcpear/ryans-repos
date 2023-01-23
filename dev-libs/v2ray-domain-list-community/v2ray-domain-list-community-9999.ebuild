@@ -3,7 +3,7 @@
 
 EAPI=8
 
-inherit git-r3 go-module
+inherit git-r3 go
 
 DESCRIPTION="Community managed domain list for V2Ray."
 HOMEPAGE="https://github.com/v2fly/domain-list-community"
@@ -21,7 +21,7 @@ BDEPEND=">=dev-lang/go-1.18"
 
 src_unpack() {
 	git-r3_src_unpack
-	go-module_live_vendor
+	go_setup_vendor
 }
 
 src_compile() {
