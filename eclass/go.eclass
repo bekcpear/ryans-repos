@@ -283,6 +283,19 @@ go_setup_vendor() {
 
 	if [[ ! -d "${S}/vendor" ]]; then
 		if [[ ${PROPERTIES} =~ (^|[[:space:]])live([[:space:]]|$) ]]; then
+			# Golang does not support the 'socks5h://' schema for http[s]_proxy env variable:
+			#   https://github.com/golang/go/blob/9123221ccf3c80c741ead5b6f2e960573b1676b9/src/vendor/golang.org/x/net/http/httpproxy/proxy.go#L152-L159
+			# while libcurl supports it:
+			#   https://github.com/curl/curl/blob/ae98b85020094fb04eee7e7b4ec4eb1a38a98b98/docs/libcurl/opts/CURLOPT_PROXY.3#L48-L59
+			# So, if a 'https_proxy=socks5h://127.0.0.1:1080' env has been set in the
+			# make.conf to make curl (assuming curl is the current download command) to
+			# download all packages through the proxy, go-module_live_vendor will
+			# fail.
+			# The only difference between these two schemas is, 'socks5h' will solve
+			# the hostname via the proxy while 'socks5' will not. I think it's ok to
+			# fallback 'socks5h' to 'socks5' for `go vendor` command and warn user,
+			# until golang supports it.
+			# related to issue: https://github.com/golang/go/issues/24135
 			local hp
 			local -a hps
 			if [[ -n $HTTP_PROXY ]]; then
