@@ -1,0 +1,3 @@
+# DB breaking
+# bug: https://github.com/juanfont/headscale/issues/1166
+>net-vpn/headscale-0.18.9999
