@@ -73,7 +73,7 @@ eselect repository enable ryans
  net-vpn/headscale                          | 0.18.0            |        | https://github.com/juanfont/headscale          | An open source, self-hosted implementation of the Tailscale control server
                                             | 0.19.0_beta1      |        |                                                |
 --------------------------------------------|-------------------|--------|------------------------------------------------|--------------------
- net-vpn/tailscale                          | 1.34.2            |        | https://tailscale.com                          | Tailscale VPN client and CLI tools
+ net-vpn/tailscale                          | 1.36.0            |        | https://tailscale.com                          | Tailscale VPN client and CLI tools
    acct-group/derper                        | 0                 | RD     |                                                | Group for the DERP service of net-vpn/tailscale
    acct-user/derper                         | 0                 | RD     |                                                | User for the DERP service of net-vpn/tailscale
 --------------------------------------------|-------------------|--------|------------------------------------------------|--------------------
