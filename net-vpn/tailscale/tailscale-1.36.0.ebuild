@@ -1,4 +1,4 @@
-# Copyright 2020-2022 Gentoo Authors
+# Copyright 2020-2023 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
@@ -25,9 +25,9 @@ RDEPEND="
 "
 
 # These settings are obtained by running ./build_dist.sh shellvars` in the upstream repo.
-VERSION_SHORT="1.34.2"
-VERSION_LONG="1.34.2-tc5ef9103d"
-VERSION_GIT_HASH="c5ef9103d92b9b0a2932f869db56fbd7344ad417"
+VERSION_SHORT="1.36.0"
+VERSION_LONG="1.36.0-tab998de98"
+VERSION_GIT_HASH="ab998de9899da026e1a623a5973143f0d3ea52f7"
 GO_LDFLAGS="
 	-X 'tailscale.com/version.Long=${VERSION_LONG}'
 	-X 'tailscale.com/version.Short=${VERSION_SHORT}'
