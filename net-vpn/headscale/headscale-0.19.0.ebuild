@@ -73,14 +73,17 @@ pkg_postinst() {
 		elog "  or run as root,"
 		elog "  or use gRPC."
 	else
-		local cmajor= cminor= major= minor=
-		IFS="." read -r cmajor cminor _ <<<"$PV"
+		local major= minor=
 		IFS="." read -r major minor _ <<<"$REPLACING_VERSIONS"
-		if (( $cmajor >= 0 && $cminor >= 19 && $major == 0 && $minor < 19 )); then
-			ewarn ">=headscale-0.19.0 breaks the DB structs, backup your database before upgrading!!"
-			ewarn "  see also:"
-			ewarn "    1. https://github.com/juanfont/headscale/pull/1144"
-			ewarn "    2. https://github.com/juanfont/headscale/pull/1171"
+		if (( $major == 0 && $minor < 19 )); then
+			IFS="." read -r major minor _ <<<"$PV"
+			if (( $major > 0 )) || (( $major == 0 && $minor >= 19 )); then
+				ewarn ">=headscale-0.19.0 has a DB structs breaking, please"
+				ewarn "BACKUP your database before upgrading!!"
+				ewarn "  see also:"
+				ewarn "    1. https://github.com/juanfont/headscale/pull/1144"
+				ewarn "    2. https://github.com/juanfont/headscale/pull/1171"
+			fi
 		fi
 	fi
 }
