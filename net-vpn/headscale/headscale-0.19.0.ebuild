@@ -26,6 +26,7 @@ RDEPEND="
 S="${WORKDIR}/${PN}-${PV//_/-}"
 
 GO_LDFLAGS="-X github.com/juanfont/headscale/cmd/headscale/cli.Version=v${PV//_/-}"
+GO_TARGET_PKGS="./cmd/headscale"
 
 src_prepare() {
 	rm -rf ./gen || die
@@ -38,7 +39,7 @@ src_install() {
 
 	keepdir /etc/headscale
 
-	dodoc -r docs/* config-example.yaml derp-example.yaml
+	dodoc config-example.yaml derp-example.yaml
 
 	systemd_dounit "${FILESDIR}"/headscale.service
 	systemd_install_serviced "${FILESDIR}"/headscale.service.conf headscale
