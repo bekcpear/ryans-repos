@@ -1,4 +1,4 @@
-# Copyright 2022 Gentoo Authors
+# Copyright 2023 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
@@ -14,7 +14,7 @@ SRC_URI="
 	https://raw.githubusercontent.com/42wim/matterbridge/v${PV}/matterbridge.toml.simple -> ${P}.toml.simple
 "
 
-LICENSE="Apache-2.0"
+LICENSE="AGPL-3 Apache-2.0 BSD-2 BSD ISC MIT MPL-2.0"
 SLOT="0"
 KEYWORDS="-* ~amd64 ~arm64"
 
