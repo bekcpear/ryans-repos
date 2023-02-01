@@ -34,7 +34,7 @@ eselect repository enable ryans
    sys-apps/openrazer                       | 3.5.1             | RD     | https://github.com/openrazer/openrazer         | A user-space daemon that allows you to manage your Razer peripherals.
      sys-apps/openrazer-driver              | 3.5.1             | RD     | https://github.com/openrazer/openrazer         | A collection of kernel drivers for Razer devices.
 --------------------------------------------|-------------------|--------|------------------------------------------------|--------------------
- dev-util/act                               | 0.2.40            |        | https://github.com/nektos/act                  | Run your GitHub Actions locally
+ dev-util/act                               | 0.2.41            |        | https://github.com/nektos/act                  | Run your GitHub Actions locally
 --------------------------------------------|-------------------|--------|------------------------------------------------|--------------------
  dev-util/v2ray-geoip-generator             | 9999              |        | https://github.com/v2fly/geoip                 | GeoIP generator for V2Ray.
 --------------------------------------------|-------------------|--------|------------------------------------------------|--------------------
@@ -54,7 +54,7 @@ eselect repository enable ryans
  net-misc/ip7                               | 9999              |        | https://github.com/bekcpear/ip7                | An IP address checker, powered by MaxMind GeoLite2 databases.
    acct-user/ip7                            | 0                 | RD     |                                                | User for the HTTP API service of net-misc/ip7
 --------------------------------------------|-------------------|--------|------------------------------------------------|--------------------
- net-misc/matterbridge-bin                  | 1.25.2            |        | https://github.com/42wim/matterbridge          | a simple chat bridge, IRC | Matrix | Mattermost | Telegram | XMPP | And more...
+ net-misc/matterbridge-bin                  | 1.26.0            |        | https://github.com/42wim/matterbridge          | a simple chat bridge, IRC | Matrix | Mattermost | Telegram | XMPP | And more...
    acct-group/matterbridge                  | 0                 | RD     |                                                | Group for the net-misc/matterbridge{,-bin} service
    acct-user/matterbridge                   | 0                 | RD     |                                                | User for the net-misc/matterbridge{,-bin} service
 --------------------------------------------|-------------------|--------|------------------------------------------------|--------------------
