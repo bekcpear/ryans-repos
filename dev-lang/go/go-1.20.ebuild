@@ -189,15 +189,19 @@ pkg_preinst() {
 }
 
 pkg_postinst() {
-	local pvr= lmv=0 upgrade=false
+	local pvr= lmajor=0 lminor=0 upgrade=false
 	for pvr in $REPLACING_VERSIONS; do
 		[[ $pvr =~ ^([[:digit:]]+)\.([[:digit:]]+)(\.([[:digit:]]+))?(_.*)?(-.*)?$ ]] || true
-		local mv="${BASH_REMATCH[1]}.${BASH_REMATCH[2]}"
-		if (( $mv > $lmv )); then
-			lmv=$mv
+		local major="${BASH_REMATCH[1]}"
+		local minor="${BASH_REMATCH[2]}"
+		if (( $major >= $lmajor && $minor > $lminor )) || \
+			(( $major > $lmajor )); then
+			lmajor=$major
+			lminor=$minor
 		fi
 	done
-	if (( $PV_MINOR > $lmv )); then
+	if (( ${PV_MINOR%.*} >= $lmajor && ${PV_MINOR#*.} > $lminor )) || \
+		(( ${PV_MINOR%.*} > $lmajor )); then
 		upgrade=true
 	fi
 	if [[ $upgrade == true ]]; then
