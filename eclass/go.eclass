@@ -156,6 +156,16 @@ declare -A -g GO_LDFLAGS_EXMAP
 # cache for GO_LDFLAGS_EXMAP
 declare -A -g _GO_LDFLAGS_EXMAP_CACHE
 
+# @ECLASS_VARIABLE: _GO_CMD
+# @INTERNAL
+# @DESCRIPTION:
+# The version matched Go command used to build packages.
+# Default is 'go'.
+# When dev-lang/go is installed from the 'ryans' repo, the slot is enabled,
+# and the default is the latest version, may be restricted to the penultimate
+# latest version due to the requirement of BDEPEND.
+_GO_CMD=go
+
 # @ECLASS_VARIABLE: GO_SUM_LIST_MAX
 # @DESCRIPTION:
 # The max line number of go.sum which can be used to set a local proxy,
@@ -174,6 +184,7 @@ GO_SUM_LIST_SRC_URI=
 declare -A -g GO_SUM_LIST_SRC_URI_R
 
 # @FUNCTION: _go_escape_go_sum_path
+# @INTERNAL
 # @DESCRIPTION:
 # convert all capital letters in path to '!<lowercase>' format
 _go_escape_go_sum_path() {
@@ -186,6 +197,7 @@ _go_escape_go_sum_path() {
 }
 
 # @FUNCTION: _go_set_go_sum_list_src_uri
+# @INTERNAL
 # @DESCRIPTION:
 # set GO_SUM_LIST_SRC_URI
 _go_set_go_sum_list_src_uri() {
@@ -233,7 +245,7 @@ _go_set_go_sum_list_src_uri
 go_version() {
 	debug-print-function "${FUNCNAME}" "${@}"
 
-	local output=$(go version | cut -d' ' -f3) \
+	local output=$($_GO_CMD version | cut -d' ' -f3) \
 		major= minor= patch=
 
 	IFS='.' read major minor patch <<<"$output"
@@ -246,6 +258,29 @@ go_version() {
 	fi
 
 	echo -n $output
+}
+
+# @FUNCTION: go_set_go_cmd
+# @DESCRIPTION:
+# Try to get the version matched Go command, this is useful when the
+# go module to compile is restricted to penultimate latest go version,
+# only functional when used with multi-version support of Go from
+# the ryans repository or other similar.
+# This function is called within the src_unpack phase by default.
+go_set_go_cmd() {
+	# TODO, when free
+	return
+	local goCmdPath= ver= bdep=
+	local -a versions=() goCmds=() goRequiresOpr=() goRequiresVer=()
+	for goCmdPath in $(ls -1v "${EROOT}"/usr/bin/go[[:digit:]].[[:digit:]]* 2>/dev/null); do
+		[[ -x "$goCmdPath" ]] || continue
+		goCmds+=( ${goCmdPath} )
+		versions+=( ${goCmdPath##*go} )
+	done
+	local -i i=0
+	for (( ; i < ${#versions[@]}; i++ )); do
+		:
+	done
 }
 
 # @FUNCTION: go_setup_proxy
@@ -321,8 +356,8 @@ go_setup_vendor() {
 			# only purpose here is to build this package under current version of the go binary,
 			# so specify a compatible go version with current version number here to avoid incompatibility,
 			# such as go1.16 and go1.17 has different build list calculation methods (https://go.dev/ref/mod#graph-pruning).
-			edo go mod tidy -compat $(go_version)
-			edo go mod vendor
+			edo $_GO_CMD mod tidy -compat $(go_version)
+			edo $_GO_CMD mod vendor
 			popd >/dev/null || die
 		else
 			local -a vendors
@@ -348,6 +383,8 @@ go_setup_vendor() {
 go_src_unpack() {
 	debug-print-function "${FUNCNAME}" "${@}"
 
+	go_set_go_cmd
+
 	if [[ -n ${GO_SUM_LIST_SRC_URI} ]]; then
 		# prepare local proxy
 		eval "$(go_setup_proxy i)" || die
@@ -372,7 +409,7 @@ _go_print_cmd() {
 	for msg; do
 		if [[ ${msg} =~ [[:space:]] ]] && [[ -n ${is_cmd} ]]; then
 			msg="\"${msg//\"/\\\"}\""
-		elif [[ ${msg} == go ]]; then
+		elif [[ ${msg} == $_GO_CMD ]]; then
 			is_cmd=1
 		fi
 		echo -ne " ${msg}"
@@ -428,7 +465,7 @@ go_build() {
 	set -- "${args[@]}"
 
 	GOFLAGS="${GOFLAGS}${EXTRA_GOFLAGS:+ }${EXTRA_GOFLAGS}"
-	set -- go build -o "${output}" ${GO_TAGS:+-tags} ${GO_TAGS} -ldflags "${go_ldflags}" "${@}"
+	set -- $_GO_CMD build -o "${output}" ${GO_TAGS:+-tags} ${GO_TAGS} -ldflags "${go_ldflags}" "${@}"
 	_go_print_cmd "      GOFLAGS:" "${GOFLAGS}"
 	_go_print_cmd "Build command:" "${@}"
 	"${@}" || die
