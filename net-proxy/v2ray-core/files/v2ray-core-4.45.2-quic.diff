@@ -1,8 +1,42 @@
-
+diff --git a/app/dns/nameserver_quic.go b/app/dns/nameserver_quic.go
+index 31ed8db..7d1eddf 100644
+--- a/app/dns/nameserver_quic.go
++++ b/app/dns/nameserver_quic.go
+@@ -10,7 +10,7 @@ import (
+ 	"sync/atomic"
+ 	"time"
+ 
+-	"github.com/lucas-clemente/quic-go"
++	"github.com/quic-go/quic-go"
+ 	"golang.org/x/net/dns/dnsmessage"
+ 	"golang.org/x/net/http2"
+ 
+diff --git a/transport/internet/quic/conn.go b/transport/internet/quic/conn.go
+index b6b5bfa..3b5906e 100644
+--- a/transport/internet/quic/conn.go
++++ b/transport/internet/quic/conn.go
+@@ -9,7 +9,7 @@ import (
+ 	"errors"
+ 	"time"
+ 
+-	"github.com/lucas-clemente/quic-go"
++	"github.com/quic-go/quic-go"
+ 
+ 	"github.com/v2fly/v2ray-core/v4/common"
+ 	"github.com/v2fly/v2ray-core/v4/common/buf"
 diff --git a/transport/internet/quic/dialer.go b/transport/internet/quic/dialer.go
-index bbdb296..4749803 100644
+index bbdb296..bcc3275 100644
 --- a/transport/internet/quic/dialer.go
 +++ b/transport/internet/quic/dialer.go
+@@ -8,7 +8,7 @@ import (
+ 	"sync"
+ 	"time"
+ 
+-	"github.com/lucas-clemente/quic-go"
++	"github.com/quic-go/quic-go"
+ 
+ 	"github.com/v2fly/v2ray-core/v4/common"
+ 	"github.com/v2fly/v2ray-core/v4/common/net"
 @@ -154,7 +154,7 @@ func (s *clientConnections) openConnection(destAddr net.Addr, config *Config, tl
  		ConnectionIDLength:   12,
  		HandshakeIdleTimeout: time.Second * 8,
@@ -13,9 +47,18 @@ index bbdb296..4749803 100644
  
  	sysConn, err := wrapSysConn(rawConn.(*net.UDPConn), config)
 diff --git a/transport/internet/quic/hub.go b/transport/internet/quic/hub.go
-index 52cded1..f99b75e 100644
+index 52cded1..b3af5a8 100644
 --- a/transport/internet/quic/hub.go
 +++ b/transport/internet/quic/hub.go
+@@ -7,7 +7,7 @@ import (
+ 	"context"
+ 	"time"
+ 
+-	"github.com/lucas-clemente/quic-go"
++	"github.com/quic-go/quic-go"
+ 
+ 	"github.com/v2fly/v2ray-core/v4/common"
+ 	"github.com/v2fly/v2ray-core/v4/common/net"
 @@ -110,7 +110,7 @@ func Listen(ctx context.Context, address net.Address, port net.Port, streamSetti
  		MaxIdleTimeout:        time.Second * 45,
  		MaxIncomingStreams:    32,
