@@ -34,7 +34,7 @@ eselect repository enable ryans
    sys-apps/openrazer                       | 3.5.1             | RD     | https://github.com/openrazer/openrazer         | A user-space daemon that allows you to manage your Razer peripherals.
      sys-apps/openrazer-driver              | 3.5.1             | RD     | https://github.com/openrazer/openrazer         | A collection of kernel drivers for Razer devices.
 --------------------------------------------|-------------------|--------|------------------------------------------------|--------------------
- dev-util/act                               | 0.2.41            |        | https://github.com/nektos/act                  | Run your GitHub Actions locally
+ dev-util/act                               | 0.2.42            |        | https://github.com/nektos/act                  | Run your GitHub Actions locally
 --------------------------------------------|-------------------|--------|------------------------------------------------|--------------------
  dev-util/v2ray-geoip-generator             | 9999              |        | https://github.com/v2fly/geoip                 | GeoIP generator for V2Ray.
 --------------------------------------------|-------------------|--------|------------------------------------------------|--------------------
@@ -58,8 +58,8 @@ eselect repository enable ryans
    acct-group/matterbridge                  | 0                 | RD     |                                                | Group for the net-misc/matterbridge{,-bin} service
    acct-user/matterbridge                   | 0                 | RD     |                                                | User for the net-misc/matterbridge{,-bin} service
 --------------------------------------------|-------------------|--------|------------------------------------------------|--------------------
- net-proxy/v2ray-core                       | 4.45.2            |        | https://github.com/v2fly/v2ray-core            | A platform for building proxies to bypass network restrictions.
-                                            | 5.2.1             |        |                                                |
+ net-proxy/v2ray-core                       | 4.45.2-r1         |        | https://github.com/v2fly/v2ray-core            | A platform for building proxies to bypass network restrictions.
+                                            | 5.2.1-r1          |        |                                                |
    dev-libs/v2ray-domain-list-community     | 5.20230114135558  | RD     | https://github.com/v2fly/domain-list-community | Community managed domain list for V2Ray.
                                             | 9999              |        |                                                |
    dev-libs/v2ray-domain-list-community-bin | 5.20230114135558  | RD     | https://github.com/v2fly/domain-list-community | Community managed domain list for V2Ray.
@@ -72,6 +72,7 @@ eselect repository enable ryans
 --------------------------------------------|-------------------|--------|------------------------------------------------|--------------------
  net-vpn/headscale                          | 0.18.0            |        | https://github.com/juanfont/headscale          | An open source, self-hosted implementation of the Tailscale control server
                                             | 0.19.0            |        |                                                |
+                                            | 0.20.0            |        |                                                |
 --------------------------------------------|-------------------|--------|------------------------------------------------|--------------------
  net-vpn/tailscale                          | 1.36.0            |        | https://tailscale.com                          | Tailscale VPN client and CLI tools
    acct-group/derper                        | 0                 | RD     |                                                | Group for the DERP service of net-vpn/tailscale
