@@ -80,7 +80,7 @@ case ${EAPI} in
 	*) die "${ECLASS}: EAPI ${EAPI:-0} not supported" ;;
 esac
 
-inherit edo
+inherit edo version
 
 BDEPEND=">=dev-lang/go-1.16"
 
@@ -156,6 +156,15 @@ declare -A -g GO_LDFLAGS_EXMAP
 # cache for GO_LDFLAGS_EXMAP
 declare -A -g _GO_LDFLAGS_EXMAP_CACHE
 
+# @ECLASS_VARIABLE: GO_CMD
+# @DESCRIPTION:
+# The version matched Go command used to build packages.
+# Default is 'go'.
+# When dev-lang/go is installed from the 'ryans' repo, the slot is enabled,
+# and the default is the latest version, may be restricted to the penultimate
+# latest version due to the requirement of BDEPEND.
+GO_CMD=go
+
 # @ECLASS_VARIABLE: GO_SUM_LIST_MAX
 # @DESCRIPTION:
 # The max line number of go.sum which can be used to set a local proxy,
@@ -174,6 +183,7 @@ GO_SUM_LIST_SRC_URI=
 declare -A -g GO_SUM_LIST_SRC_URI_R
 
 # @FUNCTION: _go_escape_go_sum_path
+# @INTERNAL
 # @DESCRIPTION:
 # convert all capital letters in path to '!<lowercase>' format
 _go_escape_go_sum_path() {
@@ -186,6 +196,7 @@ _go_escape_go_sum_path() {
 }
 
 # @FUNCTION: _go_set_go_sum_list_src_uri
+# @INTERNAL
 # @DESCRIPTION:
 # set GO_SUM_LIST_SRC_URI
 _go_set_go_sum_list_src_uri() {
@@ -233,7 +244,7 @@ _go_set_go_sum_list_src_uri
 go_version() {
 	debug-print-function "${FUNCNAME}" "${@}"
 
-	local output=$(go version | cut -d' ' -f3) \
+	local output=$($GO_CMD version | cut -d' ' -f3) \
 		major= minor= patch=
 
 	IFS='.' read major minor patch <<<"$output"
@@ -246,6 +257,125 @@ go_version() {
 	fi
 
 	echo -n $output
+}
+
+# @FUNCTION: go_set_go_cmd
+# @DESCRIPTION:
+# Try to get the version matched Go command, this is useful when the
+# go module to compile is restricted to the penultimate latest go version,
+# only functional when used with multi-version support of Go from
+# the ryans repository or other similar.
+# This function is called within the src_unpack phase by default.
+go_set_go_cmd() {
+	debug-print-function "${FUNCNAME}" "${@}"
+
+	local goCmdPath=
+	local -a versions=() goCmds=()
+	for goCmdPath in $(ls -1v "${EROOT}"/usr/bin/go[[:digit:]].[[:digit:]]* 2>/dev/null); do
+		[[ -x "$goCmdPath" ]] || continue
+		goCmds+=( ${goCmdPath} )
+		versions+=( ${goCmdPath##*go} )
+	done
+
+	if [[ ${#versions[@]} -eq 0 ]]; then
+		# just return it if has no multi-version go binaries
+		return 0
+	fi
+
+	local _bdeps bdeps i d _ver_range _opt _ver _slot use usemark
+	local -a contained
+	local -i depth=0
+	local ver_range slot
+	_bdeps=( $(echo "$BDEPEND" | sed -E 's@(^|[[:space:]])[>=<~]{0,2}[[:alnum:]_\.-]+/[^g][^o][^[:space:]]*@ @g') )
+	contained[0]=1
+	for d in ${_bdeps[@]}; do
+		if [[ $d =~ ^(!?)([[:alpha:]][[:alnum:]]+)\?$ ]]; then
+			usemark=${BASH_REMATCH[1]}
+			use=${BASH_REMATCH[2]}
+			(( depth+=1 ))
+			if eval "$usemark use $use"; then
+				eval "contained[$depth]=1"
+			else
+				eval "contained[$depth]=0"
+			fi
+		elif [[ $d == "(" ]]; then
+			:
+		elif [[ $d == ")" ]]; then
+			(( depth-=1 ))
+		elif [[ $d == "||" ]]; then
+			# ignore it due to dev-lang/go dependency should not inside this
+			(( depth+=1 ))
+			eval "contained[$depth]=0"
+		else
+			if [[ ${contained[$depth]} == 1 ]]; then
+				bdeps+=( "$d" )
+			fi
+		fi
+	done
+	for d in ${bdeps[@]}; do
+		if [[ $d =~ ([>=<~]*)dev-lang/go(-([^[:space:]:]+))?(:([^[:space:]=]*))? ]]; then
+			_opt=${BASH_REMATCH[1]}
+			_ver=${BASH_REMATCH[3]}
+			_slot="${BASH_REMATCH[5]}"
+
+			if [[ $_opt =~ ^[=~] && -n $_ver ]]; then
+				ver_range="= $_ver"
+				# break loop when caught an exact version
+				break
+			elif [[ $_opt =~ [\>\<] && -n $_ver ]]; then
+				_ver_range="$_opt $_ver"
+			elif [[ -z $_slot ]]; then
+				_ver_range=
+			elif [[ -n $_slot ]]; then
+				slot=$_slot
+			fi
+
+			if [[ -n $_ver_range ]]; then
+				ver_range=$(version_make_range "$ver_range" "$_ver_range")
+			fi
+		fi
+	done
+
+	local ver oS oE vS vE
+	# match non-zero slot first then ver_range
+	for (( i = 0; i < ${#versions[@]}; i++ )); do
+		ver=${versions[$i]}
+		if [[ -n $slot && $slot != 0 ]]; then
+			if ! version_compare e $ver $slot; then
+				continue
+			fi
+		elif [[ -n $ver_range ]]; then
+			read -r oS vS oE vE <<<"$ver_range"
+			if [[ $oS == "=" ]]; then
+				VERSION_COMPARED_PARTS="minor"
+				if  ! version_compare e $ver $vS; then
+					continue
+				fi
+			else
+				if [[ ${oS:1:1} == "=" ]]; then
+					if version_compare l $ver $vS; then
+						continue
+					fi
+				else
+					if version_compare le $ver $vS; then
+						continue
+					fi
+				fi
+				if [[ -n $oE ]]; then
+					if [[ ${oE:1:1} == "=" ]]; then
+						if version_compare g $ver $vE; then
+							continue
+						fi
+					else
+						if version_compare ge $ver $vE; then
+							continue
+						fi
+					fi
+				fi
+			fi
+		fi
+		GO_CMD="${goCmds[$i]}"
+	done
 }
 
 # @FUNCTION: go_setup_proxy
@@ -321,8 +451,8 @@ go_setup_vendor() {
 			# only purpose here is to build this package under current version of the go binary,
 			# so specify a compatible go version with current version number here to avoid incompatibility,
 			# such as go1.16 and go1.17 has different build list calculation methods (https://go.dev/ref/mod#graph-pruning).
-			edo go mod tidy -compat $(go_version)
-			edo go mod vendor
+			edo $GO_CMD mod tidy -compat $(go_version)
+			edo $GO_CMD mod vendor
 			popd >/dev/null || die
 		else
 			local -a vendors
@@ -348,6 +478,8 @@ go_setup_vendor() {
 go_src_unpack() {
 	debug-print-function "${FUNCNAME}" "${@}"
 
+	go_set_go_cmd
+
 	if [[ -n ${GO_SUM_LIST_SRC_URI} ]]; then
 		# prepare local proxy
 		eval "$(go_setup_proxy i)" || die
@@ -372,7 +504,7 @@ _go_print_cmd() {
 	for msg; do
 		if [[ ${msg} =~ [[:space:]] ]] && [[ -n ${is_cmd} ]]; then
 			msg="\"${msg//\"/\\\"}\""
-		elif [[ ${msg} == go ]]; then
+		elif [[ ${msg} == $GO_CMD ]]; then
 			is_cmd=1
 		fi
 		echo -ne " ${msg}"
@@ -428,7 +560,7 @@ go_build() {
 	set -- "${args[@]}"
 
 	GOFLAGS="${GOFLAGS}${EXTRA_GOFLAGS:+ }${EXTRA_GOFLAGS}"
-	set -- go build -o "${output}" ${GO_TAGS:+-tags} ${GO_TAGS} -ldflags "${go_ldflags}" "${@}"
+	set -- $GO_CMD build -o "${output}" ${GO_TAGS:+-tags} ${GO_TAGS} -ldflags "${go_ldflags}" "${@}"
 	_go_print_cmd "      GOFLAGS:" "${GOFLAGS}"
 	_go_print_cmd "Build command:" "${@}"
 	"${@}" || die
