@@ -18,6 +18,9 @@ KEYWORDS="~amd64 ~arm64"
 BDEPEND="
 	>=dev-lang/go-1.18:=
 "
+# wait https://github.com/matrix-org/pinecone/pull/78 merge
+BDEPEND+=" <dev-lang/go-1.20"
+
 RDEPEND="
 	acct-user/dendrite
 	acct-group/dendrite
