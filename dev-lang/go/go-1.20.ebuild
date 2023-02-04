@@ -162,10 +162,7 @@ src_install() {
 	# [1] https://golang.org/issue/2775
 	dodir ${GOROOT_VALUE}
 	cp -R api bin doc lib pkg misc src test "${ED}${GOROOT_VALUE}"
-	if ! has_version 'dev-lang/go::gentoo'; then
-		# prevent conflicting with gentoo repo version
-		einstalldocs
-	fi
+	einstalldocs
 
 	# testdata directories are not needed on the installed system
 	rm -fr $(find "${ED}${GOROOT_VALUE}" -iname testdata -type d -print)
@@ -181,6 +178,13 @@ src_install() {
 		f=${x##*/}
 		dosym -r ${GOROOT_VALUE}/${bin_path}/${f} /usr/bin/${f}${PV_MINOR}
 	done
+}
+
+pkg_preinst() {
+	# prevent conflicting with ::gentoo repo version
+	if portageq has_version "${EROOT:-/}" 'dev-lang/go::gentoo'; then
+		rm -rf "${ED}"/usr/share/doc/* || die
+	fi
 }
 
 pkg_postinst() {
