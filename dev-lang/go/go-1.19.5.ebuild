@@ -189,17 +189,11 @@ pkg_preinst() {
 }
 
 pkg_postinst() {
-	local pvr= lmajor=0 lminor=0 upgrade=false
-	for pvr in $REPLACING_VERSIONS; do
-		[[ $pvr =~ ^([[:digit:]]+)\.([[:digit:]]+)(\.([[:digit:]]+))?(_.*)?(-.*)?$ ]] || true
-		local major="${BASH_REMATCH[1]}"
-		local minor="${BASH_REMATCH[2]}"
-		if (( $major >= $lmajor && $minor > $lminor )) || \
-			(( $major > $lmajor )); then
-			lmajor=$major
-			lminor=$minor
-		fi
-	done
+	local pvr=$(best_version 'dev-lang/go') upgrade=false
+	pvr=${pvr#dev-lang/go-}
+	[[ $pvr =~ ^([[:digit:]]+)\.([[:digit:]]+)(\.([[:digit:]]+))?(_.*)?(-.*)?$ ]] || true
+	local lmajor="${BASH_REMATCH[1]}"
+	local lminor="${BASH_REMATCH[2]}"
 	if (( ${PV_MINOR%.*} >= $lmajor && ${PV_MINOR#*.} > $lminor )) || \
 		(( ${PV_MINOR%.*} > $lmajor )); then
 		upgrade=true
