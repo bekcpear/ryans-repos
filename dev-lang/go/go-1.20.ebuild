@@ -182,7 +182,8 @@ src_install() {
 
 pkg_preinst() {
 	# prevent conflicting with ::gentoo repo version
-	if portageq has_version "${EROOT:-/}" 'dev-lang/go::gentoo'; then
+	local dbDir=$(ls -d "${EROOT}"/var/db/pkg/dev-lang/go-*)
+	if [[ -d "$dbDir" ]] && [[ $(< "$dbDir"/repository) == "gentoo" ]]; then
 		rm -rf "${ED}"/usr/share/doc/* || die
 	fi
 }
