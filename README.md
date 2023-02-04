@@ -63,11 +63,11 @@ eselect repository enable ryans
 --------------------------------------------|-------------------|--------|------------------------------------------------|--------------------
  net-proxy/v2ray-core                       | 4.45.2-r1         |        | https://github.com/v2fly/v2ray-core            | A platform for building proxies to bypass network restrictions.
                                             | 5.2.1-r1          |        |                                                |
-   dev-libs/v2ray-domain-list-community     | 5.20230114135558  | RD     | https://github.com/v2fly/domain-list-community | Community managed domain list for V2Ray.
+   dev-libs/v2ray-domain-list-community     | 5.20230204071506  | RD     | https://github.com/v2fly/domain-list-community | Community managed domain list for V2Ray.
                                             | 9999              |        |                                                |
-   dev-libs/v2ray-domain-list-community-bin | 5.20230114135558  | RD     | https://github.com/v2fly/domain-list-community | Community managed domain list for V2Ray.
+   dev-libs/v2ray-domain-list-community-bin | 5.20230204071506  | RD     | https://github.com/v2fly/domain-list-community | Community managed domain list for V2Ray.
                                             | 9999              |        |                                                |
-   dev-libs/v2ray-geoip-bin                 | 5.202301120046    | RD     | https://github.com/v2fly/geoip                 | GeoIP for V2Ray.
+   dev-libs/v2ray-geoip-bin                 | 5.202302020047    | RD     | https://github.com/v2fly/geoip                 | GeoIP for V2Ray.
                                             | 9999              |        |                                                |
 --------------------------------------------|-------------------|--------|------------------------------------------------|--------------------
  net-proxy/v2ray-core-bin                   | 4.45.2            |        | https://github.com/v2fly/v2ray-core            | A platform for building proxies to bypass network restrictions.
