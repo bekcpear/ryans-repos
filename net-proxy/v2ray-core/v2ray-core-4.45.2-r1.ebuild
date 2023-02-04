@@ -9,15 +9,16 @@ DESCRIPTION="A platform for building proxies to bypass network restrictions."
 HOMEPAGE="https://github.com/v2fly/v2ray-core"
 
 SRC_URI="https://github.com/v2fly/v2ray-core/archive/refs/tags/v${PV}.tar.gz -> ${P}.tar.gz
-	https://github.com/bekcpear/gopkg-vendors/archive/refs/tags/vendor-${P}.tar.gz -> ${P}-vendor.tar.gz"
+	https://github.com/bekcpear/gopkg-vendors-manual/archive/refs/tags/vendor-${P}.tar.gz -> ${P}-r1-vendor.tar.gz"
 
 LICENSE="Apache-2.0 BSD-2 BSD MIT"
 SLOT="0"
-KEYWORDS="~amd64 ~arm64 ~riscv ~x86"
+KEYWORDS="~amd64 ~riscv"
+IUSE="+tool"
 
 BDEPEND="
-	>=dev-lang/go-1.19:=
-	<dev-lang/go-1.20:=
+	>dev-lang/go-1.18.9999:=
+	<=dev-lang/go-1.20.9999:=
 "
 DEPEND=""
 RDEPEND="
@@ -28,7 +29,10 @@ RDEPEND="
 	)
 "
 
-GO_TARGET_PKGS="./main -> v2ray"
+PATCHES=(
+	"${FILESDIR}"/${P}-netipx.diff
+	"${FILESDIR}"/${P}-quic.diff
+)
 
 src_prepare() {
 	sed -i 's|/usr/local/bin|/usr/bin|;s|/usr/local/etc|/etc|' release/config/systemd/system/*.service || die
@@ -36,28 +40,27 @@ src_prepare() {
 	default
 }
 
+src_compile() {
+	go_build -o 'bin/v2ray' ./main
+
+	if use tool; then
+		GO_TAGS="confonly"
+		go_build -o 'bin/v2ctl' ./infra/control/main
+	fi
+}
+
 src_install() {
-	go_src_install
+	dobin bin/v2ray
+
+	if use tool; then
+		dobin bin/v2ctl
+	fi
 
 	insinto /etc/v2ray
 	doins release/config/*.json
 	doins "${FILESDIR}/example.client.v4.json"
 
-	newinitd "${FILESDIR}/v2ray.initd" v2ray
-	newconfd "${FILESDIR}/v2ray.confd" v2ray
-
+	newinitd "${FILESDIR}/v2ray.v4.initd" v2ray
 	systemd_newunit release/config/systemd/system/v2ray.service v2ray.service
 	systemd_newunit release/config/systemd/system/v2ray@.service v2ray@.service
-}
-
-pkg_postinst() {
-	if [[ -z ${REPLACING_VERSIONS} ]]; then
-		if ! systemd_is_booted; then
-			elog "The default openrc service is located at ${EROOT}/etc/init.d/v2ray,"
-			elog "and the corresponding default config file is ${EROOT}/etc/v2ray/config.json."
-			elog "You can make a symlink file to the service with the format 'v2ray.XX' to"
-			elog "specify a different config file 'config.XX.json', 'XX' are any alnum characters."
-			elog "Please also read ${EROOT}/etc/conf.d/v2ray."
-		fi
-	fi
 }
