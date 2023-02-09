@@ -62,7 +62,7 @@ eselect repository enable ryans
    acct-user/matterbridge                   | 0                 | RD     |                                                | User for the net-misc/matterbridge{,-bin} service
 --------------------------------------------|-------------------|--------|------------------------------------------------|--------------------
  net-proxy/v2ray-core                       | 4.45.2-r1         |        | https://github.com/v2fly/v2ray-core            | A platform for building proxies to bypass network restrictions.
-                                            | 5.2.1-r1          |        |                                                |
+                                            | 5.3.0             |        |                                                |
    dev-libs/v2ray-domain-list-community     | 5.20230204071506  | RD     | https://github.com/v2fly/domain-list-community | Community managed domain list for V2Ray.
                                             | 9999              |        |                                                |
    dev-libs/v2ray-domain-list-community-bin | 5.20230204071506  | RD     | https://github.com/v2fly/domain-list-community | Community managed domain list for V2Ray.
@@ -77,7 +77,7 @@ eselect repository enable ryans
                                             | 0.19.0            |        |                                                |
                                             | 0.20.0            |        |                                                |
 --------------------------------------------|-------------------|--------|------------------------------------------------|--------------------
- net-vpn/tailscale                          | 1.36.0            |        | https://tailscale.com                          | Tailscale VPN client and CLI tools
+ net-vpn/tailscale                          | 1.36.1            |        | https://tailscale.com                          | Tailscale VPN client and CLI tools
    acct-group/derper                        | 0                 | RD     |                                                | Group for the DERP service of net-vpn/tailscale
    acct-user/derper                         | 0                 | RD     |                                                | User for the DERP service of net-vpn/tailscale
 --------------------------------------------|-------------------|--------|------------------------------------------------|--------------------
