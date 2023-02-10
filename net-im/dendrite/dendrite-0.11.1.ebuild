@@ -1,4 +1,4 @@
-# Copyright 2022 Gentoo Authors
+# Copyright 2023 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
@@ -16,7 +16,8 @@ SLOT="0"
 KEYWORDS="~amd64 ~arm64"
 
 BDEPEND="
-	>=dev-lang/go-1.18:=
+	>dev-lang/go-1.18.9999:=
+	<=dev-lang/go-1.20.9999:=
 "
 # wait https://github.com/matrix-org/pinecone/pull/78 merge
 BDEPEND+=" <dev-lang/go-1.20"
