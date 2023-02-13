@@ -25,9 +25,9 @@ RDEPEND="
 "
 
 # These settings are obtained by running ./build_dist.sh shellvars` in the upstream repo.
-VERSION_SHORT="1.36.0"
-VERSION_LONG="1.36.0-tab998de98"
-VERSION_GIT_HASH="ab998de9899da026e1a623a5973143f0d3ea52f7"
+VERSION_SHORT="1.36.1"
+VERSION_LONG="1.36.1-t576b08e5e"
+VERSION_GIT_HASH="576b08e5ee7cfd1ef052f44c4b2f72c62f965050"
 GO_LDFLAGS="
 	-X 'tailscale.com/version.Long=${VERSION_LONG}'
 	-X 'tailscale.com/version.Short=${VERSION_SHORT}'
