@@ -19,8 +19,8 @@ eselect repository enable ryans
  app-admin/z16                              | 9999              |        | https://github.com/bekcpear/z16                | A bash script project that aims to maintain dotfiles.
 --------------------------------------------|-------------------|--------|------------------------------------------------|--------------------
  app-crypt/keybase                          | 6.0.2-r1          |        | https://keybase.io/                            | Keybase command-line utility, and local service
-   dev-lang/go                              | 1.19.5            | BD     | https://go.dev                                 | A concurrent garbage collected and typesafe programming language
-                                            | 1.20              |        |                                                |
+   dev-lang/go                              | 1.19.6            | BD     | https://go.dev                                 | A concurrent garbage collected and typesafe programming language
+                                            | 1.20.1            |        |                                                |
      app-eselect/eselect-go                 | 20230205          | RD     | https://github.com/bekcpear/eselect-go         | Manages multiple Go versions
 --------------------------------------------|-------------------|--------|------------------------------------------------|--------------------
  app-i18n/fcitx-meta                        | 5.0.12            |        | https://fcitx-im.org                           | Merge this to pull in Fcitx packages
