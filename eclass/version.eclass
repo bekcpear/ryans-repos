@@ -18,10 +18,10 @@ _ECLASS_VERSION=1
 # @DESCRIPTION:
 # the version parts to compare, default is the full parts,
 # avaliable values are:
-# 	major  # major parts
-# 	minor  # major and minor parts
-# 	patch  # major, minor and patch parts
-# 	full   # major, minor, patch and pre-release parts
+#   major  # major parts
+#   minor  # major and minor parts
+#   patch  # major, minor and patch parts
+#   full   # major, minor, patch and pre-release parts
 VERSION_COMPARED_PARTS="full"
 
 # @FUNCTION: _version_compare_ver
@@ -181,8 +181,8 @@ version_compare() {
 # @DESCRIPTION:
 # create a version range through the NEW_CONDITION
 # input format:
-# 	CURRENT_RANGE: ">[=] version-str <[=] version-str"
-# 	NEW_CONDITION: "(>|<)[=] version-str"
+#   CURRENT_RANGE: ">[=] version-str <[=] version-str"
+#   NEW_CONDITION: "(>|<)[=] version-str"
 # output:
 #   NEW_RANGE: ">[=] version-str <[=] version-str"
 version_make_range() {
