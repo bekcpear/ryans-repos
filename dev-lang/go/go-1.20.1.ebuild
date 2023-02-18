@@ -180,40 +180,64 @@ src_install() {
 	done
 }
 
+declare -g GO_LATEST_PVR
 pkg_preinst() {
-	# prevent conflicting with ::gentoo repo version
-	local dbDir=$(ls -d "${EROOT}"/var/db/pkg/dev-lang/go-*)
-	if [[ -d "$dbDir" ]] && [[ $(< "$dbDir"/repository) == "gentoo" ]]; then
-		rm -rf "${ED}"/usr/share/doc/* || die
-	fi
+	GO_LATEST_PVR=$(best_version 'dev-lang/go')
 }
 
 pkg_postinst() {
-	local pvr=$(best_version 'dev-lang/go') upgrade=false
-	pvr=${pvr#dev-lang/go-}
+	local pvr=${GO_LATEST_PVR#dev-lang/go-} upgrade=false
 	[[ $pvr =~ ^([[:digit:]]+)\.([[:digit:]]+)(\.([[:digit:]]+))?(_.*)?(-.*)?$ ]] || true
-	local lmajor="${BASH_REMATCH[1]}"
-	local lminor="${BASH_REMATCH[2]}"
-	if (( ${PV_MINOR%.*} >= $lmajor && ${PV_MINOR#*.} > $lminor )) || \
+	local lmajor="${BASH_REMATCH[1]:-0}"
+	local lminor="${BASH_REMATCH[2]:-0}"
+	local nvr="${lmajor}.${lminor}"
+	if (( ${PV_MINOR%.*} == $lmajor && ${PV_MINOR#*.} > $lminor )) || \
 		(( ${PV_MINOR%.*} > $lmajor )); then
 		upgrade=true
+		nvr=${PV_MINOR}
 	fi
-	if [[ $upgrade == true ]]; then
-		local libPath="${EROOT}"/usr/lib/go
-		local binPath="${EROOT}"/usr/bin/go
-		if [[ ! -e $libPath && ! -e $binPath ]] || \
-			[[ -L $libPath && -L $binPath ]]; then
-			eselect go set go${PV_MINOR}
+	local libPath="${EROOT}"/usr/lib/go
+	local binPath="${EROOT}"/usr/bin/go
+	if [[ $upgrade == true && -L $libPath && -L $binPath ]] || \
+		[[ ! -e $libPath && ! -e $binPath ]]; then
+		eselect go set go${nvr}
+		if [[ $? == 0 ]]; then
+			elog "[eselect] successfully switched to version: go${nvr}"
+			elog
+		else
+			eerror "[eselect] switch to version go${nvr} error, please handle it manually!"
 		fi
 	fi
 
-	elog
-	elog "To switch between available Go version, execute as root:"
-	elog "\teselect go set (go1.19|go1.20|...)"
+	local dbDir official_go_version_installed
+	for dbDir in $(ls -1d "${EROOT}"/var/db/pkg/dev-lang/go-1.*); do
+		if [[ -d "$dbDir" ]] && [[ $(< "$dbDir"/repository) == "gentoo" ]]; then
+			official_go_version_installed=1
+			break
+		fi
+	done
+	if [[ -n $official_go_version_installed ]]; then
+		elog "The official version of golang is installed,"
+		elog "please uninstall it by executing:"
+		elog "  # emerge -C dev-lang/go::gentoo"
+		elog "and use the eselect to select this slot enabled version"
+		elog "to make it work."
+		elog "Or, just mask this version if you don't want it by executing:"
+		elog "  # echo $'\\\\n'\"dev-lang/go::ryans\" >>/etc/portage/package.mask/golang"
+		elog
+		elog "If you want to switch back to the ::gentoo version again,"
+		elog "please:"
+		elog "  # emerge -C dev-lang/go       # remove all versions"
+		elog "  # echo $'\\\\n'\"dev-lang/go::ryans\" >>/etc/portage/package.mask/golang"
+		elog "  # emerge dev-lang/go::gentoo  # install it through go-bootstrap again"
+		elog
+	fi
+	elog "To select/switch between available Go version, execute as root:"
+	elog "  # eselect go set (go1.19|go1.20|...)"
 	elog "ATTENTION: not compatible with dev-lang/go::gentoo version"
-	elog
 
 	[[ -z ${REPLACING_VERSIONS} ]] && return
+	elog
 	elog "After ${CATEGORY}/${PN} is updated it is recommended to rebuild"
 	elog "all packages compiled with previous versions of ${CATEGORY}/${PN}"
 	elog "due to the static linking nature of go."
