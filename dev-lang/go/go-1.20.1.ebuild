@@ -180,9 +180,13 @@ src_install() {
 	done
 }
 
+declare -g GO_LATEST_PVR
+pkg_preinst() {
+	GO_LATEST_PVR=$(best_version 'dev-lang/go')
+}
+
 pkg_postinst() {
-	local pvr=$(best_version 'dev-lang/go') upgrade=false
-	pvr=${pvr#dev-lang/go-}
+	local pvr=${GO_LATEST_PVR#dev-lang/go-} upgrade=false
 	[[ $pvr =~ ^([[:digit:]]+)\.([[:digit:]]+)(\.([[:digit:]]+))?(_.*)?(-.*)?$ ]] || true
 	local lmajor="${BASH_REMATCH[1]:-0}"
 	local lminor="${BASH_REMATCH[2]:-0}"
