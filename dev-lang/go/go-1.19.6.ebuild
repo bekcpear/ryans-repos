@@ -180,16 +180,6 @@ src_install() {
 	done
 }
 
-declare -g OFFICIAL_GO_VERSION_INSTALLED
-pkg_preinst() {
-	# prevent conflicting with ::gentoo repo version
-	local dbDir=$(ls -d "${EROOT}"/var/db/pkg/dev-lang/go-*)
-	if [[ -d "$dbDir" ]] && [[ $(< "$dbDir"/repository) == "gentoo" ]]; then
-		OFFICIAL_GO_VERSION_INSTALLED=1
-		rm -rf "${ED}"/usr/share/doc/* || die
-	fi
-}
-
 pkg_postinst() {
 	local pvr=$(best_version 'dev-lang/go') upgrade=false
 	pvr=${pvr#dev-lang/go-}
@@ -209,24 +199,21 @@ pkg_postinst() {
 		fi
 	fi
 
-	if [[ -n $OFFICIAL_GO_VERSION_INSTALLED ]]; then
+	local dbDir=$(ls -d "${EROOT}"/var/db/pkg/dev-lang/go-*)
+	if [[ -d "$dbDir" ]] && [[ $(< "$dbDir"/repository) == "gentoo" ]]; then
 		elog "The official version of golang is installed,"
 		elog "please uninstall it by executing:"
 		elog "  # emerge -C dev-lang/go::gentoo"
 		elog "and use the eselect to select this slot enabled"
 		elog "version to make it work."
 		elog "Or, just mask this version by executing:"
-		elog "  # echo $'\\n'\"dev-lang/go::ryans\" >>/etc/portage/package.mask/golang"
+		elog "  # echo $'\\\\n'\"dev-lang/go::ryans\" >>/etc/portage/package.mask/golang"
 		elog
 		elog "If you want to switch back to the ::gentoo version again,"
-		elog "you can:"
-		elog "  # unlink /usr/bin/go"
-		elog "  # unlink /usr/lib/go"
-		elog "  # cp -a /usr/lib/go{1.XX,} # XX is a minor version number"
-		elog "  # emerge dev-lang/go::gentoo # wait for the file collisions checking complete"
-		elog "or just:"
-		elog "  # emerge -C dev-lang/go # remove all versions"
-		elog "  # emerge dev-lang/go    # install it through go-bootstrap again"
+		elog "please:"
+		elog "  # emerge -C dev-lang/go       # remove all versions"
+		elog "  # echo $'\\\\n'\"dev-lang/go::ryans\" >>/etc/portage/package.mask/golang"
+		elog "  # emerge dev-lang/go::gentoo  # install it through go-bootstrap again"
 	fi
 	elog
 	elog "To select/switch between available Go version, execute as root:"
