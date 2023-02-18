@@ -184,19 +184,18 @@ pkg_postinst() {
 	local pvr=$(best_version 'dev-lang/go') upgrade=false
 	pvr=${pvr#dev-lang/go-}
 	[[ $pvr =~ ^([[:digit:]]+)\.([[:digit:]]+)(\.([[:digit:]]+))?(_.*)?(-.*)?$ ]] || true
-	local lmajor="${BASH_REMATCH[1]}"
-	local lminor="${BASH_REMATCH[2]}"
-	if (( ${PV_MINOR%.*} >= $lmajor && ${PV_MINOR#*.} > $lminor )) || \
+	local lmajor="${BASH_REMATCH[1]:-0}"
+	local lminor="${BASH_REMATCH[2]:-0}"
+	if (( ${PV_MINOR%.*} == $lmajor && ${PV_MINOR#*.} > $lminor )) || \
 		(( ${PV_MINOR%.*} > $lmajor )); then
 		upgrade=true
 	fi
-	if [[ $upgrade == true ]]; then
-		local libPath="${EROOT}"/usr/lib/go
-		local binPath="${EROOT}"/usr/bin/go
-		if [[ ! -e $libPath && ! -e $binPath ]] || \
-			[[ -L $libPath && -L $binPath ]]; then
-			eselect go set go${PV_MINOR}
-		fi
+	local libPath="${EROOT}"/usr/lib/go
+	local binPath="${EROOT}"/usr/bin/go
+	if [[ $upgrade == true && -L $libPath && -L $binPath ]]; then
+		eselect go set go${PV_MINOR}
+	elif [[ ! -e $libPath && ! -e $binPath ]]; then
+		eselect go set go${lmajor}.${lminor}
 	fi
 
 	local dbDir official_go_version_installed
@@ -220,14 +219,14 @@ pkg_postinst() {
 		elog "  # emerge -C dev-lang/go       # remove all versions"
 		elog "  # echo $'\\\\n'\"dev-lang/go::ryans\" >>/etc/portage/package.mask/golang"
 		elog "  # emerge dev-lang/go::gentoo  # install it through go-bootstrap again"
+		elog
 	fi
-	elog
 	elog "To select/switch between available Go version, execute as root:"
 	elog "  # eselect go set (go1.19|go1.20|...)"
 	elog "ATTENTION: not compatible with dev-lang/go::gentoo version"
-	elog
 
 	[[ -z ${REPLACING_VERSIONS} ]] && return
+	elog
 	elog "After ${CATEGORY}/${PN} is updated it is recommended to rebuild"
 	elog "all packages compiled with previous versions of ${CATEGORY}/${PN}"
 	elog "due to the static linking nature of go."
