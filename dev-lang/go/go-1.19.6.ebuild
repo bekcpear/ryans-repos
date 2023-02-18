@@ -190,23 +190,22 @@ pkg_postinst() {
 	[[ $pvr =~ ^([[:digit:]]+)\.([[:digit:]]+)(\.([[:digit:]]+))?(_.*)?(-.*)?$ ]] || true
 	local lmajor="${BASH_REMATCH[1]:-0}"
 	local lminor="${BASH_REMATCH[2]:-0}"
+	local nvr="${lmajor}.${lminor}"
 	if (( ${PV_MINOR%.*} == $lmajor && ${PV_MINOR#*.} > $lminor )) || \
 		(( ${PV_MINOR%.*} > $lmajor )); then
 		upgrade=true
+		nvr=${PV_MINOR}
 	fi
 	local libPath="${EROOT}"/usr/lib/go
 	local binPath="${EROOT}"/usr/bin/go
-	if [[ $upgrade == true && -L $libPath && -L $binPath ]]; then
-		eselect go set go${PV_MINOR}
+	if [[ $upgrade == true && -L $libPath && -L $binPath ]] || \
+		[[ ! -e $libPath && ! -e $binPath ]]; then
+		eselect go set go${nvr}
 		if [[ $? == 0 ]]; then
-			elog "[eselect] successfully switched to version: go${PV_MINOR}"
+			elog "[eselect] successfully switched to version: go${nvr}"
 			elog
-		fi
-	elif [[ ! -e $libPath && ! -e $binPath ]]; then
-		eselect go set go${lmajor}.${lminor}
-		if [[ $? == 0 ]]; then
-			elog "[eselect] successfully switched to version: go${lmajor}.${lminor}"
-			elog
+		else
+			eerror "[eselect] switch to version go${nvr} error, please handle it manually!"
 		fi
 	fi
 
