@@ -194,8 +194,16 @@ pkg_postinst() {
 	local binPath="${EROOT}"/usr/bin/go
 	if [[ $upgrade == true && -L $libPath && -L $binPath ]]; then
 		eselect go set go${PV_MINOR}
+		if [[ $? == 0 ]]; then
+			elog "[eselect] successfully switched to version: go${PV_MINOR}"
+			elog
+		fi
 	elif [[ ! -e $libPath && ! -e $binPath ]]; then
 		eselect go set go${lmajor}.${lminor}
+		if [[ $? == 0 ]]; then
+			elog "[eselect] successfully switched to version: go${lmajor}.${lminor}"
+			elog
+		fi
 	fi
 
 	local dbDir official_go_version_installed
