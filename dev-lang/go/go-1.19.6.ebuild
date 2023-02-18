@@ -199,14 +199,20 @@ pkg_postinst() {
 		fi
 	fi
 
-	local dbDir=$(ls -d "${EROOT}"/var/db/pkg/dev-lang/go-*)
-	if [[ -d "$dbDir" ]] && [[ $(< "$dbDir"/repository) == "gentoo" ]]; then
+	local dbDir official_go_version_installed
+	for dbDir in $(ls -1d "${EROOT}"/var/db/pkg/dev-lang/go-1.*); do
+		if [[ -d "$dbDir" ]] && [[ $(< "$dbDir"/repository) == "gentoo" ]]; then
+			official_go_version_installed=1
+			break
+		fi
+	done
+	if [[ -n $official_go_version_installed ]]; then
 		elog "The official version of golang is installed,"
 		elog "please uninstall it by executing:"
 		elog "  # emerge -C dev-lang/go::gentoo"
-		elog "and use the eselect to select this slot enabled"
-		elog "version to make it work."
-		elog "Or, just mask this version by executing:"
+		elog "and use the eselect to select this slot enabled version"
+		elog "to make it work."
+		elog "Or, just mask this version if you don't want it by executing:"
 		elog "  # echo $'\\\\n'\"dev-lang/go::ryans\" >>/etc/portage/package.mask/golang"
 		elog
 		elog "If you want to switch back to the ::gentoo version again,"
