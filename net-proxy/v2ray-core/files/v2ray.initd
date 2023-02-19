@@ -7,7 +7,7 @@ description="A platform for building proxies to bypass network restrictions"
 svcname="v2ray"
 
 CONF_NAME_SUFFIX="${RC_SVCNAME#${svcname}}"
-if [[ "${svcname}" == "${RC_SVCNAME}" ]]; then
+if [ "${svcname}" = "${RC_SVCNAME}" ]; then
   unset CONF_NAME_SUFFIX
 fi
 
@@ -26,28 +26,35 @@ command_args="run ${CONF_ARG} ${CONF_PATH} ${CONF_REC} ${CONF_FMT:+-format} ${CO
 command_background=true
 pidfile="/run/${svcname}.pid"
 
+output_log=
+error_log=
+output_logger=
+error_logger=
+
 depend() {
   need net
   after logger
 }
 
 start_pre() {
-  if ! yesno USE_CONF_DIR && ! [[ -f ${CONF_PATH} ]]; then
+  if ! yesno USE_CONF_DIR && ! [ -f ${CONF_PATH} ]; then
     ewarn "config file '${CONF_PATH}' does not exist"
     return 1
-  elif yesno USE_CONF_DIR && ! [[ -d ${CONF_PATH} ]]; then
+  elif yesno USE_CONF_DIR && ! [ -d ${CONF_PATH} ]; then
     ewarn "config directory '${CONF_PATH}' does not exist"
     return 1
   fi
   if yesno SYSLOG && logger -t ${svcname} 'logger: start pre check ...'; then
     # the pid logged is the pid of subprocess, logger
     local logger_cmd="logger -t ${svcname}"
-    declare -g output_logger="${logger_cmd}"
-    declare -g error_logger="${logger_cmd}"
+    output_logger="${logger_cmd}"
+    error_logger="${logger_cmd}"
+    unset output_log error_log
   else
     checkpath -d -m 750 /var/log/${svcname}
     local log="/var/log/${svcname}/${RC_SVCNAME}.log"
-    declare -g output_log="${log}"
-    declare -g error_log="${log}"
+    output_log="${log}"
+    error_log="${log}"
+    unset output_logger error_logger
   fi
 }
