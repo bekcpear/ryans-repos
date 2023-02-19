@@ -86,7 +86,7 @@
 # #PROPERTIES="live"
 # #SRC_URI="https://github.com/example-org/reponame/archive/refs/tags/v${PV}.tar.gz -> ${P}.tar.gz"
 # #src_unpack() {
-# #  go_src_unpack # just omit this whole "src_unpack" function
+# #  go_src_unpack # OR just omit this whole "src_unpack" function
 # #}
 #
 # @CODE
