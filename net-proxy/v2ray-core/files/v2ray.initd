@@ -49,10 +49,12 @@ start_pre() {
     local logger_cmd="logger -t ${svcname}"
     output_logger="${logger_cmd}"
     error_logger="${logger_cmd}"
+    unset output_log error_log
   else
     checkpath -d -m 750 /var/log/${svcname}
     local log="/var/log/${svcname}/${RC_SVCNAME}.log"
     output_log="${log}"
     error_log="${log}"
+    unset output_logger error_logger
   fi
 }
