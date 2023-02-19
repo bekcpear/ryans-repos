@@ -62,7 +62,7 @@ eselect repository enable ryans
    acct-user/matterbridge                   | 0                 | RD     |                                                | User for the net-misc/matterbridge{,-bin} service
 --------------------------------------------|-------------------|--------|------------------------------------------------|--------------------
  net-proxy/v2ray-core                       | 4.45.2-r1         |        | https://github.com/v2fly/v2ray-core            | A platform for building proxies to bypass network restrictions.
-                                            | 5.3.0             |        |                                                |
+                                            | 5.4.0             |        |                                                |
    dev-libs/v2ray-domain-list-community     | 5.20230216031305  | RD     | https://github.com/v2fly/domain-list-community | Community managed domain list for V2Ray.
                                             | 9999              |        |                                                |
    dev-libs/v2ray-domain-list-community-bin | 5.20230216031305  | RD     | https://github.com/v2fly/domain-list-community | Community managed domain list for V2Ray.
