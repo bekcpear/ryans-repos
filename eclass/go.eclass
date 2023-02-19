@@ -12,7 +12,9 @@
 # This eclass provides basic settings and functions needed by software
 # written in the go programming language.
 #
-# This eclass has three methods for offline building:
+# This eclass has three methods for offline building and one methods for online building:
+#
+# THREE OFFLINE BUILDING METHODS:
 #
 # ** priority: 1. > 2. > 3. **
 #
@@ -57,6 +59,35 @@
 #
 # SRC_URI="https://github.com/example-org/reponame/archive/refs/tags/v${PV}.tar.gz -> ${P}.tar.gz
 #  https://some.url/corresponding-vendor-path.tar.gz -> ${P}-vendor.tar.gz"
+#
+# @CODE
+#
+# THE ONLINE BUILDING METHOD:
+#
+# 1. If there is no corresponding 'go.sum.$PV' file in the 'files' directory and
+#    also no embedded 'vendor' directory under the $S path.
+#    This eclass will check whether the 'live' PROPERTY exists, if it is, this eclass
+#    will use `go mod vendor` to generate the 'vendor' directory through the network
+#    instead of checking the vendor tarball.
+#
+# @CODE
+#
+# inherit git-r3 go
+#
+# EGIT_REPO_URI="https://github.com/example-org/reponame.git"
+#
+# src_unpack() {
+#   git-r3_src_unpack
+#   go_set_go_cmd
+#   go_setup_vendor
+# }
+#
+# OR without using the git-r3 eclass and specifying the PROPERTIES manually:
+# #PROPERTIES="live"
+# #SRC_URI="https://github.com/example-org/reponame/archive/refs/tags/v${PV}.tar.gz -> ${P}.tar.gz"
+# #src_unpack() {
+# #  go_src_unpack # just omit this whole "src_unpack" function
+# #}
 #
 # @CODE
 #
