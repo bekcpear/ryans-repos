@@ -120,12 +120,37 @@ EXPORT_FUNCTIONS src_unpack src_compile src_install
 # @ECLASS_VARIABLE: GOFLAGS
 # @DESCRIPTION:
 # the default GOFLAGS.
-# -buildvcs=false omits version control information
+# -buildmode=exe build only the listed main packages
 # -trimpath remove all file system paths from the resulting executable
 # -v prints the names of packages as they are compiled
 # -work prints the temporary work dir's name and don't delete it when exiting
 # -x prints the commands
-export GOFLAGS="-buildvcs=false -trimpath -v -work -x"
+export GOFLAGS="-buildmode=exe -trimpath -v -work -x"
+
+# Respect the job number explictly set in the MAKEOPTS variable if exists.
+# No number means the max number of available cpus which should be the same
+# as the default GOMAXPROCS (defaults to nproc), so should be ignored.
+# Should use GOMAXPROCS env var instead of the '-p' flag here due to:
+# 	1. '-p' only limits the number of parallel building goroutines
+# 	2. '-p' leaves the parallel number of GC, compiling and so on unchanged
+# 	3. when '-p' is set to 1, the default '-c' for the compile tool will be set to
+# 	   the GOMAXPROCS instead of min(4, GOMAXPROCS)
+# 	4. GOMAXPROCS env variable can affect through the whole process,
+# 	   N means N building goroutines and each building goroutine will call the compile
+# 	   tool with '-c=I' which I=min(4, N). This is the behavior that best matches -j.
+# 	   (The max number of -c may change in the future)
+# 	   Also see https://go-review.googlesource.com/c/go/+/41192 for the performance of
+# 	   concurrency of compiling process.
+[[ $MAKEOPTS =~ (-[a-z]*j|--jobs[=[:space:]])[[:space:]]*([0-9]+) ]] || true
+# @ECLASS_VARIABLE: BASH_REMATCH
+# @INTERNAL
+# @DESCRIPTION:
+# pkgcheck is sucks!! it's just a bash pre-defined var!!
+_MAXPROCS=${BASH_REMATCH[2]}
+if [[ -n $_MAXPROCS ]]; then
+	export GOMAXPROCS=$_MAXPROCS
+fi
+unset _MAXPROCS
 
 # @ECLASS_VARIABLE: EXTRA_GOFLAGS
 # @DESCRIPTION:
