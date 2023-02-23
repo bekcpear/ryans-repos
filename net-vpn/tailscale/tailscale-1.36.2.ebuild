@@ -24,14 +24,6 @@ RDEPEND="
 	)
 "
 
-# These settings are obtained by running ./build_dist.sh shellvars` in the upstream repo.
-VERSION_SHORT="1.36.1"
-VERSION_LONG="1.36.1-t576b08e5e"
-VERSION_GIT_HASH="576b08e5ee7cfd1ef052f44c4b2f72c62f965050"
-GO_LDFLAGS="
-	-X 'tailscale.com/version.Long=${VERSION_LONG}'
-	-X 'tailscale.com/version.Short=${VERSION_SHORT}'
-	-X 'tailscale.com/version.GitCommit=${VERSION_GIT_HASH}'"
 GO_SBIN="tailscaled"
 GO_TARGET_PKGS="
 	./cmd/tailscale
@@ -41,6 +33,12 @@ GO_TARGET_PKGS="
 src_configure() {
 	use derp && GO_TARGET_PKGS+=" ./cmd/derper"
 	use tools && GO_TARGET_PKGS+=" ./cmd/derpprobe"
+
+	. "$WORKDIR"/gopkg-vendors-vendor-$P/version.txt || die
+	GO_LDFLAGS="
+		-X 'tailscale.com/version.Long=${VERSION_LONG}'
+		-X 'tailscale.com/version.Short=${VERSION_SHORT}'
+		-X 'tailscale.com/version.GitCommit=${VERSION_GIT_HASH}'"
 }
 
 src_install() {
