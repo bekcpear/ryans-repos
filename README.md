@@ -77,7 +77,7 @@ eselect repository enable ryans
                                             | 0.19.0            |        |                                                |
                                             | 0.20.0            |        |                                                |
 --------------------------------------------|-------------------|--------|------------------------------------------------|--------------------
- net-vpn/tailscale                          | 1.36.1            |        | https://tailscale.com                          | Tailscale VPN client and CLI tools
+ net-vpn/tailscale                          | 1.36.2            |        | https://tailscale.com                          | Tailscale VPN client and CLI tools
    acct-group/derper                        | 0                 | RD     |                                                | Group for the DERP service of net-vpn/tailscale
    acct-user/derper                         | 0                 | RD     |                                                | User for the DERP service of net-vpn/tailscale
 --------------------------------------------|-------------------|--------|------------------------------------------------|--------------------
