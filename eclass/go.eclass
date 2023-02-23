@@ -120,12 +120,11 @@ EXPORT_FUNCTIONS src_unpack src_compile src_install
 # @ECLASS_VARIABLE: GOFLAGS
 # @DESCRIPTION:
 # the default GOFLAGS.
-# -buildmode=exe build only the listed main packages
 # -trimpath remove all file system paths from the resulting executable
 # -v prints the names of packages as they are compiled
 # -work prints the temporary work dir's name and don't delete it when exiting
 # -x prints the commands
-export GOFLAGS="-buildmode=exe -trimpath -v -work -x"
+export GOFLAGS="-trimpath -v -work -x"
 
 # Respect the job number explictly set in the MAKEOPTS variable if exists.
 # No number means the max number of available cpus which should be the same
@@ -617,6 +616,7 @@ go_build() {
 
 	GOFLAGS="${GOFLAGS}${EXTRA_GOFLAGS:+ }${EXTRA_GOFLAGS}"
 	set -- $GO_CMD build -o "${output}" ${GO_TAGS:+-tags} ${GO_TAGS} -ldflags "${go_ldflags}" "${@}"
+	$GO_CMD env
 	_go_print_cmd "      GOFLAGS:" "${GOFLAGS}"
 	_go_print_cmd "Build command:" "${@}"
 	"${@}" || die
