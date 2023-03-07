@@ -141,10 +141,6 @@ export GOFLAGS="-trimpath -v -work -x"
 # 	   Also see https://go-review.googlesource.com/c/go/+/41192 for the performance of
 # 	   concurrency of compiling process.
 [[ $MAKEOPTS =~ (-[a-z]*j|--jobs[=[:space:]])[[:space:]]*([0-9]+) ]] || true
-# @ECLASS_VARIABLE: BASH_REMATCH
-# @INTERNAL
-# @DESCRIPTION:
-# pkgcheck is sucks!! it's just a bash pre-defined var!!
 _MAXPROCS=${BASH_REMATCH[2]}
 if [[ -n $_MAXPROCS ]]; then
 	export GOMAXPROCS=$_MAXPROCS
