@@ -1,0 +1,10 @@
+# openrc config file for keycloak service
+
+# development mode or not
+#DEVMODE="true"
+
+# additional options
+OPTS=
+
+# log to syslog
+SYSLOG="false"
