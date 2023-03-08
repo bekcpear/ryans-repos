@@ -1,0 +1,7 @@
+# openrc config file for keycloak service
+
+# log to syslog
+SYSLOG="false"
+
+# additional options
+OPTS=

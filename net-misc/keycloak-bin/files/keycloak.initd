@@ -1,0 +1,38 @@
+#!/sbin/openrc-run
+# Copyright 2023 Gentoo Authors
+# Distributed under the terms of the GNU General Public License v2
+
+name="keycloak daemon"
+description="Open Source Identity and Access Management"
+
+command="/opt/keycloak-bin/bin/kc.sh"
+command_args="start ${OPTS}"
+command_user="keycloak:keycloak"
+command_background=true
+pidfile="/run/${svcname}.pid"
+
+output_log=
+error_log=
+output_logger=
+error_logger=
+
+depend() {
+  need net
+  after logger
+}
+
+start_pre() {
+  if yesno SYSLOG && logger -t ${svcname} 'logger: start pre check ...'; then
+    # the pid logged is the pid of subprocess, logger
+    local logger_cmd="logger -t ${svcname}"
+    output_logger="${logger_cmd}"
+    error_logger="${logger_cmd}"
+    unset output_log error_log
+  else
+    checkpath -d -m 750 /var/log/${svcname}
+    local log="/var/log/${svcname}/${RC_SVCNAME}.log"
+    output_log="${log}"
+    error_log="${log}"
+    unset output_logger error_logger
+  fi
+}
