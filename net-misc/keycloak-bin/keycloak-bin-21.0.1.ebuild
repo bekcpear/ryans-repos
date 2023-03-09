@@ -114,9 +114,14 @@ pkg_config() {
 	echo
 	elog "configuration prioritisation:"
 	elog "  1. exported KC_* variables (in the file '${EROOT}/etc/keycloak/runtime.env')"
+	# this may be a bug or special consideration in portage
+	# refer to: https://bugs.gentoo.org/900465
+	# `emerge` command uses the exported variables when install this package
+	# but, `emerge --config` not, so, the pre-exported env variable cannot be
+	# override.
 	if [[ -n $pre_exported_kc_vars ]]; then
 		ewarn "     - ATTENTION!!"
-		ewarn "     - exists pre-exported KC_* env vars before emerging:"
+		ewarn "     - exists pre-exported KC_* env vars when installing this pkg:"
 		while read -r var; do
 			ewarn "     -   $var"
 		done <<<"$pre_exported_kc_vars"
