@@ -90,10 +90,11 @@ pkg_preinst() {
 
 pkg_postinst() {
 	echo
-	elog "Please run \`emerge --config '=${CATEGORY}/${P}'\` before starting the daemon."
-	elog "( you can export variables before executing to satisfy yourself, )"
-	elog "( the list: https://www.keycloak.org/server/all-config?f=build   )"
-	elog "( a set of suggested vars: KC_DB, KC_FEATURES, KC_HEALTH_ENABLED )"
+	elog "Please set/add proper build options in file '${EROOT}/etc/keycloak/keycloak.conf',"
+	elog "and run \`emerge --config '=${CATEGORY}/${P}'\` before starting the daemon."
+	elog "( you can also export KC_* env variables before executing config, )"
+	elog "( the details: https://www.keycloak.org/server/all-config?f=build )"
+	elog "( a set of suggested vars: KC_DB, KC_FEATURES, KC_HEALTH_ENABLED  )"
 	elog "If a build option is found at startup with an equal value to the value used"
 	elog "when invoking the \`build\`, it gets silently ignored when using the \`--optimized\`"
 	elog "flag (the default behavior of the service script). If it has a different value"
