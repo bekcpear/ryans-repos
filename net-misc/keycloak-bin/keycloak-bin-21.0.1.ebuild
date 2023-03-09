@@ -118,13 +118,14 @@ pkg_config() {
 	# refer to: https://bugs.gentoo.org/900465
 	# `emerge` command uses the exported variables when install this package
 	# but, `emerge --config` not, so, the pre-exported env variable cannot be
-	# override.
+	# override from the portage's side.
 	if [[ -n $pre_exported_kc_vars ]]; then
 		ewarn "     - ATTENTION!!"
 		ewarn "     - exists pre-exported KC_* env vars when installing this pkg:"
 		while read -r var; do
 			ewarn "     -   $var"
 		done <<<"$pre_exported_kc_vars"
+		ewarn "     - (can be override by variables in the above runtime.env file)"
 	fi
 	elog "  2. build options listed in the '${EROOT}/etc/keycloak/keycloak.conf' file"
 	echo
