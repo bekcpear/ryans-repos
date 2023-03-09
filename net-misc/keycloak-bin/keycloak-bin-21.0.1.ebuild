@@ -91,10 +91,13 @@ pkg_preinst() {
 pkg_postinst() {
 	echo
 	elog "Please set/add proper build options in file '${EROOT}/etc/keycloak/keycloak.conf',"
-	elog "and run \`emerge --config '=${CATEGORY}/${P}'\` before starting the daemon."
-	elog "( you can also export KC_* env variables before executing config, )"
-	elog "( the details: https://www.keycloak.org/server/all-config?f=build )"
-	elog "( a set of suggested vars: KC_DB, KC_FEATURES, KC_HEALTH_ENABLED  )"
+	elog "  or 'KC_*' env vars (higher priority) in file '${EROOT}/etc/keycloak/runtime.env',"
+	elog "  the details: https://www.keycloak.org/server/all-config?f=build"
+	elog "  (a set of suggested vars: KC_DB, KC_FEATURES, KC_HEALTH_ENABLED)"
+	elog "and than run:"
+	elog "  # emerge --config '=${CATEGORY}/${P}'"
+	elog "before starting the daemon."
+	elog
 	elog "If a build option is found at startup with an equal value to the value used"
 	elog "when invoking the \`build\`, it gets silently ignored when using the \`--optimized\`"
 	elog "flag (the default behavior of the service script). If it has a different value"
@@ -106,22 +109,24 @@ pkg_postinst() {
 
 pkg_config() {
 	export HOME=$(ls -1d ~keycloak) SHELL=/bin/bash USER=keycloak LOGNAME=keycloak
-	local exported_vars var
-	eval "exported_vars=\$(su -p -c 'export -p | grep -E \"^declare -x KC_\" | sed \"s/^declare -x //\"' keycloak)"
-	elog "exported KC_* variables:"
-	if [[ -n $exported_vars ]]; then
-		while read -r var; do
-			elog "  $var"
-		done <<<"$exported_vars"
-		elog "( Note: )"
-		elog "( the exported vars before emerging this packages will always be exported )"
-		elog "( but you can override it/them )"
-	else
-		elog "  <NONE>"
-	fi
+	local pre_exported_kc_vars
+	pre_exported_kc_vars="$(export -p | grep -E '^declare -x KC_' | sed 's/^declare -x //')"
 	echo
 	elog "configuration prioritisation:"
-	elog "  1. exported KC_* variables"
+	elog "  1. exported KC_* variables (in the file '${EROOT}/etc/keycloak/runtime.env')"
+	# this may be a bug or special consideration in portage
+	# refer to: https://bugs.gentoo.org/900465
+	# `emerge` command uses the exported variables when install this package
+	# but, `emerge --config` not, so, the pre-exported env variable cannot be
+	# override from the portage's side.
+	if [[ -n $pre_exported_kc_vars ]]; then
+		ewarn "     - ATTENTION!!"
+		ewarn "     - exists pre-exported KC_* env vars when installing this pkg:"
+		while read -r var; do
+			ewarn "     -   $var"
+		done <<<"$pre_exported_kc_vars"
+		ewarn "     - (can be override by variables in the above runtime.env file)"
+	fi
 	elog "  2. build options listed in the '${EROOT}/etc/keycloak/keycloak.conf' file"
 	echo
 	chown -R keycloak:keycloak "$EROOT"/opt/keycloak-bin/lib
