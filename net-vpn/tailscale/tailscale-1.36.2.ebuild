@@ -64,6 +64,7 @@ src_install() {
 		doexe "${FILESDIR}"/derper-pre.sh
 
 		systemd_dounit "${FILESDIR}"/derper.service
+		systemd_install_serviced "${FILESDIR}"/derper.service.conf derper
 
 		newinitd "${FILESDIR}"/derper.initd derper
 	fi
