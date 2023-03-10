@@ -3,7 +3,7 @@
 
 EAPI=8
 
-inherit go systemd
+inherit go systemd tmpfiles
 
 DESCRIPTION="An open source, self-hosted implementation of the Tailscale control server"
 HOMEPAGE="https://github.com/juanfont/headscale"
@@ -41,6 +41,8 @@ src_install() {
 
 	dodoc config-example.yaml derp-example.yaml
 
+	newtmpfiles "${FILESDIR}"/headscale.tmpfiles headscale.conf
+
 	systemd_dounit "${FILESDIR}"/headscale.service
 	systemd_install_serviced "${FILESDIR}"/headscale.service.conf headscale
 
@@ -49,6 +51,7 @@ src_install() {
 }
 
 pkg_postinst() {
+	tmpfiles_process headscale.conf
 	if [[ -z ${REPLACING_VERSIONS} ]] ; then
 		elog "headscale need a config file to run server, the default path: /etc/headscale/config.yaml"
 		elog "Here is an example config file: ${EROOT}/usr/share/doc/${P}/config-example.yaml*"

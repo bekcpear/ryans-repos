@@ -27,7 +27,6 @@ depend() {
 start_pre() {
 	# /run/headscale is a common dir for sock file keep it
 	checkpath -d -m 700 -o "${command_user}" \
-		/run/headscale \
 		${HEADSCALE_WORK_DIR} \
 		${HEADSCALE_LOG_DIR}
 
