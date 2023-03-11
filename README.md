@@ -27,12 +27,12 @@ eselect repository enable ryans
 --------------------------------------------|-------------------|--------|------------------------------------------------|--------------------
  app-i18n/fcitx-meta                        | 5.0.12            |        | https://fcitx-im.org                           | Merge this to pull in Fcitx packages
    app-i18n/fcitx-bamboo                    | 1.0.2             | RD     | https://github.com/fcitx/fcitx5-bamboo         | Typing Vietnamese by Bamboo core engine for Fcitx5
-     app-i18n/fcitx                         | 5.0.21            |  D, RD | https://fcitx-im.org/                          | Fcitx (Flexible Context-aware Input Tool with eXtension) input method framework
-       x11-libs/xcb-imdkit                  | 1.0.4             |  D, RD | https://github.com/fcitx/xcb-imdkit            | Input method development support for xcb
-   app-i18n/fcitx-configtool                | 5.0.16            | RD     | https://fcitx-im.org/                          | GUI configuration tool for Fcitx
-     app-i18n/fcitx-qt                      | 5.0.16            |  D, RD | https://fcitx-im.org/                          | Qt library and IM module for fcitx5
-   app-i18n/fcitx-gtk                       | 5.0.21            | RD     | https://fcitx-im.org/                          | GTK IM module and glib based dbus client library for Fcitx
-   app-i18n/fcitx-rime                      | 5.0.15            | RD     | https://fcitx-im.org/                          | Chinese RIME input methods for Fcitx
+     app-i18n/fcitx                         | 5.0.22            |  D, RD | https://fcitx-im.org/                          | Fcitx (Flexible Context-aware Input Tool with eXtension) input method framework
+       x11-libs/xcb-imdkit                  | 1.0.5             |  D, RD | https://github.com/fcitx/xcb-imdkit            | Input method development support for xcb
+   app-i18n/fcitx-configtool                | 5.0.17            | RD     | https://fcitx-im.org/                          | GUI configuration tool for Fcitx
+     app-i18n/fcitx-qt                      | 5.0.17            |  D, RD | https://fcitx-im.org/                          | Qt library and IM module for fcitx5
+   app-i18n/fcitx-gtk                       | 5.0.22            | RD     | https://fcitx-im.org/                          | GTK IM module and glib based dbus client library for Fcitx
+   app-i18n/fcitx-rime                      | 5.0.16            | RD     | https://fcitx-im.org/                          | Chinese RIME input methods for Fcitx
 --------------------------------------------|-------------------|--------|------------------------------------------------|--------------------
  app-misc/razergenie                        | 9999              |        | https://github.com/z3ntu/RazerGenie            | Razer devices configurator
    dev-libs/libopenrazer                    | 9999              |  D, RD | https://github.com/z3ntu/libopenrazer          | Libraries for razergenie.
