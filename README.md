@@ -59,6 +59,10 @@ eselect repository enable ryans
  net-misc/ip7                               | 9999              |        | https://github.com/bekcpear/ip7                | An IP address checker, powered by MaxMind GeoLite2 databases.
    acct-user/ip7                            | 0                 | RD     |                                                | User for the HTTP API service of net-misc/ip7
 --------------------------------------------|-------------------|--------|------------------------------------------------|--------------------
+ net-misc/keycloak-bin                      | 21.0.1            |        | https://github.com/keycloak/keycloak           | Open Source Identity and Access Management
+   acct-group/keycloak                      | 0                 | RD     |                                                | Group for the keycloak daemon
+   acct-user/keycloak                       | 0                 | RD     |                                                | User for the keycloak daemon
+--------------------------------------------|-------------------|--------|------------------------------------------------|--------------------
  net-misc/matterbridge-bin                  | 1.26.0            |        | https://github.com/42wim/matterbridge          | a simple chat bridge, IRC | Matrix | Mattermost | Telegram | XMPP | And more...
    acct-group/matterbridge                  | 0                 | RD     |                                                | Group for the net-misc/matterbridge{,-bin} service
    acct-user/matterbridge                   | 0                 | RD     |                                                | User for the net-misc/matterbridge{,-bin} service
@@ -75,9 +79,7 @@ eselect repository enable ryans
  net-proxy/v2ray-core-bin                   | 4.45.2            |        | https://github.com/v2fly/v2ray-core            | A platform for building proxies to bypass network restrictions.
                                             | 5.2.1             |        |                                                |
 --------------------------------------------|-------------------|--------|------------------------------------------------|--------------------
- net-vpn/headscale                          | 0.18.0            |        | https://github.com/juanfont/headscale          | An open source, self-hosted implementation of the Tailscale control server
-                                            | 0.19.0            |        |                                                |
-                                            | 0.20.0            |        |                                                |
+ net-vpn/headscale                          | 0.20.0            |        | https://github.com/juanfont/headscale          | An open source, self-hosted implementation of the Tailscale control server
 --------------------------------------------|-------------------|--------|------------------------------------------------|--------------------
  net-vpn/tailscale                          | 1.36.2            |        | https://tailscale.com                          | Tailscale VPN client and CLI tools
    acct-group/derper                        | 0                 | RD     |                                                | Group for the DERP service of net-vpn/tailscale
