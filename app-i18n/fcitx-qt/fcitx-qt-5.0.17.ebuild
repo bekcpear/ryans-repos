@@ -25,7 +25,7 @@ DEPEND="
 	dev-qt/qtgui:5
 	dev-qt/qtwidgets:5
 	qt6? (
-		dev-qt/qtbase:6[dbus,gui]
+		dev-qt/qtbase:6[dbus(+),gui(+),widgets(+)]
 	)
 	x11-libs/libX11
 	x11-libs/libxcb
