@@ -48,12 +48,13 @@ src_install() {
 	fowners -R keycloak:keycloak /var/lib/keycloak
 
 	insinto /etc/keycloak
-	doins conf/cache-ispn.xml conf/keycloak.conf
+	doins conf/cache-ispn.xml conf/keycloak.conf "$FILESDIR"/quarkus.properties
 	newins "$FILESDIR"/keycloak.runtime.env runtime.env
 	fowners -R keycloak:keycloak /etc/keycloak
 	fperms -R o-rwx /etc/keycloak
 
 	keepdir /opt/keycloak-bin/conf
+	dosym -r /etc/keycloak/quarkus.properties /opt/keycloak-bin/conf/quarkus.properties
 	dosym -r /etc/keycloak/cache-ispn.xml /opt/keycloak-bin/conf/cache-ispn.xml
 	dosym -r /etc/keycloak/keycloak.conf /opt/keycloak-bin/conf/keycloak.conf
 	dosym -r /var/lib/keycloak/providers /opt/keycloak-bin/providers
@@ -104,6 +105,9 @@ pkg_postinst() {
 	elog "than the value used when a build was invoked, a warning is shown in the logs and"
 	elog "the previously built value is used."
 	elog "So, whenever pre-built build options change, you have to re-configure before starting."
+	elog
+	elog "Variables 'KEYCLOAK_ADMIN' and 'KEYCLOAK_ADMIN_PASSWORD' can be used to initial"
+	elog "an admin account, just export them in CLI before the first start."
 	echo
 }
 
