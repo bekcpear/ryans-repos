@@ -4,4 +4,4 @@ PORT="0"
 
 # Extra flags you might want to pass to tailscaled.
 # run tailscaled --help to get help
-FLAGS=""
+FLAGS="-no-logs-no-support"

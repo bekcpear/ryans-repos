@@ -18,11 +18,15 @@ depend() {
 	need net
 }
 
+if [ $FLAGS =~ no-logs-no-support ]; then
+	nologsup="-no-logs-no-support"
+fi
+
 start_pre() {
 	checkpath -d -m 700 /var/log/tailscale
-	${command} --cleanup >>${output_log} 2>>${error_log}
+	${command} --cleanup $nologsup >>${output_log} 2>>${error_log}
 }
 
 stop_post() {
-	${command} --cleanup >>${output_log} 2>>${error_log}
+	${command} --cleanup $nologsup >>${output_log} 2>>${error_log}
 }
