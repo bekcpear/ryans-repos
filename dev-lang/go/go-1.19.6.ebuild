@@ -217,20 +217,24 @@ pkg_postinst() {
 		fi
 	done
 	if [[ -n $official_go_version_installed ]]; then
-		elog "The official version of golang is installed,"
-		elog "please uninstall it by executing:"
-		elog "  # emerge -C dev-lang/go::gentoo"
-		elog "and use the eselect to select this slot enabled version"
-		elog "to make it work."
-		elog "Or, just mask this version if you don't want it by executing:"
-		elog "  # echo $'\\\\n'\"dev-lang/go::ryans\" >>/etc/portage/package.mask/golang"
-		elog
-		elog "If you want to switch back to the ::gentoo version again,"
-		elog "please:"
-		elog "  # emerge -C dev-lang/go       # remove all versions"
-		elog "  # echo $'\\\\n'\"dev-lang/go::ryans\" >>/etc/portage/package.mask/golang"
-		elog "  # emerge dev-lang/go::gentoo  # install it through go-bootstrap again"
-		elog
+		ewarn "The official version of golang exists, you can"
+		ewarn
+		ewarn "1. Please uninstall the official version by executing:"
+		ewarn "     # emerge -C dev-lang/go::gentoo"
+		ewarn "   and use the eselect to select this slot enabled version:"
+		ewarn "     # eselect go cleanup"
+		ewarn "   to make it work."
+		ewarn
+		ewarn "2. Or, just mask this version if you don't want it by executing:"
+		ewarn "     # echo $'\\\\n'\"dev-lang/go::ryans\" >>/etc/portage/package.mask/golang"
+		ewarn "   and uninstall it."
+		ewarn
+		ewarn "If you want to switch back to the ::gentoo version again,"
+		ewarn "please:"
+		ewarn "  # emerge -C dev-lang/go       # remove all versions"
+		ewarn "  # echo $'\\\\n'\"dev-lang/go::ryans\" >>/etc/portage/package.mask/golang"
+		ewarn "  # emerge dev-lang/go::gentoo  # install it through go-bootstrap again"
+		echo
 	fi
 	elog "To select/switch between available Go version, execute as root:"
 	elog "  # eselect go set (go1.19|go1.20|...)"
