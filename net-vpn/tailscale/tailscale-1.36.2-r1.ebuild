@@ -44,6 +44,11 @@ src_configure() {
 src_install() {
 	go_src_install
 
+	exeinto /usr/libexec
+	doexe "$ED"/usr/bin/tailscale
+	rm "$ED"/usr/bin/tailscale || die
+	newbin "$FILESDIR"/tailscale.sh tailscale
+
 	keepdir /var/lib/${PN}
 	fperms 0750 /var/lib/${PN}
 
@@ -52,7 +57,8 @@ src_install() {
 
 	newtmpfiles "${FILESDIR}"/${PN}.tmpfiles ${PN}.conf
 
-	systemd_dounit cmd/tailscaled/tailscaled.service
+	systemd_dounit "${FILESDIR}"/tailscaled.service
+	systemd_newunit "${FILESDIR}"/tailscaled-at.service tailscaled@.service
 
 	newinitd "${FILESDIR}"/${PN}d.initd ${PN}d
 
@@ -70,6 +76,17 @@ src_install() {
 	fi
 }
 
+pkg_preinst() {
+	sed -i "s#@EROOT@#$EROOT#" "$ED"/usr/bin/tailscale || die
+}
+
 pkg_postinst() {
 	tmpfiles_process ${PN}.conf
+
+	# move the previous default state and log files to new default directory
+	mkdir -p "${EROOT}"/var/lib/tailscale/tailscaled.d || die
+	find "$EROOT"/var/lib/tailscale -maxdepth 1 \
+		\( -name 'tailscaled.log*' -or -name 'tailscaled.state*' \
+		-or -name 'derpmap.*' -or -name certs -or -name files \) \
+		-exec mv '{}' "$EROOT"/var/lib/tailscale/tailscaled.d/ \; || die
 }
