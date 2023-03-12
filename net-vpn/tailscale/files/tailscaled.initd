@@ -16,7 +16,7 @@ command="${directory}/bin.tailscaled"
 command_args="
 	-statedir /var/lib/tailscale/tailscaled.d${instanceName:+.}${instanceName}
 	-socket /run/tailscale/tailscaled.sock${instanceName:+.}${instanceName}
-	${instanceName:+-tun tsi2}${instanceName:0:10}
+	${instanceName:+-tun tsi2}${instanceName:0:11}
 	-port ${PORT:-0} ${FLAGS}"
 command_background=true
 pidfile="/run/tailscaled${instanceName:+.}${instanceName}.pid"
@@ -42,6 +42,7 @@ start() {
 		tsConfig=${defaultTsConfig}
 	fi
 	. "$defaultTsConfig"
+	export TS_LOGS_DIR="$directory"
 	default_start
 
 }
