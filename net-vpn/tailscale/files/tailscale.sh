@@ -15,17 +15,19 @@ done
 
 selectedInstance=$TAILSCALE_INSTANCE
 selectedSockfile=$DEFAULT_SOCKFILE
+
 declare -a args=()
-if [[ ${#sockfiles[@]} -gt 1 ]]; then
-	while :; do
-		if [[ $1 == --ins ]]; then
-			shift
-			selectedInstance=$1
-		else
-			args+=( "$1" )
-		fi
+while :; do
+	if [[ $1 == --ins ]]; then
 		shift
-	done
+		selectedInstance=$1
+	else
+		args+=( "$1" )
+	fi
+	shift
+done
+
+if [[ ${#sockfiles[@]} -gt 1 ]]; then
 	if [[ -z $selectedInstance ]]; then
 		echo -ne "\x1b[1m\x1b[33m" >&2
 		echo     "There are multiple tailscale instances running:" >&2
