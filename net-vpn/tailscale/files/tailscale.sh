@@ -17,7 +17,7 @@ selectedInstance=$TAILSCALE_INSTANCE
 selectedSockfile=$DEFAULT_SOCKFILE
 
 declare -a args=()
-while :; do
+while [[ -n $1 ]]; do
 	if [[ $1 == --ins ]]; then
 		shift
 		selectedInstance=$1
