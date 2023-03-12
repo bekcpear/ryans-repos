@@ -6,7 +6,7 @@ set -e
 DEFAULT_SOCKFILE="/var/run/tailscale/tailscaled.sock"
 
 declare -a sockfiles=() instanceNames=()
-sockfiles=( $(ls -1v ${DEFAULT_SOCKFILE}*) )
+sockfiles=( $(LC_ALL=C ls -1v ${DEFAULT_SOCKFILE}*) )
 for sockfile in "${sockfiles[@]}"; do
 	instanceName=${sockfile#$DEFAULT_SOCKFILE}
 	: ${instanceName:=default}
@@ -32,8 +32,9 @@ while [[ -n $1 ]]; do
 done
 
 print_instances() {
-	for instanceName in ${instanceNames[@]}; do
-		echo "    - $instanceName" >&2
+	local ph="  " i
+	for (( i=0; i<${#instanceNames[@]}; i++ )); do
+		echo "   ${ph:${#i}}[$i] ${instanceNames[$i]}" >&2
 	done
 }
 
@@ -56,11 +57,20 @@ if [[ ${#sockfiles[@]} -gt 1 ]]; then
 			fi
 		done
 		if [[ -z $matched ]]; then
-			echo -ne "\x1b[33m" >&2
-			echo     "The provided instance name '$selectedInstance' is invalid, available instances are:" >&2
-			print_instances
-			echo -ne "\x1b[0m" >&2
-			exit 1
+			if [[ $selectedInstance =~ ^[[:digit:]]+$ ]]; then
+				selectedSockfile=${sockfiles[$selectedInstance]}
+				if [[ -n $selectedSockfile ]]; then
+					matched=1
+				fi
+			fi
+			if [[ -z $matched ]]; then
+				echo -ne "\x1b[31m" >&2
+				echo     "The provided instance name '$selectedInstance' is invalid" >&2
+				echo -ne "\x1b[0m" >&2
+				echo     "available instances are:" >&2
+				print_instances
+				exit 1
+			fi
 		fi
 	fi
 fi
