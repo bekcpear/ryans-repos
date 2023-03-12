@@ -76,6 +76,10 @@ src_install() {
 	fi
 }
 
+pkg_preinst() {
+	sed -i "s#@EROOT@#$EROOT#" "$ED"/usr/bin/tailscale || die
+}
+
 pkg_postinst() {
 	tmpfiles_process ${PN}.conf
 
