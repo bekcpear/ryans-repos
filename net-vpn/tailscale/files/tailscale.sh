@@ -14,12 +14,12 @@ for sockfile in "${sockfiles[@]}"; do
 done
 
 selectedInstance=$TAILSCALE_INSTANCE
-selectedSockfile=$DEFAULT_SOCKFILE
+selectedSockfile=${sockfiles[0]}
 
 declare -a args=()
 while [[ -n $1 ]]; do
 	if [[ "$1" =~ ^-?-ins=? ]]; then
-		if [[ "${1: -1}" == "=" ]]; then
+		if [[ "$1" =~ ^-?-ins= ]]; then
 			selectedInstance="${1#*=}"
 		else
 			shift
