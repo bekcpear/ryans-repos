@@ -1,13 +1,21 @@
 #!/sbin/openrc-run
-# Copyright 2022 Gentoo Authors
+# Copyright 2023 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-. /etc/default/tailscaled
+instanceName=${SVCNAME#*.}
+if [ x"$instanceName" = x"$SVCNAME" ]; then
+	unset instanceName
+fi
+. /etc/default/tailscaled${instanceName:+.}${instanceName}
 
 name="tailscaled"
 description="Tailscale node agent"
 command="/usr/sbin/tailscaled"
-command_args="-statedir /var/lib/tailscale -socket /run/tailscale/tailscaled.sock -port ${PORT:-0} ${FLAGS}"
+command_args="
+	-statedir /var/lib/tailscale/tailscaled.d${instanceName:+.}${instanceName}
+	-socket /run/tailscale/tailscaled.sock${instanceName:+.}${instanceName}
+	${instanceName:+-tun tailscale99}${instanceName}
+	-port ${PORT:-0} ${FLAGS}"
 command_background=true
 pidfile="/run/tailscaled.pid"
 directory="/var/lib/tailscale"
@@ -18,15 +26,11 @@ depend() {
 	need net
 }
 
-if expr "$FLAGS" : '.*no-logs-no-support.*' >/dev/null; then
-	nologsup="-no-logs-no-support"
-fi
-
 start_pre() {
 	checkpath -d -m 700 /var/log/tailscale
-	${command} --cleanup $nologsup >>${output_log} 2>>${error_log}
+	${command} --cleanup $command_args >>${output_log} 2>>${error_log}
 }
 
 stop_post() {
-	${command} --cleanup $nologsup >>${output_log} 2>>${error_log}
+	${command} --cleanup $command_args >>${output_log} 2>>${error_log}
 }
