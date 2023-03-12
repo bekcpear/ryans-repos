@@ -16,12 +16,12 @@ command="${directory}/bin.tailscaled"
 command_args="
 	-statedir /var/lib/tailscale/tailscaled.d${instanceName:+.}${instanceName}
 	-socket /run/tailscale/tailscaled.sock${instanceName:+.}${instanceName}
-	${instanceName:+-tun tailscale99}${instanceName}
+	${instanceName:+-tun tsi2}${instanceName:0:10}
 	-port ${PORT:-0} ${FLAGS}"
 command_background=true
 pidfile="/run/tailscaled${instanceName:+.}${instanceName}.pid"
 output_log="/var/log/tailscale/tailscale${instanceName:+.}${instanceName}.log"
-error_log="/var/log/tailscale/tailscale${instanceName:+.}${instanceName}.error"
+error_log="$output_log"
 
 depend() {
 	need net
@@ -36,7 +36,7 @@ start_pre() {
 
 start() {
 	local tsConfig="${defaultTsConfig}${instanceName:+.}${instanceName}"
-	if [[ ! -e "$tsConfig" ]]; then
+	if [ ! -e "$tsConfig" ]; then
 		ewarn "configuration file for this instance doesn't exist, fallbacks to the default one."
 		ewarn "'$tsConfig' --> '${defaultTsConfig}'"
 		tsConfig=${defaultTsConfig}
