@@ -29,6 +29,7 @@ depend() {
 
 start_pre() {
 	checkpath -d -m 700 /var/log/tailscale
+	checkpath -d -m 700 $directory
 	ln -sf "$basecommand" "$command" || die
 	${command} --cleanup $command_args >>${output_log} 2>>${error_log}
 }
@@ -47,5 +48,4 @@ start() {
 
 stop_post() {
 	${command} --cleanup $command_args >>${output_log} 2>>${error_log}
-	rm "$command" || true
 }
