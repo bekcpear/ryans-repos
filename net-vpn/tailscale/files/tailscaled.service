@@ -15,9 +15,9 @@ Restart=on-failure
 
 RuntimeDirectory=tailscale
 RuntimeDirectoryMode=0755
-StateDirectory=tailscale
+StateDirectory=tailscale/tailscale.d
 StateDirectoryMode=0700
-CacheDirectory=tailscale
+CacheDirectory=tailscale/tailscale.d
 CacheDirectoryMode=0750
 Type=notify
 
