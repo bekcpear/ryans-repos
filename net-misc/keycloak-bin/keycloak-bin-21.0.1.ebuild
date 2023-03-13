@@ -13,16 +13,13 @@ LICENSE="Apache-2.0"
 SLOT="0"
 KEYWORDS="~amd64"
 
-BDEPEND="
+RDEPEND="
 	|| (
 		>=dev-java/openjdk-jre-bin-11
 		>=virtual/jdk-11
 	)
-"
-RDEPEND="
 	acct-user/keycloak
 	acct-group/keycloak
-	$BDEPEND
 "
 
 S="${WORKDIR}/keycloak-$PV"
@@ -63,21 +60,6 @@ src_install() {
 
 	dodoc README.md LICENSE.txt
 
-	./bin/kc.sh tools completion >bash-completion.sh || die
-	local cutLN=$(awk '/^Next time/ {print NR}' bash-completion.sh)
-	if [[ -n $cutLN ]]; then
-		sed -Ei "${cutLN},\$d" bash-completion.sh || die
-		cutLN=
-	fi
-	cutLN=$(awk '/^Changes detected/ {print NR}' bash-completion.sh)
-	if [[ -n $cutLN ]]; then
-		sed -Ei "${cutLN}d" bash-completion.sh || die
-	fi
-	sed -Ei "/^$/d" bash-completion.sh || die
-	sed -Ei '$s/kc.sh/realcomp/;$s/ kc[^[:space:]]*//g;$s/[[:space:]]+realcomp/ kc.sh/' \
-		bash-completion.sh || die
-	newbashcomp bash-completion.sh kc.sh
-
 	newinitd "${FILESDIR}/keycloak.initd" keycloak
 	newconfd "${FILESDIR}/keycloak.confd" keycloak
 
@@ -87,6 +69,47 @@ src_install() {
 
 pkg_preinst() {
 	sed -Ei "s/@EROOT@/${EROOT//\//\\\/}/" "$ED"/usr/bin/kc.sh || die
+
+	# set the newest available java_vm for user keycloak
+	# prevent the system java_vm is set to 8 which causes keycloak a fatal error
+	local jvm=0 selected=0 minver=11
+	local -a available_jvm
+	while read -r _ jvm _; do
+		if (( ${jvm##*-} < $minver )); then
+			continue
+		fi
+		if (( ${jvm##*-} > ${selected##*-} )); then
+			selected=$jvm
+		fi
+	done <<<"$(eselect java-vm list | tail -n +2)"
+	if [[ $selected == 0 ]]; then
+		eerror "No available java_vm for keycloak-bin!"
+	else
+		su -s /bin/sh -c "eselect java-vm set user $selected" - keycloak
+	fi
+	elog "JAVA VM for user: $(su -s /bin/sh -c 'whoami' - keycloak)"
+	su -s /bin/sh -c 'eselect java-vm show' - keycloak
+
+	# install the bash completion script
+	# generate from keycloak to make sure it always satisfies the lastest version
+	local bashcmpp0="${T}/bash-completion.sh"
+	export JAVA_HOME=$(su -s /bin/sh -c "java -XshowSettings:properties -version 2>&1 | grep 'java.home'" - keycloak)
+	JAVA_HOME=${JAVA_HOME#*=}
+	JAVA_HOME=${JAVA_HOME## }
+	"${ED}"/opt/keycloak-bin/bin/kc.sh tools completion >"$bashcmpp0" || die
+	local cutLN=$(awk '/^Next time/ {print NR}' "$bashcmpp0")
+	if [[ -n $cutLN ]]; then
+		sed -Ei "${cutLN},\$d" "$bashcmpp0" || die
+		cutLN=
+	fi
+	cutLN=$(awk '/^Changes detected/ {print NR}' "$bashcmpp0")
+	if [[ -n $cutLN ]]; then
+		sed -Ei "${cutLN}d" "$bashcmpp0" || die
+	fi
+	sed -Ei "/^$/d" "$bashcmpp0" || die
+	sed -Ei '$s/kc.sh/realcomp/;$s/ kc[^[:space:]]*//g;$s/[[:space:]]+realcomp/ kc.sh/' \
+		"$bashcmpp0" || die
+	newbashcomp "$bashcmpp0" kc.sh
 }
 
 pkg_postinst() {
@@ -125,7 +148,7 @@ pkg_config() {
 	# override from the portage's side.
 	if [[ -n $pre_exported_kc_vars ]]; then
 		ewarn "     - ATTENTION!!"
-		ewarn "     - exists pre-exported KC_* env vars when installing this pkg:"
+		ewarn "     - exists pre-exported KC_* env vars that exported when installing this pkg:"
 		while read -r var; do
 			ewarn "     -   $var"
 		done <<<"$pre_exported_kc_vars"
@@ -134,26 +157,7 @@ pkg_config() {
 	elog "  2. build options listed in the '${EROOT}/etc/keycloak/keycloak.conf' file"
 	echo
 	chown -R keycloak:keycloak "$EROOT"/opt/keycloak-bin/lib
-	eval "su -p -c '\"${EROOT}\"/opt/keycloak-bin/bin/kc.sh build' keycloak"
-	eval "su -p -c '\"${EROOT}\"/opt/keycloak-bin/bin/kc.sh show-config' keycloak"
+	su -p -c "'${EROOT}'/opt/keycloak-bin/bin/kc.sh build" keycloak
+	su -p -c "'${EROOT}'/opt/keycloak-bin/bin/kc.sh show-config" keycloak
 	echo
-
-	# set the newest available java_vm for user keycloak
-	local jvm=0 selected=0 minver=11
-	local -a available_jvm
-	while read -r _ jvm _; do
-		if (( ${jvm##*-} < $minver )); then
-			continue
-		fi
-		if (( ${jvm##*-} > ${selected##*-} )); then
-			selected=$jvm
-		fi
-	done <<<"$(eselect java-vm list | tail -n +2)"
-	if [[ $selected == 0 ]]; then
-		eerror "No available java_vm for keycloak-bin!"
-	else
-		eval "su -p -c 'eselect java-vm set user $selected' keycloak"
-	fi
-	elog "JAVA VM for user: keycloak"
-	eval "su -p -c 'eselect java-vm show' keycloak"
 }
