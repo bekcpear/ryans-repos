@@ -22,6 +22,7 @@ command_background=true
 pidfile="/run/tailscaled${instanceName:+.}${instanceName}.pid"
 output_log="/var/log/tailscale/tailscale${instanceName:+.}${instanceName}.log"
 error_log="$output_log"
+export TS_LOGS_DIR="$directory"
 
 depend() {
 	need net
@@ -42,7 +43,6 @@ start() {
 		tsConfig=${defaultTsConfig}
 	fi
 	. "$defaultTsConfig"
-	export TS_LOGS_DIR="$directory"
 	default_start
 
 }
