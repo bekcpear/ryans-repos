@@ -6,6 +6,8 @@ instanceName=${SVCNAME#*.}
 if [ x"$instanceName" = x"$SVCNAME" ]; then
 	unset instanceName
 fi
+interfaceName=${instanceName:0:11}
+: ${interfaceName:=default}
 defaultTsConfig="/etc/default/tailscaled"
 
 name="tailscaled"
@@ -16,7 +18,7 @@ command="${directory}/bin.tailscaled"
 command_args="
 	-statedir /var/lib/tailscale/tailscaled.d${instanceName:+.}${instanceName}
 	-socket /run/tailscale/tailscaled.sock${instanceName:+.}${instanceName}
-	${instanceName:+-tun tsi2}${instanceName:0:11}
+	-tun tsi2${interfaceName}
 	-port ${PORT:-0} ${FLAGS}"
 command_background=true
 pidfile="/run/tailscaled${instanceName:+.}${instanceName}.pid"

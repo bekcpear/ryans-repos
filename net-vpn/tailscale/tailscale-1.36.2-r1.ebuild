@@ -83,10 +83,14 @@ pkg_preinst() {
 pkg_postinst() {
 	tmpfiles_process ${PN}.conf
 
-	# move the previous default state and log files to new default directory
+	if [[ -f "$EROOT"/var/lib/tailscale/tailscaled.state ]] && \
+		[[ -d "$EROOT"/var/lib/tailscale/files ]]; then
+		ewarn "Existing a tailscale state in the default path '"$EROOT"/var/lib/tailscale',"
+		ewarn "while the service file of this package use the sub-directory 'tailscaled.d'"
+		ewarn "as it's default path, please mv/cp the already existing state files to the"
+		ewarn "new path to keep your current tailscale state working with this new package."
+		ewarn "  # mv ${EROOT}/var/lib/tailscale/{tailscaled.state,tailscaled.d/}"
+		ewarn "  # mv ${EROOT}/var/lib/tailscale/{files,tailscaled.d/}"
+	fi
 	mkdir -p "${EROOT}"/var/lib/tailscale/tailscaled.d || die
-	find "$EROOT"/var/lib/tailscale -maxdepth 1 \
-		\( -name 'tailscaled.log*' -or -name 'tailscaled.state*' \
-		-or -name 'derpmap.*' -or -name certs -or -name files \) \
-		-exec mv '{}' "$EROOT"/var/lib/tailscale/tailscaled.d/ \; || die
 }
