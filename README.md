@@ -48,7 +48,8 @@ eselect repository enable ryans
 --------------------------------------------|-------------------|--------|------------------------------------------------|--------------------
  media-sound/qqmusic-bin                    | 1.1.5             |        | https://y.qq.com/download/download.html        | Tencent QQ Music for Linux.
 --------------------------------------------|-------------------|--------|------------------------------------------------|--------------------
- net-im/dendrite                            | 0.11.0            |        | https://github.com/matrix-org/dendrite         | Dendrite is a second-generation Matrix homeserver written in Go!
+ net-im/dendrite                            | 0.11.1            |        | https://github.com/matrix-org/dendrite         | Dendrite is a second-generation Matrix homeserver written in Go!
+                                            | 0.12.0            |        |                                                |
    acct-group/dendrite                      | 0                 | RD     |                                                | Group for the net-im/dendrite service
    acct-user/dendrite                       | 0                 | RD     |                                                | User for the net-im/dendrite service
 --------------------------------------------|-------------------|--------|------------------------------------------------|--------------------
