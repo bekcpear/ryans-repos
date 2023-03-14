@@ -87,8 +87,9 @@ pkg_postinst() {
 		[[ -d "$EROOT"/var/lib/tailscale/files ]]; then
 		ewarn "Existing a tailscale state in the default path '"$EROOT"/var/lib/tailscale',"
 		ewarn "while the service file of this package use the sub-directory 'tailscaled.d'"
-		ewarn "as it's default path, please mv/cp the already existing state files to the"
-		ewarn "new path to keep your current tailscale state working with this new package."
+		ewarn "as it's default path, please according to your situation to move the already"
+		ewarn "existing state files to the new path to keep your previous tailscale state"
+		ewarn "working with this new package."
 		ewarn "  # mv ${EROOT}/var/lib/tailscale/{tailscaled.state,tailscaled.d/}"
 		ewarn "  # mv ${EROOT}/var/lib/tailscale/{files,tailscaled.d/}"
 	fi
