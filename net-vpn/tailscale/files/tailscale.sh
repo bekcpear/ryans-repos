@@ -75,5 +75,5 @@ if [[ ${#sockfiles[@]} -gt 1 ]]; then
 	fi
 fi
 
-set -- @EROOT@/usr/libexec/tailscale -socket="$selectedSockfile" "${args[@]}"
+set -- @EPREFIX@/usr/libexec/tailscale -socket="$selectedSockfile" "${args[@]}"
 exec "$@"

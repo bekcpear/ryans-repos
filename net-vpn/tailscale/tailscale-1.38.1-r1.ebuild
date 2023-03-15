@@ -64,8 +64,9 @@ src_install() {
 	# conf for fix, should be removed later
 	exeinto /opt/bin
 	newexe "${FILESDIR}"/fix-mis-configured-path.sh tailscaled.misconfiged.fix.sh
-	systemd_install_serviced "${FILESDIR}"/tailscaled.service.fix tailscaled
-	systemd_install_serviced "${FILESDIR}"/tailscaled.service.fix tailscaled@
+	sed -i '/ExecStartPre=/iExecStartPre=/opt/bin/tailscaled.misconfiged.fix.sh' \
+		"${D}$(systemd_get_systemunitdir)"/tailscaled.service \
+		"${D}$(systemd_get_systemunitdir)"/tailscaled@.service
 
 	newinitd "${FILESDIR}"/${PN}d.initd ${PN}d
 
@@ -84,8 +85,8 @@ src_install() {
 }
 
 pkg_preinst() {
-	sed -i "s#@EROOT@#$EROOT#" "$ED"/usr/bin/tailscale || die
-	sed -i "s#@EROOT@#$EROOT#" "$ED"/opt/bin/tailscaled.misconfiged.fix.sh || die
+	sed -i "s#@EPREFIX@#$EPREFIX#" "$ED"/usr/bin/tailscale || die
+	sed -i "s#@EPREFIX@#$EPREFIX#" "$ED"/opt/bin/tailscaled.misconfiged.fix.sh || die
 }
 
 pkg_postinst() {

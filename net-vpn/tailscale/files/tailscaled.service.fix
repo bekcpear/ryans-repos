@@ -1,2 +1,0 @@
-[Service]
-ExecStartPre=/opt/bin/tailscaled.misconfiged.fix.sh
