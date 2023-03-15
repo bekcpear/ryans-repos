@@ -58,8 +58,15 @@ src_install() {
 
 	newtmpfiles "${FILESDIR}"/${PN}.tmpfiles ${PN}.conf
 
-	systemd_dounit "${FILESDIR}"/tailscaled.service
+	systemd_dounit cmd/tailscaled/tailscaled.service
 	systemd_newunit "${FILESDIR}"/tailscaled-at.service tailscaled@.service
+
+	# conf for fix, should be removed later
+	exeinto /opt/bin
+	newexe "${FILESDIR}"/fix-mis-configured-path.sh tailscaled.misconfiged.fix.sh
+	sed -i '/ExecStartPre=/iExecStartPre=/opt/bin/tailscaled.misconfiged.fix.sh' \
+		"${D}$(systemd_get_systemunitdir)"/tailscaled.service \
+		"${D}$(systemd_get_systemunitdir)"/tailscaled@.service
 
 	newinitd "${FILESDIR}"/${PN}d.initd ${PN}d
 
@@ -78,21 +85,12 @@ src_install() {
 }
 
 pkg_preinst() {
-	sed -i "s#@EROOT@#$EROOT#" "$ED"/usr/bin/tailscale || die
+	sed -i "s#@EPREFIX@#$EPREFIX#" "$ED"/usr/bin/tailscale || die
+	sed -i "s#@EPREFIX@#$EPREFIX#" "$ED"/opt/bin/tailscaled.misconfiged.fix.sh || die
 }
 
 pkg_postinst() {
 	tmpfiles_process ${PN}.conf
 
-	if [[ -f "$EROOT"/var/lib/tailscale/tailscaled.state ]] && \
-		[[ -d "$EROOT"/var/lib/tailscale/files ]]; then
-		ewarn "Existing a tailscale state in the default path '"$EROOT"/var/lib/tailscale',"
-		ewarn "while the service file of this package use the sub-directory 'tailscaled.d'"
-		ewarn "as it's default path, please according to your situation to move the already"
-		ewarn "existing state files to the new path to keep your previous tailscale state"
-		ewarn "working with this new package."
-		ewarn "  # mv ${EROOT}/var/lib/tailscale/{tailscaled.state,tailscaled.d/}"
-		ewarn "  # mv ${EROOT}/var/lib/tailscale/{files,tailscaled.d/}"
-	fi
-	mkdir -p "${EROOT}"/var/lib/tailscale/tailscaled.d || die
+	ewarn "multiple instances support still exists problems, such as iptables/nftables rules."
 }

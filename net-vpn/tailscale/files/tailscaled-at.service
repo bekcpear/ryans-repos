@@ -5,20 +5,20 @@ Wants=network-pre.target
 After=network-pre.target NetworkManager.service systemd-resolved.service
 
 [Service]
-# due to the interface name limits, the length of %i should less than 11
+# due to the interface name limits, the length of %i should less than or equal to 11
 EnvironmentFile=/etc/default/tailscaled.%i
-Environment=TS_LOGS_DIR=/var/lib/tailscale/tailscaled.d.%i
-ExecStartPre=/usr/sbin/tailscaled -cleanup -statedir=/var/lib/tailscale/tailscaled.d.%i -socket=/run/tailscale/tailscaled.sock.%i -tun=tsi2%i
-ExecStart=/usr/sbin/tailscaled -statedir=/var/lib/tailscale/tailscaled.d.%i -socket=/run/tailscale/tailscaled.sock.%i -tun=tsi2%i -port=${PORT} $FLAGS
-ExecStopPost=/usr/sbin/tailscaled -cleanup -statedir=/var/lib/tailscale/tailscaled.d.%i -socket=/run/tailscale/tailscaled.sock.%i -tun=tsi2%i
+Environment=TS_LOGS_DIR=/var/lib/tailscale/ex-instances.d/%i
+ExecStartPre=/usr/sbin/tailscaled -cleanup -statedir=/var/lib/tailscale/ex-instances.d/%i -socket=/run/tailscale/tailscaled.sock.%i -tun=tsi2%i
+ExecStart=/usr/sbin/tailscaled -statedir=/var/lib/tailscale/ex-instances.d/%i -socket=/run/tailscale/tailscaled.sock.%i -tun=tsi2%i -port=${PORT} $FLAGS
+ExecStopPost=/usr/sbin/tailscaled -cleanup -statedir=/var/lib/tailscale/ex-instances.d/%i -socket=/run/tailscale/tailscaled.sock.%i -tun=tsi2%i
 
 Restart=on-failure
 
 RuntimeDirectory=tailscale
 RuntimeDirectoryMode=0755
-StateDirectory=tailscale/tailscale.d.%i
+StateDirectory=tailscale/ex-instances.d/%i
 StateDirectoryMode=0700
-CacheDirectory=tailscale/tailscale.d.%i
+CacheDirectory=tailscale/ex-instances.d/%i
 CacheDirectoryMode=0750
 Type=notify
 
