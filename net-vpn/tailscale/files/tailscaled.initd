@@ -6,7 +6,7 @@ instanceName=${SVCNAME#*.}
 if [ x"$instanceName" = x"$SVCNAME" ]; then
 	unset instanceName
 fi
-interfaceName=${instanceName:0:11}
+interfaceName=$(expr substr "$instanceName" 1 11)
 : ${interfaceName:=default}
 defaultTsConfig="/etc/default/tailscaled"
 
