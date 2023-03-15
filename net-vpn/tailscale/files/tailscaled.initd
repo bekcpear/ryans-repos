@@ -2,21 +2,23 @@
 # Copyright 2023 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
+basecommand="/usr/sbin/tailscaled"
 instanceName=${SVCNAME#*.}
 if [ x"$instanceName" = x"$SVCNAME" ]; then
 	unset instanceName
+	directory="/var/lib/tailscale"
+	command="$basecommand"
 else
 	interfaceName=$(expr substr "$instanceName" 1 11)
+	directory="/var/lib/tailscale/ex-instances.d/${instanceName}"
+	command="${directory}/bin.tailscaled"
 fi
 defaultTsConfig="/etc/default/tailscaled"
 
 name="tailscaled"
 description="Tailscale node agent"
-basecommand="/usr/sbin/tailscaled"
-directory="/var/lib/tailscale/tailscaled.d${instanceName:+.}${instanceName}"
-command="${directory}/bin.tailscaled"
 command_args="
-	-statedir /var/lib/tailscale/tailscaled.d${instanceName:+.}${instanceName}
+	-statedir $directory
 	-socket /run/tailscale/tailscaled.sock${instanceName:+.}${instanceName}
 	${interfaceName:+-tun tsi2}${interfaceName}
 	-port ${PORT:-0} ${FLAGS}"
@@ -33,7 +35,11 @@ depend() {
 start_pre() {
 	checkpath -d -m 700 /var/log/tailscale
 	checkpath -d -m 700 $directory
-	ln -sf "$basecommand" "$command" || die
+
+	/opt/bin/tailscaled.misconfiged.fix.sh
+	if [ x"$instanceName" != x ]; then
+		ln -sf "$basecommand" "$command" || exit 1
+	fi
 	${command} --cleanup $command_args >>${output_log} 2>>${error_log}
 }
 
