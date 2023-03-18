@@ -25,11 +25,11 @@ eselect repository enable ryans
 --------------------------------------------|-------------------|--------|------------------------------------------------|--------------------
  app-i18n/fcitx-meta                        | 5.0.12            |        | https://fcitx-im.org                           | Merge this to pull in Fcitx packages
    app-i18n/fcitx-bamboo                    | 1.0.4             | RD     | https://github.com/fcitx/fcitx5-bamboo         | Typing Vietnamese by Bamboo core engine for Fcitx5
-     app-i18n/fcitx                         | 5.0.22            |  D, RD | https://fcitx-im.org/                          | Fcitx (Flexible Context-aware Input Tool with eXtension) input method framework
+     app-i18n/fcitx                         | 5.0.23            |  D, RD | https://fcitx-im.org/                          | Fcitx (Flexible Context-aware Input Tool with eXtension) input method framework
        x11-libs/xcb-imdkit                  | 1.0.5             |  D, RD | https://github.com/fcitx/xcb-imdkit            | Input method development support for xcb
    app-i18n/fcitx-configtool                | 5.0.17            | RD     | https://fcitx-im.org/                          | GUI configuration tool for Fcitx
      app-i18n/fcitx-qt                      | 5.0.17            |  D, RD | https://fcitx-im.org/                          | Qt library and IM module for fcitx5
-   app-i18n/fcitx-gtk                       | 5.0.22            | RD     | https://fcitx-im.org/                          | GTK IM module and glib based dbus client library for Fcitx
+   app-i18n/fcitx-gtk                       | 5.0.23            | RD     | https://fcitx-im.org/                          | GTK IM module and glib based dbus client library for Fcitx
    app-i18n/fcitx-rime                      | 5.0.16            | RD     | https://fcitx-im.org/                          | Chinese RIME input methods for Fcitx
 --------------------------------------------|-------------------|--------|------------------------------------------------|--------------------
  app-misc/razergenie                        | 9999              |        | https://github.com/z3ntu/RazerGenie            | Razer devices configurator
@@ -81,7 +81,7 @@ eselect repository enable ryans
  net-vpn/headscale                          | 0.20.0            |        | https://github.com/juanfont/headscale          | An open source, self-hosted implementation of the Tailscale control server
 --------------------------------------------|-------------------|--------|------------------------------------------------|--------------------
  net-vpn/tailscale                          | 1.36.2-r1         |        | https://tailscale.com                          | Tailscale VPN client and CLI tools
-                                            | 1.38.1            |        |                                                |
+                                            | 1.38.1-r1         |        |                                                |
    acct-group/derper                        | 0                 | RD     |                                                | Group for the DERP service of net-vpn/tailscale
    acct-user/derper                         | 0                 | RD     |                                                | User for the DERP service of net-vpn/tailscale
 --------------------------------------------|-------------------|--------|------------------------------------------------|--------------------
