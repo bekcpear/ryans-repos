@@ -67,7 +67,7 @@ eselect repository enable ryans
    acct-user/matterbridge                   | 0                 | RD     |                                                | User for the net-misc/matterbridge{,-bin} service
 --------------------------------------------|-------------------|--------|------------------------------------------------|--------------------
  net-proxy/v2ray-core                       | 4.45.2-r1         |        | https://github.com/v2fly/v2ray-core            | A platform for building proxies to bypass network restrictions.
-                                            | 5.4.0             |        |                                                |
+                                            | 5.4.1             |        |                                                |
    dev-libs/v2ray-domain-list-community     | 5.20230216031305  | RD     | https://github.com/v2fly/domain-list-community | Community managed domain list for V2Ray.
                                             | 9999              |        |                                                |
    dev-libs/v2ray-domain-list-community-bin | 5.20230216031305  | RD     | https://github.com/v2fly/domain-list-community | Community managed domain list for V2Ray.
@@ -78,7 +78,7 @@ eselect repository enable ryans
  net-proxy/v2ray-core-bin                   | 4.45.2            |        | https://github.com/v2fly/v2ray-core            | A platform for building proxies to bypass network restrictions.
                                             | 5.2.1             |        |                                                |
 --------------------------------------------|-------------------|--------|------------------------------------------------|--------------------
- net-vpn/headscale                          | 0.20.0            |        | https://github.com/juanfont/headscale          | An open source, self-hosted implementation of the Tailscale control server
+ net-vpn/headscale                          | 0.21.0            |        | https://github.com/juanfont/headscale          | An open source, self-hosted implementation of the Tailscale control server
 --------------------------------------------|-------------------|--------|------------------------------------------------|--------------------
  net-vpn/tailscale                          | 1.36.2-r1         |        | https://tailscale.com                          | Tailscale VPN client and CLI tools
                                             | 1.38.1-r1         |        |                                                |
