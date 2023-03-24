@@ -220,7 +220,7 @@ GO_CMD=go
 # @DESCRIPTION:
 # The max line number of go.sum which can be used to set a local proxy,
 # default to 100. This variable should be set before the eclass inherited.
-: ${GO_SUM_LIST_MAX:=100}
+: "${GO_SUM_LIST_MAX:=100}"
 
 # @ECLASS_VARIABLE: GO_SUM_LIST_SRC_URI
 # @DESCRIPTION:

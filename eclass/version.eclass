@@ -34,8 +34,8 @@ _version_compare_ver() {
 	local v0=${1} v1=${2} is_num=1 res=
 	if [[ ! ${v0} =~ ^[0-9]+$ ]] || [[ ! ${v1} =~ ^[0-9]+$ ]]; then
 		is_num=0
-		: ${v0/-1/\\/}
-		: ${v1/-1/\\/}
+		: "${v0/-1/\\/}"
+		: "${v1/-1/\\/}"
 	fi
 	if [[ ${is_num} == 1 ]]; then
 		if (( ${v0} > ${v1} )); then
