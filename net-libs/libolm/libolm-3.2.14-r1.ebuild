@@ -17,7 +17,9 @@ IUSE="static test"
 RESTRICT="!test? ( test )"
 
 DEPEND=""
-RDEPEND="${DEPEND}"
+RDEPEND="${DEPEND}
+	!dev-libs/olm
+"
 BDEPEND=""
 
 S="${WORKDIR}/olm-${PV}"
