@@ -24,7 +24,7 @@ DEPEND="
 	e2ee? (
 		dev-qt/qtsql:5
 		>=dev-libs/openssl-1.1.0
-		>=net-libs/libolm-3.2.5
+		>=dev-libs/olm-3.2.5
 	)
 "
 RDEPEND="${DEPEND}"
