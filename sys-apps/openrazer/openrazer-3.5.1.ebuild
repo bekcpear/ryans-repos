@@ -4,7 +4,7 @@
 EAPI=8
 
 DISTUTILS_USE_PEP517=setuptools
-PYTHON_COMPAT=( python3_{8,9,10,11} )
+PYTHON_COMPAT=( python3_{10,11} )
 inherit desktop distutils-r1 systemd udev xdg xdg-utils
 
 DESCRIPTION="A user-space daemon that allows you to manage your Razer peripherals."
