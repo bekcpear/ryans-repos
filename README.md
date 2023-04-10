@@ -20,7 +20,9 @@ eselect repository enable ryans
 --------------------------------------------|-------------------|--------|------------------------------------------------|--------------------
  app-crypt/keybase                          | 6.0.2-r1          |        | https://keybase.io/                            | Keybase command-line utility, and local service
    dev-lang/go                              | 1.19.7            | BD     | https://go.dev                                 | A concurrent garbage collected and typesafe programming language
+                                            | 1.19.8            |        |                                                |
                                             | 1.20.2            |        |                                                |
+                                            | 1.20.3            |        |                                                |
      app-eselect/eselect-go                 | 20230312          | RD     | https://github.com/bekcpear/eselect-go         | Manages multiple Go versions
 --------------------------------------------|-------------------|--------|------------------------------------------------|--------------------
  app-i18n/fcitx-meta                        | 5.0.12            |        | https://fcitx-im.org                           | Merge this to pull in Fcitx packages
@@ -79,8 +81,9 @@ eselect repository enable ryans
                                             | 5.2.1             |        |                                                |
 --------------------------------------------|-------------------|--------|------------------------------------------------|--------------------
  net-vpn/headscale                          | 0.21.0            |        | https://github.com/juanfont/headscale          | An open source, self-hosted implementation of the Tailscale control server
+                                            | 0.22.0_alpha2     |        |                                                |
 --------------------------------------------|-------------------|--------|------------------------------------------------|--------------------
- net-vpn/tailscale                          | 1.38.3            |        | https://tailscale.com                          | Tailscale VPN client and CLI tools
+ net-vpn/tailscale                          | 1.38.4            |        | https://tailscale.com                          | Tailscale VPN client and CLI tools
    acct-group/derper                        | 0                 | RD     |                                                | Group for the DERP service of net-vpn/tailscale
    acct-user/derper                         | 0                 | RD     |                                                | User for the DERP service of net-vpn/tailscale
 --------------------------------------------|-------------------|--------|------------------------------------------------|--------------------
