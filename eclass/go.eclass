@@ -117,6 +117,8 @@ BDEPEND=">=dev-lang/go-1.16"
 
 EXPORT_FUNCTIONS src_unpack src_compile src_install
 
+IUSE="pie"
+
 # @ECLASS_VARIABLE: GOFLAGS
 # @DESCRIPTION:
 # the default GOFLAGS.
@@ -429,6 +431,28 @@ go_set_go_cmd() {
 	done
 }
 
+# @FUNCTION: go_set_pie
+# @DESCRIPTION:
+# Setup the buildmode to pie when pie USE enabled and supported.
+go_set_pie() {
+	debug-print-function "${FUNCNAME}" "${@}"
+
+	if ! use pie; then
+		return 0
+	fi
+
+	# TODO: cross compile?
+	local platform="$($GO_CMD env GOOS)/$($GO_CMD env GOARCH)"
+	case "$platform" in
+		linux/386|linux/amd64|linux/arm|linux/arm64|linux/ppc64le|linux/riscv64|linux/s390x|android/amd64|android/arm|android/arm64|android/386|freebsd/amd64|darwin/amd64|darwin/arm64)
+			GOFLAGS="-buildmode=pie ${GOFLAGS}"
+			;;
+		*)
+			ewarn "PIE: unsupported platform '$platform', ignore the 'pie' USE flag."
+			;;
+	esac
+}
+
 # @FUNCTION: go_setup_proxy
 # @DESCRIPTION:
 # Setup the local proxy for downloading go modules.
@@ -530,6 +554,7 @@ go_src_unpack() {
 	debug-print-function "${FUNCNAME}" "${@}"
 
 	go_set_go_cmd
+	go_set_pie
 
 	if [[ -n ${GO_SUM_LIST_SRC_URI} ]]; then
 		# prepare local proxy
