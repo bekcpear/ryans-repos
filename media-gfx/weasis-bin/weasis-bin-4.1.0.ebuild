@@ -7,12 +7,11 @@ inherit desktop unpacker xdg
 
 DESCRIPTION="A DICOM viewer available as a desktop application or as a web-based application."
 HOMEPAGE="https://nroduit.github.io/ https://github.com/nroduit/Weasis"
-SRC_URI="amd64? ( https://github.com/nroduit/Weasis/releases/download/v${PV}/${P/-bin-/_}-1_amd64.deb -> ${P}_amd64.deb )
-arm64? ( https://github.com/nroduit/Weasis/releases/download/v${PV}/${P/-bin-/_}-1_arm64.deb -> ${P}_arm64.deb )"
+SRC_URI="amd64? ( https://github.com/nroduit/Weasis/releases/download/v${PV}/${P/-bin-/_}-1_amd64.deb -> ${P}_amd64.deb )"
 
 LICENSE="EPL-2.0"
 SLOT="0"
-KEYWORDS="~amd64 ~arm64"
+KEYWORDS="-* ~amd64"
 
 RDEPEND="
 	>=virtual/jre-1.8
