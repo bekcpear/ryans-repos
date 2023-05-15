@@ -19,10 +19,10 @@ eselect repository enable ryans
  app-admin/z16                              | 9999              |        | https://github.com/bekcpear/z16                | A bash script project that aims to maintain dotfiles.
 --------------------------------------------|-------------------|--------|------------------------------------------------|--------------------
  app-crypt/keybase                          | 6.0.2-r1          |        | https://keybase.io/                            | Keybase command-line utility, and local service
-   dev-lang/go                              | 1.19.7            | BD     | https://go.dev                                 | A concurrent garbage collected and typesafe programming language
-                                            | 1.19.8            |        |                                                |
-                                            | 1.20.2            |        |                                                |
+   dev-lang/go                              | 1.19.8            | BD     | https://go.dev                                 | A concurrent garbage collected and typesafe programming language
+                                            | 1.19.9            |        |                                                |
                                             | 1.20.3            |        |                                                |
+                                            | 1.20.4            |        |                                                |
      app-eselect/eselect-go                 | 20230312          | RD     | https://github.com/bekcpear/eselect-go         | Manages multiple Go versions
 --------------------------------------------|-------------------|--------|------------------------------------------------|--------------------
  app-i18n/fcitx-meta                        | 5.0.12            |        | https://fcitx-im.org                           | Merge this to pull in Fcitx packages
@@ -36,17 +36,17 @@ eselect repository enable ryans
 --------------------------------------------|-------------------|--------|------------------------------------------------|--------------------
  app-misc/razergenie                        | 9999              |        | https://github.com/z3ntu/RazerGenie            | Razer devices configurator
    dev-libs/libopenrazer                    | 9999              |  D, RD | https://github.com/z3ntu/libopenrazer          | Libraries for razergenie.
-   sys-apps/openrazer                       | 3.5.1             | RD     | https://github.com/openrazer/openrazer         | A user-space daemon that allows you to manage your Razer peripherals.
-     sys-apps/openrazer-driver              | 3.5.1             | RD     | https://github.com/openrazer/openrazer         | A collection of kernel drivers for Razer devices.
+   sys-apps/openrazer                       | 3.6.1             | RD     | https://github.com/openrazer/openrazer         | A user-space daemon that allows you to manage your Razer peripherals.
+     sys-apps/openrazer-driver              | 3.6.1             | RD     | https://github.com/openrazer/openrazer         | A collection of kernel drivers for Razer devices.
 --------------------------------------------|-------------------|--------|------------------------------------------------|--------------------
- dev-util/act                               | 0.2.43            |        | https://github.com/nektos/act                  | Run your GitHub Actions locally
+ dev-util/act                               | 0.2.45            |        | https://github.com/nektos/act                  | Run your GitHub Actions locally
 --------------------------------------------|-------------------|--------|------------------------------------------------|--------------------
  dev-util/v2ray-geoip-generator             | 9999              |        | https://github.com/v2fly/geoip                 | GeoIP generator for V2Ray.
 --------------------------------------------|-------------------|--------|------------------------------------------------|--------------------
  kde-misc/krunner-pass                      | 9999              |        | https://github.com/bekcpear/krunner-pass       | (Modified type instead version) Integrates krunner with pass
 --------------------------------------------|-------------------|--------|------------------------------------------------|--------------------
- media-gfx/weasis-bin                       | 4.0.2             |        | https://nroduit.github.io/                     | A DICOM viewer available as a desktop application or as a web-based application.
-                                            | 4.0.3             |        |                                                |
+ media-gfx/weasis-bin                       | 4.0.3             |        | https://nroduit.github.io/                     | A DICOM viewer available as a desktop application or as a web-based application.
+                                            | 4.1.0             |        |                                                |
 --------------------------------------------|-------------------|--------|------------------------------------------------|--------------------
  media-sound/qqmusic-bin                    | 1.1.5             |        | https://y.qq.com/download/download.html        | Tencent QQ Music for Linux.
 --------------------------------------------|-------------------|--------|------------------------------------------------|--------------------
@@ -81,15 +81,17 @@ eselect repository enable ryans
                                             | 5.2.1             |        |                                                |
 --------------------------------------------|-------------------|--------|------------------------------------------------|--------------------
  net-vpn/headscale                          | 0.21.0            |        | https://github.com/juanfont/headscale          | An open source, self-hosted implementation of the Tailscale control server
-                                            | 0.22.0_alpha2     |        |                                                |
+                                            | 0.22.3            |        |                                                |
 --------------------------------------------|-------------------|--------|------------------------------------------------|--------------------
  net-vpn/tailscale                          | 1.38.4            |        | https://tailscale.com                          | Tailscale VPN client and CLI tools
+                                            | 1.40.1            |        |                                                |
    acct-group/derper                        | 0                 | RD     |                                                | Group for the DERP service of net-vpn/tailscale
    acct-user/derper                         | 0                 | RD     |                                                | User for the DERP service of net-vpn/tailscale
 --------------------------------------------|-------------------|--------|------------------------------------------------|--------------------
  sys-apps/duf                               | 0.8.1             |        | https://github.com/muesli/duf                  | Disk Usage/Free Utility - a better 'df' alternative
 --------------------------------------------|-------------------|--------|------------------------------------------------|--------------------
  www-apps/bark-server                       | 2.1.4             |        | https://github.com/Finb/bark-server            | A server that allows to get/push customized notifications
+                                            | 2.1.5             |        |                                                |
    acct-group/bark-server                   | 0                 | RD     |                                                | Group for the www-apps/bark-server service
    acct-user/bark-server                    | 0                 | RD     |                                                | User for the www-apps/bark-server service
 --------------------------------------------|-------------------|--------|------------------------------------------------|--------------------
