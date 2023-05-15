@@ -441,16 +441,28 @@ go_set_pie() {
 		return 0
 	fi
 
-	# TODO: cross compile?
-	local platform="$($GO_CMD env GOOS)/$($GO_CMD env GOARCH)"
-	case "$platform" in
-		linux/386|linux/amd64|linux/arm|linux/arm64|linux/ppc64le|linux/riscv64|linux/s390x|android/amd64|android/arm|android/arm64|android/386|freebsd/amd64|darwin/amd64|darwin/arm64)
-			GOFLAGS="-buildmode=pie ${GOFLAGS}"
-			;;
-		*)
-			ewarn "PIE: unsupported platform '$platform', ignore the 'pie' USE flag."
-			;;
-	esac
+	local pie_supported=0 supported_platform="" target_platform=""
+	target_platform="$($GO_CMD env GOOS)/$($GO_CMD env GOARCH)"
+	local supported_platforms=(
+		"linux/386" "linux/amd64" "linux/arm" "linux/arm64" "linux/ppc64le" "linux/riscv64" "linux/s390x"
+		"android/amd64" "android/arm" "android/arm64" "android/386"
+		"freebsd/amd64"
+		"darwin/amd64" "darwin/arm64"
+		"ios/amd64" "ios/arm64"
+		"aix/ppc64"
+		"windows/386" "windows/amd64" "windows/arm" "windows/arm64"
+	)
+	for supported_platform in "${supported_platforms[@]}"; do
+		if [[ $supported_platform == "$target_platform" ]]; then
+			pie_supported=1
+			break
+		fi
+	done
+	if [[ $pie_supported == 1 ]]; then
+		GOFLAGS="-buildmode=pie ${GOFLAGS}"
+	else
+		eerror "PIE: unsupported platform '${target_platform}', ignore the 'pie' USE flag!"
+	fi
 }
 
 # @FUNCTION: go_setup_proxy
