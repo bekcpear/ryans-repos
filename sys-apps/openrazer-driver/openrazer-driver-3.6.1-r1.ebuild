@@ -54,7 +54,7 @@ pkg_postinst() {
 		else
 			local i old
 			local -a loaded_modules
-			local -a my_modules=( "${MY_MODLIST[@]%(*}" )
+			local -a my_modules=( "${MY_MODLIST[@]%=*}" )
 			for (( i = 0; i < ${#my_modules[@]}; ++i )); do
 				if [[ -f /sys/module/${my_modules[i]}/version ]]; then
 					old="$(< /sys/module/${my_modules[i]}/version)"
