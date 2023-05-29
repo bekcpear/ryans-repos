@@ -38,6 +38,7 @@ eselect repository enable ryans
    dev-libs/libopenrazer                    | 9999              |  D, RD | https://github.com/z3ntu/libopenrazer          | Libraries for razergenie.
    sys-apps/openrazer                       | 3.6.1             | RD     | https://github.com/openrazer/openrazer         | A user-space daemon that allows you to manage your Razer peripherals.
      sys-apps/openrazer-driver              | 3.6.1             | RD     | https://github.com/openrazer/openrazer         | A collection of kernel drivers for Razer devices.
+                                            | 3.6.1-r1          |        |                                                |
 --------------------------------------------|-------------------|--------|------------------------------------------------|--------------------
  dev-util/act                               | 0.2.45            |        | https://github.com/nektos/act                  | Run your GitHub Actions locally
 --------------------------------------------|-------------------|--------|------------------------------------------------|--------------------
@@ -45,8 +46,7 @@ eselect repository enable ryans
 --------------------------------------------|-------------------|--------|------------------------------------------------|--------------------
  kde-misc/krunner-pass                      | 9999              |        | https://github.com/bekcpear/krunner-pass       | (Modified type instead version) Integrates krunner with pass
 --------------------------------------------|-------------------|--------|------------------------------------------------|--------------------
- media-gfx/weasis-bin                       | 4.0.3             |        | https://nroduit.github.io/                     | A DICOM viewer available as a desktop application or as a web-based application.
-                                            | 4.1.0             |        |                                                |
+ media-gfx/weasis-bin                       | 4.1.1             |        | https://nroduit.github.io/                     | A DICOM viewer available as a desktop application or as a web-based application.
 --------------------------------------------|-------------------|--------|------------------------------------------------|--------------------
  media-sound/qqmusic-bin                    | 1.1.5             |        | https://y.qq.com/download/download.html        | Tencent QQ Music for Linux.
 --------------------------------------------|-------------------|--------|------------------------------------------------|--------------------
@@ -69,7 +69,7 @@ eselect repository enable ryans
    acct-user/matterbridge                   | 0                 | RD     |                                                | User for the net-misc/matterbridge{,-bin} service
 --------------------------------------------|-------------------|--------|------------------------------------------------|--------------------
  net-proxy/v2ray-core                       | 4.45.2-r1         |        | https://github.com/v2fly/v2ray-core            | A platform for building proxies to bypass network restrictions.
-                                            | 5.4.1             |        |                                                |
+                                            | 5.6.0             |        |                                                |
    dev-libs/v2ray-domain-list-community     | 5.20230515070747  | RD     | https://github.com/v2fly/domain-list-community | Community managed domain list for V2Ray.
                                             | 9999              |        |                                                |
    dev-libs/v2ray-domain-list-community-bin | 5.20230515070747  | RD     | https://github.com/v2fly/domain-list-community | Community managed domain list for V2Ray.
@@ -84,7 +84,7 @@ eselect repository enable ryans
                                             | 0.22.3            |        |                                                |
 --------------------------------------------|-------------------|--------|------------------------------------------------|--------------------
  net-vpn/tailscale                          | 1.38.4            |        | https://tailscale.com                          | Tailscale VPN client and CLI tools
-                                            | 1.40.1            |        |                                                |
+                                            | 1.42.0            |        |                                                |
    acct-group/derper                        | 0                 | RD     |                                                | Group for the DERP service of net-vpn/tailscale
    acct-user/derper                         | 0                 | RD     |                                                | User for the DERP service of net-vpn/tailscale
 --------------------------------------------|-------------------|--------|------------------------------------------------|--------------------
