@@ -148,21 +148,18 @@ src_test() {
 
 	cd src
 	PATH="${GOBIN}:${PATH}" \
-		./run.bash -no-rebuild || die "tests failed"
-	cd ..
-	rm -fr pkg/*_race || die
-	rm -fr pkg/obj/go-build || die
+		./run.bash -no-rebuild -k || die "tests failed"
 }
 
 src_install() {
-	# There is a known issue which requires the source tree to be installed [1].
-	# Once this is fixed, we can consider using the doc use flag to control
-	# installing the doc and src directories.
-	# The use of cp is deliberate in order to retain permissions
-	# [1] https://golang.org/issue/2775
 	dodir ${GOROOT_VALUE}
+
+	# The use of cp is deliberate in order to retain permissions
 	cp -R api bin doc lib pkg misc src test "${ED}${GOROOT_VALUE}"
 	einstalldocs
+
+	insinto ${GOROOT_VALUE}
+	doins go.env VERSION
 
 	# testdata directories are not needed on the installed system
 	rm -fr $(find "${ED}${GOROOT_VALUE}" -iname testdata -type d -print)
@@ -237,7 +234,7 @@ pkg_postinst() {
 		echo
 	fi
 	elog "To select/switch between available Go version, execute as root:"
-	elog "  # eselect go set (go1.19|go1.20|...)"
+	elog "  # eselect go set (go1.20|go1.21|...)"
 	elog "ATTENTION: not compatible with dev-lang/go::gentoo version"
 
 	[[ -z ${REPLACING_VERSIONS} ]] && return
