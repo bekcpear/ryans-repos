@@ -22,6 +22,6 @@ RDEPEND="
 		app-containers/docker
 		app-containers/podman
 		)"
-BDEPEND=">=dev-lang/go-1.18:="
+BDEPEND=">=dev-lang/go-1.20:="
 
 GO_LDFLAGS="-X main.version=${PV}"
