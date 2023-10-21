@@ -499,7 +499,8 @@ src_unpack() {
 	unpack ${P}.tar.gz
 	unpack ${P}-vendor.tar.gz
 	go_setup_vendor
-	unpack ${P}-${MY_SHAPATCH_SUFFIX}.tar.gz
+	# all sha512 checksum in v2.25.0
+	#unpack ${P}-${MY_SHAPATCH_SUFFIX}.tar.gz
 	npm_add_cache
 }
 
