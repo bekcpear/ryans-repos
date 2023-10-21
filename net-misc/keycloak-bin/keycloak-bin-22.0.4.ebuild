@@ -3,7 +3,11 @@
 
 EAPI=8
 
-inherit bash-completion-r1 systemd
+##
+# >=22.0.0 error when generating completion scripts
+##
+#inherit bash-completion-r1 systemd
+inherit systemd
 
 DESCRIPTION="Open Source Identity and Access Management"
 HOMEPAGE="https://github.com/keycloak/keycloak"
@@ -92,24 +96,29 @@ pkg_preinst() {
 
 	# install the bash completion script
 	# generate from keycloak to make sure it always satisfies the lastest version
-	local bashcmpp0="${T}/bash-completion.sh"
-	export JAVA_HOME=$(su -s /bin/sh -c "java -XshowSettings:properties -version 2>&1 | grep 'java.home'" - keycloak)
-	JAVA_HOME=${JAVA_HOME#*=}
-	JAVA_HOME=${JAVA_HOME## }
-	"${ED}"/opt/keycloak-bin/bin/kc.sh tools completion >"$bashcmpp0" || die
-	local cutLN=$(awk '/^Next time/ {print NR}' "$bashcmpp0")
-	if [[ -n $cutLN ]]; then
-		sed -Ei "${cutLN},\$d" "$bashcmpp0" || die
-		cutLN=
-	fi
-	cutLN=$(awk '/^Changes detected/ {print NR}' "$bashcmpp0")
-	if [[ -n $cutLN ]]; then
-		sed -Ei "${cutLN}d" "$bashcmpp0" || die
-	fi
-	sed -Ei "/^$/d" "$bashcmpp0" || die
-	sed -Ei '$s/kc.sh/realcomp/;$s/ kc[^[:space:]]*//g;$s/[[:space:]]+realcomp/ kc.sh/' \
-		"$bashcmpp0" || die
-	newbashcomp "$bashcmpp0" kc.sh
+	#
+	##
+	# >=22.0.0 error when generating completion scripts
+	# comment out
+	##
+	#local bashcmpp0="${T}/bash-completion.sh"
+	#export JAVA_HOME=$(su -s /bin/sh -c "java -XshowSettings:properties -version 2>&1 | grep 'java.home'" - keycloak)
+	#JAVA_HOME=${JAVA_HOME#*=}
+	#JAVA_HOME=${JAVA_HOME## }
+	#"${ED}"/opt/keycloak-bin/bin/kc.sh tools completion >"$bashcmpp0" || die
+	#local cutLN=$(awk '/^Next time/ {print NR}' "$bashcmpp0")
+	#if [[ -n $cutLN ]]; then
+	#	sed -Ei "${cutLN},\$d" "$bashcmpp0" || die
+	#	cutLN=
+	#fi
+	#cutLN=$(awk '/^Changes detected/ {print NR}' "$bashcmpp0")
+	#if [[ -n $cutLN ]]; then
+	#	sed -Ei "${cutLN}d" "$bashcmpp0" || die
+	#fi
+	#sed -Ei "/^$/d" "$bashcmpp0" || die
+	#sed -Ei '$s/kc.sh/realcomp/;$s/ kc[^[:space:]]*//g;$s/[[:space:]]+realcomp/ kc.sh/' \
+	#	"$bashcmpp0" || die
+	#newbashcomp "$bashcmpp0" kc.sh
 }
 
 pkg_postinst() {
