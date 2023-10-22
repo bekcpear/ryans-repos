@@ -32,7 +32,7 @@ index 604cb06..7ceb3b5 100644
  LangCode=zh
  Addon=rime
 diff --git a/src/rimeengine.cpp b/src/rimeengine.cpp
-index 45c20e5..bf1fa1f 100644
+index 0a4c04a..7f18399 100644
 --- a/src/rimeengine.cpp
 +++ b/src/rimeengine.cpp
 @@ -96,9 +96,9 @@ public:
@@ -47,7 +47,7 @@ index 45c20e5..bf1fa1f 100644
      }
  
  private:
-@@ -113,7 +113,7 @@ RimeEngine::RimeEngine(Instance *instance)
+@@ -114,7 +114,7 @@ RimeEngine::RimeEngine(Instance *instance)
                                                       imAction_.get());
      imAction_->setMenu(&schemaMenu_);
      eventDispatcher_.attach(&instance_->eventLoop());
@@ -56,7 +56,7 @@ index 45c20e5..bf1fa1f 100644
      deployAction_.setShortText(_("Deploy"));
      deployAction_.connect<SimpleAction::Activated>([this](InputContext *ic) {
          deploy();
-@@ -125,7 +125,7 @@ RimeEngine::RimeEngine(Instance *instance)
+@@ -126,7 +126,7 @@ RimeEngine::RimeEngine(Instance *instance)
      instance_->userInterfaceManager().registerAction("fcitx-rime-deploy",
                                                       &deployAction_);
  
@@ -65,7 +65,7 @@ index 45c20e5..bf1fa1f 100644
      syncAction_.setShortText(_("Synchronize"));
  
      syncAction_.connect<SimpleAction::Activated>([this](InputContext *ic) {
-@@ -348,7 +348,7 @@ void RimeEngine::notify(const std::string &messageType,
+@@ -389,7 +389,7 @@ void RimeEngine::notify(const std::string &messageType,
      const char *tipId = "";
      if (messageType == "deploy") {
          tipId = "fcitx-rime-deploy";
@@ -74,7 +74,7 @@ index 45c20e5..bf1fa1f 100644
          if (messageValue == "start") {
              message = _("Rime is under maintenance. It may take a few "
                          "seconds. Please wait until it is finished...");
-@@ -360,7 +360,7 @@ void RimeEngine::notify(const std::string &messageType,
+@@ -406,7 +406,7 @@ void RimeEngine::notify(const std::string &messageType,
                          "See /tmp/rime.fcitx.ERROR for details.");
          }
      } else if (messageType == "option") {
@@ -83,7 +83,7 @@ index 45c20e5..bf1fa1f 100644
          if (messageValue == "!full_shape") {
              tipId = "fcitx-rime-full-shape";
              message = _("Half Shape is enabled.");
-@@ -422,7 +422,7 @@ std::string RimeEngine::subModeLabelImpl(const InputMethodEntry &,
+@@ -468,7 +468,7 @@ std::string RimeEngine::subModeLabelImpl(const InputMethodEntry &,
  
  std::string RimeEngine::subModeIconImpl(const InputMethodEntry &,
                                          InputContext &ic) {
@@ -92,7 +92,7 @@ index 45c20e5..bf1fa1f 100644
      if (!api_ || !factory_.registered()) {
          return result;
      }
-@@ -430,11 +430,11 @@ std::string RimeEngine::subModeIconImpl(const InputMethodEntry &,
+@@ -476,11 +476,11 @@ std::string RimeEngine::subModeIconImpl(const InputMethodEntry &,
      if (state) {
          state->getStatus([&result](const RimeStatus &status) {
              if (status.is_disabled) {

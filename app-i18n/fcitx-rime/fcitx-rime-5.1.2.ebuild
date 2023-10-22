@@ -15,7 +15,7 @@ SLOT="5"
 KEYWORDS="~amd64 ~x86"
 
 DEPEND="
-	>=app-i18n/fcitx-5.0.6:5
+	>=app-i18n/fcitx-5.1.0:5[dbus]
 	app-i18n/librime
 	app-i18n/rime-data
 	sys-devel/gettext
@@ -28,7 +28,7 @@ BDEPEND="
 
 S="${WORKDIR}/${MY_PN}-${PV}"
 
-PATCHES=("${FILESDIR}/${PN}-5.0.15-fix-conflicts-with-fcitx4-rime.diff")
+PATCHES=("${FILESDIR}/${PN}-5.1.2-fix-conflicts-with-fcitx4-rime.diff")
 
 pkg_postinst() {
 	xdg_icon_cache_update
