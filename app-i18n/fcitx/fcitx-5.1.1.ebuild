@@ -13,7 +13,7 @@ SRC_URI="https://download.fcitx-im.org/fcitx5/fcitx5/fcitx5-${PV}_dict.tar.xz ->
 LICENSE="LGPL-2.1+ Unicode-DFS-2016"
 SLOT="5"
 KEYWORDS="~amd64 ~x86"
-IUSE="X coverage dbus doc +emoji +enchant +keyboard +libuuid +server systemd test wayland"
+IUSE="X coverage +dbus doc +emoji +enchant +keyboard +libuuid +server systemd test wayland"
 REQUIRED_USE="coverage? ( test )"
 RESTRICT="!test? ( test )"
 
