@@ -16,8 +16,8 @@ SLOT="0"
 KEYWORDS="~amd64 ~arm64 ~riscv ~x86"
 
 BDEPEND="
-	>dev-lang/go-1.18.9999:=
-	<=dev-lang/go-1.20.9999:=
+	>dev-lang/go-1.20.9999:=
+	<=dev-lang/go-1.21.9999:=
 "
 DEPEND=""
 RDEPEND="
