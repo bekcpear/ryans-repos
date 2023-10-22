@@ -14,8 +14,7 @@ SRC_URI+=" https://github.com/bekcpear/gopkg-vendors/archive/refs/tags/vendor-${
 
 LICENSE="Apache-2.0 BSD-2 BSD MIT MPL-2.0"
 SLOT="0"
-#KEYWORDS="~amd64 ~arm64 ~riscv"
-KEYWORDS=""
+KEYWORDS="~amd64 ~arm64 ~riscv"
 
 BDEPEND=">=dev-lang/go-1.20:="
 DEPEND=""
