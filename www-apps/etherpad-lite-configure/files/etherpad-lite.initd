@@ -19,5 +19,5 @@ depend() {
 }
 
 start_pre() {
-	checkpath -d -q -f -o ${ETHERUSR}:${ETHERGRP} "${ETHERLOG}"
+	checkpath -d -q -o ${ETHERUSR}:${ETHERGRP} "${ETHERLOG}"
 }
