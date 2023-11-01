@@ -1,9 +1,10 @@
-ETHERPATH="/var/lib/etherpad-lite/"
+ETHERHOME="/var/lib/etherpad-lite"
+
+ETHERPATH="${ETHERHOME}/prog"
 
 ARGS="node_modules/ep_etherpad-lite/node/server.js"
 
-ETHERLOG="${ETHERPATH}/log/output.log"
-ETHERERR="${ETHERPATH}/log/error.log"
+ETHERLOG="${ETHERHOME}/log"
 
 PIDFILE="/var/run/etherpad-lite.pid"
 
