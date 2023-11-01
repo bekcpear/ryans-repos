@@ -19,6 +19,8 @@ RDEPEND="${DEPEND}
 	acct-group/etherpad-lite"
 BDEPEND=""
 
+S="${WORKDIR}"
+
 src_install () {
 	newconfd "${FILESDIR}/etherpad-lite.confd" etherpad-lite
 	newinitd "${FILESDIR}/etherpad-lite.initd" etherpad-lite
