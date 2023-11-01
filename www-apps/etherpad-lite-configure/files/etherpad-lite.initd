@@ -1,0 +1,16 @@
+#!/sbin/openrc-run
+# Copyright 2023 Gentoo Authors
+# Distributed under the terms of the GNU General Public License v2
+
+name="etherpad-lite daemon"
+description="A modern really-real-time collaborative document editor."
+command=/usr/bin/node
+command_args="${ARGS}"
+command_user="etherpad-lite:etherpad-lite"
+output_log="${ETHERLOG}"
+error_log="${ETHERERR}"
+start_stop_daemon_args="--background -m --pidfile ${PIDFILE} -d ${ETHERPATH}"
+
+depend() {
+	need net
+}
