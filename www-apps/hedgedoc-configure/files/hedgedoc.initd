@@ -1,0 +1,23 @@
+#!/sbin/openrc-run
+# Copyright 2023 Gentoo Authors
+# Distributed under the terms of the GNU General Public License v2
+
+HEDGEDOCUSR="hedgedoc"
+HEDGEDOCGRP="hedgedoc"
+
+name="HedgeDoc daemon"
+description="HedgeDoc lets you create real-time collaborative markdown notes."
+command=/usr/bin/yarn
+command_args="start ${ARGS}"
+command_user="${HEDGEDOCUSR}:${HEDGEDOCGRP}"
+output_log="${HEDGEDOCLOG}/output.log"
+error_log="${HEDGEDOCLOG}/error.log"
+start_stop_daemon_args="--background -m --pidfile ${PIDFILE} -d ${HEDGEDOCPATH}"
+
+depend() {
+	need net
+}
+
+start_pre() {
+	checkpath -d -q -o ${HEDGEDOCUSR}:${HEDGEDOCGRP} "${HEDGEDOCLOG}"
+}

@@ -1,0 +1,11 @@
+HEDGEDOCHOME="/var/lib/hedgedoc"
+
+HEDGEDOCPATH="${HEDGEDOCHOME}/prog"
+
+ARGS=""
+
+HEDGEDOCLOG="${HEDGEDOCHOME}/log"
+
+PIDFILE="/var/run/hedgedoc.pid"
+
+NODE_ENV="production"
