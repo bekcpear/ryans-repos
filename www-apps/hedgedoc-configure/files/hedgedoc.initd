@@ -29,7 +29,7 @@ stop() {
 	#                     |--+- /usr/bin/node app.js
 	#                        |--- /usr/bin/node /var/lib/hedgedoc/hedgedoc/lib/workers/dmpWorker.js 
 
-	einfo "Stoping HedgeDoc daemon ..."
+	einfo "Stopping HedgeDoc daemon ..."
 	kill -15 $(cat ${PIDFILE})
 	sleep 1
 }
