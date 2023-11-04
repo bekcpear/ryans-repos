@@ -5,6 +5,7 @@ EAPI=8
 
 ##
 # >=22.0.0 error when generating completion scripts
+# https://github.com/keycloak/keycloak/issues/24551
 ##
 #inherit bash-completion-r1 systemd
 inherit systemd
@@ -99,6 +100,7 @@ pkg_preinst() {
 	#
 	##
 	# >=22.0.0 error when generating completion scripts
+	# https://github.com/keycloak/keycloak/issues/24551
 	# comment out
 	##
 	#local bashcmpp0="${T}/bash-completion.sh"
