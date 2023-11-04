@@ -21,3 +21,15 @@ depend() {
 start_pre() {
 	checkpath -d -q -o ${HEDGEDOCUSR}:${HEDGEDOCGRP} "${HEDGEDOCLOG}"
 }
+
+stop() {
+	# quick hack
+	# TODO: improvement,
+	#       yarn start -> +- node /usr/bin/yarn start
+	#                     |--+- /usr/bin/node app.js
+	#                        |--- /usr/bin/node /var/lib/hedgedoc/hedgedoc/lib/workers/dmpWorker.js 
+
+	einfo "Stoping HedgeDoc daemon ..."
+	kill -15 $(cat ${PIDFILE})
+	sleep 1
+}
