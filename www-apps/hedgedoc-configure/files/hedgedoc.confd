@@ -1,6 +1,6 @@
 HEDGEDOCHOME="/var/lib/hedgedoc"
 
-HEDGEDOCPATH="${HEDGEDOCHOME}/prog"
+HEDGEDOCPATH="${HEDGEDOCHOME}/hedgedoc"
 
 ARGS=""
 
