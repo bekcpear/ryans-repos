@@ -21,7 +21,9 @@ eselect repository enable ryans
  app-crypt/keybase                          | 6.0.2-r1          |        | https://keybase.io/                            | Keybase command-line utility, and local service
                                             | 6.2.3             |        |                                                |
    dev-lang/go                              | 1.20.10           | BD     | https://go.dev                                 | A concurrent garbage collected and typesafe programming language
+                                            | 1.20.11           |        |                                                |
                                             | 1.21.3            |        |                                                |
+                                            | 1.21.4            |        |                                                |
      app-eselect/eselect-go                 | 20230312          | RD     | https://github.com/bekcpear/eselect-go         | Manages multiple Go versions
 --------------------------------------------|-------------------|--------|------------------------------------------------|--------------------
  app-i18n/fcitx-meta                        | 5.0.12            |        | https://fcitx-im.org                           | Merge this to pull in Fcitx packages
@@ -49,8 +51,8 @@ eselect repository enable ryans
 --------------------------------------------|-------------------|--------|------------------------------------------------|--------------------
  media-sound/qqmusic-bin                    | 1.1.5             |        | https://y.qq.com/download/download.html        | Tencent QQ Music for Linux.
 --------------------------------------------|-------------------|--------|------------------------------------------------|--------------------
- net-im/dendrite                            | 0.11.1            |        | https://github.com/matrix-org/dendrite         | Dendrite is a second-generation Matrix homeserver written in Go!
-                                            | 0.12.0            |        |                                                |
+ net-im/dendrite                            | 0.12.0            |        | https://github.com/matrix-org/dendrite         | Dendrite is a second-generation Matrix homeserver written in Go!
+                                            | 0.13.4            |        |                                                |
    acct-group/dendrite                      | 0                 | RD     |                                                | Group for the net-im/dendrite service
    acct-user/dendrite                       | 0                 | RD     |                                                | User for the net-im/dendrite service
 --------------------------------------------|-------------------|--------|------------------------------------------------|--------------------
@@ -60,7 +62,7 @@ eselect repository enable ryans
    acct-user/ip7                            | 0                 | RD     |                                                | User for the HTTP API service of net-misc/ip7
 --------------------------------------------|-------------------|--------|------------------------------------------------|--------------------
  net-misc/keycloak-bin                      | 21.0.1            |        | https://github.com/keycloak/keycloak           | Open Source Identity and Access Management
-                                            | 22.0.4            |        |                                                |
+                                            | 22.0.5            |        |                                                |
    acct-group/keycloak                      | 0                 | RD     |                                                | Group for the keycloak daemon
    acct-user/keycloak                       | 0                 | RD     |                                                | User for the keycloak daemon
 --------------------------------------------|-------------------|--------|------------------------------------------------|--------------------
