@@ -14,10 +14,6 @@ eselect repository enable ryans
 ```
  Package name                               | Version           | Role   | Homepage                                       | Description
 ============================================|===================|========|================================================|====================
- acct-group/ip7                             | 0                 |        |                                                | Group for the HTTP API service of net-misc/ip7
---------------------------------------------|-------------------|--------|------------------------------------------------|--------------------
- acct-user/ip7                              | 0                 |        |                                                | User for the HTTP API service of net-misc/ip7
---------------------------------------------|-------------------|--------|------------------------------------------------|--------------------
  app-admin/z16                              | 9999              |        | https://github.com/bekcpear/z16                | A bash script project that aims to maintain dotfiles.
 --------------------------------------------|-------------------|--------|------------------------------------------------|--------------------
  app-crypt/keybase                          | 6.0.2-r1          |        | https://keybase.io/                            | Keybase command-line utility, and local service
