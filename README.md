@@ -16,6 +16,8 @@ eselect repository enable ryans
 ============================================|===================|========|================================================|====================
  acct-group/ip7                             | 0                 |        |                                                | Group for the HTTP API service of net-misc/ip7
 --------------------------------------------|-------------------|--------|------------------------------------------------|--------------------
+ acct-user/ip7                              | 0                 |        |                                                | User for the HTTP API service of net-misc/ip7
+--------------------------------------------|-------------------|--------|------------------------------------------------|--------------------
  app-admin/z16                              | 9999              |        | https://github.com/bekcpear/z16                | A bash script project that aims to maintain dotfiles.
 --------------------------------------------|-------------------|--------|------------------------------------------------|--------------------
  app-crypt/keybase                          | 6.0.2-r1          |        | https://keybase.io/                            | Keybase command-line utility, and local service
@@ -57,9 +59,6 @@ eselect repository enable ryans
    acct-user/dendrite                       | 0                 | RD     |                                                | User for the net-im/dendrite service
 --------------------------------------------|-------------------|--------|------------------------------------------------|--------------------
  net-im/linuxqq-bin                         | 2.0.0_beta2_p1089 |        | https://im.qq.com/linuxqq/index.html           | Tencent QQ.
---------------------------------------------|-------------------|--------|------------------------------------------------|--------------------
- net-misc/ip7                               | 9999              |        | https://github.com/bekcpear/ip7                | An IP address checker, powered by MaxMind GeoLite2 databases.
-   acct-user/ip7                            | 0                 | RD     |                                                | User for the HTTP API service of net-misc/ip7
 --------------------------------------------|-------------------|--------|------------------------------------------------|--------------------
  net-misc/keycloak-bin                      | 21.0.1            |        | https://github.com/keycloak/keycloak           | Open Source Identity and Access Management
                                             | 22.0.5            |        |                                                |
