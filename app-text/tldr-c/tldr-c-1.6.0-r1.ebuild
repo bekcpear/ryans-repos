@@ -25,6 +25,10 @@ BDEPEND="virtual/pkgconfig"
 
 DOCS=( CHANGELOG.md CONTRIBUTING.md LICENSE README.md )
 
+PATCHES=(
+	"${FILESDIR}/use-xdg-default-dir-${PV}.diff"
+)
+
 S="${WORKDIR}/${PN}-client-${PV}/"
 
 src_install() {
@@ -34,8 +38,8 @@ src_install() {
 
 	doman "${S}"/man/tldr.1
 
-	newbashcomp "${S}"/autocomplete/complete.bash tldr
+	newbashcomp "${FILESDIR}"/completion.bash tldr
 
 	insinto /usr/share/zsh/site-functions
-	newins "${S}"/autocomplete/complete.zsh _tldr
+	newins "${FILESDIR}"/completion.zsh _tldr
 }
