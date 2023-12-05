@@ -18,10 +18,8 @@ eselect repository enable ryans
 --------------------------------------------|-------------------|--------|------------------------------------------------|--------------------
  app-crypt/keybase                          | 6.0.2-r1          |        | https://keybase.io/                            | Keybase command-line utility, and local service
                                             | 6.2.3             |        |                                                |
-   dev-lang/go                              | 1.20.10           | BD     | https://go.dev                                 | A concurrent garbage collected and typesafe programming language
-                                            | 1.20.11           |        |                                                |
-                                            | 1.21.3            |        |                                                |
-                                            | 1.21.4            |        |                                                |
+   dev-lang/go                              | 1.20.12           | BD     | https://go.dev                                 | A concurrent garbage collected and typesafe programming language
+                                            | 1.21.5            |        |                                                |
      app-eselect/eselect-go                 | 20230312          | RD     | https://github.com/bekcpear/eselect-go         | Manages multiple Go versions
 --------------------------------------------|-------------------|--------|------------------------------------------------|--------------------
  app-i18n/fcitx-meta                        | 5.0.12            |        | https://fcitx-im.org                           | Merge this to pull in Fcitx packages
@@ -39,7 +37,7 @@ eselect repository enable ryans
      sys-apps/openrazer-driver              | 3.6.1             | RD     | https://github.com/openrazer/openrazer         | A collection of kernel drivers for Razer devices.
                                             | 3.6.1-r1          |        |                                                |
 --------------------------------------------|-------------------|--------|------------------------------------------------|--------------------
- app-text/tldr-c                            | 1.6.0             |        | https://github.com/tldr-pages/tldr-c-client    | C command-line client for tldr pages
+ app-text/tldr-c                            | 1.6.0-r1          |        | https://github.com/tldr-pages/tldr-c-client    | C command-line client for tldr pages
 --------------------------------------------|-------------------|--------|------------------------------------------------|--------------------
  dev-util/act                               | 0.2.52            |        | https://github.com/nektos/act                  | Run your GitHub Actions locally
 --------------------------------------------|-------------------|--------|------------------------------------------------|--------------------
