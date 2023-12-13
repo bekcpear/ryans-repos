@@ -3,7 +3,7 @@
 
 EAPI="8"
 
-inherit cmake
+inherit cmake multiprocessing
 
 DESCRIPTION="RIME (Rime Input Method Engine) core library"
 HOMEPAGE="https://rime.im/ https://github.com/rime/librime"
@@ -24,16 +24,13 @@ RDEPEND="
 	dev-libs/marisa:0=
 "
 DEPEND="${RDEPEND}
-	dev-libs/darts
-	dev-libs/utfcpp
 	test? ( dev-cpp/gtest )
 "
-BDEPEND=""
 
 DOCS=(CHANGELOG.md README.md)
 
 src_configure() {
-	local -x CXXFLAGS="${CXXFLAGS} -I${ESYSROOT}/usr/include/utf8cpp"
+	local -x CXXFLAGS="${CXXFLAGS}"
 
 	# for glog
 	if use debug; then
@@ -44,6 +41,7 @@ src_configure() {
 
 	local mycmakeargs=(
 		-DBUILD_TEST=$(usex test ON OFF)
+		-DCMAKE_BUILD_PARALLEL_LEVEL=$(makeopts_jobs)
 		-DENABLE_EXTERNAL_PLUGINS=ON
 		-DINSTALL_PRIVATE_HEADERS=ON
 	)
