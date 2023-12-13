@@ -9,9 +9,9 @@ DESCRIPTION="RIME (Rime Input Method Engine) core library"
 HOMEPAGE="https://rime.im/ https://github.com/rime/librime"
 SRC_URI="https://github.com/rime/librime/archive/refs/tags/${PV}.tar.gz -> ${P}.tar.gz"
 
-LICENSE="BSD"
+LICENSE="BSD BSD-2 Boost-1.0"
 SLOT="0/1-${PV}"
-KEYWORDS="~amd64 ~arm64 ~ppc ~ppc64 ~riscv ~x86"
+KEYWORDS="~amd64 ~x86"
 IUSE="debug test"
 RESTRICT="!test? ( test )"
 
@@ -41,6 +41,7 @@ src_configure() {
 
 	local mycmakeargs=(
 		-DBUILD_TEST=$(usex test ON OFF)
+		-DCMAKE_BUILD_TYPE=$(usex debug Debug Gentoo)
 		-DCMAKE_BUILD_PARALLEL_LEVEL=$(makeopts_jobs)
 		-DENABLE_EXTERNAL_PLUGINS=ON
 		-DINSTALL_PRIVATE_HEADERS=ON
