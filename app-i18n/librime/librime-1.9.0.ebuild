@@ -35,13 +35,13 @@ src_configure() {
 	# for glog
 	if use debug; then
 		CXXFLAGS+=" -DDCHECK_ALWAYS_ON"
+		CMAKE_BUILD_TYPE=Debug
 	else
 		CXXFLAGS+=" -DNDEBUG"
 	fi
 
 	local mycmakeargs=(
 		-DBUILD_TEST=$(usex test ON OFF)
-		-DCMAKE_BUILD_TYPE=$(usex debug Debug Gentoo)
 		-DCMAKE_BUILD_PARALLEL_LEVEL=$(makeopts_jobs)
 		-DENABLE_EXTERNAL_PLUGINS=ON
 		-DINSTALL_PRIVATE_HEADERS=ON
