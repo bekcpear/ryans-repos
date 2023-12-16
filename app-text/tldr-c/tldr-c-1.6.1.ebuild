@@ -26,7 +26,7 @@ BDEPEND="virtual/pkgconfig"
 DOCS=( CHANGELOG.md CONTRIBUTING.md LICENSE README.md )
 
 PATCHES=(
-	"${FILESDIR}/use-xdg-default-dir-${PV}.diff"
+	"${FILESDIR}/use-xdg-default-dir-1.6.0.diff"
 )
 
 S="${WORKDIR}/${PN}-client-${PV}/"
