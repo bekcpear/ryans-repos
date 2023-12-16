@@ -11,7 +11,7 @@ SRC_URI="https://github.com/tldr-pages/tldr-c-client/archive/refs/tags/v${PV}.ta
 
 LICENSE="MIT"
 SLOT="0"
-KEYWORDS="~amd64"
+KEYWORDS="~amd64 ~arm64-macos"
 
 # no test target
 RESTRICT="test"
