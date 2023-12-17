@@ -10,6 +10,8 @@ LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="-* ~arm64-macos"
 
+S="$WORKDIR"
+
 src_install() {
 	if [[ -x /usr/bin/git ]]; then
 		/usr/bin/git --version &>/dev/null || die
