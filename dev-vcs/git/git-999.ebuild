@@ -7,7 +7,7 @@ DESCRIPTION="Empty package for macOS: dev-vcs/git"
 HOMEPAGE="https://www.git-scm.com/"
 
 LICENSE="GPL-2"
-SLOT="0"
+SLOT="empty-pkg"
 KEYWORDS="-* ~arm64-macos"
 
 S="$WORKDIR"
