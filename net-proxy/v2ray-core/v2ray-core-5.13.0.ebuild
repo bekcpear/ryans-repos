@@ -14,7 +14,7 @@ SRC_URI="https://github.com/v2fly/v2ray-core/archive/refs/tags/v${PV}.tar.gz -> 
 LICENSE="Apache-2.0 BSD-2 BSD MIT"
 SLOT="0"
 KEYWORDS="~amd64 ~arm64 ~riscv ~x86 ~arm64-macos"
-REQUEST_UES="arm64-macos? ( pie )"
+REQUIRED_USE="arm64-macos? ( pie )"
 
 BDEPEND="
 	>dev-lang/go-1.20.9999:=
