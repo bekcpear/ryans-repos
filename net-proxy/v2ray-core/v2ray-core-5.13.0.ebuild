@@ -13,7 +13,8 @@ SRC_URI="https://github.com/v2fly/v2ray-core/archive/refs/tags/v${PV}.tar.gz -> 
 
 LICENSE="Apache-2.0 BSD-2 BSD MIT"
 SLOT="0"
-KEYWORDS="~amd64 ~arm64 ~riscv ~x86"
+KEYWORDS="~amd64 ~arm64 ~riscv ~x86 ~arm64-macos"
+REQUEST_UES="arm64-macos? ( pie )"
 
 BDEPEND="
 	>dev-lang/go-1.20.9999:=
@@ -37,7 +38,19 @@ src_prepare() {
 }
 
 src_install() {
-	go_src_install
+	if use prefix; then
+		exeinto "/usr/libexec"
+		doexe "${T}/go-bin/v2ray"
+		mkdir "${ED%/}/usr/bin" || die
+		cat >"${ED%/}/usr/bin/v2ray" <<EOF
+#!${EPREFIX%/}/usr/bin/env bash
+export XDG_DATA_DIRS=${EPREFIX%/}/usr/share
+exec ${EPREFIX%/}/usr/libexec/v2ray "\$@"
+EOF
+		fperms +x "/usr/bin/v2ray"
+	else
+		go_src_install
+	fi
 
 	insinto /etc/v2ray
 	doins release/config/*.json
