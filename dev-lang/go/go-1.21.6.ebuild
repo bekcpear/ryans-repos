@@ -15,7 +15,7 @@ HOMEPAGE="https://go.dev"
 
 SRC_URI="https://storage.googleapis.com/golang/go${MY_PV}.src.tar.gz "
 S="${WORKDIR}"/go
-KEYWORDS="-* ~amd64 ~arm ~arm64 ~loong ~mips ~ppc64 ~riscv ~s390 ~x86 ~amd64-linux ~x86-linux ~x64-macos ~x64-solaris"
+KEYWORDS="-* ~amd64 ~arm ~arm64 ~loong ~mips ~ppc64 ~riscv ~s390 ~x86 ~amd64-linux ~x86-linux ~arm64-macos ~x64-macos ~x64-solaris"
 
 [[ $PV =~ ^([[:digit:]]+)\.([[:digit:]]+)(\.([[:digit:]]+))?(_.*)?$ ]] || true
 PV_MINOR="${BASH_REMATCH[1]}.${BASH_REMATCH[2]}"
@@ -62,6 +62,7 @@ go_arch() {
 	# By chance most portage arch names match Go
 	local tc_arch=$(tc-arch $@)
 	case "${tc_arch}" in
+		arm64-macos) echo arm64;;
 		x86)	echo 386;;
 		x64-*)	echo amd64;;
 		loong)	echo loong64;;
