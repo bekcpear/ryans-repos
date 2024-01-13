@@ -12,7 +12,7 @@ SRC_URI="https://github.com/keybase/client/archive/refs/tags/v${PV}.tar.gz -> ${
 
 LICENSE="Apache-2.0 BSD-2 BSD ISC MIT MPL-2.0"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="~amd64 ~x86 ~arm64-macos"
 
 DEPEND=""
 RDEPEND="${DEPEND}"
@@ -25,7 +25,9 @@ GO_TARGET_PKGS="./keybase"
 src_install() {
 	go_src_install
 
-	systemd_douserunit ../packaging/linux/systemd/keybase.service
+	if ! use prefix; then
+		systemd_douserunit ../packaging/linux/systemd/keybase.service
+	fi
 
 	newbashcomp "${FILESDIR}"/bash-completion.sh keybase
 
