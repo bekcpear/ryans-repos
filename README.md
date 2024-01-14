@@ -18,8 +18,8 @@ eselect repository enable ryans
 --------------------------------------------|-------------------|--------|------------------------------------------------|--------------------
  app-crypt/keybase                          | 6.0.2-r1          |        | https://keybase.io/                            | Keybase command-line utility, and local service
                                             | 6.2.3             |        |                                                |
-   dev-lang/go                              | 1.20.12           | BD     | https://go.dev                                 | A concurrent garbage collected and typesafe programming language
-                                            | 1.21.5            |        |                                                |
+   dev-lang/go                              | 1.20.13           | BD     | https://go.dev                                 | A concurrent garbage collected and typesafe programming language
+                                            | 1.21.6            |        |                                                |
      app-eselect/eselect-go                 | 20230312          | RD     | https://github.com/bekcpear/eselect-go         | Manages multiple Go versions
 --------------------------------------------|-------------------|--------|------------------------------------------------|--------------------
  app-i18n/fcitx-meta                        | 5.0.12            |        | https://fcitx-im.org                           | Merge this to pull in Fcitx packages
@@ -37,9 +37,9 @@ eselect repository enable ryans
      sys-apps/openrazer-driver              | 3.6.1             | RD     | https://github.com/openrazer/openrazer         | A collection of kernel drivers for Razer devices.
                                             | 3.6.1-r1          |        |                                                |
 --------------------------------------------|-------------------|--------|------------------------------------------------|--------------------
- app-text/tldr-c                            | 1.6.0-r1          |        | https://github.com/tldr-pages/tldr-c-client    | C command-line client for tldr pages
+ app-text/tldr-c                            | 1.6.1             |        | https://github.com/tldr-pages/tldr-c-client    | C command-line client for tldr pages
 --------------------------------------------|-------------------|--------|------------------------------------------------|--------------------
- dev-util/act                               | 0.2.52            |        | https://github.com/nektos/act                  | Run your GitHub Actions locally
+ dev-util/act                               | 0.2.57            |        | https://github.com/nektos/act                  | Run your GitHub Actions locally
 --------------------------------------------|-------------------|--------|------------------------------------------------|--------------------
  dev-util/v2ray-geoip-generator             | 9999              |        | https://github.com/v2fly/geoip                 | GeoIP generator for V2Ray.
 --------------------------------------------|-------------------|--------|------------------------------------------------|--------------------
@@ -66,24 +66,23 @@ eselect repository enable ryans
    acct-user/matterbridge                   | 0                 | RD     |                                                | User for the net-misc/matterbridge{,-bin} service
 --------------------------------------------|-------------------|--------|------------------------------------------------|--------------------
  net-proxy/v2ray-core                       | 4.45.2-r1         |        | https://github.com/v2fly/v2ray-core            | A platform for building proxies to bypass network restrictions.
-                                            | 5.8.0             |        |                                                |
-   dev-libs/v2ray-domain-list-community     | 5.20231021075451  | RD     | https://github.com/v2fly/domain-list-community | Community managed domain list for V2Ray.
+                                            | 5.13.0            |        |                                                |
+   dev-libs/v2ray-domain-list-community     | 5.20231215153121  | RD     | https://github.com/v2fly/domain-list-community | Community managed domain list for V2Ray.
                                             | 9999              |        |                                                |
-   dev-libs/v2ray-domain-list-community-bin | 5.20231021075451  | RD     | https://github.com/v2fly/domain-list-community | Community managed domain list for V2Ray.
+   dev-libs/v2ray-domain-list-community-bin | 5.20231215153121  | RD     | https://github.com/v2fly/domain-list-community | Community managed domain list for V2Ray.
                                             | 9999              |        |                                                |
-   dev-libs/v2ray-geoip-bin                 | 5.202310190037    | RD     | https://github.com/v2fly/geoip                 | GeoIP for V2Ray.
+   dev-libs/v2ray-geoip-bin                 | 5.202312140039    | RD     | https://github.com/v2fly/geoip                 | GeoIP for V2Ray.
                                             | 9999              |        |                                                |
 --------------------------------------------|-------------------|--------|------------------------------------------------|--------------------
  net-proxy/v2ray-core-bin                   | 4.45.2            |        | https://github.com/v2fly/v2ray-core            | A platform for building proxies to bypass network restrictions.
                                             | 5.2.1             |        |                                                |
 --------------------------------------------|-------------------|--------|------------------------------------------------|--------------------
- net-vpn/headscale                          | 0.21.0            |        | https://github.com/juanfont/headscale          | An open source, self-hosted implementation of the Tailscale control server
-                                            | 0.22.3            |        |                                                |
-                                            | 0.23.0_alpha1     |        |                                                |
+ net-vpn/headscale                          | 0.22.3            |        | https://github.com/juanfont/headscale          | An open source, self-hosted implementation of the Tailscale control server
+                                            | 0.23.0_alpha2     |        |                                                |
 --------------------------------------------|-------------------|--------|------------------------------------------------|--------------------
  net-vpn/tailscale                          | 1.38.4            |        | https://tailscale.com                          | Tailscale VPN client and CLI tools
                                             | 1.42.0            |        |                                                |
-                                            | 1.50.1            |        |                                                |
+                                            | 1.56.1            |        |                                                |
    acct-group/derper                        | 0                 | RD     |                                                | Group for the DERP service of net-vpn/tailscale
    acct-user/derper                         | 0                 | RD     |                                                | User for the DERP service of net-vpn/tailscale
 --------------------------------------------|-------------------|--------|------------------------------------------------|--------------------
@@ -99,8 +98,7 @@ eselect repository enable ryans
    acct-group/cryptpad                      | 0                 | RD     |                                                | Group for the www-apps/cryptpad service
    acct-user/cryptpad                       | 0                 | RD     |                                                | User for the www-apps/cryptpad service
 --------------------------------------------|-------------------|--------|------------------------------------------------|--------------------
- www-apps/filebrowser                       | 2.23.0            |        | https://filebrowser.org                        | Web File Browser
-                                            | 2.25.0            |        |                                                |
+ www-apps/filebrowser                       | 2.27.0            |        | https://filebrowser.org                        | Web File Browser
    acct-group/filebrowser                   | 0                 | RD     |                                                | Group for the www-apps/filebrowser service
    acct-user/filebrowser                    | 0                 | RD     |                                                | User for the www-apps/filebrowser service
 ============================================|===================|========|================================================|====================
