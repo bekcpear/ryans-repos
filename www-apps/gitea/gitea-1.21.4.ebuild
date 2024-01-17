@@ -136,10 +136,16 @@ pkg_postinst() {
 		eerror "to install it."
 	fi
 
-	ewarn "Since 1.21.0:"
-	ewarn "  1. The built-in SSH server will now only accept SSH user"
-	ewarn "     certificates, not server certificates. This behaviour matches OpenSSH."
-	ewarn "  2. The options of the subcommand must follow the subcommand now."
-	ewarn "  3. Remove 'CHARSET' config option for MySQL, always use 'utf8mb4'."
-	ewarn "For other breaking changes, see <https://github.com/go-gitea/gitea/releases/tag/v1.21.0>."
+	if [[ -n ${REPLACING_VERSIONS} ]] ; then
+		local -i major minor
+		IFS="." read -r major minor _ <<<"$REPLACING_VERSIONS"
+		if (( major == 1 && minor < 21 )); then
+			ewarn "Since 1.21.0:"
+			ewarn "  1. The built-in SSH server will now only accept SSH user"
+			ewarn "     certificates, not server certificates. This behaviour matches OpenSSH."
+			ewarn "  2. The options of the subcommand must follow the subcommand now."
+			ewarn "  3. Remove 'CHARSET' config option for MySQL, always use 'utf8mb4'."
+			ewarn "For other breaking changes, see <https://github.com/go-gitea/gitea/releases/tag/v1.21.0>."
+		fi
+	fi
 }
