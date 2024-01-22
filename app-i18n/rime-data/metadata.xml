@@ -1,32 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-	<maintainer type="person" proxied="yes">
-		<email>tanekliang@gmail.com</email>
-		<name>Yongxiang Liang</name>
-	</maintainer>
-	<maintainer type="person" proxied="yes">
-		<email>i@bitbili.net</email>
-		<name>Ryan Qian</name>
-	</maintainer>
-	<maintainer type="project" proxied="proxy">
-		<email>proxy-maint@gentoo.org</email>
-		<name>Proxy Maintainers</name>
-	</maintainer>
-	<maintainer type="person" proxied="yes">
-		<email>arfrever.fta@gmail.com</email>
-		<name>Arfrever Frehtes Taifersar Arahesis</name>
-	</maintainer>
 	<maintainer type="person">
-		<email>dlan@gentoo.org</email>
-		<name>Yixun Lan</name>
-	</maintainer>
-	<maintainer type="project">
-		<email>cjk@gentoo.org</email>
-		<name>Cjk</name>
+		<email>i@bitbili.net</email>
+		<name>Ryan Tsien</name>
 	</maintainer>
 	<use>
-		<flag name="extra">Install extra packages</flag>
 		<flag name="luna-pinyin">Install luna-pinyin input schema and dictionary for RIME</flag>
 		<flag name="terra-pinyin">Install terra-pinyin input schema and dictionary for RIME</flag>
 		<flag name="bopomofo">Install bopomofo input schema for RIME</flag>
@@ -48,11 +27,6 @@
 	</use>
 	<upstream>
 		<remote-id type="github">rime/rime-essay</remote-id>
-		<maintainer>
-			<email>chen.sst@gmail.com</email>
-			<name>弓辰 (Gōng Chén)</name>
-		</maintainer>
-		<remote-id type="github">rime/brise</remote-id>
 	</upstream>
 </pkgmetadata>
 
