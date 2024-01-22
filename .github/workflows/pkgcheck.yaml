@@ -1,0 +1,153 @@
+name: pkgcheck
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - '.github/**'
+  pull_request:
+    branches:
+      - main
+    paths-ignore:
+      - '.github/**'
+    types: [opened, reopened, synchronize]
+  schedule:
+    - cron: 16 9 * * *
+
+permissions:
+  contents: read
+  pull-requests: read
+  issues: write
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  PKGCHECK_REPORT_ISSUE_NUMBER: 15
+
+jobs:
+  scan:
+    name: scan the whole repo
+    runs-on: ubuntu-latest
+    container:
+      image: gentoo/stage3:latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v4
+        with:
+          path: _ryans
+      - name: prepare the ::gentoo repo
+        uses: actions/checkout@v4
+        with:
+          repository: 'gentoo-mirror/gentoo'
+          fetch-depth: 1
+          path: repos/gentoo
+      - name: setup repos.conf
+        shell: bash
+        run: |
+          cp _ryans/.github/misc/repos.conf /etc/portage/repos.conf
+          sed -Ei "s:@@GITHUB_WORKSPACE@@:${GITHUB_WORKSPACE}:" /etc/portage/repos.conf
+          cat /etc/portage/repos.conf
+          link=$(readlink /etc/portage/make.profile)
+          link="${GITHUB_WORKSPACE%/}/repos/gentoo${link#*/repos/gentoo}"
+          ln -sf ${link} /etc/portage/make.profile
+          ls -l /etc/portage/make.profile
+      - name: install pkgcheck and git
+        shell: bash
+        env:
+          ACCEPT_KEYWORDS: ~amd64
+        run: |
+          sed -Ei '/sync-uri = /s@https?://[^/]+/@https://distfiles.gentoo.org/@' /etc/portage/binrepos.conf/*.conf
+          cat /etc/portage/binrepos.conf/*.conf
+          mv /etc/portage/gnupg /etc/portage/gnupg.bak || true
+          getuto
+          emerge -vtj --getbinpkg \
+            --autounmask=y \
+            --autounmask-license=y \
+            --autounmask-write=y \
+            --autounmask-continue=y \
+            pkgcheck dev-vcs/git
+          rm -rf repos/gentoo
+      - name: prepare the ::gentoo repo with git again
+        uses: actions/checkout@v4
+        with:
+          repository: 'gentoo-mirror/gentoo'
+          fetch-depth: 1
+          path: repos/gentoo
+      - name: prepare this repo with the triggered branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref }}
+          fetch-depth: 1
+          path: repos/ryans
+      - name: do scan
+        shell: bash
+        id: scan
+        run: |
+          set -o pipefail
+          set +e
+          datetime="$(date -u '+%Y-%m-%d %H:%M:%S')"
+
+          _do() {
+            set -- "$@"
+            echo -e "\x1b[1;32m>>>\x1b[0m" "$@" >&2
+            "$@"
+          }
+
+          # modify files of ::gentoo profiles which cannot be overridden by overlay
+          ./_ryans/.github/scripts/modify-profiles.sh _ryans/.github/gentoo repos/gentoo
+
+          # echo and generate version file of pkgcheck
+          _do pkgcheck --version | tee pkgcheck.version
+
+          # push to the right directory
+          _do pushd repos/ryans || exit 1
+
+          # do scan
+          _do pkgcheck scan --exit error -R FormatReporter \
+            --format '{level},{name},{category},{package},{eclass},{version},{desc}' \
+            | _do tee "${GITHUB_WORKSPACE}/report.txt"
+          pkgcheck_ret="$?"
+
+          # pop back to the work dir
+          popd
+
+          # generate the report markdown content
+          _do ./_ryans/.github/scripts/pkgcheckResult2Markdown.sh \
+            "${GITHUB_WORKSPACE}/report.txt" \
+            "/var/tmp/report.md" \
+            "$(git -C ./repos/gentoo rev-list -n1 HEAD)" \
+            "$datetime" \
+            "$(cat pkgcheck.version)" \
+            "https://github.com/${{github.repository}}/actions/runs/${{github.run_id}}"
+
+          # tell the next step that the report file is ready
+          if [[ -n "/var/tmp/report.md" ]]; then
+            echo "has_report=1" >>$GITHUB_OUTPUT
+          fi
+
+          if [[ $pkgcheck_ret != 0 ]]; then
+            echo "error!"
+            if [[ ${{github.event_name}} != "pull_request" ]]; then
+              echo "please check https://github.com/${{github.repository}}/issues/${PKGCHECK_REPORT_ISSUE_NUMBER}"
+            fi
+            exit $pkgcheck_ret
+          fi
+          echo "done."
+      - name: update result issue
+        if: ${{ always() && github.event_name != 'pull_request' && steps.scan.outputs.has_report }}
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require("fs").promises;
+            var cbody = await fs.readFile("/var/tmp/report.md", "utf8");
+            github.rest.issues.update({
+              issue_number: process.env.PKGCHECK_REPORT_ISSUE_NUMBER,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: cbody
+            })
+      # TODO: post error info into PR if this action is triggered by PR
