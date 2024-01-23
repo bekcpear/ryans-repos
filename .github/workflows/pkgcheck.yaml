@@ -23,7 +23,7 @@ on:
       - 'README.md'
     types: [opened, reopened, synchronize]
   schedule:
-    - cron: 16 9 * * *
+    - cron: 36 1 * * *
 
 permissions:
   contents: read
