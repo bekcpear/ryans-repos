@@ -12,11 +12,15 @@ on:
       - main
     paths-ignore:
       - '.github/**'
+      - '.gitignore'
+      - 'README.md'
   pull_request:
     branches:
       - main
     paths-ignore:
       - '.github/**'
+      - '.gitignore'
+      - 'README.md'
     types: [opened, reopened, synchronize]
   schedule:
     - cron: 16 9 * * *
