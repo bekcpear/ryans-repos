@@ -10,7 +10,7 @@ MY_COMMIT="152a0d3f3efe40cae216d1e3b338242446848d07"
 
 DESCRIPTION="wubi input schema and dictionary for RIME"
 HOMEPAGE="https://rime.im/ https://github.com/rime/rime-wubi"
-SRC_URI="https://github.com/rime/${MY_PN}/archive/${MY_COMMIT}.tar.gz -> ${MY_PN}-${PV}.tar.gz"
+SRC_URI="https://github.com/rime/${MY_PN}/archive/${MY_COMMIT}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="LGPL-3"
 SLOT="0"

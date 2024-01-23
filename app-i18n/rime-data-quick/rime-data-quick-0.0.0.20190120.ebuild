@@ -8,7 +8,7 @@ MY_COMMIT="3fe5911ba608cb2df1b6301b76ad1573bd482a76"
 
 DESCRIPTION="quick input schema and dictionary for RIME"
 HOMEPAGE="https://rime.im/ https://github.com/rime/rime-quick"
-SRC_URI="https://github.com/rime/${MY_PN}/archive/${MY_COMMIT}.tar.gz -> ${MY_PN}-${PV}.tar.gz"
+SRC_URI="https://github.com/rime/${MY_PN}/archive/${MY_COMMIT}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="LGPL-3"
 SLOT="0"

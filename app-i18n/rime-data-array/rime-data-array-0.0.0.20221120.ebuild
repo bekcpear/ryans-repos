@@ -8,7 +8,7 @@ MY_COMMIT="b37aad383ff6e71e457aa6d1d47d2040af8649b9"
 
 DESCRIPTION="array input schema and dictionary for RIME"
 HOMEPAGE="https://rime.im/ https://github.com/rime/rime-array"
-SRC_URI="https://github.com/rime/${MY_PN}/archive/${MY_COMMIT}.tar.gz -> ${MY_PN}-${PV}.tar.gz"
+SRC_URI="https://github.com/rime/${MY_PN}/archive/${MY_COMMIT}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="GPL-3"
 SLOT="0"

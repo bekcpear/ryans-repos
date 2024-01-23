@@ -8,7 +8,7 @@ MY_COMMIT="cab5a0858765eff0553dd685a2d61d5536e9149c"
 
 DESCRIPTION="scj input schema and dictionary for RIME"
 HOMEPAGE="https://rime.im/ https://github.com/rime/rime-scj"
-SRC_URI="https://github.com/rime/${MY_PN}/archive/${MY_COMMIT}.tar.gz -> ${MY_PN}-${PV}.tar.gz"
+SRC_URI="https://github.com/rime/${MY_PN}/archive/${MY_COMMIT}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="GPL-3"
 SLOT="0"

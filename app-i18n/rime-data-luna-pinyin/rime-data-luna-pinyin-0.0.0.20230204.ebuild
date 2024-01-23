@@ -8,7 +8,7 @@ MY_COMMIT="79aeae200a7370720be98232844c0715f277e1c0"
 
 DESCRIPTION="luna-pinyin input schema and dictionary for RIME"
 HOMEPAGE="https://rime.im/ https://github.com/rime/rime-luna-pinyin"
-SRC_URI="https://github.com/rime/${MY_PN}/archive/${MY_COMMIT}.tar.gz -> ${MY_PN}-${PV}.tar.gz"
+SRC_URI="https://github.com/rime/${MY_PN}/archive/${MY_COMMIT}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="LGPL-3"
 SLOT="0"

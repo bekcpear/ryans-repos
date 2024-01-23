@@ -8,7 +8,7 @@ MY_COMMIT="22b71710e029bcb412e9197192a638ab11bc2abf"
 
 DESCRIPTION="ipa input schema and dictionary for RIME"
 HOMEPAGE="https://rime.im/ https://github.com/rime/rime-ipa"
-SRC_URI="https://github.com/rime/${MY_PN}/archive/${MY_COMMIT}.tar.gz -> ${MY_PN}-${PV}.tar.gz"
+SRC_URI="https://github.com/rime/${MY_PN}/archive/${MY_COMMIT}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="LGPL-3"
 SLOT="0"

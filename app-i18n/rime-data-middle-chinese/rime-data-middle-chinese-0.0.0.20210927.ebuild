@@ -8,7 +8,7 @@ MY_COMMIT="582e144e525525ac2b6c2498097d7c7919e84174"
 
 DESCRIPTION="middle-chinese input schema and dictionary for RIME"
 HOMEPAGE="https://rime.im/ https://github.com/rime/rime-middle-chinese"
-SRC_URI="https://github.com/rime/${MY_PN}/archive/${MY_COMMIT}.tar.gz -> ${MY_PN}-${PV}.tar.gz"
+SRC_URI="https://github.com/rime/${MY_PN}/archive/${MY_COMMIT}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="GPL-3"
 SLOT="0"

@@ -8,7 +8,7 @@ MY_COMMIT="75b10325bf4c590a3ffef7039a6f052a729edc55"
 
 DESCRIPTION="cangjie input schema and dictionary for RIME"
 HOMEPAGE="https://rime.im/ https://github.com/rime/rime-cangjie"
-SRC_URI="https://github.com/rime/${MY_PN}/archive/${MY_COMMIT}.tar.gz -> ${MY_PN}-${PV}.tar.gz"
+SRC_URI="https://github.com/rime/${MY_PN}/archive/${MY_COMMIT}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="LGPL-3"
 SLOT="0"

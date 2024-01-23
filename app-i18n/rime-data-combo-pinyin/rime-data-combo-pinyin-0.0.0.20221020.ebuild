@@ -8,7 +8,7 @@ MY_COMMIT="17b66079a23a00d3214639fee2b8ae97d3e620dc"
 
 DESCRIPTION="combo-pinyin input schema for RIME"
 HOMEPAGE="https://rime.im/ https://github.com/rime/rime-combo-pinyin"
-SRC_URI="https://github.com/rime/${MY_PN}/archive/${MY_COMMIT}.tar.gz -> ${MY_PN}-${PV}.tar.gz"
+SRC_URI="https://github.com/rime/${MY_PN}/archive/${MY_COMMIT}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="GPL-3"
 SLOT="0"

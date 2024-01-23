@@ -8,7 +8,7 @@ MY_COMMIT="beeaeca72d8e17dfd1e9af58680439e9012987dc"
 
 DESCRIPTION="soutzoe input schema for RIME"
 HOMEPAGE="https://rime.im/ https://github.com/rime/rime-soutzoe"
-SRC_URI="https://github.com/rime/${MY_PN}/archive/${MY_COMMIT}.tar.gz -> ${MY_PN}-${PV}.tar.gz"
+SRC_URI="https://github.com/rime/${MY_PN}/archive/${MY_COMMIT}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="GPL-3"
 SLOT="0"

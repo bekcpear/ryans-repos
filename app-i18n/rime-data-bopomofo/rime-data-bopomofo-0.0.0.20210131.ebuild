@@ -8,7 +8,7 @@ MY_COMMIT="c7618f4f5728e1634417e9d02ea50d82b71956ab"
 
 DESCRIPTION="bopomofo input schema for RIME"
 HOMEPAGE="https://rime.im/ https://github.com/rime/rime-bopomofo"
-SRC_URI="https://github.com/rime/${MY_PN}/archive/${MY_COMMIT}.tar.gz -> ${MY_PN}-${PV}.tar.gz"
+SRC_URI="https://github.com/rime/${MY_PN}/archive/${MY_COMMIT}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="LGPL-3"
 SLOT="0"

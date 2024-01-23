@@ -8,7 +8,7 @@ MY_COMMIT="dd84abecc33f0b05469f1d744e32d2b60b3529e3"
 
 DESCRIPTION="Essential files for building up Rime configuration"
 HOMEPAGE="https://rime.im/ https://github.com/rime/rime-prelude"
-SRC_URI="https://github.com/rime/${MY_PN}/archive/${MY_COMMIT}.tar.gz -> ${MY_PN}-${PV}.tar.gz"
+SRC_URI="https://github.com/rime/${MY_PN}/archive/${MY_COMMIT}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="LGPL-3"
 SLOT="0"
