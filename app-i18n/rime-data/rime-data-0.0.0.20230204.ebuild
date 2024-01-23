@@ -35,9 +35,9 @@ IUSE="
 "
 
 DEPEND="!app-i18n/rime-data:0"
-RDEPEND="${DEPEND}"
+RDEPEND="${DEPEND}
+	app-i18n/rime-data-prelude"
 PDEPEND="
-	app-i18n/rime-prelude
 	array? ( app-i18n/rime-data-array )
 	bopomofo? ( app-i18n/rime-data-bopomofo )
 	cangjie? ( app-i18n/rime-data-cangjie )
