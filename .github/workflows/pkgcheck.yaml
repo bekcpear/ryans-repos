@@ -98,7 +98,7 @@ jobs:
         run: |
           set -o pipefail
           set +e
-          datetime="$(date -u '+%Y-%m-%d %H:%M:%S')"
+          datetime="$(date -u '+%Y-%m-%d %H:%M:%S %Z')"
 
           _do() {
             set -- "$@"
