@@ -1,5 +1,8 @@
 #!/bin/bash
 #
+# @author: Ryan Tsien
+# @email: i@bitbili.net
+#
 
 APPEND_DIR="$(realpath "$1")"
 GENTOO_DIR="$(realpath "$2")"

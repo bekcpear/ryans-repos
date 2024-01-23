@@ -1,5 +1,8 @@
 #!/bin/bash
 #
+# @author: Ryan Tsien
+# @email: i@bitbili.net
+#
 
 IN="$(realpath "$1")"
 OUT="$(realpath "$2")"
