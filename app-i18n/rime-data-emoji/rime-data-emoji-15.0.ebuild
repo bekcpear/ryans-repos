@@ -7,7 +7,7 @@ MY_PN="rime-emoji"
 
 DESCRIPTION="emoji input schema for RIME"
 HOMEPAGE="https://rime.im/ https://github.com/rime/rime-emoji"
-SRC_URI="https://github.com/rime/rime-emoji/archive/refs/tags/${PV}.tar.gz -> ${MY_PN}-${PV}.tar.gz"
+SRC_URI="https://github.com/rime/rime-emoji/archive/refs/tags/${PV}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="LGPL-3"
 SLOT="0"

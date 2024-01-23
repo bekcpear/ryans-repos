@@ -8,7 +8,7 @@ MY_COMMIT="65fdbbf2f9485cc907cb9a6d6b9210938a50f71e"
 
 DESCRIPTION="stroke input schema and dictionary for RIME"
 HOMEPAGE="https://rime.im/ https://github.com/rime/rime-stroke"
-SRC_URI="https://github.com/rime/${MY_PN}/archive/${MY_COMMIT}.tar.gz -> ${MY_PN}-${PV}.tar.gz"
+SRC_URI="https://github.com/rime/${MY_PN}/archive/${MY_COMMIT}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="LGPL-3"
 SLOT="0"

@@ -8,7 +8,7 @@ MY_COMMIT="abd1ee98efbf170258fcf43875c21a4259e00b61"
 
 DESCRIPTION="wugniu input schema and dictionary for RIME"
 HOMEPAGE="https://rime.im/ https://github.com/rime/rime-wugniu"
-SRC_URI="https://github.com/rime/${MY_PN}/archive/${MY_COMMIT}.tar.gz -> ${MY_PN}-${PV}.tar.gz"
+SRC_URI="https://github.com/rime/${MY_PN}/archive/${MY_COMMIT}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="GPL-3"
 SLOT="0"

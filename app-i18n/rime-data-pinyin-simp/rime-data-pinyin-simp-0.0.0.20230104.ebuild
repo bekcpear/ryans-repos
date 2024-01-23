@@ -8,7 +8,7 @@ MY_COMMIT="52b9c75f085479799553f2499c4f4c611d618cdf"
 
 DESCRIPTION="pinyin-simp input schema and dictionary for RIME"
 HOMEPAGE="https://rime.im/ https://github.com/rime/rime-pinyin-simp"
-SRC_URI="https://github.com/rime/${MY_PN}/archive/${MY_COMMIT}.tar.gz -> ${MY_PN}-${PV}.tar.gz"
+SRC_URI="https://github.com/rime/${MY_PN}/archive/${MY_COMMIT}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="Apache-2.0"
 SLOT="0"

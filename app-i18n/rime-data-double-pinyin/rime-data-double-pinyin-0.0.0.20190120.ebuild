@@ -8,7 +8,7 @@ MY_COMMIT="69bf85d4dfe8bac139c36abbd68d530b8b6622ea"
 
 DESCRIPTION="double-pinyin input schema for RIME"
 HOMEPAGE="https://rime.im/ https://github.com/rime/rime-double-pinyin"
-SRC_URI="https://github.com/rime/${MY_PN}/archive/${MY_COMMIT}.tar.gz -> ${MY_PN}-${PV}.tar.gz"
+SRC_URI="https://github.com/rime/${MY_PN}/archive/${MY_COMMIT}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="GPL-3"
 SLOT="0"

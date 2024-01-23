@@ -8,7 +8,7 @@ MY_COMMIT="f3e9189d5ce33c55d3936cc58e39d0c88b3f0c88"
 
 DESCRIPTION="stenotype input schema for RIME"
 HOMEPAGE="https://rime.im/ https://github.com/rime/rime-stenotype"
-SRC_URI="https://github.com/rime/${MY_PN}/archive/${MY_COMMIT}.tar.gz -> ${MY_PN}-${PV}.tar.gz"
+SRC_URI="https://github.com/rime/${MY_PN}/archive/${MY_COMMIT}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="GPL-3"
 SLOT="0"
