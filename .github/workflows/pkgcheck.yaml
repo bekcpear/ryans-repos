@@ -57,9 +57,9 @@ jobs:
       - name: setup repos.conf
         shell: bash
         run: |
-          cp _ryans/.github/misc/repos.conf /etc/portage/repos.conf
-          sed -Ei "s:@@GITHUB_WORKSPACE@@:${GITHUB_WORKSPACE}:" /etc/portage/repos.conf
-          cat /etc/portage/repos.conf
+          cp _ryans/.github/misc/repos.conf /etc/portage/repos.conf/gentoo.conf
+          sed -Ei "s:@@GITHUB_WORKSPACE@@:${GITHUB_WORKSPACE}:" /etc/portage/repos.conf/gentoo.conf
+          cat /etc/portage/repos.conf/gentoo.conf
           link=$(readlink /etc/portage/make.profile)
           link="${GITHUB_WORKSPACE%/}/repos/gentoo${link#*/repos/gentoo}"
           ln -sf ${link} /etc/portage/make.profile
