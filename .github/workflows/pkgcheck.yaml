@@ -42,7 +42,7 @@ jobs:
     name: scan the whole repo
     runs-on: ubuntu-latest
     container:
-      image: gentoo/stage3:latest
+      image: ghcr.io/bekcpear/gentoo-env:latest
     steps:
       - name: checkout
         uses: actions/checkout@v4
@@ -64,28 +64,15 @@ jobs:
           link="${GITHUB_WORKSPACE%/}/repos/gentoo${link#*/repos/gentoo}"
           ln -sf ${link} /etc/portage/make.profile
           ls -l /etc/portage/make.profile
-      - name: install pkgcheck and git
+      - name: update pkgcheck
         shell: bash
-        env:
-          ACCEPT_KEYWORDS: ~amd64
         run: |
-          sed -Ei '/sync-uri = /s@https?://[^/]+/@https://distfiles.gentoo.org/@' /etc/portage/binrepos.conf/*.conf
-          cat /etc/portage/binrepos.conf/*.conf
-          mv /etc/portage/gnupg /etc/portage/gnupg.bak || true
-          getuto
-          emerge -vtj --getbinpkg \
+          emerge -nvtj --getbinpkg \
             --autounmask=y \
             --autounmask-license=y \
             --autounmask-write=y \
             --autounmask-continue=y \
-            pkgcheck dev-vcs/git
-          rm -rf repos/gentoo
-      - name: prepare the ::gentoo repo with git again
-        uses: actions/checkout@v4
-        with:
-          repository: 'gentoo-mirror/gentoo'
-          fetch-depth: 1
-          path: repos/gentoo
+            pkgcheck
       - name: prepare this repo with the triggered branch
         uses: actions/checkout@v4
         with:
