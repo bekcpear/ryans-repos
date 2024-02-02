@@ -3,33 +3,32 @@
 
 EAPI=8
 
-export CBUILD=${CBUILD:-${CHOST}}
-export CTARGET=${CTARGET:-${CHOST}}
-
-MY_PV=${PV/_/}
-
 inherit toolchain-funcs
 
 DESCRIPTION="A concurrent garbage collected and typesafe programming language"
 HOMEPAGE="https://go.dev"
-
-SRC_URI="https://storage.googleapis.com/golang/go${MY_PV}.src.tar.gz "
-S="${WORKDIR}"/go
-KEYWORDS="-* ~amd64 ~arm ~arm64 ~loong ~mips ~ppc64 ~riscv ~s390 ~x86 ~amd64-linux ~x86-linux ~arm64-macos ~x64-macos ~x64-solaris"
-
-[[ $PV =~ ^([[:digit:]]+)\.([[:digit:]]+)(\.([[:digit:]]+))?(_.*)?$ ]] || true
-PV_MINOR="${BASH_REMATCH[1]}.${BASH_REMATCH[2]}"
-PV_PATCH="${BASH_REMATCH[4]}"
-GOROOT_VALUE="/usr/lib/go${PV_MINOR}"
+SRC_URI="https://storage.googleapis.com/golang/go${PV//_/}.src.tar.gz "
 
 LICENSE="BSD"
-SLOT="${PV_MINOR}/${PV_PATCH:-0}"
+KEYWORDS="-* ~amd64 ~arm ~arm64 ~loong ~mips ~ppc64 ~riscv ~s390 ~x86 ~amd64-linux ~x86-linux ~arm64-macos ~x64-macos ~x64-solaris"
+
 IUSE="abi_mips_o32 abi_mips_n64 cpu_flags_x86_sse2"
+
+PV_MAJOR2MINOR="$(ver_cut 1-2)"
+PV_PATCH="$(ver_cut 3)"
+SLOT="${PV_MAJOR2MINOR}/${PV_PATCH:-0}"
+
+# the installation path is fixed to "${EPREFIX}${GOROOT_VALUE}"
+GOROOT_VALUE="/usr/lib/go${PV_MAJOR2MINOR}"
+S="${WORKDIR}"/go
+
+# see https://go.dev/doc/go1.20#bootstrap
+BOOTSTRAP_MIN_VER="1.17.13"
 
 BDEPEND="
 	|| (
-		dev-lang/go
-		dev-lang/go-bootstrap
+		>=dev-lang/go-${BOOTSTRAP_MIN_VER}
+		>=dev-lang/go-bootstrap-${BOOTSTRAP_MIN_VER}
 	)
 "
 RDEPEND="app-eselect/eselect-go"
@@ -40,16 +39,15 @@ QA_EXECSTACK='*.syso'
 # Do not complain about CFLAGS, etc, since Go doesn't use them.
 QA_FLAGS_IGNORED='.*'
 
-# The tools in /usr/lib/go.* should not cause the multilib-strict check to fail.
-QA_MULTILIB_PATHS="usr/lib/go.*/pkg/tool/.*/.*"
+# The tools in /usr/lib/go${PV_MAJOR2MINOR} should not cause the multilib-strict check to fail.
+QA_MULTILIB_PATHS="usr/lib/go${PV_MAJOR2MINOR}/pkg/tool/.*/.*"
 
 # This package triggers "unrecognized elf file(s)" notices on riscv.
 # https://bugs.gentoo.org/794046
 QA_PREBUILT='.*'
 
-# Do not strip this package. Stripping is unsupported upstream and may
-# fail.
-RESTRICT+=" strip"
+# Do not strip this package. Stripping is unsupported upstream and may fail.
+RESTRICT="strip"
 
 DOCS=(
 	CONTRIBUTING.md
@@ -60,114 +58,137 @@ DOCS=(
 
 go_arch() {
 	# By chance most portage arch names match Go
-	local tc_arch=$(tc-arch $@)
+	local tc_arch
+	tc_arch="$(tc-arch "$1")"
 	case "${tc_arch}" in
-		arm64-macos) echo arm64;;
-		x86)	echo 386;;
-		x64-*)	echo amd64;;
-		loong)	echo loong64;;
-		mips) if use abi_mips_o32; then
-				[[ $(tc-endian $@) = big ]] && echo mips || echo mipsle
+		arm64*) echo arm64 ;;
+		loong)  echo loong64 ;;
+		mips)
+			if use abi_mips_o32; then
+				[[ $(tc-endian "$1") == big ]] && echo mips || echo mipsle
 			elif use abi_mips_n64; then
-				[[ $(tc-endian $@) = big ]] && echo mips64 || echo mips64le
-			fi ;;
-		ppc64) [[ $(tc-endian $@) = big ]] && echo ppc64 || echo ppc64le ;;
+				[[ $(tc-endian "$1") == big ]] && echo mips64 || echo mips64le
+			fi
+			;;
+		ppc64) [[ $(tc-endian "$1") == big ]] && echo ppc64 || echo ppc64le ;;
 		riscv) echo riscv64 ;;
-		s390) echo s390x ;;
-		*)		echo "${tc_arch}";;
+		s390)  echo s390x ;;
+		x64-*) echo amd64 ;;
+		x86)   echo 386 ;;
+		*)     echo "${tc_arch}" ;;
 	esac
 }
 
 go_arm() {
-	case "${1:-${CHOST}}" in
-		armv5*)	echo 5;;
-		armv6*)	echo 6;;
-		armv7*)	echo 7;;
+	local host="$CHOST"
+	case "$host" in
+		armv5*) echo 5 ;;
+		armv6*) echo 6 ;;
+		armv7*) echo 7 ;;
 		*)
-			die "unknown GOARM for ${1:-${CHOST}}"
+			die "unknown GOARM for $host"
 			;;
 	esac
 }
 
 go_os() {
-	case "${1:-${CHOST}}" in
-		*-linux*)	echo linux;;
-		*-darwin*)	echo darwin;;
-		*-freebsd*)	echo freebsd;;
-		*-netbsd*)	echo netbsd;;
-		*-openbsd*)	echo openbsd;;
-		*-solaris*)	echo solaris;;
+	local host="${1:-$CHOST}"
+	case "$host" in
+		*-linux*)   echo linux ;;
+		*-darwin*)  echo darwin ;;
+		*-freebsd*) echo freebsd ;;
+		*-netbsd*)  echo netbsd ;;
+		*-openbsd*) echo openbsd ;;
+		*-solaris*) echo solaris ;;
 		*-cygwin*|*-interix*|*-winnt*)
 			echo windows
 			;;
 		*)
-			die "unknown GOOS for ${1:-${CHOST}}"
+			die "unknown GOOS for $host"
 			;;
 	esac
 }
 
 go_tuple() {
-	echo "$(go_os $@)_$(go_arch $@)"
+	echo "$(go_os "$1")_$(go_arch "$1")"
 }
 
 go_cross_compile() {
-	[[ $(go_tuple ${CBUILD}) != $(go_tuple) ]]
+	[[ $(go_tuple "$CBUILD") != $(go_tuple) ]]
+}
+
+declare -g GO_LATEST_PVR
+pkg_setup() {
+	GO_LATEST_PVR="$(best_version -b dev-lang/go)"
 }
 
 src_compile() {
-	if has_version -b dev-lang/go; then
-		export GOROOT_BOOTSTRAP="${BROOT}$(go env GOROOT)"
+	local go_ver=0
+	if [[ -n $GO_LATEST_PVR ]]; then
+		go_ver="${GO_LATEST_PVR#dev-lang/go-}"
+	fi
+	if ver_test "$go_ver" -ge "$BOOTSTRAP_MIN_VER"; then
+		go_ver="$(ver_cut 1-2 "$go_ver")"
+		GOROOT_BOOTSTRAP="${BROOT}/usr/lib/go${go_ver}"
 	elif has_version -b dev-lang/go-bootstrap; then
-		export GOROOT_BOOTSTRAP="${BROOT}/usr/lib/go-bootstrap"
+		GOROOT_BOOTSTRAP="${BROOT}/usr/lib/go-bootstrap"
 	else
 		eerror "Go cannot be built without go or go-bootstrap installed"
 		die "Should not be here, please report a bug"
 	fi
 
-	export GOROOT_FINAL="${EPREFIX}${GOROOT_VALUE}"
-	export GOROOT="${PWD}"
-	export GOBIN="${GOROOT}/bin"
+	GOROOT_FINAL="${EPREFIX}${GOROOT_VALUE}"
 
 	# Go's build script does not use BUILD/HOST/TARGET consistently. :(
-	export GOHOSTARCH=$(go_arch ${CBUILD})
-	export GOHOSTOS=$(go_os ${CBUILD})
-	export CC=$(tc-getBUILD_CC)
+	GOHOSTARCH=$(go_arch "$CBUILD")
+	CC="$(tc-getBUILD_CC)"
+	CXX="$(tc-getBUILD_CXX)"
 
-	export GOARCH=$(go_arch)
-	export GOOS=$(go_os)
-	export CC_FOR_TARGET=$(tc-getCC)
-	export CXX_FOR_TARGET=$(tc-getCXX)
-	use arm && export GOARM=$(go_arm)
-	use x86 && export GO386=$(usex cpu_flags_x86_sse2 '' 'softfloat')
+	GOARCH=$(go_arch)
+	GOOS=$(go_os)
+	CC_FOR_TARGET=$(tc-getCC)
+	CXX_FOR_TARGET=$(tc-getCXX)
+	use arm && GOARM=$(go_arm) && export GOARM
+	use x86 && GO386=$(usex cpu_flags_x86_sse2 '' 'softfloat') && export GO386
 
-	cd src
+	export \
+		GOROOT_BOOTSTRAP \
+		GOROOT_FINAL \
+		GOHOSTARCH \
+		CC \
+		CXX \
+		GOARCH \
+		GOOS \
+		CC_FOR_TARGET \
+		CXX_FOR_TARGET
+	cd src || die
 	bash -x ./make.bash || die "build failed"
 }
 
 src_test() {
 	go_cross_compile && return 0
 
-	cd src
-	PATH="${GOBIN}:${PATH}" \
-		./run.bash -no-rebuild || die "tests failed"
-	cd ..
-	rm -fr pkg/*_race || die
-	rm -fr pkg/obj/go-build || die
+	cd src || die
+	./run.bash -no-rebuild -k || die "tests failed"
 }
 
 src_install() {
-	# There is a known issue which requires the source tree to be installed [1].
-	# Once this is fixed, we can consider using the doc use flag to control
-	# installing the doc and src directories.
+	insinto "${GOROOT_VALUE}"
+	doins go.env VERSION
 	# The use of cp is deliberate in order to retain permissions
-	# [1] https://golang.org/issue/2775
-	dodir ${GOROOT_VALUE}
 	cp -R api bin doc lib pkg misc src test "${ED}${GOROOT_VALUE}"
+
+	# remove the testdata dir, due to I cannot find a way to prevent the QA
+	# warning messages about 'Unresolved soname dependencies' for those elf
+	# files that is used for testing on different platforms, ;(
+	local file
+	while read -r file; do
+		[[ -d "$file" ]] && rm -rf "$file" || die
+	done < <(find "${ED}${GOROOT_VALUE}" -name testdata -type d)
+
 	einstalldocs
 
-	# testdata directories are not needed on the installed system
-	rm -fr $(find "${ED}${GOROOT_VALUE}" -iname testdata -type d -print)
-
+	# do binary link
 	local bin_path
 	if go_cross_compile; then
 		bin_path="bin/$(go_tuple)"
@@ -175,56 +196,60 @@ src_install() {
 		bin_path=bin
 	fi
 	local f x
-	for x in ${bin_path}/*; do
+	for x in "${bin_path}"/*; do
 		f=${x##*/}
-		dosym -r ${GOROOT_VALUE}/${bin_path}/${f} /usr/bin/${f}${PV_MINOR}
+		dosym -r "${GOROOT_VALUE}/${bin_path}/${f}" "/usr/bin/${f}${PV_MAJOR2MINOR}"
 	done
-}
-
-declare -g GO_LATEST_PVR
-pkg_preinst() {
-	GO_LATEST_PVR=$(best_version 'dev-lang/go')
 }
 
 pkg_postinst() {
-	local pvr=${GO_LATEST_PVR#dev-lang/go-} upgrade=false
-	[[ $pvr =~ ^([[:digit:]]+)\.([[:digit:]]+)(\.([[:digit:]]+))?(_.*)?(-.*)?$ ]] || true
-	local lmajor="${BASH_REMATCH[1]:-0}"
-	local lminor="${BASH_REMATCH[2]:-0}"
-	local nvr="${lmajor}.${lminor}"
-	if (( ${PV_MINOR%.*} == $lmajor && ${PV_MINOR#*.} > $lminor )) || \
-		(( ${PV_MINOR%.*} > $lmajor )); then
+	# check if it's a minor version upgrade
+	local pre_pvr="${GO_LATEST_PVR#dev-lang/go-}" upgrade=false \
+		pre_pv_major2minor new_pv_major2minor
+	pre_pv_major2minor=$(ver_cut 1-2 "$pre_pvr")
+	if ver_test "$PV_MAJOR2MINOR" -gt "$pre_pv_major2minor"; then
 		upgrade=true
-		nvr=${PV_MINOR}
+		new_pv_major2minor=${PV_MAJOR2MINOR}
 	fi
-	local libPath="${EROOT}"/usr/lib/go
-	local binPath="${EROOT}"/usr/bin/go
+
+	# try to switch to the new version if it's a minor version upgrade or it's a
+	# fresh installation
+	local eselect_ret=0 \
+		libPath="${EROOT}"/usr/lib/go \
+		binPath="${EROOT}"/usr/bin/go
 	if [[ $upgrade == true && -L $libPath && -L $binPath ]] || \
 		[[ ! -e $libPath && ! -e $binPath ]]; then
-		eselect go set go${nvr}
-		if [[ $? == 0 ]]; then
-			elog "[eselect] successfully switched to version: go${nvr}"
+		eselect go set go${new_pv_major2minor} || eselect_ret=$?
+		if [[ $eselect_ret == 0 ]]; then
+			elog "[eselect] successfully switched to version: go${new_pv_major2minor}"
 			elog
 		else
-			eerror "[eselect] switch to version go${nvr} error, please handle it manually!"
+			eerror "[eselect] switch to version go${new_pv_major2minor} error, please handle it manually!"
 		fi
 	fi
 
-	local dbDir official_go_version_installed
-	for dbDir in $(ls -1d "${EROOT}"/var/db/pkg/dev-lang/go-1.*); do
-		if [[ -d "$dbDir" ]] && [[ $(< "$dbDir"/repository) == "gentoo" ]]; then
-			official_go_version_installed=1
-			break
+	# check if the ::gentoo version go pkg is installed,
+	# cannot use has_version to check the pkg with an overlay name like
+	# 'dev-lang/go::gentoo', so sad :(
+	# check the vdb directly
+	local vdb_path="${EROOT}var/db/pkg" other_go_version_installed line
+	while read -r line; do
+		if [[ -f "${line}/repository" ]]; then
+			if [[ "$(cat "${line}/repository")" != ryans ]]; then
+				# TODO: is there any way to get the current repo_name?
+				other_go_version_installed=1
+				break
+			fi
 		fi
-	done
-	if [[ -n $official_go_version_installed ]]; then
-		ewarn "The official version of golang exists, you can"
+	done < <(find "${vdb_path}/dev-lang/" -name 'go-1*' -maxdepth 1 -type d)
+	if [[ $other_go_version_installed == 1 ]]; then
+		ewarn "It seems that other version of golang exists, you can"
 		ewarn
-		ewarn "1. Please uninstall the official version by executing:"
-		ewarn "     # emerge -C dev-lang/go::gentoo"
+		ewarn "1. Please uninstall the other version by executing:"
+		ewarn "     # emerge -C dev-lang/go::gentoo # (or ::gentoo_prefix, or with other repo_name)"
 		ewarn "   and use the eselect to select this slot enabled version:"
 		ewarn "     # eselect go cleanup"
-		ewarn "   to make it work."
+		ewarn "   to make this go package works."
 		ewarn
 		ewarn "2. Or, just mask this version if you don't want it by executing:"
 		ewarn "     # echo $'\\\\n'\"dev-lang/go::ryans\" >>/etc/portage/package.mask/golang"
@@ -238,19 +263,19 @@ pkg_postinst() {
 		echo
 	fi
 	elog "To select/switch between available Go version, execute as root:"
-	elog "  # eselect go set (go1.19|go1.20|...)"
-	elog "ATTENTION: not compatible with dev-lang/go::gentoo version"
+	elog "  # eselect go set (go1.20|go1.21|...)"
+	elog "ATTENTION: not compatible with dev-lang/go::gentoo (or ::gentoo_prefix) version"
 
-	[[ -z ${REPLACING_VERSIONS} ]] && return
+	[[ -n ${REPLACING_VERSIONS} ]] || return
 	elog
-	elog "After ${CATEGORY}/${PN} is updated it is recommended to rebuild"
+	elog "After ${CATEGORY}/${PN} is updated, it is recommended to rebuild"
 	elog "all packages compiled with previous versions of ${CATEGORY}/${PN}"
 	elog "due to the static linking nature of go."
 	elog "If this is not done, the packages compiled with the older"
 	elog "version of the compiler will not be updated until they are"
 	elog "updated individually, which could mean they will have"
 	elog "vulnerabilities."
-	elog "Run 'emerge @golang-rebuild' to rebuild all 'go' packages"
+	elog "Run 'emerge @golang-rebuild' to rebuild all 'go' packages."
 	elog "See https://bugs.gentoo.org/752153 for more info"
 }
 
