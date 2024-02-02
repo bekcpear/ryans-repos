@@ -130,6 +130,8 @@ src_compile() {
 	if ver_test "$go_ver" -ge "$BOOTSTRAP_MIN_VER"; then
 		go_ver="$(ver_cut 1-2 "$go_ver")"
 		GOROOT_BOOTSTRAP="${BROOT}/usr/lib/go${go_ver}"
+		# the make.bash will fallback to use the `go env GOROOT` to get the
+		# GOROOT_BOOTSTRAP value if this one is incorrect.
 	elif has_version -b dev-lang/go-bootstrap; then
 		GOROOT_BOOTSTRAP="${BROOT}/usr/lib/go-bootstrap"
 	else
@@ -210,6 +212,8 @@ pkg_postinst() {
 	if ver_test "$PV_MAJOR2MINOR" -gt "$pre_pv_major2minor"; then
 		upgrade=true
 		new_pv_major2minor=${PV_MAJOR2MINOR}
+	else
+		new_pv_major2minor=${pre_pv_major2minor}
 	fi
 
 	# try to switch to the new version if it's a minor version upgrade or it's a
@@ -241,7 +245,7 @@ pkg_postinst() {
 				break
 			fi
 		fi
-	done < <(find "${vdb_path}/dev-lang/" -name 'go-1*' -maxdepth 1 -type d)
+	done < <(find "${vdb_path}/dev-lang/" -maxdepth 1 -name 'go-1*' -type d)
 	if [[ $other_go_version_installed == 1 ]]; then
 		ewarn "It seems that other version of golang exists, you can"
 		ewarn
