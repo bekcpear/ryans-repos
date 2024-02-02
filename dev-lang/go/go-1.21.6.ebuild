@@ -178,6 +178,14 @@ src_install() {
 	# The use of cp is deliberate in order to retain permissions
 	cp -R api bin doc lib pkg misc src test "${ED}${GOROOT_VALUE}"
 
+	# remove the testdata dir, due to I cannot find a way to prevent the QA
+	# warning messages about 'Unresolved soname dependencies' for those elf
+	# files that is used for testing on different platforms, ;(
+	local file
+	while read -r file; do
+		[[ -d "$file" ]] && rm -rf "$file" || die
+	done < <(find "${ED}${GOROOT_VALUE}" -name testdata -type d)
+
 	einstalldocs
 
 	# do binary link
@@ -220,8 +228,10 @@ pkg_postinst() {
 		fi
 	fi
 
-	# check if the ::gentoo version go pkg is installed
-	if has_version -b "dev-lang/go::gentoo" || has_version -b "dev-lang/go::gentoo_prefix"; then
+	# check if the ::gentoo version go pkg is installed,
+	# cannot use has_version to check the pkg with an overlay name like
+	# 'dev-lang/go::gentoo', ;(, call `portageq` directly
+	if portageq "$EPREFIX" "dev-lang/go::gentoo" || portageq "$EPREFIX" "dev-lang/go::gentoo_prefix"; then
 		ewarn "The official version of golang exists, you can"
 		ewarn
 		ewarn "1. Please uninstall the official version by executing:"
