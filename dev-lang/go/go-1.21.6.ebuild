@@ -245,7 +245,7 @@ pkg_postinst() {
 				break
 			fi
 		fi
-	done < <(find "${vdb_path}/dev-lang/" -name 'go-1*' -maxdepth 1 -type d)
+	done < <(find "${vdb_path}/dev-lang/" -maxdepth 1 -name 'go-1*' -type d)
 	if [[ $other_go_version_installed == 1 ]]; then
 		ewarn "It seems that other version of golang exists, you can"
 		ewarn
