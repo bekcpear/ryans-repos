@@ -230,12 +230,22 @@ pkg_postinst() {
 
 	# check if the ::gentoo version go pkg is installed,
 	# cannot use has_version to check the pkg with an overlay name like
-	# 'dev-lang/go::gentoo', ;(, call `portageq` directly
-	if portageq "$EPREFIX" "dev-lang/go::gentoo" || portageq "$EPREFIX" "dev-lang/go::gentoo_prefix"; then
-		ewarn "The official version of golang exists, you can"
+	# 'dev-lang/go::gentoo', so sad :(
+	# check the vdb directly
+	local vdb_path="${EROOT}var/db/pkg" other_go_version_installed line
+	while read -r line; do
+		if [[ -f "${line}/repository" ]]; then
+			if [[ "$(cat "${line}/repository")" != ryans ]]; then
+				other_go_version_installed=1
+				break
+			fi
+		fi
+	done < <(find "${vdb_path}/dev-lang/" -name 'go-1*' -maxdepth 1 -type d)
+	if [[ $other_go_version_installed == 1 ]]; then
+		ewarn "It seems that other version of golang exists, you can"
 		ewarn
-		ewarn "1. Please uninstall the official version by executing:"
-		ewarn "     # emerge -C dev-lang/go::gentoo # (or ::gentoo_prefix)"
+		ewarn "1. Please uninstall the other version by executing:"
+		ewarn "     # emerge -C dev-lang/go::gentoo # (or ::gentoo_prefix, or with other repo_name)"
 		ewarn "   and use the eselect to select this slot enabled version:"
 		ewarn "     # eselect go cleanup"
 		ewarn "   to make this go package works."
