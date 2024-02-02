@@ -232,7 +232,7 @@ pkg_postinst() {
 	# cannot use has_version to check the pkg with an overlay name like
 	# 'dev-lang/go::gentoo', so sad :(
 	# check the vdb directly
-	local vdb_path="${EROOT}var/db/pkg" other_go_version_installed line
+	local vdb_path="${EROOT}/var/db/pkg" other_go_version_installed line
 	while read -r line; do
 		if [[ -f "${line}/repository" ]]; then
 			if [[ "$(cat "${line}/repository")" != ryans ]]; then
