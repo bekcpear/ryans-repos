@@ -236,6 +236,7 @@ pkg_postinst() {
 	while read -r line; do
 		if [[ -f "${line}/repository" ]]; then
 			if [[ "$(cat "${line}/repository")" != ryans ]]; then
+				# TODO: is there any way to get the current repo_name?
 				other_go_version_installed=1
 				break
 			fi
