@@ -5,7 +5,7 @@ EAPI=8
 
 DESCRIPTION="Bootstrap package for dev-lang/go"
 HOMEPAGE="https://golang.org"
-BOOTSTRAP_DIST="https://go.dev/dl/"
+BOOTSTRAP_DIST="https://storage.googleapis.com/golang"
 SRC_URI="
 	amd64? ( ${BOOTSTRAP_DIST}/go${PV}.linux-amd64.tar.gz )
 	arm64? ( ${BOOTSTRAP_DIST}/go${PV}.linux-arm64.tar.gz )
