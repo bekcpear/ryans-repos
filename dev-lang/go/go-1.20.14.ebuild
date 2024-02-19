@@ -176,7 +176,7 @@ src_test() {
 
 src_install() {
 	insinto "${GOROOT_VALUE}"
-	doins go.env VERSION
+	doins VERSION
 	# The use of cp is deliberate in order to retain permissions
 	cp -R api bin doc lib pkg misc src test "${ED}${GOROOT_VALUE}"
 
