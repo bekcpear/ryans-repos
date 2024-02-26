@@ -31,7 +31,10 @@ BDEPEND="
 		>=dev-lang/go-bootstrap-${BOOTSTRAP_MIN_VER}
 	)
 "
-RDEPEND="app-eselect/eselect-go"
+RDEPEND="
+	app-eselect/eselect-go
+	dev-libs/golang-rebuild-set
+"
 
 # the *.syso files have writable/executable stacks
 QA_EXECSTACK='*.syso'
@@ -176,7 +179,7 @@ src_test() {
 
 src_install() {
 	insinto "${GOROOT_VALUE}"
-	doins go.env VERSION
+	doins VERSION
 	# The use of cp is deliberate in order to retain permissions
 	cp -R api bin doc lib pkg misc src test "${ED}${GOROOT_VALUE}"
 
