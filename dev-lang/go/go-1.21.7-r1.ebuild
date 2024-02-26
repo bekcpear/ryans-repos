@@ -22,8 +22,8 @@ SLOT="${PV_MAJOR2MINOR}/${PV_PATCH:-0}"
 GOROOT_VALUE="/usr/lib/go${PV_MAJOR2MINOR}"
 S="${WORKDIR}"/go
 
-# see https://go.dev/doc/go1.22#bootstrap
-BOOTSTRAP_MIN_VER="1.20.0"
+# see https://go.dev/doc/go1.20#bootstrap
+BOOTSTRAP_MIN_VER="1.17.13"
 
 BDEPEND="
 	|| (
@@ -31,7 +31,10 @@ BDEPEND="
 		>=dev-lang/go-bootstrap-${BOOTSTRAP_MIN_VER}
 	)
 "
-RDEPEND="app-eselect/eselect-go"
+RDEPEND="
+	app-eselect/eselect-go
+	dev-libs/golang-rebuild-set
+"
 
 # the *.syso files have writable/executable stacks
 QA_EXECSTACK='*.syso'
@@ -80,16 +83,13 @@ go_arch() {
 }
 
 go_arm() {
-	local fp=""
-	# TODO: detect softfp/hardfp for arm
-	# refs: https://go.dev/doc/go1.22#arm
-
-	case "$CHOST" in
-		armv5*) echo 5$fp ;;
-		armv6*) echo 6$fp ;;
-		armv7*) echo 7$fp ;;
+	local host="$CHOST"
+	case "$host" in
+		armv5*) echo 5 ;;
+		armv6*) echo 6 ;;
+		armv7*) echo 7 ;;
 		*)
-			die "unknown GOARM for $CHOST"
+			die "unknown GOARM for $host"
 			;;
 	esac
 }
@@ -270,7 +270,7 @@ pkg_postinst() {
 		echo
 	fi
 	elog "To select/switch between available Go version, execute as root:"
-	elog "  # eselect go set (go1.21|go1.22|...)"
+	elog "  # eselect go set (go1.20|go1.21|...)"
 	elog "ATTENTION: not compatible with dev-lang/go::gentoo (or ::gentoo_prefix) version"
 
 	[[ -n ${REPLACING_VERSIONS} ]] || return
