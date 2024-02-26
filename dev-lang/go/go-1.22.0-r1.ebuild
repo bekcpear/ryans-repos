@@ -205,6 +205,12 @@ src_install() {
 		f=${x##*/}
 		dosym -r "${GOROOT_VALUE}/${bin_path}/${f}" "/usr/bin/${f}${PV_MAJOR2MINOR}"
 	done
+
+	# install the @golang-rebuild set for Portage
+	# bug: https://bugs.gentoo.org/919751
+	# pr: https://github.com/gentoo/portage/pull/1286
+	insinto /usr/share/portage/config/sets
+	newins "${FILESDIR}"/go-sets.conf go.conf
 }
 
 pkg_postinst() {
