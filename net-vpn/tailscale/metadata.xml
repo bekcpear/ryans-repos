@@ -6,6 +6,7 @@
 		<name>Ryan Qian</name>
 	</maintainer>
 	<use>
+		<flag name="tailscale">Build tailscale itself</flag>
 		<flag name="derp">Build DERP server</flag>
 		<flag name="tools">Build tools (derpprobe for now)</flag>
 	</use>
