@@ -1,0 +1,354 @@
+diff --git a/www-apps/gitea/files/gitea-1.22.0-fix-missing-memcache-import.diff b/www-apps/gitea/files/gitea-1.22.0-fix-missing-memcache-import.diff
+new file mode 100644
+index 0000000..1ad5d50
+--- /dev/null
++++ b/www-apps/gitea/files/gitea-1.22.0-fix-missing-memcache-import.diff
+@@ -0,0 +1,18 @@
++https://github.com/go-gitea/gitea/issues/31102
++https://github.com/go-gitea/gitea/pull/31105
++
++Fix missing memcache import
++
++diff --git a/modules/cache/cache.go b/modules/cache/cache.go
++index 2ca77bdb29f3..075367115803 100644
++--- a/modules/cache/cache.go
+++++ b/modules/cache/cache.go
++@@ -8,6 +8,8 @@ import (
++ 	"time"
++ 
++ 	"code.gitea.io/gitea/modules/setting"
+++
+++	_ "gitea.com/go-chi/cache/memcache" //nolint:depguard // memcache plugin for cache, it is required for config "ADAPTER=memcache"
++ )
++ 
++ var defaultCache StringCache
+diff --git a/www-apps/gitea/files/gitea-1.22.0-go-chi-memcache-package.diff b/www-apps/gitea/files/gitea-1.22.0-go-chi-memcache-package.diff
+new file mode 100644
+index 0000000..f3ebbe6
+--- /dev/null
++++ b/www-apps/gitea/files/gitea-1.22.0-go-chi-memcache-package.diff
+@@ -0,0 +1,121 @@
++https://github.com/go-gitea/gitea/issues/31102
++https://github.com/go-gitea/gitea/pull/31105
++
++add the missing memcache package in the vendor dir,
++binding to patch ./gitea-1.22.0-fix-missing-memcache-import.diff
++
++diff --git a/vendor/gitea.com/go-chi/cache/memcache/memcache.go b/vendor/gitea.com/go-chi/cache/memcache/memcache.go
++new file mode 100644
++index 00000000..7c7cd225
++--- /dev/null
+++++ b/vendor/gitea.com/go-chi/cache/memcache/memcache.go
++@@ -0,0 +1,97 @@
+++// Copyright 2013 Beego Authors
+++// Copyright 2014 The Macaron Authors
+++//
+++// Licensed under the Apache License, Version 2.0 (the "License"): you may
+++// not use this file except in compliance with the License. You may obtain
+++// a copy of the License at
+++//
+++//     http://www.apache.org/licenses/LICENSE-2.0
+++//
+++// Unless required by applicable law or agreed to in writing, software
+++// distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+++// WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+++// License for the specific language governing permissions and limitations
+++// under the License.
+++
+++package cache
+++
+++import (
+++	"strings"
+++
+++	"github.com/bradfitz/gomemcache/memcache"
+++	"github.com/unknwon/com"
+++
+++	"gitea.com/go-chi/cache"
+++)
+++
+++// MemcacheCacher represents a memcache cache adapter implementation.
+++type MemcacheCacher struct {
+++	c *memcache.Client
+++}
+++
+++func NewItem(key string, data []byte, expire int32) *memcache.Item {
+++	return &memcache.Item{
+++		Key:        key,
+++		Value:      data,
+++		Expiration: expire,
+++	}
+++}
+++
+++// Put puts value into cache with key and expire time.
+++// If expired is 0, it lives forever.
+++func (c *MemcacheCacher) Put(key string, val interface{}, expire int64) error {
+++	return c.c.Set(NewItem(key, []byte(com.ToStr(val)), int32(expire)))
+++}
+++
+++// Get gets cached value by given key.
+++func (c *MemcacheCacher) Get(key string) interface{} {
+++	item, err := c.c.Get(key)
+++	if err != nil {
+++		return nil
+++	}
+++	return string(item.Value)
+++}
+++
+++// Delete deletes cached value by given key.
+++func (c *MemcacheCacher) Delete(key string) error {
+++	return c.c.Delete(key)
+++}
+++
+++// Incr increases cached int-type value by given key as a counter.
+++func (c *MemcacheCacher) Incr(key string) error {
+++	_, err := c.c.Increment(key, 1)
+++	return err
+++}
+++
+++// Decr decreases cached int-type value by given key as a counter.
+++func (c *MemcacheCacher) Decr(key string) error {
+++	_, err := c.c.Decrement(key, 1)
+++	return err
+++}
+++
+++// IsExist returns true if cached value exists.
+++func (c *MemcacheCacher) IsExist(key string) bool {
+++	_, err := c.c.Get(key)
+++	return err == nil
+++}
+++
+++// Flush deletes all cached data.
+++func (c *MemcacheCacher) Flush() error {
+++	return c.c.FlushAll()
+++}
+++
+++// StartAndGC starts GC routine based on config string settings.
+++// AdapterConfig: 127.0.0.1:9090;127.0.0.1:9091
+++func (c *MemcacheCacher) StartAndGC(opt cache.Options) error {
+++	c.c = memcache.New(strings.Split(opt.AdapterConfig, ";")...)
+++	return nil
+++}
+++
+++// Ping tests if the cache is alive.
+++func (c *MemcacheCacher) Ping() error {
+++	return cache.GenericPing(c)
+++}
+++
+++func init() {
+++	cache.Register("memcache", &MemcacheCacher{})
+++}
++diff --git a/vendor/modules.txt b/vendor/modules.txt
++index 144a505d..6cb3f48b 100644
++--- a/vendor/modules.txt
+++++ b/vendor/modules.txt
++@@ -40,6 +40,7 @@ gitea.com/go-chi/binding
++ # gitea.com/go-chi/cache v0.2.0
++ ## explicit; go 1.11
++ gitea.com/go-chi/cache
+++gitea.com/go-chi/cache/memcache
++ # gitea.com/go-chi/captcha v0.0.0-20240315150714-fb487f629098
++ ## explicit; go 1.21
++ gitea.com/go-chi/captcha
+diff --git a/www-apps/gitea/files/gitea-1.22.0-ignore-findrecentlypushednewbranches-err.diff b/www-apps/gitea/files/gitea-1.22.0-ignore-findrecentlypushednewbranches-err.diff
+new file mode 100644
+index 0000000..78459f6
+--- /dev/null
++++ b/www-apps/gitea/files/gitea-1.22.0-ignore-findrecentlypushednewbranches-err.diff
+@@ -0,0 +1,20 @@
++https://github.com/go-gitea/gitea/issues/31163
++https://github.com/go-gitea/gitea/pull/31164
++
++A quick fix to workaround 500 error:
++FindRecentlyPushedNewBranches, branch does not exist [repo_id: 64 name: main]
++
++diff --git a/routers/web/repo/view.go b/routers/web/repo/view.go
++index e1498c0d581e..386ef7be5ce8 100644
++--- a/routers/web/repo/view.go
+++++ b/routers/web/repo/view.go
++@@ -1047,8 +1047,7 @@ func renderHomeCode(ctx *context.Context) {
++ 			baseRepoPerm.CanRead(unit_model.TypePullRequests) {
++ 			ctx.Data["RecentlyPushedNewBranches"], err = git_model.FindRecentlyPushedNewBranches(ctx, ctx.Doer, opts)
++ 			if err != nil {
++-				ctx.ServerError("FindRecentlyPushedNewBranches", err)
++-				return
+++				log.Error("FindRecentlyPushedNewBranches failed: %v", err)
++ 			}
++ 		}
++ 	}
+diff --git a/www-apps/gitea/gitea-1.22.0.ebuild b/www-apps/gitea/gitea-1.22.0.ebuild
+new file mode 100644
+index 0000000..fbf4d47
+--- /dev/null
++++ b/www-apps/gitea/gitea-1.22.0.ebuild
+@@ -0,0 +1,160 @@
++# Copyright 2016-2024 Gentoo Authors
++# Distributed under the terms of the GNU General Public License v2
++
++EAPI=8
++
++inherit fcaps go-module tmpfiles systemd flag-o-matic user-info
++
++DESCRIPTION="A painless self-hosted Git service"
++HOMEPAGE="https://gitea.com https://github.com/go-gitea/gitea"
++
++SRC_URI="https://github.com/go-gitea/gitea/releases/download/v${PV}/gitea-src-${PV}.tar.gz -> ${P}.tar.gz"
++KEYWORDS="~amd64 ~arm ~arm64 ~loong ~riscv ~x86"
++
++S="${WORKDIR}/${PN}-src-${PV}"
++
++LICENSE="Apache-2.0 BSD BSD-2 CC0-1.0 ISC MIT MPL-2.0"
++SLOT="0"
++IUSE="+acct gogit pam sqlite pie"
++
++DEPEND="
++	acct? (
++		acct-group/git
++		acct-user/git[gitea] )
++	pam? ( sys-libs/pam )"
++RDEPEND="${DEPEND}
++	!gogit? ( dev-vcs/git )"
++BDEPEND=">=dev-lang/go-1.22:="
++
++DOCS=(
++	custom/conf/app.example.ini CHANGELOG.md CONTRIBUTING.md README.md
++)
++FILECAPS=(
++	-m 711 cap_net_bind_service+ep usr/bin/gitea
++)
++
++RESTRICT="test"
++
++# The problems that can be fixed by the following patches has been fixed
++# upstream, so these ALL patches should be removed in the next release.
++PATCHES=(
++	"${FILESDIR}/${P}-go-chi-memcache-package.diff"
++	"${FILESDIR}/${P}-fix-missing-memcache-import.diff"
++	"${FILESDIR}/${P}-ignore-findrecentlypushednewbranches-err.diff"
++)
++
++src_prepare() {
++	default
++
++	sed -i -e "s#^MODE = console#MODE = file#" custom/conf/app.example.ini || die
++}
++
++src_configure() {
++	# bug 832756 - PIE build issues
++	filter-flags -fPIE
++	filter-ldflags -fPIE -pie
++}
++
++src_compile() {
++	local gitea_tags
++	local -a gitea_settings makeenv
++
++	# The space-separated list of the -tags flag is deprecated, please
++	# always use the comma-separated list in the future.
++	gitea_tags="bindata"
++	gitea_tags+="$(usex gogit ',gogit' '')"
++	gitea_tags+="$(usex pam ',pam' '')"
++	gitea_tags+="$(usex sqlite ',sqlite,sqlite_unlock_notify' '')"
++
++	gitea_settings=(
++		"-X code.gitea.io/gitea/modules/setting.CustomConf=${EPREFIX}/etc/gitea/app.ini"
++		"-X code.gitea.io/gitea/modules/setting.CustomPath=${EPREFIX}/var/lib/gitea/custom"
++		"-X code.gitea.io/gitea/modules/setting.AppWorkPath=${EPREFIX}/var/lib/gitea"
++	)
++
++	makeenv=(
++		LDFLAGS="-extldflags \"${LDFLAGS}\" ${gitea_settings[*]}"
++		TAGS="${gitea_tags}"
++	)
++
++	if use pie ; then
++		# Please check the supported platforms when a new keyword request opened,
++		# refer to file: 'go/src/internal/platform/supported.go'.
++		# When PIE buildmode is not supported by internal linker, the external
++		# linker will be used automatically, refer to:
++		# https://github.com/golang/go/blob/ed817f1c4055a559a94afffecbb91c78e4f39942/src/cmd/link/internal/ld/config.go#L149
++		makeenv+=( EXTRA_GOFLAGS="-buildmode=pie" )
++	fi
++
++	env "${makeenv[@]}" emake backend
++}
++
++src_install() {
++	dobin gitea
++
++	einstalldocs
++
++	newconfd "${FILESDIR}/gitea.confd-r1" gitea
++	newinitd "${FILESDIR}/gitea.initd-r3" gitea
++	newtmpfiles - gitea.conf <<-EOF
++		d /run/gitea 0755 git git
++	EOF
++	systemd_newunit "${FILESDIR}"/gitea.service-r4 gitea.service
++
++	insinto /etc/gitea
++	newins custom/conf/app.example.ini app.ini
++	if use acct; then
++		fowners root:git /etc/gitea/{,app.ini}
++		fperms g+w,o-rwx /etc/gitea/{,app.ini}
++
++		diropts -m0750 -o git -g git
++		keepdir /var/lib/gitea /var/lib/gitea/custom /var/lib/gitea/data
++		keepdir /var/log/gitea
++	fi
++}
++
++pkg_postinst() {
++	fcaps_pkg_postinst
++
++	# It is not guaranteed that the git user and group always exist (due to the acct USE Flag),
++	# but for convenience, the tmpfile uses the git user and group by default.
++	# To avoid installation errors, a condition needs to be added here:
++	#   if there is no git user or group, the installation of tmpfile will be skipped
++	#   and the user will be notified to handle it by themselves.
++	if egetent passwd git &>/dev/null && \
++		egetent group git &>/dev/null; then
++		tmpfiles_process gitea.conf
++	else
++		eerror "Unable to install the tmpfile for gitea due to the git user or group is missing,"
++		eerror "please install tmpfile manually or rebuild this package with USE flag 'acct'."
++		eerror "You can simply copy the default tmpfile from '/usr/lib/tmpfiles.d/gitea.conf'"
++		eerror "to higher priority path '/etc/tmpfiles.d/gitea.conf', and correct it with"
++		eerror "the right User and Group value (see tmpfiles.d(5) for details), then execute:"
++		eerror "  # systemd-tmpfiles --create /etc/tmpfiles.d/gitea.conf"
++		eerror "to install it."
++	fi
++
++	if [[ -n ${REPLACING_VERSIONS} ]]; then
++		if ver_test "${REPLACING_VERSIONS}" -lt 1.21; then
++			ewarn "Since version 1.21.0:"
++			ewarn "  1. The built-in SSH server will now only accept SSH user"
++			ewarn "     certificates, not server certificates. This behaviour matches OpenSSH."
++			ewarn "  2. The options of the subcommand must follow the subcommand now."
++			ewarn "  3. Remove 'CHARSET' config option for MySQL, always use 'utf8mb4'."
++			ewarn "For other breaking changes, see <https://github.com/go-gitea/gitea/releases/tag/v1.21.0>."
++		fi
++		if ver_test "${REPLACING_VERSIONS}" -lt 1.22; then
++			ewarn "Since version 1.22.0:"
++			ewarn "  1. Minimum database requirements updated to MySQL 8.0, PostgreSQL 12, and MSSQL 2012."
++			ewarn "  2. There are a lot of refactoring changes related to customizing templates."
++			ewarn "  3. The default duration of the 'Remember login' feature has been"
++			ewarn "     changed from one week to one month."
++			ewarn "  4. Enhanced auth token/remember me, the obsolete setting"
++			ewarn "     '[security].COOKIE_USERNAME' has been removed."
++			ewarn "  5. For MinIO storage, adds a prefix path for all MinIO storage"
++			ewarn "     and override base path will override the path."
++			ewarn "  6. Now use a more restricted sanitizer for the repository description."
++			ewarn "For more details, see <https://github.com/go-gitea/gitea/releases/tag/v1.22.0>."
++		fi
++	fi
++}
+diff --git a/www-apps/gitea/metadata.xml b/www-apps/gitea/metadata.xml
+index c5a8b29..6bf8984 100644
+--- a/www-apps/gitea/metadata.xml
++++ b/www-apps/gitea/metadata.xml
+@@ -7,5 +7,6 @@
+ 	</upstream>
+ 	<use>
+ 		<flag name="acct">User and group management via acct-*/git packages</flag>
++		<flag name="gogit">(EXPERIMENTAL) Use go-git variants of Git commands.</flag>
+ 	</use>
+ </pkgmetadata>
