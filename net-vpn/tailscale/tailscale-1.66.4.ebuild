@@ -62,7 +62,7 @@ src_install() {
 
 		newtmpfiles "${FILESDIR}"/${PN}.tmpfiles ${PN}.conf
 
-		systemd_dounit cmd/tailscaled/tailscaled.service
+		systemd_dounit "${FILESDIR}"/tailscaled.service
 		systemd_newunit "${FILESDIR}"/tailscaled-at.service tailscaled@.service
 
 		# conf for fix, should be removed later

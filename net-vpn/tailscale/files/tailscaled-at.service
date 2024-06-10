@@ -16,6 +16,7 @@ Restart=on-failure
 
 RuntimeDirectory=tailscale
 RuntimeDirectoryMode=0755
+RuntimeDirectoryPreserve=yes
 StateDirectory=tailscale/ex-instances.d/%i
 StateDirectoryMode=0700
 CacheDirectory=tailscale/ex-instances.d/%i
