@@ -22,7 +22,6 @@ BDEPEND=">=dev-lang/go-1.22:="
 # refer to https://github.com/tailscale/tailscale/issues/391 ,
 #  and https://github.com/tailscale/tailscale/commit/243ce6ccc1a3e032e3d4a014e7dd09a9379c3c42
 RDEPEND="
-	!<net-vpn/tailscale-1.66.3-r1:0::ryans
 	derp? (
 		acct-user/derper
 		acct-group/derper
