@@ -13,7 +13,7 @@ LICENSE="Apache-2.0 BSD BSD-2 CC0-1.0 ISC MIT MPL-2.0 Unlicense"
 SLOT="0"
 KEYWORDS="~arm64-macos"
 
-BDEPEND=">=dev-lang/go-1.20.0"
+BDEPEND=">=dev-lang/go-1.21.0"
 
 DOCS=( README.md AUTHORS CONTRIBUTING.md )
 
