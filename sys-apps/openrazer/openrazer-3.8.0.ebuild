@@ -19,13 +19,13 @@ RESTRICT="!test? ( test )"
 
 DEPEND=""
 RDEPEND="${DEPEND}
-	dev-python/dbus-python[${PYTHON_USEDEP}]
-	>=dev-python/daemonize-2.4[${PYTHON_USEDEP}]
+	>=dev-python/dbus-python-1.2.0[${PYTHON_USEDEP}]
+	>=dev-python/daemonize-2.4.7[${PYTHON_USEDEP}]
 	client? ( dev-python/numpy[${PYTHON_USEDEP}] )
 	dev-python/notify2[${PYTHON_USEDEP}]
-	dev-python/pygobject[${PYTHON_USEDEP}]
-	dev-python/pyudev[${PYTHON_USEDEP}]
-	dev-python/setproctitle[${PYTHON_USEDEP}]
+	>=dev-python/pygobject-3.20.0[${PYTHON_USEDEP}]
+	>=dev-python/pyudev-0.16.1[${PYTHON_USEDEP}]
+	>=dev-python/setproctitle-1.1.8[${PYTHON_USEDEP}]
 	sys-apps/openrazer-driver
 	systemd? ( sys-apps/systemd[acl] )
 	!systemd? ( acct-group/plugdev )
