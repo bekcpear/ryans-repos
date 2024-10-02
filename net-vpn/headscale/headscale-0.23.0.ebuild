@@ -16,7 +16,7 @@ LICENSE="Apache-2.0 BSD-2 BSD MIT MPL-2.0"
 SLOT="0"
 KEYWORDS="~amd64 ~arm64 ~riscv"
 
-BDEPEND=">=dev-lang/go-1.20:="
+BDEPEND=">=dev-lang/go-1.23:="
 DEPEND=""
 RDEPEND="
 	acct-group/headscale
