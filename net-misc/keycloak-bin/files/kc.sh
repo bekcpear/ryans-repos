@@ -10,4 +10,4 @@ if [[ -r $env_file ]]; then
     fi
   done <"$env_file"
 fi
-eval exec @EROOT@/opt/keycloak-bin/bin/kc.sh "$@"
+exec @EROOT@/opt/keycloak-bin/bin/kc.sh "$@"
