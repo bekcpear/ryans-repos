@@ -3,12 +3,7 @@
 
 EAPI=8
 
-##
-# >=22.0.0 error when generating completion scripts
-# https://github.com/keycloak/keycloak/issues/24551
-##
-#inherit bash-completion-r1 systemd
-inherit systemd
+inherit bash-completion-r1 systemd
 
 DESCRIPTION="Open Source Identity and Access Management"
 HOMEPAGE="https://github.com/keycloak/keycloak"
@@ -50,13 +45,12 @@ src_install() {
 	fowners -R keycloak:keycloak /var/lib/keycloak
 
 	insinto /etc/keycloak
-	doins conf/cache-ispn.xml conf/keycloak.conf "$FILESDIR"/quarkus.properties
+	doins conf/cache-ispn.xml "$FILESDIR"/keycloak.conf
 	newins "$FILESDIR"/keycloak.runtime.env runtime.env
 	fowners -R keycloak:keycloak /etc/keycloak
 	fperms -R o-rwx /etc/keycloak
 
 	keepdir /opt/keycloak-bin/conf
-	dosym -r /etc/keycloak/quarkus.properties /opt/keycloak-bin/conf/quarkus.properties
 	dosym -r /etc/keycloak/cache-ispn.xml /opt/keycloak-bin/conf/cache-ispn.xml
 	dosym -r /etc/keycloak/keycloak.conf /opt/keycloak-bin/conf/keycloak.conf
 	dosym -r /var/lib/keycloak/providers /opt/keycloak-bin/providers
@@ -72,59 +66,65 @@ src_install() {
 	systemd_install_serviced "${FILESDIR}"/keycloak.service.conf keycloak
 }
 
+_do_eselect_user_jvm() {
+	# set the newest available java_vm or user specified one (with EMERGE_KC_JVM env var) for user keycloak
+	# prevent the system java_vm is set to 8 which causes keycloak a fatal error
+	local jvm=0 selected=0 selected_fallback=0 minver=11
+	while read -r _ jvm _; do
+		local jvm_version="${jvm##*-}"
+		if [[ $jvm_version =~ ^[[:digit:]]+$ ]]; then
+			if (( jvm_version < minver )); then
+				continue
+			fi
+			if [[ "$EMERGE_KC_JVM" == "$jvm" || "$EMERGE_KC_JVM" == "$jvm_version" ]]; then
+				selected="$jvm"
+				declare -g EMERGE_KC_JVM="$jvm"
+				break
+			fi
+			if (( jvm_version > ${selected_fallback##*-} )); then
+				selected_fallback=$jvm
+			fi
+		fi
+	done <<<"$(eselect java-vm list | tail -n +2)"
+	if [[ -z $EMERGE_KC_JVM ]]; then
+		selected="$selected_fallback"
+	fi
+	if [[ $selected == 0 ]]; then
+		if [[ $selected_fallback != 0 ]]; then
+			ewarn "No available java_vm with specified EMERGE_KC_JVM ('$EMERGE_KC_JVM'),"
+			ewarn "fallback to '$selected_fallback'"
+			selected="$selected_fallback"
+		else
+			eerror "No available java_vm for keycloak-bin!"
+			die
+		fi
+	fi
+	su -s /bin/sh -c "eselect java-vm set user $selected" - keycloak
+	elog "JAVA VM for user: $(su -s /bin/sh -c 'whoami' - keycloak)"
+	elog "$(su -s /bin/sh -c 'eselect --color java-vm show' - keycloak 2>&1)"
+	elog "or you can setup a java_vm with the 'EMERGE_KC_JVM' env variable when installing."
+	elog
+}
+
 pkg_preinst() {
 	sed -Ei "s/@EROOT@/${EROOT//\//\\\/}/" "$ED"/usr/bin/kc.sh || die
 
-	# set the newest available java_vm for user keycloak
-	# prevent the system java_vm is set to 8 which causes keycloak a fatal error
-	local jvm=0 selected=0 minver=11
-	local -a available_jvm
-	while read -r _ jvm _; do
-		if (( ${jvm##*-} < $minver )); then
-			continue
-		fi
-		if (( ${jvm##*-} > ${selected##*-} )); then
-			selected=$jvm
-		fi
-	done <<<"$(eselect java-vm list | tail -n +2)"
-	if [[ $selected == 0 ]]; then
-		eerror "No available java_vm for keycloak-bin!"
-	else
-		su -s /bin/sh -c "eselect java-vm set user $selected" - keycloak
-	fi
-	elog "JAVA VM for user: $(su -s /bin/sh -c 'whoami' - keycloak)"
-	su -s /bin/sh -c 'eselect java-vm show' - keycloak
+	_do_eselect_user_jvm
 
 	# install the bash completion script
 	# generate from keycloak to make sure it always satisfies the lastest version
 	#
-	##
-	# >=22.0.0 error when generating completion scripts
-	# https://github.com/keycloak/keycloak/issues/24551
-	# comment out
-	##
-	#local bashcmpp0="${T}/bash-completion.sh"
-	#export JAVA_HOME=$(su -s /bin/sh -c "java -XshowSettings:properties -version 2>&1 | grep 'java.home'" - keycloak)
-	#JAVA_HOME=${JAVA_HOME#*=}
-	#JAVA_HOME=${JAVA_HOME## }
-	#"${ED}"/opt/keycloak-bin/bin/kc.sh tools completion >"$bashcmpp0" || die
-	#local cutLN=$(awk '/^Next time/ {print NR}' "$bashcmpp0")
-	#if [[ -n $cutLN ]]; then
-	#	sed -Ei "${cutLN},\$d" "$bashcmpp0" || die
-	#	cutLN=
-	#fi
-	#cutLN=$(awk '/^Changes detected/ {print NR}' "$bashcmpp0")
-	#if [[ -n $cutLN ]]; then
-	#	sed -Ei "${cutLN}d" "$bashcmpp0" || die
-	#fi
-	#sed -Ei "/^$/d" "$bashcmpp0" || die
-	#sed -Ei '$s/kc.sh/realcomp/;$s/ kc[^[:space:]]*//g;$s/[[:space:]]+realcomp/ kc.sh/' \
-	#	"$bashcmpp0" || die
-	#newbashcomp "$bashcmpp0" kc.sh
+	local bashcmpp0="${T}/completion.sh"
+	JAVA_HOME=$(su -s /bin/sh -c "java -XshowSettings:properties -version 2>&1 | grep 'java.home'" - keycloak)
+	JAVA_HOME=${JAVA_HOME#*=}
+	JAVA_HOME=${JAVA_HOME## }
+	export JAVA_HOME
+	"${ED}"/opt/keycloak-bin/bin/kc.sh tools completion >"$bashcmpp0" || die
+	unset JAVA_HOME  # we should unset it here to prevent kc.sh always use this JAVA_HOME value in the pkg_config phase
+	newbashcomp "$bashcmpp0" kc.sh
 }
 
 pkg_postinst() {
-	echo
 	elog "Please set/add proper build options in file '${EROOT}/etc/keycloak/keycloak.conf',"
 	elog "  or 'KC_*' env vars (higher priority) in file '${EROOT}/etc/keycloak/runtime.env',"
 	elog "  the details: https://www.keycloak.org/server/all-config?f=build"
@@ -132,6 +132,8 @@ pkg_postinst() {
 	elog "and than run:"
 	elog "  # emerge --config '=${CATEGORY}/${P}'"
 	elog "before starting the daemon."
+	elog "(Every time you edit keycloak.conf or runtime.env for build arguments,"
+	elog " you should run the above command again to configure keycloak.)"
 	elog
 	elog "If a build option is found at startup with an equal value to the value used"
 	elog "when invoking the \`build\`, it gets silently ignored when using the \`--optimized\`"
@@ -141,15 +143,20 @@ pkg_postinst() {
 	elog "So, whenever pre-built build options change, you have to re-configure before starting."
 	elog
 	elog "Variables 'KEYCLOAK_ADMIN' and 'KEYCLOAK_ADMIN_PASSWORD' can be used to initial"
-	elog "an admin account, just export them in CLI before the first start."
-	echo
+	elog "an admin account, just export them in CLI when first start."
+	elog
+	ewarn "Please always check the migration notes:"
+	ewarn "  https://www.keycloak.org/docs/latest/upgrading/index.html"
+	ewarn "when you upgrade."
 }
 
 pkg_config() {
-	export HOME=$(ls -1d ~keycloak) SHELL=/bin/bash USER=keycloak LOGNAME=keycloak
+	HOME=$(ls -1d ~keycloak) || die
+	SHELL=/bin/bash USER=keycloak LOGNAME=keycloak
+	export HOME SHELL USER LOGNAME
+
 	local pre_exported_kc_vars
 	pre_exported_kc_vars="$(export -p | grep -E '^declare -x KC_' | sed 's/^declare -x //')"
-	echo
 	elog "configuration prioritisation:"
 	elog "  1. exported KC_* variables (in the file '${EROOT}/etc/keycloak/runtime.env')"
 	# this may be a bug or special consideration in portage
@@ -166,8 +173,12 @@ pkg_config() {
 		ewarn "     - (can be override by variables in the above runtime.env file)"
 	fi
 	elog "  2. build options listed in the '${EROOT}/etc/keycloak/keycloak.conf' file"
-	echo
+	elog
 	chown -R keycloak:keycloak "$EROOT"/opt/keycloak-bin/lib
+	if ! su -p -c "java --version" keycloak; then
+		# reset the java_vm due to the java command failed
+		_do_eselect_user_jvm
+	fi
 	su -p -c "'${EROOT}'/opt/keycloak-bin/bin/kc.sh build" keycloak
 	su -p -c "'${EROOT}'/opt/keycloak-bin/bin/kc.sh show-config" keycloak
 	echo
