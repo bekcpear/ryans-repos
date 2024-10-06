@@ -1,5 +1,0 @@
-# extra arguments for dendrite
-
-EXTRA_ARGS=""
-
-rc_ulimit="-n 65535"
