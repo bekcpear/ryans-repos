@@ -8,7 +8,7 @@ HOMEPAGE="https://fcitx-im.org"
 
 LICENSE="metapackage"
 SLOT="5"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="~amd64"
 IUSE="bamboo +configtool +gtk2 +gtk3 +qt5 qt6 +rime"
 
 # this is not the actual required use binding, but for this overlay
