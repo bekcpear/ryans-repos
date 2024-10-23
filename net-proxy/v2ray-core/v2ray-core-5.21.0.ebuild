@@ -18,7 +18,7 @@ REQUIRED_USE="arm64-macos? ( pie )"
 
 BDEPEND="
 	>dev-lang/go-1.20.9999:=
-	<=dev-lang/go-1.21.9999:=
+	<=dev-lang/go-1.22.9999:=
 "
 DEPEND=""
 RDEPEND="
