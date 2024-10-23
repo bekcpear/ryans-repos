@@ -17,8 +17,8 @@ KEYWORDS="~amd64 ~arm64 ~riscv ~x86 ~arm64-macos"
 REQUIRED_USE="arm64-macos? ( pie )"
 
 BDEPEND="
-	>dev-lang/go-1.20.9999:=
-	<=dev-lang/go-1.22.9999:=
+	>dev-lang/go-1.21.9999:=
+	<=dev-lang/go-1.23.9999:=
 "
 DEPEND=""
 RDEPEND="
