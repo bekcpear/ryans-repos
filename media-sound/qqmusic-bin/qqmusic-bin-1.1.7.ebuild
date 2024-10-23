@@ -12,7 +12,6 @@ SRC_URI="${P}-amd64.deb"
 LICENSE="CC0-1.0"
 SLOT="0"
 KEYWORDS="-* ~amd64"
-RESTRICT="fetch"
 
 RDEPEND="
 	app-accessibility/at-spi2-core:2
@@ -42,7 +41,7 @@ RDEPEND="
 	x11-misc/xdg-utils
 "
 
-RESTRICT="strip"
+RESTRICT="fetch strip"
 QA_PREBUILT="*"
 QA_DESKTOP_FILE=
 QQMUSIC_HOME="/opt/qqmusic-bin"
