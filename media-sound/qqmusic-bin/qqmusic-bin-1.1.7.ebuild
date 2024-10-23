@@ -7,7 +7,7 @@ inherit chromium-2 desktop pax-utils unpacker xdg-utils
 
 DESCRIPTION="Tencent QQ Music for Linux."
 HOMEPAGE="https://y.qq.com/download/download.html"
-SRC_URI="https://dldir1.qq.com/music/clntupate/linux/deb/${P/-bin-/_}_amd64.deb -> ${P}-amd64.deb"
+SRC_URI="${P}-amd64.deb"
 
 LICENSE="CC0-1.0"
 SLOT="0"
@@ -41,11 +41,16 @@ RDEPEND="
 	x11-misc/xdg-utils
 "
 
-RESTRICT="strip"
+RESTRICT="fetch strip"
 QA_PREBUILT="*"
 QA_DESKTOP_FILE=
 QQMUSIC_HOME="/opt/qqmusic-bin"
 S="${WORKDIR}"
+
+pkg_nofetch() {
+	einfo "Please download ${P/-bin-/_}_amd64.deb from https://y.qq.com/download/download.html and"
+	einfo "place it into your DISTDIR directory with name '${A}'."
+}
 
 pkg_pretend() {
 	use amd64 || die "qqmusic-bin only works on amd64 for now"
