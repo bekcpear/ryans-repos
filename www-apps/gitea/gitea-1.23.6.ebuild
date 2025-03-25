@@ -22,7 +22,7 @@ DEPEND="
 	pam? ( sys-libs/pam )"
 RDEPEND="${DEPEND}
 	!gogit? ( dev-vcs/git )"
-BDEPEND=">=dev-lang/go-1.23:="
+BDEPEND=">=dev-lang/go-1.24:="
 
 DOCS=(
 	custom/conf/app.example.ini CHANGELOG.md CONTRIBUTING.md README.md
