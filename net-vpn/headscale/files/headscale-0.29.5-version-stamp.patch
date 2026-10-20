@@ -1,0 +1,38 @@
+--- a/hscontrol/types/version.go
++++ b/hscontrol/types/version.go
+@@ -40,6 +40,17 @@
+ 
+ var buildInfo = sync.OnceValues(debug.ReadBuildInfo)
+ 
++// Stamps injected by a packager at link time, e.g.:
++//
++//	-ldflags "-X github.com/juanfont/headscale/hscontrol/types.stampVersion=v0.29.5"
++//
++// They take precedence over the VCS metadata read below, which is unavailable
++// when building from a distribution tarball that carries no .git directory.
++var (
++	stampVersion string
++	stampCommit  string
++)
++
+ var GetVersionInfo = sync.OnceValue(func() *VersionInfo {
+ 	info := &VersionInfo{
+ 		Version:   "dev",
+@@ -53,6 +64,17 @@
+ 		Dirty: false,
+ 	}
+ 
++	// Applied via defer so that both the early !ok return and the normal
++	// return path are stamped.
++	defer func() {
++		if stampVersion != "" {
++			info.Version = stampVersion
++		}
++		if stampCommit != "" {
++			info.Commit = stampCommit
++		}
++	}()
++
+ 	buildInfo, ok := buildInfo()
+ 	if !ok {
+ 		return info
