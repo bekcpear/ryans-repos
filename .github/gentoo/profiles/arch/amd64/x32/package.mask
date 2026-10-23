@@ -1,3 +1,0 @@
-# for pkgcheck scan
-www-apps/cryptpad
-www-apps/filebrowser
