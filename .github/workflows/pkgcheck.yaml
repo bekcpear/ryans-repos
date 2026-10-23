@@ -65,8 +65,7 @@ jobs:
         shell: bash
         id: scan
         run: |
-          set -o pipefail
-          set +e
+          set -euo pipefail
           datetime="$(date -u '+%Y-%m-%d %H:%M:%S %Z')"
 
           _do() {
@@ -76,8 +75,8 @@ jobs:
           }
 
           # prepare ::gentoo repo
-          _do mkdir -p $HOME/.cache/pkgcore/repos
-          _do mv repos/gentoo $HOME/.cache/pkgcore/repos/
+          _do mkdir -p "$HOME/.cache/pkgcore/repos"
+          _do ln -sfn "$GITHUB_WORKSPACE/repos/gentoo" "$HOME/.cache/pkgcore/repos/gentoo"
 
           # modify files of ::gentoo profiles which cannot be overridden by overlay
           ./_ryans/.github/scripts/modify-profiles.sh _ryans/.github/gentoo $HOME/.cache/pkgcore/repos/gentoo
@@ -86,19 +85,15 @@ jobs:
           _do pkgcheck --version | tee pkgcheck.version
 
           # push to the right directory
-          _do pushd repos/ryans || exit 1
-
-          # gen cache
-          _do pmaint regen --dir $HOME/.cache/pkgcheck/repos .
-
-          # make workspace safe for git
-          _do git config --global --add safe.directory '*'
+          _do pushd repos/ryans
 
           # do scan
+          set +e
           _do pkgcheck scan --exit error -R FormatReporter \
             --format '{level},{name},{category},{package},{eclass},{version},{desc}' \
             | _do tee "${GITHUB_WORKSPACE}/report.txt"
           pkgcheck_ret="$?"
+          set -e
 
           # pop back to the work dir
           popd
@@ -113,7 +108,7 @@ jobs:
             "https://github.com/${{github.repository}}/actions/runs/${{github.run_id}}"
 
           # tell the next step that the report file is ready
-          if [[ -n "/var/tmp/report.md" ]]; then
+          if [[ -s "/var/tmp/report.md" ]]; then
             echo "has_report=1" >>$GITHUB_OUTPUT
           fi
 
