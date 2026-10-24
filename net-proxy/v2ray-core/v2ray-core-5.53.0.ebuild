@@ -17,16 +17,13 @@ KEYWORDS="~amd64 ~arm64 ~riscv ~x86 ~arm64-macos"
 REQUIRED_USE="arm64-macos? ( pie )"
 
 BDEPEND="
-	>dev-lang/go-1.20.9999:=
-	<=dev-lang/go-1.22.9999:=
+	>dev-lang/go-1.25.9999:=
+	<=dev-lang/go-1.27.9999:=
 "
 DEPEND=""
 RDEPEND="
 	dev-libs/v2ray-geoip-bin
-	|| (
-		dev-libs/v2ray-domain-list-community-bin
-		dev-libs/v2ray-domain-list-community
-	)
+	dev-libs/v2ray-domain-list-community-bin
 "
 
 GO_TARGET_PKGS="./main -> v2ray"
