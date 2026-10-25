@@ -5,9 +5,11 @@ EAPI=8
 
 inherit desktop unpacker xdg
 
-DESCRIPTION="A DICOM viewer available as a desktop application or as a web-based application."
-HOMEPAGE="https://nroduit.github.io/ https://github.com/nroduit/Weasis"
+DESCRIPTION="A DICOM viewer available as a desktop application or as a web-based application"
+HOMEPAGE="https://weasis.org/ https://github.com/nroduit/Weasis"
 SRC_URI="amd64? ( https://github.com/nroduit/Weasis/releases/download/v${PV}/${P/-bin-/_}-1_amd64.deb -> ${P}_amd64.deb )"
+
+S="${WORKDIR}"
 
 LICENSE="EPL-2.0"
 SLOT="0"
@@ -17,8 +19,6 @@ RDEPEND="
 	>=virtual/jre-1.8
 	x11-misc/shared-mime-info
 "
-
-S="${WORKDIR}"
 
 src_install() {
 	insinto /opt
