@@ -9,6 +9,8 @@ DESCRIPTION="Open Source Continuous File Synchronization"
 HOMEPAGE="https://syncthing.net"
 SRC_URI="https://github.com/${PN}/${PN}/releases/download/v${PV}/${PN}-source-v${PV}.tar.gz -> ${P}.tar.gz"
 
+S="${WORKDIR}"/${PN}
+
 LICENSE="Apache-2.0 BSD BSD-2 CC0-1.0 ISC MIT MPL-2.0 Unlicense"
 SLOT="0"
 KEYWORDS="~arm64-macos"
@@ -16,8 +18,6 @@ KEYWORDS="~arm64-macos"
 BDEPEND=">=dev-lang/go-1.21.0"
 
 DOCS=( README.md AUTHORS CONTRIBUTING.md )
-
-S="${WORKDIR}"/${PN}
 
 src_compile() {
 	GOARCH= go run build.go -version "v${PV}" \
