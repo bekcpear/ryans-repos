@@ -4,7 +4,7 @@
 EAPI=8
 
 DISTUTILS_USE_PEP517=setuptools
-PYTHON_COMPAT=( python3_{11..14} )
+PYTHON_COMPAT=( python3_{11..15} )
 
 inherit distutils-r1 pypi
 
@@ -14,7 +14,7 @@ HOMEPAGE="
 	https://github.com/fxsjy/jieba
 "
 
-SRC_URI="https://github.com/fxsjy/jieba/archive/refs/tags/v${PV}.tar.gz"
+SRC_URI="https://github.com/fxsjy/jieba/archive/refs/tags/v${PV}.tar.gz -> ${P}.gh.tar.gz"
 
 LICENSE="MIT"
 SLOT="0"
