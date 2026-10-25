@@ -18,7 +18,6 @@ KEYWORDS="~amd64 ~arm64 ~x86"
 BDEPEND="
 	>=dev-lang/go-1.17:=
 "
-DEPEND=""
 RDEPEND="
 	acct-user/bark-server
 	acct-group/bark-server
