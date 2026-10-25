@@ -12,18 +12,17 @@ SRC_URI="https://github.com/juanfont/headscale/archive/refs/tags/v${PV//_/-}.tar
 # https://github.com/bekcpear/vendor-for-go -> exec: .do/do.sh /path/to/repo headscale ${PV}
 SRC_URI+=" https://github.com/bekcpear/gopkg-vendors/archive/refs/tags/vendor-${P//_/-}.tar.gz -> ${P}-vendor.tar.gz"
 
+S="${WORKDIR}/${PN}-${PV//_/-}"
+
 LICENSE="Apache-2.0 BSD-2 BSD ISC MIT MPL-2.0"
 SLOT="0"
 KEYWORDS="~amd64 ~arm64 ~riscv"
 
 BDEPEND=">=dev-lang/go-1.26.8:="
-DEPEND=""
 RDEPEND="
 	acct-group/headscale
 	acct-user/headscale
 "
-
-S="${WORKDIR}/${PN}-${PV//_/-}"
 
 # headscale reports its version from runtime/debug build info, which has no
 # VCS metadata to read in a distfile build, and upstream offers no variable to
