@@ -3,11 +3,13 @@
 
 EAPI=8
 
-inherit bash-completion-r1
+inherit shell-completion
 
 DESCRIPTION="C command-line client for tldr pages"
 HOMEPAGE="https://github.com/tldr-pages/tldr-c-client"
 SRC_URI="https://github.com/tldr-pages/tldr-c-client/archive/refs/tags/v${PV}.tar.gz -> ${P}.tar.gz"
+
+S="${WORKDIR}/${PN}-client-${PV}/"
 
 LICENSE="MIT"
 SLOT="0"
@@ -29,8 +31,6 @@ PATCHES=(
 	"${FILESDIR}/use-xdg-default-dir-1.6.0.diff"
 )
 
-S="${WORKDIR}/${PN}-client-${PV}/"
-
 src_install() {
 	dobin tldr
 
@@ -40,6 +40,5 @@ src_install() {
 
 	newbashcomp "${FILESDIR}"/completion.bash tldr
 
-	insinto /usr/share/zsh/site-functions
-	newins "${FILESDIR}"/completion.zsh _tldr
+	newzshcomp "${FILESDIR}"/completion.zsh _tldr
 }
