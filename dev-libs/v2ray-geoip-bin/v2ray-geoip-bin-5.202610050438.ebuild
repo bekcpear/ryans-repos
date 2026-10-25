@@ -3,7 +3,7 @@
 
 EAPI=8
 
-DESCRIPTION="GeoIP for V2Ray."
+DESCRIPTION="GeoIP for V2Ray"
 HOMEPAGE="https://github.com/v2fly/geoip https://www.maxmind.com"
 if [[ ${PV} == *9999 ]]; then
 	PROPERTIES="live"
@@ -15,12 +15,6 @@ S="${WORKDIR}"
 
 LICENSE="CC-BY-SA-4.0"
 SLOT="0"
-
-DEPEND=""
-RDEPEND="${DEPEND}
-	!<net-proxy/v2ray-core-4.38.3
-"
-BDEPEND=""
 
 src_unpack() {
 	if [[ ${PV} == *9999 ]]; then

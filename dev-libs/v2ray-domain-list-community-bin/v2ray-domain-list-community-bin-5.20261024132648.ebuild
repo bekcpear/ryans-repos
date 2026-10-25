@@ -3,7 +3,7 @@
 
 EAPI=8
 
-DESCRIPTION="Community managed domain list for V2Ray."
+DESCRIPTION="Community managed domain list for V2Ray"
 HOMEPAGE="https://github.com/v2fly/domain-list-community"
 if [[ ${PV} == *9999 ]]; then
 	PROPERTIES="live"
@@ -15,13 +15,6 @@ S="${WORKDIR}"
 
 LICENSE="MIT"
 SLOT="0"
-
-DEPEND=""
-RDEPEND="${DEPEND}
-	!dev-libs/v2ray-domain-list-community
-	!<net-proxy/v2ray-core-4.38.3
-"
-BDEPEND=""
 
 src_unpack() {
 	if [[ ${PV} == *9999 ]]; then
