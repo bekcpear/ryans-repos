@@ -5,15 +5,13 @@ EAPI=8
 
 inherit git-r3 go
 
-DESCRIPTION="GeoIP generator for V2Ray."
-HOMEPAGE="https://github.com/v2fly/geoip http://www.maxmind.com/"
+DESCRIPTION="GeoIP generator for V2Ray"
+HOMEPAGE="https://github.com/v2fly/geoip https://www.maxmind.com/"
 EGIT_REPO_URI="https://github.com/v2fly/geoip.git"
 
 LICENSE="Apache-2.0 BSD CC-BY-SA-4.0 ISC MIT"
 SLOT="0"
 
-DEPEND=""
-RDEPEND="${DEPEND}"
 BDEPEND=">=dev-lang/go-1.19:="
 GO_TARGET_PKGS=". -> $PN"
 
