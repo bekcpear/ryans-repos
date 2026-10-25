@@ -3,11 +3,13 @@
 
 EAPI=8
 
-inherit bash-completion-r1 systemd
+inherit shell-completion systemd
 
 DESCRIPTION="Open Source Identity and Access Management"
 HOMEPAGE="https://github.com/keycloak/keycloak"
 SRC_URI="https://github.com/keycloak/keycloak/releases/download/${PV}/keycloak-${PV}.tar.gz -> ${P}.tar.gz"
+
+S="${WORKDIR}/keycloak-$PV"
 
 LICENSE="Apache-2.0"
 SLOT="0"
@@ -21,8 +23,6 @@ RDEPEND="
 	acct-user/keycloak
 	acct-group/keycloak
 "
-
-S="${WORKDIR}/keycloak-$PV"
 
 src_install() {
 	insinto /opt/keycloak-bin
