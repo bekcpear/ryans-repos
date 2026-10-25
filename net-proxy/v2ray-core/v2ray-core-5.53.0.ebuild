@@ -5,7 +5,7 @@ EAPI=8
 
 inherit go systemd
 
-DESCRIPTION="A platform for building proxies to bypass network restrictions."
+DESCRIPTION="A platform for building proxies to bypass network restrictions"
 HOMEPAGE="https://github.com/v2fly/v2ray-core"
 
 SRC_URI="https://github.com/v2fly/v2ray-core/archive/refs/tags/v${PV}.tar.gz -> ${P}.tar.gz
@@ -17,10 +17,9 @@ KEYWORDS="~amd64 ~arm64 ~riscv ~x86 ~arm64-macos"
 REQUIRED_USE="arm64-macos? ( pie )"
 
 BDEPEND="
-	>dev-lang/go-1.25.9999:=
-	<=dev-lang/go-1.27.9999:=
+	>dev-lang/go-1.25.9999-r0:=
+	<=dev-lang/go-1.27.9999-r9999:=
 "
-DEPEND=""
 RDEPEND="
 	dev-libs/v2ray-geoip-bin
 	dev-libs/v2ray-domain-list-community-bin
@@ -38,11 +37,11 @@ src_install() {
 	if use prefix; then
 		exeinto "/usr/libexec"
 		doexe "${T}/go-bin/v2ray"
-		mkdir "${ED%/}/usr/bin" || die
-		cat >"${ED%/}/usr/bin/v2ray" <<EOF
-#!${EPREFIX%/}/usr/bin/env bash
-export XDG_DATA_DIRS=${EPREFIX%/}/usr/share
-exec ${EPREFIX%/}/usr/libexec/v2ray "\$@"
+		mkdir "${ED}/usr/bin" || die
+		cat >"${ED}/usr/bin/v2ray" <<EOF
+#!${EPREFIX}/usr/bin/env bash
+export XDG_DATA_DIRS=${EPREFIX}/usr/share
+exec ${EPREFIX}/usr/libexec/v2ray "\$@"
 EOF
 		fperms +x "/usr/bin/v2ray"
 	else
