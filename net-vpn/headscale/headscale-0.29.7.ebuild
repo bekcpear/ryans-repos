@@ -27,18 +27,25 @@ RDEPEND="
 # headscale reports its version from runtime/debug build info, which has no
 # VCS metadata to read in a distfile build, and upstream offers no variable to
 # inject one (its own Makefile passes '-X main.version=', a symbol that does not
-# exist). The patch below adds two, so both the version and the real upstream
-# commit can be stamped. After every bump, run headscale-update-version-stamp-patch.sh
-# to regenerate/verify the patch; it also checks this commit, the object the
-# v${PV} tag points at:
+# exist). The patch below adds three, so the version, the real upstream commit
+# and the build time can be stamped. After every bump, run
+# headscale-update-version-stamp-patch.sh to regenerate/verify the patch;
+# it also checks this commit, the object the v${PV} tag points at:
 #   curl -s https://api.github.com/repos/juanfont/headscale/git/refs/tags/v${PV}
 PATCHES=( "${FILESDIR}"/${P}-version-stamp.patch )
 
 HEADSCALE_GIT_COMMIT="c9cf210b"
 
+# Evaluated at compile time by go.eclass (@@BUILD_TIME@@ in GO_LDFLAGS is
+# replaced with this command's output in src_compile). Prefer
+# SOURCE_DATE_EPOCH for reproducible builds, otherwise stamp wall-clock UTC;
+# the format mirrors what `go build` records in the vcs.time build setting.
+GO_LDFLAGS_EXMAP[BUILD_TIME]='date -u ${SOURCE_DATE_EPOCH:+-d @}${SOURCE_DATE_EPOCH} "+%Y-%m-%dT%H:%M:%SZ"'
+
 GO_LDFLAGS="
 	-X 'github.com/juanfont/headscale/hscontrol/types.stampVersion=v${PV//_/-}'
-	-X 'github.com/juanfont/headscale/hscontrol/types.stampCommit=${HEADSCALE_GIT_COMMIT}'"
+	-X 'github.com/juanfont/headscale/hscontrol/types.stampCommit=${HEADSCALE_GIT_COMMIT}'
+	-X 'github.com/juanfont/headscale/hscontrol/types.stampBuildTime=@@BUILD_TIME@@'"
 GO_TARGET_PKGS="./cmd/headscale"
 
 src_prepare() {

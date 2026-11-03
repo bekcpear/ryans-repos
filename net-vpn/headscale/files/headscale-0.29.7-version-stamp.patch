@@ -1,24 +1,25 @@
 --- a/hscontrol/types/version.go
 +++ b/hscontrol/types/version.go
-@@ -40,6 +40,17 @@
+@@ -40,6 +40,18 @@
  
  var buildInfo = sync.OnceValues(debug.ReadBuildInfo)
  
 +// Stamps injected by a packager at link time, e.g.:
 +//
-+//	-ldflags "-X github.com/juanfont/headscale/hscontrol/types.stampVersion=v0.29.7 -X github.com/juanfont/headscale/hscontrol/types.stampCommit=<commit>"
++//	-ldflags "-X github.com/juanfont/headscale/hscontrol/types.stampVersion=v0.29.7 -X github.com/juanfont/headscale/hscontrol/types.stampCommit=<commit> -X github.com/juanfont/headscale/hscontrol/types.stampBuildTime=<RFC3339>"
 +//
 +// They take precedence over the VCS metadata read below, which is unavailable
 +// when building from a distribution tarball that carries no .git directory.
 +var (
-+	stampVersion string
-+	stampCommit  string
++	stampVersion   string
++	stampCommit    string
++	stampBuildTime string
 +)
 +
  var GetVersionInfo = sync.OnceValue(func() *VersionInfo {
  	info := &VersionInfo{
  		Version:   "dev",
-@@ -53,6 +64,17 @@
+@@ -53,6 +65,20 @@
  		Dirty: false,
  	}
  
@@ -30,6 +31,9 @@
 +		}
 +		if stampCommit != "" {
 +			info.Commit = stampCommit
++		}
++		if stampBuildTime != "" {
++			info.BuildTime = stampBuildTime
 +		}
 +	}()
 +
