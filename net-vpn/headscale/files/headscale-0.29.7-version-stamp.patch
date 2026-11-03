@@ -6,7 +6,7 @@
  
 +// Stamps injected by a packager at link time, e.g.:
 +//
-+//	-ldflags "-X github.com/juanfont/headscale/hscontrol/types.stampVersion=v0.29.5"
++//	-ldflags "-X github.com/juanfont/headscale/hscontrol/types.stampVersion=v0.29.7 -X github.com/juanfont/headscale/hscontrol/types.stampCommit=<commit>"
 +//
 +// They take precedence over the VCS metadata read below, which is unavailable
 +// when building from a distribution tarball that carries no .git directory.

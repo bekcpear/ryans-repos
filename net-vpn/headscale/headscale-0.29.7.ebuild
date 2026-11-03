@@ -18,7 +18,7 @@ LICENSE="Apache-2.0 BSD-2 BSD ISC MIT MPL-2.0"
 SLOT="0"
 KEYWORDS="~amd64 ~arm64 ~riscv"
 
-BDEPEND=">=dev-lang/go-1.26.8:="
+BDEPEND=">=dev-lang/go-1.27.3:="
 RDEPEND="
 	acct-group/headscale
 	acct-user/headscale
@@ -28,12 +28,13 @@ RDEPEND="
 # VCS metadata to read in a distfile build, and upstream offers no variable to
 # inject one (its own Makefile passes '-X main.version=', a symbol that does not
 # exist). The patch below adds two, so both the version and the real upstream
-# commit can be stamped. UPDATE THE COMMIT ON EVERY BUMP, it is the object the
+# commit can be stamped. After every bump, run headscale-update-version-stamp-patch.sh
+# to regenerate/verify the patch; it also checks this commit, the object the
 # v${PV} tag points at:
 #   curl -s https://api.github.com/repos/juanfont/headscale/git/refs/tags/v${PV}
 PATCHES=( "${FILESDIR}"/${P}-version-stamp.patch )
 
-HEADSCALE_GIT_COMMIT="0f7d1e53"
+HEADSCALE_GIT_COMMIT="c9cf210b"
 
 GO_LDFLAGS="
 	-X 'github.com/juanfont/headscale/hscontrol/types.stampVersion=v${PV//_/-}'
