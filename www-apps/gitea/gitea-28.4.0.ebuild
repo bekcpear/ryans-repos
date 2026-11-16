@@ -22,7 +22,7 @@ DEPEND="
 	pam? ( sys-libs/pam )"
 RDEPEND="${DEPEND}
 	!gogit? ( dev-vcs/git )"
-BDEPEND=">=dev-lang/go-1.27.0:="
+BDEPEND=">=dev-lang/go-1.27.4:="
 
 DOCS=(
 	custom/conf/app.example.ini CONTRIBUTING.md README.md
@@ -50,8 +50,8 @@ src_compile() {
 	local gitea_tags
 	local -a gitea_settings makeenv
 
-	# The space-separated list of the -tags flag is deprecated, please
-	# always use the comma-separated list in the future.
+	# CGO auto-detection broken for comma-separated TAGS since v28.0.0
+	# see: https://github.com/go-gitea/gitea/pull/37828
 	gitea_tags="bindata"
 	gitea_tags+="$(usex gogit ' gogit' '')"
 	gitea_tags+="$(usex pam ' pam' '')"
@@ -125,32 +125,6 @@ pkg_postinst() {
 	fi
 
 	if [[ -n ${REPLACING_VERSIONS} ]]; then
-		if ver_test "${REPLACING_VERSIONS}" -lt 1.22; then
-			ewarn "Since version 1.22.0:"
-			ewarn "  1. Minimum database requirements updated to MySQL 8.0, PostgreSQL 12, and MSSQL 2012."
-			ewarn "  2. There are a lot of refactoring changes related to customizing templates."
-			ewarn "  3. The default duration of the 'Remember login' feature has been"
-			ewarn "     changed from one week to one month."
-			ewarn "  4. Enhanced auth token/remember me, the obsolete setting"
-			ewarn "     '[security].COOKIE_USERNAME' has been removed."
-			ewarn "  5. For MinIO storage, adds a prefix path for all MinIO storage"
-			ewarn "     and override base path will override the path."
-			ewarn "  6. Now use a more restricted sanitizer for the repository description."
-			ewarn "For more details, see <https://github.com/go-gitea/gitea/releases/tag/v1.22.0>."
-		fi
-		if ver_test "${REPLACING_VERSIONS}" -lt 1.23; then
-			ewarn "Since version 1.23.0:"
-			ewarn "  1. The config option '[camo].Allways' has been renamed to '[camo].Always'."
-			ewarn "  2. The SHA1 for support for SSH RSA signing has been removed."
-			ewarn "  3. Use UTC as the default timezone when scheduling Actions cron tasks."
-			ewarn "  4. Make OIDC introspection authentication strictly require Client ID and secret."
-			ewarn "For other breaking changes, see <https://github.com/go-gitea/gitea/releases/tag/v1.23.0>."
-		fi
-		if ver_test "${REPLACING_VERSIONS}" -lt 1.24; then
-			ewarn "Since version 1.24.0:"
-			ewarn "  1. Always use its internal config, ignore /etc/gitconfig."
-			ewarn "For other breaking changes, see <https://github.com/go-gitea/gitea/releases/tag/v1.24.0>."
-		fi
 		if ver_test "${REPLACING_VERSIONS}" -lt 28; then
 			ewarn "Since version 28.0.0 (the release following 1.27.x):"
 			ewarn "  1. Egress controls (git, webhooks, migrations) are reworked around"
